@@ -1,0 +1,13 @@
+{
+  "name": "investor_day_book",
+  "private": true,
+  "dependencies": {
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "5.2.1",
+    "tailwindcss": "^1.9.6"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  }
+}

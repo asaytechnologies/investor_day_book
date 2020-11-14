@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: investor_day_book_development
+
+test:
+  <<: *default
+  database: investor_day_book_test
+
+production:
+  <<: *default
+  database: investor_day_book_production
+  username: investor_day_book
+  password: <%= ENV['INVESTOR_DAY_BOOK_DATABASE_PASSWORD'] %>
