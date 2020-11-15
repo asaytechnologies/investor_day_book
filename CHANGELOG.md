@@ -11,3 +11,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Share model
 - Bond model
 - Foundation model
+- Exchanges::Quote model

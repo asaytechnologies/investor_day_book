@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_160323) do
+ActiveRecord::Schema.define(version: 2020_11_15_160708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2020_11_15_160323) do
     t.jsonb "name", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exchanges_quotes", force: :cascade do |t|
+    t.integer "exchange_id"
+    t.integer "securitiable_id"
+    t.string "securitiable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exchange_id"], name: "index_exchanges_quotes_on_exchange_id"
+    t.index ["securitiable_id", "securitiable_type"], name: "index_exchanges_quotes_on_securitiable_id_and_securitiable_type"
   end
 
   create_table "foundations", force: :cascade do |t|
