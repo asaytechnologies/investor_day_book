@@ -11,4 +11,6 @@ describe Exchanges::Quote, type: :model do
     it { is_expected.to belong_to :exchange }
     it { is_expected.to belong_to :securitiable }
   end
+
+  it { is_expected.to monetize(:price) }
 end

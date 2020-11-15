@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_170212) do
+ActiveRecord::Schema.define(version: 2020_11_15_191957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 2020_11_15_170212) do
     t.string "securitiable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.integer "amount", default: 1, null: false
     t.index ["exchange_id"], name: "index_exchanges_quotes_on_exchange_id"
     t.index ["securitiable_id", "securitiable_type"], name: "index_exchanges_quotes_on_securitiable_id_and_securitiable_type"
   end

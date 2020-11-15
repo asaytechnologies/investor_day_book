@@ -15,3 +15,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Users::Account model
 - Users::Position model
 - Industry and Sector models
+- price to Exchanges::Quote
