@@ -12,6 +12,10 @@ describe User, type: :model do
     it { is_expected.to validate_presence_of :password }
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:accounts).class_name('Users::Account').dependent(:destroy) }
+  end
+
   it 'invalid without email' do
     user = described_class.new(email: nil)
     user.valid?
