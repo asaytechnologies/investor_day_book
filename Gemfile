@@ -28,6 +28,9 @@ gem 'devise'
 # localize
 gem 'route_translator'
 
+# Money types
+gem 'money-rails'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
