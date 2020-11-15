@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_162959) do
+ActiveRecord::Schema.define(version: 2020_11_15_170212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2020_11_15_162959) do
     t.string "uuid", default: "gen_random_uuid()", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "industry_id"
+    t.index ["industry_id"], name: "index_bonds_on_industry_id"
     t.index ["ticker"], name: "index_bonds_on_ticker", unique: true
   end
 
@@ -51,12 +53,28 @@ ActiveRecord::Schema.define(version: 2020_11_15_162959) do
     t.index ["ticker"], name: "index_foundations_on_ticker", unique: true
   end
 
+  create_table "industries", force: :cascade do |t|
+    t.jsonb "name", default: {}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "sector_id"
+    t.index ["sector_id"], name: "index_industries_on_sector_id"
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.jsonb "name", default: {}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "shares", force: :cascade do |t|
     t.string "ticker", limit: 255
     t.jsonb "name", default: {}, null: false
     t.string "uuid", default: "gen_random_uuid()", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "industry_id"
+    t.index ["industry_id"], name: "index_shares_on_industry_id"
     t.index ["ticker"], name: "index_shares_on_ticker", unique: true
   end
 

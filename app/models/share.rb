@@ -2,4 +2,5 @@
 
 class Share < ApplicationRecord
   include Securitiable
+  include Sectorable
 end
