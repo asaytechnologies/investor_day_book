@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_153620) do
+ActiveRecord::Schema.define(version: 2020_11_15_155736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "bonds", force: :cascade do |t|
+    t.string "ticker", limit: 255
+    t.jsonb "name", default: {}, null: false
+    t.string "uuid", default: "gen_random_uuid()", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ticker"], name: "index_bonds_on_ticker", unique: true
+  end
 
   create_table "exchanges", force: :cascade do |t|
     t.jsonb "name", default: {}, null: false
