@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_162247) do
+ActiveRecord::Schema.define(version: 2020_11_15_162959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,18 @@ ActiveRecord::Schema.define(version: 2020_11_15_162247) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_users_accounts_on_user_id"
+  end
+
+  create_table "users_positions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "users_account_id"
+    t.integer "securitiable_id"
+    t.string "securitiable_type"
+    t.integer "amount", default: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "securitiable_id", "securitiable_type"], name: "users_positions_securitiable_index"
+    t.index ["users_account_id"], name: "index_users_positions_on_users_account_id"
   end
 
 end

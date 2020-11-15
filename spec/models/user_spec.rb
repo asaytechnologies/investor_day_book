@@ -14,6 +14,7 @@ describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:accounts).class_name('Users::Account').dependent(:destroy) }
+    it { is_expected.to have_many(:positions).class_name('Users::Position').dependent(:destroy) }
   end
 
   it 'invalid without email' do

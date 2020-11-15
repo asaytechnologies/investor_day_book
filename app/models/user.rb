@@ -7,4 +7,5 @@ class User < ApplicationRecord
          :recoverable, :validatable
 
   has_many :accounts, class_name: 'Users::Account', inverse_of: :user, dependent: :destroy
+  has_many :positions, class_name: 'Users::Position', inverse_of: :user, dependent: :destroy
 end
