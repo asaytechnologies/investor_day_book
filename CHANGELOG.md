@@ -10,3 +10,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Exchange model
 - Share model
 - Bond model
+- Foundation model
