@@ -31,6 +31,13 @@ gem 'route_translator'
 # Money types
 gem 'money-rails'
 
+# DRY-RB ecosystem
+gem 'dry-initializer', '~> 3.0'
+
+# http client
+gem 'faraday', '~> 1.1'
+gem 'faraday_middleware', '~> 1.0'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'

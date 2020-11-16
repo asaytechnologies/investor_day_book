@@ -193,3 +193,6 @@ Layout/CaseIndentation:
 
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
+
+Style/AsciiComments:
+  Enabled: false

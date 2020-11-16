@@ -2,13 +2,13 @@
 
 module Exchanges
   module Quotes
-    module Fetching
-      class MoexService
+    module Daily
+      class SaveService
         prepend BasicService
 
         def initialize; end
 
-        def call; end
+        def call(exchanges_quotes:, source:); end
       end
     end
   end
