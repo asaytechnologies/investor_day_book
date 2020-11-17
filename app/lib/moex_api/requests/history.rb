@@ -3,7 +3,7 @@
 module MoexApi
   module Requests
     module History
-      def history(market:, date:, meta: 'on', offset: nil, columns: nil)
+      def stock_history(market:, date:, meta: 'on', offset: nil, columns: nil)
         response = connection.get("iss/history/engines/stock/markets/#{market}/securities.json") do |request|
           request.params['date'] = date
           request.params['iss.meta'] = meta

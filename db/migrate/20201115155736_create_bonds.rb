@@ -7,6 +7,6 @@ class CreateBonds < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :bonds, :ticker, unique: true
+    add_index :bonds, :ticker
   end
 end

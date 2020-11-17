@@ -7,6 +7,6 @@ class CreateFoundations < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :foundations, :ticker, unique: true
+    add_index :foundations, :ticker
   end
 end

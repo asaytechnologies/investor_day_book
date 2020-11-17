@@ -13,9 +13,10 @@ module Exchanges
         end
 
         def call(source:, date:)
-          case source
-          when Sourceable::MOEX then @fetch_from_moex_service.call(date: date).result
-          end
+          @result =
+            case source
+            when Sourceable::MOEX then @fetch_from_moex_service.call(date: date).result
+            end
         end
       end
     end

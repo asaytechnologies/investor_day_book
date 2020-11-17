@@ -25,11 +25,14 @@ module Exchanges
         private
 
         def fetch_exchanges_quotes
-          @exchanges_quotes_fetch_service.call(source: @source, date: @date)
+          @exchanges_quotes_fetch_service
+            .call(source: @source, date: @date)
+            .result
         end
 
         def save_exchanges_quotes(exchanges_quotes)
-          @exchanges_quotes_save_service.call(exchanges_quotes: exchanges_quotes, source: @source)
+          @exchanges_quotes_save_service
+            .call(exchanges_quotes: exchanges_quotes, source: @source)
         end
       end
     end

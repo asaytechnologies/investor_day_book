@@ -11,7 +11,7 @@ module BasicService
     base.extend ClassMethods
   end
 
-  attr_reader :errors
+  attr_reader :errors, :result
 
   def initialize
     super

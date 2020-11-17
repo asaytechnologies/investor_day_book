@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_193436) do
+ActiveRecord::Schema.define(version: 2020_11_17_190325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_193436) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "industry_id"
     t.index ["industry_id"], name: "index_bonds_on_industry_id"
-    t.index ["ticker"], name: "index_bonds_on_ticker", unique: true
+    t.index ["ticker"], name: "index_bonds_on_ticker"
   end
 
   create_table "exchanges", force: :cascade do |t|
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2020_11_15_193436) do
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
     t.integer "amount", default: 1, null: false
+    t.string "board"
+    t.index ["board"], name: "index_exchanges_quotes_on_board"
     t.index ["exchange_id"], name: "index_exchanges_quotes_on_exchange_id"
     t.index ["securitiable_id", "securitiable_type"], name: "index_exchanges_quotes_on_securitiable_id_and_securitiable_type"
   end
@@ -54,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_193436) do
     t.string "uuid", default: "gen_random_uuid()", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ticker"], name: "index_foundations_on_ticker", unique: true
+    t.index ["ticker"], name: "index_foundations_on_ticker"
   end
 
   create_table "industries", force: :cascade do |t|
@@ -79,7 +81,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_193436) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "industry_id"
     t.index ["industry_id"], name: "index_shares_on_industry_id"
-    t.index ["ticker"], name: "index_shares_on_ticker", unique: true
+    t.index ["ticker"], name: "index_shares_on_ticker"
   end
 
   create_table "users", force: :cascade do |t|

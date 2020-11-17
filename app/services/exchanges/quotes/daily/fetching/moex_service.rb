@@ -26,8 +26,6 @@ module Exchanges
             'SMAL' # T+ Неполные лоты (акции)
           ].freeze
 
-          attr_reader :result
-
           def initialize(moex_api_client: MoexApi::Client.new)
             @moex_api_client = moex_api_client
           end
@@ -55,7 +53,7 @@ module Exchanges
           end
 
           def make_request(market)
-            @moex_api_client.history(
+            @moex_api_client.stock_history(
               market:  market,
               date:    @date,
               meta:    NO_META,
@@ -69,17 +67,18 @@ module Exchanges
             return unless security
 
             @result << {
-              security: security,
-              name:     line[1],
-              ticker:   line[2],
-              price:    line[3]
+              security_type: security,
+              board:         line[0],
+              name:          line[1],
+              ticker:        line[2],
+              price:         line[3]
             }
           end
 
           def security_by_board_id(board_id)
             case board_id
-            when *SHARES then :share
-            when *FOUNDATIONS then :foundation
+            when *SHARES then 'Share'
+            when *FOUNDATIONS then 'Foundation'
             end
           end
         end

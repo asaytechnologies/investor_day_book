@@ -7,6 +7,6 @@ class CreateShares < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :shares, :ticker, unique: true
+    add_index :shares, :ticker
   end
 end

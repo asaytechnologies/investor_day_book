@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'dry/initializer'
-require_relative 'requests/history'
 
 module MoexApi
   class Client
     extend Dry::Initializer
     include Requests::History
+    include Requests::Security
 
     BASE_URL = 'https://iss.moex.com/'
 
