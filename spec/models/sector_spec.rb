@@ -9,7 +9,6 @@ describe Sector, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:industries).dependent(:nullify) }
-    it { is_expected.to have_many(:bonds).through(:industries) }
-    it { is_expected.to have_many(:shares).through(:industries) }
+    it { is_expected.to have_many(:securities).through(:industries) }
   end
 end

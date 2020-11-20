@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :foundation do
-    sequence(:ticker) { |i| "YNDX#{i}" }
+  factory :foundation, parent: :security, class: 'Foundation' do
+    type { 'Foundation' }
     name { { en: 'Yandex Foundation', ru: 'Яндекс Фонд' } }
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Exchanges::Quote, type: :model do
+describe Quote, type: :model do
   it 'factory should be valid' do
     quote = build :quote
 
@@ -8,8 +8,7 @@ describe Exchanges::Quote, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :exchange }
-    it { is_expected.to belong_to :securitiable }
+    it { is_expected.to belong_to :security }
   end
 
   it { is_expected.to monetize(:price) }

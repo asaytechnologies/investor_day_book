@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Quote < ApplicationRecord
-  belongs_to :exchange
+  include Sourceable
+
   belongs_to :security
 
   monetize :price_cents

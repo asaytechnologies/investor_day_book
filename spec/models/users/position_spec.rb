@@ -10,6 +10,6 @@ describe Users::Position, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to(:users_account).class_name('Users::Account') }
-    it { is_expected.to belong_to :securitiable }
+    it { is_expected.to belong_to :security }
   end
 end

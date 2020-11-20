@@ -17,13 +17,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_190325) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "exchanges", force: :cascade do |t|
-    t.jsonb "name", default: {}, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "code"
-  end
-
   create_table "industries", force: :cascade do |t|
     t.jsonb "name", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -33,15 +26,15 @@ ActiveRecord::Schema.define(version: 2020_11_17_190325) do
   end
 
   create_table "quotes", force: :cascade do |t|
-    t.integer "exchange_id"
     t.integer "security_id"
+    t.integer "source"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
     t.string "board"
     t.string "figi"
-    t.index ["security_id", "exchange_id"], name: "index_quotes_on_security_id_and_exchange_id"
+    t.index ["security_id"], name: "index_quotes_on_security_id"
   end
 
   create_table "sectors", force: :cascade do |t|

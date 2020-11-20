@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-module Codeable
+module Sourceable
   extend ActiveSupport::Concern
 
   MOEX = 'moex'
+  TINKOFF = 'tinkoff'
 
   included do
-    enum code: {
-      MOEX => 0
+    enum source: {
+      MOEX    => 0,
+      TINKOFF => 1
     }
   end
 end

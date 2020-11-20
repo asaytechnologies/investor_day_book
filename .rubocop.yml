@@ -36,10 +36,6 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
-# We do not need to support Ruby 1.9, so this is good to use.
-Style/SymbolArray:
-  Enabled: true
-
 # Most readable form.
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
@@ -63,19 +59,6 @@ Style/CollectionMethods:
     # inject seems more common in the community.
     reduce: "inject"
 
-
-# Either allow this style or don't. Marking it as safe with parenthesis
-# is silly. Let's try to live without them for now.
-Style/ParenthesesAroundCondition:
-  AllowSafeAssignment: false
-Lint/AssignmentInCondition:
-  AllowSafeAssignment: false
-
-# A specialized exception class will take one or more arguments and construct the message from it.
-# So both variants make sense.
-Style/RaiseArgs:
-  Enabled: false
-
 # Indenting the chained dots beneath each other is not supported by this cop,
 # see https://github.com/bbatsov/rubocop/issues/1633
 Layout/MultilineOperationIndentation:
@@ -95,12 +78,6 @@ Style/SignalException:
 # or suppressing LoadError for optional dependencies
 Lint/SuppressedException:
   Enabled: false
-
-# Layout/SpaceInsideBlockBraces:
-#   # The space here provides no real gain in readability while consuming
-#   # horizontal space that could be used for a better parameter name.
-#   # Also {| differentiates better from a hash than { | does.
-#   SpaceBeforeBlockParameters: false
 
 # No trailing space differentiates better from the block:
 # foo} means hash, foo } means block.
@@ -131,21 +108,7 @@ Style/SingleLineBlockParams:
 Lint/ShadowingOuterLocalVariable:
   Enabled: false
 
-# Check with yard instead.
 Style/Documentation:
-  Enabled: false
-
-# This is just silly. Calling the argument `other` in all cases makes no sense.
-Naming/BinaryOperatorParameterName:
-  Enabled: false
-
-# There are valid cases, for example debugging Cucumber steps,
-# also they'll fail CI anyway
-Lint/Debugger:
-  Enabled: false
-
-# Style preference
-Style/MethodDefParentheses:
   Enabled: false
 
 Style/IfUnlessModifier:
@@ -174,13 +137,6 @@ RSpec/ContextWording:
 
 RSpec/ExampleLength:
   Max: 20
-
-# Hanami::Interactor::Result expose are not verifiable
-RSpec/VerifiedDoubles:
-  Enabled: false
-
-Layout/MultilineMethodCallIndentation:
-  Enabled: false
 
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable

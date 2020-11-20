@@ -5,6 +5,6 @@ FactoryBot.define do
     amount { 1 }
     association :user
     association :users_account
-    association :securitiable, factory: :share
+    association :security, factory: :share
   end
 end

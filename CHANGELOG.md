@@ -7,12 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - Start project
-- Exchange model
-- Share model
-- Bond model
-- Foundation model
-- Exchanges::Quote model
+- Security model
+- Quote model
 - Users::Account model
 - Users::Position model
 - Industry and Sector models
-- price to Exchanges::Quote
+- price to Quote

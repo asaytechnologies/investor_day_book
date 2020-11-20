@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :bond, parent: :security, class: 'Bond' do
-    type { 'Bond' }
+  factory :security do
+    ticker { 'TECH' }
     name { { en: 'Yandex Bond', ru: 'Яндекс Облигация' } }
   end
 end

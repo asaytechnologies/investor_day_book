@@ -10,7 +10,7 @@ module MoexApi
           request.params['start'] = offset if offset
           request.params['history.columns'] = columns if columns
         end
-        response.body.dig('history', 'data')
+        response.body
       end
     end
   end
