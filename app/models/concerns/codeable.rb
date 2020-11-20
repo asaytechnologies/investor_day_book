@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module Sourceable
+module Codeable
   extend ActiveSupport::Concern
 
   MOEX = 'moex'
 
   included do
-    enum source: {
+    enum code: {
       MOEX => 0
     }
   end

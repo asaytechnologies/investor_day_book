@@ -4,10 +4,7 @@ class CreateIndustries < ActiveRecord::Migration[6.0]
       t.jsonb :name, null: false, default: {}
       t.timestamps
     end
-
-    add_column :shares, :industry_id, :integer
-    add_index :shares, :industry_id
-    add_column :bonds, :industry_id, :integer
-    add_index :bonds, :industry_id
+    add_column :securities, :industry_id, :integer
+    add_index :securities, :industry_id
   end
 end

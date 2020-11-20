@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Exchange < ApplicationRecord
-  include Sourceable
+  include Codeable
 
-  has_many :quotes, class_name: 'Exchanges::Quote', inverse_of: :exchange, dependent: :destroy
+  has_many :quotes, inverse_of: :exchange, dependent: :destroy
 end

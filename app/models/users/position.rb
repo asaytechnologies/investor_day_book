@@ -6,6 +6,6 @@ module Users
 
     belongs_to :user
     belongs_to :users_account, class_name: 'Users::Account'
-    belongs_to :securitiable, polymorphic: true
+    belongs_to :security
   end
 end

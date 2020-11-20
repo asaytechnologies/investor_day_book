@@ -3,6 +3,5 @@
 class Industry < ApplicationRecord
   belongs_to :sector, optional: true
 
-  has_many :bonds, dependent: :nullify
-  has_many :shares, dependent: :nullify
+  has_many :securities, dependent: :nullify
 end
