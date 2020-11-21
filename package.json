@@ -2,6 +2,7 @@
   "name": "investor_day_book",
   "private": true,
   "dependencies": {
+    "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
     "tailwindcss": "^1.9.6"

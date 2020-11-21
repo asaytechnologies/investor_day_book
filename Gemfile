@@ -41,6 +41,9 @@ gem 'faraday_middleware', '~> 1.0'
 # tinkoff invest api
 gem 'tinkoff_invest', '0.2.0'
 
+# Background Jobs
+gem 'redis-rails'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'

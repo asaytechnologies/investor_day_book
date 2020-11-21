@@ -5,4 +5,11 @@ class ApplicationController < ActionController::Base
   prepend_view_path Rails.root.join('frontend')
 
   before_action :authenticate_user!
+  before_action :set_current_locale
+
+  private
+
+  def set_current_locale
+    I18n.locale = params[:locale]
+  end
 end
