@@ -38,6 +38,9 @@ gem 'dry-initializer', '~> 3.0'
 gem 'faraday', '~> 1.1'
 gem 'faraday_middleware', '~> 1.0'
 
+# tinkoff invest api
+gem 'tinkoff_invest', '0.2.0'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'

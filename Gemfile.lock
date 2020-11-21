@@ -255,6 +255,10 @@ GEM
       ref
     thor (1.0.1)
     thread_safe (0.3.6)
+    tinkoff_invest (0.2.0)
+      dry-initializer (~> 3.0)
+      faraday (~> 1.1)
+      faraday_middleware (~> 1.0)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
     unicode-display_width (1.7.0)
@@ -304,6 +308,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   therubyracer
+  tinkoff_invest (= 0.2.0)
   view_component
   webpacker (~> 5.2.1)
 
