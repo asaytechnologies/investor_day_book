@@ -1,0 +1,44 @@
+.page {
+  @apply flex flex-row h-screen;
+
+  nav.navigation {
+    @apply relative bg-gray-200;
+    @apply w-40 pt-10;
+
+    .navigation-group {
+      @apply mb-4;
+
+      .navigation-link {
+        @apply block w-full text-center p-2;
+
+        &:hover {
+          @apply bg-gray-300;
+        }
+      }
+    }
+
+    .navigation-footer {
+      @apply absolute bottom-0 p-4;
+
+      .flag {
+        @apply inline-block mr-1;
+
+        width: 1.5625rem;
+        height: 1rem;
+        background: url("../../../images/flags.png");
+
+        &.flag_ru {
+          background-position: 0 0;
+        }
+
+        &.flag_en {
+          background-position: 0 -16px;
+        }
+      }
+    }
+  }
+
+  section.content {
+    flex: 1;
+  }
+}

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
 
     resources :home, only: %i[index]
+    resources :portfolio, only: %i[index]
 
     root to: 'welcome#index'
   end

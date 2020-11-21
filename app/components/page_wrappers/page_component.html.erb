@@ -1,0 +1,20 @@
+<div class='page'>
+  <nav class='navigation'>
+    <div class='navigation-group'>
+      <%= link_to 'Home', home_index_path, class: 'navigation-link' %>
+      <%= link_to 'Portfolio', portfolio_index_path, class: 'navigation-link' %>
+    </div>
+    <div class='navigation-group'>
+      <%= link_to 'Logout', destroy_user_session_path, class: 'navigation-link' %>
+    </div>
+
+    <div class='navigation-footer'>
+      <% I18n.available_locales.each do |locale| %>
+        <%= link_to '', change_locale(locale), class: "flag flag_#{locale}", aria: { label: 'Change locale' } %>
+      <% end %>
+    </div>
+  </nav>
+  <section class='content'>
+    <%= content %>
+  </section>
+</div>
