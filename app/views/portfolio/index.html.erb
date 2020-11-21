@@ -1,2 +1,10 @@
 <%= render PageWrappers::PageComponent.new do %>
+  <div class='sidebar-container' data-controller='shared--sidebar'>
+    <div class='' data-action='click->shared--sidebar#open'>
+      ADD
+    </div>
+
+    <%= render Shared::SidebarComponent.new(title: 'New Quote') do %>
+    <% end %>
+  </div>
 <% end %>

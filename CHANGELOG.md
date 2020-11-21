@@ -13,3 +13,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Users::Position model
 - Industry and Sector models
 - price to Quote
+- new frontend structure with controllers, components

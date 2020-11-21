@@ -152,3 +152,6 @@ RSpec/ImplicitSubject:
 
 Style/AsciiComments:
   Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false

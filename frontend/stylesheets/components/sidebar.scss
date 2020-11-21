@@ -1,0 +1,38 @@
+.sidebar-container {
+  @apply relative h-full;
+
+  .sidebar {
+    @apply hidden;
+
+    width: 30rem;
+
+    &.open {
+      @apply block absolute top-0 right-0;
+      @apply h-full py-4 px-8;
+    }
+
+    .sidebar-header {
+      @apply relative;
+
+      .sidebar-title {
+        @apply text-2xl font-medium text-center;
+      }
+
+      .close {
+        @apply absolute top-0;
+
+        right: -1rem;
+
+        span {
+          @apply inline-block p-1;
+
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .sidebar-content {
+
+    }
+  }
+}
