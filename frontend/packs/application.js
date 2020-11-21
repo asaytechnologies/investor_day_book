@@ -1,7 +1,9 @@
-import "init";
+import "init"
 
-import "components/welcome/welcome";
-import "components/home/home";
+import "components/welcome/welcome"
+import "components/home/home"
 
-require("@rails/ujs").start();
-require("channels");
+require("@rails/ujs").start()
+require("channels")
+
+import "controllers"

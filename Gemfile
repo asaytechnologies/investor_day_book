@@ -44,6 +44,9 @@ gem 'tinkoff_invest', '0.2.0'
 # Background Jobs
 gem 'redis-rails'
 
+# Reactive Rails
+gem 'stimulus_reflex', '3.4.0.pre4'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
