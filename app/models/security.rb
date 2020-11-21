@@ -8,4 +8,12 @@ class Security < ApplicationRecord
            class_name: 'Users::Position',
            inverse_of: :security,
            dependent:  :destroy
+
+  def name_en
+    name['en']
+  end
+
+  def name_ru
+    name['ru']
+  end
 end

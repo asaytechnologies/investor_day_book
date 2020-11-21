@@ -14,3 +14,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Industry and Sector models
 - price to Quote
 - new frontend structure with controllers, components
+- SearchSphinx as search engine
