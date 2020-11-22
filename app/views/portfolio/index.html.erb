@@ -5,39 +5,31 @@
     </div>
 
     <%= render Shared::SidebarComponent.new(title: 'New Quote') do %>
-      <div class='sidebar-content'>
-        <div data-reflex-root='#morph'>
-          <input type='text' placeholder='Search for a quote...' data-reflex='change->QuoteSearchReflex#perform'>
-          <div id='morph'>
-            <% unless @quotes.nil? %>
-              <span class='text-success'>
-                <strong><%= @quotes&.size %></strong> quotes found
-              </span>
+      <div id='quote-new-container' class='sidebar-content'>
+        <div data-reflex-root='#morph' data-controller='quote-new'>
+          <div class='selected-value' data-target='quote-new.security'></div>
+          <div class='dropdown-box' data-target='quote-new.dropdown'>
+            <label class='dropdown-label'>Select security</label>
+            <input type='text' class='dropdown-input' placeholder='Search for a quote...' data-reflex='change->QuoteSearchReflex#perform' />
+            <div id='morph' class='dropdown-list'>
               <% if @quotes.present? %>
-                <table class="table mt-2">
-                  <thead>
-                    <tr>
-                      <th scope="col">Ticker</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Currency</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @quotes.each do |quote| %>
-                      <tr>
-                        <td><%= quote.security.ticker %></td>
-                        <td><%= quote.security.name[I18n.locale.to_s] %></td>
-                        <td><%= quote.security.type %></td>
-                        <td><%= quote.price_cents / 100.0 %></td>
-                        <td><%= quote.price_currency %></td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
+                <% @quotes.each do |quote| %>
+                  <div class='dropdown-list-element' data-action='click->quote-new#selectQuote' data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>' data-quote-price='<%= quote.price_cents / 100.0 %>'>
+                    <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price_cents, quote.price_currency).format} (#{quote.security.type})" %>
+                  </div>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
+          </div>
+
+          <div class='selected-value selected'>
+            <span class='text-label'>Price</span>
+            <input class='text-value' data-target='quote-new.price' />
+          </div>
+
+          <div class='selected-value selected'>
+            <span class='text-label'>Amount</span>
+            <input class='text-value' />
           </div>
         </div>
       </div>

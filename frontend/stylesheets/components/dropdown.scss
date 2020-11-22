@@ -1,0 +1,37 @@
+.dropdown-box {
+  @apply relative mb-4;
+
+  .dropdown-label {
+    @apply inline-block mb-1;
+
+    line-height: 1.25rem;
+  }
+
+  .dropdown-input {
+    @apply bg-blue-200 font-light;
+    @apply px-4 w-full;
+
+    height: 2rem;
+    border-radius: .25rem .25rem 0 0;
+  }
+
+  .dropdown-list {
+    @apply absolute left-0 w-full overflow-hidden;
+
+    top: 3.5rem;
+    border-radius: 0 0 .25rem .25rem;
+
+    .dropdown-list-element {
+      @apply bg-gray-100 px-4 py-2 w-full;
+      @apply border-b border-gray-500;
+
+      &:nth-last-of-type(1) {
+        @apply border-none;
+      }
+
+      &:hover {
+        @apply cursor-pointer bg-gray-200;
+      }
+    }
+  }
+}
