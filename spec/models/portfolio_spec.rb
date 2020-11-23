@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
-describe Quote, type: :model do
+describe Portfolio, type: :model do
   it 'factory should be valid' do
-    quote = build :quote
+    portfolio = build :portfolio
 
-    expect(quote).to be_valid
+    expect(portfolio).to be_valid
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :security }
+    it { is_expected.to belong_to :user }
     it { is_expected.to have_many(:positions).class_name('Users::Position').dependent(:destroy) }
   end
-
-  it { is_expected.to monetize(:price) }
 end

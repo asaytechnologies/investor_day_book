@@ -1,18 +1,22 @@
 #quote-new-container {
-  .selected-value {
-    @apply hidden;
+  .form-field {
+    @apply flex flex-col mb-4;
 
-    &.selected {
-      @apply flex flex-col mb-4;
+    &.hidden-by-default {
+      @apply hidden;
+
+      &.selected {
+        @apply flex flex-col mb-4;
+      }
     }
 
-    .text-label {
+    .form-label {
       @apply inline-block mb-1;
 
       line-height: 1.25rem;
     }
 
-    .text-value {
+    .form-value {
       @apply bg-blue-200 font-light;
       @apply px-4 w-full;
 

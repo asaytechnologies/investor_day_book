@@ -1,20 +1,31 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='sidebar-container' data-controller='shared--sidebar'>
+  <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#positions'>
     <div class='' data-action='click->shared--sidebar#open'>
       ADD
     </div>
 
+    <div id='positions'>
+      <% @positions.each do |position| %>
+        <div class='position'>
+          <span><%= position.quote.security.name[I18n.locale.to_s] %></span>
+          <span><%= Money.new(position.price_cents, position.price_currency).format %></span>
+          <span><%= position.amount %></span>
+        </div>
+      <% end %>
+    </div>
+
     <%= render Shared::SidebarComponent.new(title: 'New Quote') do %>
       <div id='quote-new-container' class='sidebar-content'>
-        <div data-reflex-root='#morph' data-controller='quote-new'>
-          <div class='selected-value' data-target='quote-new.security'></div>
-          <div class='dropdown-box' data-target='quote-new.dropdown'>
+        <div data-controller='quote-new'>
+          <div class='form-field hidden-by-default' data-target='quote-new.security'></div>
+
+          <div class='dropdown-box' data-reflex-root='#morph' data-target='quote-new.dropdown'>
             <label class='dropdown-label'>Select security</label>
-            <input type='text' class='dropdown-input' placeholder='Search for a quote...' data-reflex='change->QuoteSearchReflex#perform' />
+            <input type='text' class='dropdown-input' placeholder='Search for a quote...' data-reflex='change->Quotes::SearchReflex#perform' />
             <div id='morph' class='dropdown-list'>
               <% if @quotes.present? %>
                 <% @quotes.each do |quote| %>
-                  <div class='dropdown-list-element' data-action='click->quote-new#selectQuote' data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>' data-quote-price='<%= quote.price_cents / 100.0 %>'>
+                  <div class='dropdown-list-element' data-action='click->quote-new#selectQuote' data-quote-id='<%= quote.id %>' data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>' data-quote-price='<%= quote.price_cents / 100.0 %>'>
                     <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price_cents, quote.price_currency).format} (#{quote.security.type})" %>
                   </div>
                 <% end %>
@@ -22,14 +33,23 @@
             </div>
           </div>
 
-          <div class='selected-value selected'>
-            <span class='text-label'>Price</span>
-            <input class='text-value' data-target='quote-new.price' />
+          <div class='form-field'>
+            <span class='form-label'>Price</span>
+            <input class='form-value' data-target='quote-new.price' data-action='keyup->quote-new#refreshTotalPrice' />
           </div>
 
-          <div class='selected-value selected'>
-            <span class='text-label'>Amount</span>
-            <input class='text-value' />
+          <div class='form-field'>
+            <span class='form-label'>Amount</span>
+            <input class='form-value' data-target='quote-new.amount' data-action='keyup->quote-new#refreshTotalPrice' />
+          </div>
+
+          <div class='form-field'>
+            <span class='form-label'>Total price</span>
+            <input disabled class='form-value' data-target='quote-new.totalPrice' />
+          </div>
+
+          <div class='button' data-action='click->quote-new#submitQuote'>
+            Add
           </div>
         </div>
       </div>

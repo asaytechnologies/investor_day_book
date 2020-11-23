@@ -7,5 +7,10 @@ class Quote < ApplicationRecord
 
   belongs_to :security
 
+  has_many :positions,
+           class_name: 'Users::Position',
+           inverse_of: :quote,
+           dependent:  :destroy
+
   monetize :price_cents
 end

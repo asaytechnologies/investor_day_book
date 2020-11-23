@@ -13,8 +13,8 @@ describe User, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:accounts).class_name('Users::Account').dependent(:destroy) }
-    it { is_expected.to have_many(:positions).class_name('Users::Position').dependent(:destroy) }
+    it { is_expected.to have_many(:portfolios).dependent(:destroy) }
+    it { is_expected.to have_many(:positions).class_name('Users::Position').through(:portfolios) }
   end
 
   it 'invalid without email' do

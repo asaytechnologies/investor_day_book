@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_190325) do
+ActiveRecord::Schema.define(version: 2020_11_23_195130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 2020_11_17_190325) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "sector_id"
     t.index ["sector_id"], name: "index_industries_on_sector_id"
+  end
+
+  create_table "portfolios", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_portfolios_on_user_id"
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -72,23 +80,16 @@ ActiveRecord::Schema.define(version: 2020_11_17_190325) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "users_accounts", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "name", limit: 255
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_users_accounts_on_user_id"
-  end
-
   create_table "users_positions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "users_account_id"
-    t.integer "security_id"
+    t.integer "portfolio_id"
+    t.integer "quote_id"
     t.integer "amount", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "security_id"], name: "index_users_positions_on_user_id_and_security_id"
-    t.index ["users_account_id"], name: "index_users_positions_on_users_account_id"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.index ["portfolio_id"], name: "index_users_positions_on_portfolio_id"
+    t.index ["quote_id"], name: "index_users_positions_on_quote_id"
   end
 
 end

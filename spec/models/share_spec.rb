@@ -10,6 +10,6 @@ describe Share, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:industry).optional }
     it { is_expected.to have_many(:quotes).dependent(:destroy) }
-    it { is_expected.to have_many(:positions).class_name('Users::Position').dependent(:destroy) }
+    it { is_expected.to have_many(:positions).class_name('Users::Position').through(:quotes) }
   end
 end

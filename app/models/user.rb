@@ -6,6 +6,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :validatable
 
-  has_many :accounts, class_name: 'Users::Account', inverse_of: :user, dependent: :destroy
-  has_many :positions, class_name: 'Users::Position', inverse_of: :user, dependent: :destroy
+  has_many :portfolios, inverse_of: :user, dependent: :destroy
+  has_many :positions, class_name: 'Users::Position', through: :portfolios
 end

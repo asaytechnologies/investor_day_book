@@ -1,6 +1,6 @@
-class CreateUsersAccounts < ActiveRecord::Migration[6.0]
+class CreatePortfolios < ActiveRecord::Migration[6.0]
   def change
-    create_table :users_accounts do |t|
+    create_table :portfolios do |t|
       t.integer :user_id, index: true
       t.string :name, limit: 255
       t.timestamps

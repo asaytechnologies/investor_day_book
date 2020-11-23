@@ -8,8 +8,9 @@ describe Users::Position, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to(:users_account).class_name('Users::Account') }
-    it { is_expected.to belong_to :security }
+    it { is_expected.to belong_to :portfolio }
+    it { is_expected.to belong_to :quote }
   end
+
+  it { is_expected.to monetize(:price) }
 end

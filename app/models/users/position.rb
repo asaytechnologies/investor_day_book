@@ -4,8 +4,9 @@ module Users
   class Position < ApplicationRecord
     self.table_name = :users_positions
 
-    belongs_to :user
-    belongs_to :users_account, class_name: 'Users::Account'
-    belongs_to :security
+    belongs_to :portfolio
+    belongs_to :quote
+
+    monetize :price_cents
   end
 end
