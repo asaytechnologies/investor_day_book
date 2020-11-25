@@ -1,0 +1,7 @@
+<% @positions.each do |position| %>
+  <div class='position'>
+    <span><%= position.quote.security.name[I18n.locale.to_s] %></span>
+    <span><%= Money.new(position.price_cents, position.price_currency).format %></span>
+    <span><%= position.amount %></span>
+  </div>
+<% end %>
