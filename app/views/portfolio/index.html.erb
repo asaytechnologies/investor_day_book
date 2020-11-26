@@ -5,26 +5,20 @@
     </div>
 
     <div id='positions'>
-      <%= render PositionsComponent.new(positions: @positions)%>
+      <%= render Portfolios::PositionsComponent.new(positions: @positions) %>
     </div>
 
     <%= render Shared::SidebarComponent.new(title: 'New Position') do %>
       <div id='position-new-container' class='sidebar-content'>
-        <form data-controller='portfolios--position-new'>
+        <form data-controller='portfolios--position-new' data-action='submit->portfolios--position-new#submitForm'>
           <input type='hidden' name='position[quote_id]' data-target='portfolios--position-new.quoteId' />
           <div class='form-field hidden-by-default' data-target='portfolios--position-new.security'></div>
 
           <div class='dropdown-box' data-reflex-root='#quotes' data-target='portfolios--position-new.dropdown'>
             <label class='dropdown-label'>Select security</label>
-            <input type='text' class='dropdown-input' placeholder='Search for a quote...' data-reflex='change->QuotesReflex#search' data-target='portfolios--position-new.selectInput' />
+            <input type='text' class='dropdown-input' placeholder='Search for a quote...' data-action='debounced:input->portfolios--position-new#searchQuotes' data-target='portfolios--position-new.selectInput' />
             <div id='quotes' class='dropdown-list'>
-              <% if @quotes.present? %>
-                <% @quotes.each do |quote| %>
-                  <div class='dropdown-list-element' data-action='click->portfolios--position-new#selectQuote' data-quote-id='<%= quote.id %>' data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>' data-quote-price='<%= quote.price_cents / 100.0 %>'>
-                    <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price_cents, quote.price_currency).format} (#{quote.security.type})" %>
-                  </div>
-                <% end %>
-              <% end %>
+              <%= render Portfolios::QuotesComponent.new(quotes: @quotes) %>
             </div>
           </div>
 
@@ -43,7 +37,7 @@
             <input disabled class='form-value' data-target='portfolios--position-new.totalPrice' />
           </div>
 
-          <button class='button' type='submit' data-reflex='click->PositionsReflex#create'>
+          <button class='button' type='submit'>
             Add position
           </button>
         </form>

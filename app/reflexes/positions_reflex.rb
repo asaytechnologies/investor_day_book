@@ -6,10 +6,11 @@ class PositionsReflex < ApplicationReflex
 
   def create
     create_position
+
     positions = current_user.positions.includes(quote: :security).order(id: :desc)
 
-    morph '#quotes', ''
-    morph '#positions', PortfolioController.render(PositionsComponent.new(positions: positions))
+    morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: []))
+    morph '#positions', PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions))
   end
 
   private
@@ -26,9 +27,17 @@ class PositionsReflex < ApplicationReflex
     Positions::CreateService.call(
       portfolio: @portfolio,
       quote:     @quote,
-      price:     Money.new(position_params[:price].to_f * 100, @quote.price_currency),
-      amount:    position_params[:amount].to_i
+      price:     position_price,
+      amount:    position_money
     )
+  end
+
+  def position_price
+    Money.new(position_params[:price].to_f * 100, @quote.price_currency)
+  end
+
+  def position_money
+    position_params[:amount].to_i
   end
 
   def position_params
