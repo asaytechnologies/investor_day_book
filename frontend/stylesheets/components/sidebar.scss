@@ -1,8 +1,15 @@
 .sidebar-container {
-  @apply relative h-full;
+  @apply relative h-full p-10;
+
+  .sidebar-open-button {
+    @apply absolute;
+
+    top: 2.5rem;
+    right: 2.5rem;
+  }
 
   .sidebar {
-    @apply hidden;
+    @apply hidden bg-white;
 
     width: 30rem;
 

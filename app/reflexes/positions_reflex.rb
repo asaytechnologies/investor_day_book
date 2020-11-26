@@ -7,7 +7,7 @@ class PositionsReflex < ApplicationReflex
   def create
     create_position
 
-    positions = current_user.positions.includes(quote: :security).order(id: :desc)
+    positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
 
     morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: []))
     morph '#positions', PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions))

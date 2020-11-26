@@ -8,6 +8,6 @@ class PortfolioController < ApplicationController
   private
 
   def positions
-    @positions = current_user.positions.includes(quote: :security).order(id: :desc)
+    @positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
   end
 end

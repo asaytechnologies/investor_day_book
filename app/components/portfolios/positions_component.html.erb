@@ -1,7 +1,32 @@
-<% @positions.each do |position| %>
-  <div class='position'>
-    <span><%= position.quote.security.name[I18n.locale.to_s] %></span>
-    <span><%= Money.new(position.price_cents, position.price_currency).format %></span>
-    <span><%= position.amount %></span>
-  </div>
+<% @portfolio_stats.each do |key, values| %>
+  <% if values[:elements].present? %>
+    <h5><%= key %></h5>
+
+    <table class='positions-table'>
+      <thead>
+        <tr>
+          <th class='name-column'>Name</th>
+          <th>Item price</th>
+          <th>Amount</th>
+          <th>Total price</th>
+          <th>Current item price</th>
+          <th>Current total price</th>
+          <th>Income</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% values[:elements].each do |quote, portfolio_stats| %>
+          <tr class='position'>
+            <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
+            <td><%= Money.new(portfolio_stats[:total_price_cents], quote.price_currency).format %></td>
+            <td><%= portfolio_stats[:total_amount] %></td>
+            <td><%= Money.new(portfolio_stats[:total_price_cents] * portfolio_stats[:total_amount], quote.price_currency).format %></td>
+            <td><%= Money.new(quote.price_cents, quote.price_currency).format %></td>
+            <td><%= Money.new(quote.price_cents * portfolio_stats[:total_amount], quote.price_currency).format %></td>
+            <td><%= Money.new((quote.price_cents - portfolio_stats[:total_price_cents]) * portfolio_stats[:total_amount], quote.price_currency).format %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>

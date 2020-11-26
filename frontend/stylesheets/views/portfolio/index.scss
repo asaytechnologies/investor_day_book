@@ -26,3 +26,27 @@
     }
   }
 }
+
+#positions {
+  .positions-table {
+    thead {
+      tr {
+        th {
+          @apply text-right pl-10;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          @apply text-right;
+        }
+      }
+    }
+
+    .name-column {
+      @apply text-left pl-0;
+    }
+  }
+}
