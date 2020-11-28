@@ -7,6 +7,9 @@ en:
       account: Account
       portfolio: Portfolio
   portfolios:
+    select:
+      title: Select portfolio for stats
+      total: All portfolios stats
     table:
       name: Name
       amount: Amount

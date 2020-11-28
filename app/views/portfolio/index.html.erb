@@ -4,6 +4,24 @@
       <%= t('portfolios.sidebar.button') %>
     </div>
 
+    <form id='portfolio-select'>
+      <div
+        class='form-field'
+        data-controller='shared--select'
+        data-shared--select-value='<%= t('portfolios.select.total') %>'
+        data-shared--select-value-index='0'
+      >
+        <label class='form-label'><%= t('portfolios.select.title') %></label>
+        <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
+        <div class='select-list' data-target='shared--select.list'>
+          <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.select.total') %></div>
+          <% @portfolios.find_each do |portfolio| %>
+            <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+          <% end %>
+        </div>
+      </div>
+    </form>
+
     <div id='positions'>
       <%= render Portfolios::PositionsComponent.new(positions: @positions) %>
     </div>

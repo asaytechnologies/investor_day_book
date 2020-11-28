@@ -7,6 +7,9 @@ ru:
       account: Аккаунт
       portfolio: Портфель
   portfolios:
+    select:
+      title: Выберите портфель для статистики
+      total: Составной портфель
     table:
       name: Название
       amount: Кол-во
