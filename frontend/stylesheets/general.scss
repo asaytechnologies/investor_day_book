@@ -1,15 +1,13 @@
-// font
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@400;500&display=swap');
 
 html, body {
-  min-height: 100vh;
-  height: 100%;
+  @apply min-h-screen h-full;
 
   font-family: "Open Sans", sans-serif;
 }
 
 * {
   &:focus {
-    outline: none;
+    @apply outline-none;
   }
 }

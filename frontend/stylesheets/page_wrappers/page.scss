@@ -21,10 +21,9 @@
       @apply absolute bottom-0 p-4;
 
       .flag {
-        @apply inline-block mr-1;
+        @apply inline-block mr-1 h-4;
 
         width: 1.5625rem;
-        height: 1rem;
         background: url("../images/flags.png");
 
         &.flag_ru {
@@ -34,7 +33,7 @@
 
         &.flag_en {
           background-size: 100%;
-          background-position: 0 -16px;
+          background-position: 0 -1rem;
         }
       }
     }

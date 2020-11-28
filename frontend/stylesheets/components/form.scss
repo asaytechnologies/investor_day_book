@@ -3,17 +3,13 @@
 
   .form-label {
     @apply inline-block mb-1;
-
-    line-height: 1.25rem;
+    @apply leading-5;
   }
 
   .form-value {
-    @apply bg-blue-200 font-light;
-    @apply px-4 w-full;
-
-    height: 2rem;
-    line-height: 2rem;
-    border-radius: .25rem;
+    @apply bg-blue-200 font-light leading-8;
+    @apply px-4 w-full h-8;
+    @apply rounded;
   }
 
   .select-list {
@@ -33,11 +29,10 @@
     }
 
     &.open {
-      @apply block absolute left-0 w-full overflow-hidden;
+      @apply block absolute left-0 w-full overflow-hidden z-10;
+      @apply rounded;
 
       top: 3.625rem;
-      border-radius: .25rem;
-      z-index: 10;
     }
   }
 }
