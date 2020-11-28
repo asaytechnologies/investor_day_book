@@ -7,9 +7,9 @@ class PositionsReflex < ApplicationReflex
   def create(locale = 'en')
     create_position
 
-    set_locale(locale)
     positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
 
+    set_locale(locale)
     morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: []))
     morph '#positions', PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions))
   end

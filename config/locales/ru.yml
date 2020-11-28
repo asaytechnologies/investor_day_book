@@ -27,3 +27,10 @@ ru:
       search: Поиск котировок...
       buy: Покупка
       sell: Продажа
+  accounts:
+    table:
+      created: Создан
+    sidebar:
+      title: Новый портфель
+      button: Добавить портфель
+      name: Название

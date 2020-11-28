@@ -27,3 +27,10 @@ en:
       search: Search for a quote...
       buy: Buy
       sell: Sell
+  accounts:
+    table:
+      created: Created at
+    sidebar:
+      title: New portfolio
+      button: Add portfolio
+      name: Name
