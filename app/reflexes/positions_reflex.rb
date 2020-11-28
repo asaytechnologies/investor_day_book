@@ -4,12 +4,12 @@ class PositionsReflex < ApplicationReflex
   before_reflex :find_portfolio, only: [:create]
   before_reflex :find_quote, only: [:create]
 
-  def create(locale = 'en')
+  def create(locale='en')
     create_position
 
     positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
 
-    set_locale(locale)
+    current_locale(locale)
     morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: []))
     morph '#positions', PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions))
   end

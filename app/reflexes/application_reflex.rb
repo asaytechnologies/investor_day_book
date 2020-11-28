@@ -14,7 +14,7 @@ class ApplicationReflex < StimulusReflex::Reflex
 
   private
 
-  def set_locale(locale)
+  def current_locale(locale)
     I18n.locale = locale
   end
 end
