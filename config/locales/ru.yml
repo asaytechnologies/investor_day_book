@@ -1,0 +1,29 @@
+ru:
+  devise:
+    logout: Выход
+  wrapper:
+    navigation:
+      home: Главная
+      account: Аккаунт
+      portfolio: Портфель
+  portfolios:
+    table:
+      name: Название
+      amount: Кол-во
+      total_price: Стоимость покупки
+      average_price: Средняя цена
+      current_price: Текущая цена
+      current_total_price: Текущая стоимость
+      income: Разница
+    sidebar:
+      title: Добавить бумагу
+      security: Ценная бумага
+      select_security: Выберите ценную бумагу
+      transaction: Операция
+      price: Цена
+      amount: Кол-во
+      total_price: Стоимость операции
+      button: Добавить бумагу
+      search: Поиск котировок...
+      buy: Покупка
+      sell: Продажа
