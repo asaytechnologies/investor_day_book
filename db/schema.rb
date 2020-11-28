@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_28_075352) do
+ActiveRecord::Schema.define(version: 2020_11_28_080711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -97,6 +97,9 @@ ActiveRecord::Schema.define(version: 2020_11_28_075352) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
+    t.integer "sold_amount", default: 0, null: false
+    t.boolean "sold_all", default: false, null: false
+    t.boolean "selling_position", default: false, null: false
     t.index ["portfolio_id"], name: "index_users_positions_on_portfolio_id"
     t.index ["quote_id"], name: "index_users_positions_on_quote_id"
   end
