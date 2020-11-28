@@ -28,7 +28,8 @@ class PositionsReflex < ApplicationReflex
       portfolio: @portfolio,
       quote:     @quote,
       price:     position_price,
-      amount:    position_money
+      amount:    position_money,
+      operation: operation_params[:operation]
     )
   end
 
@@ -42,5 +43,9 @@ class PositionsReflex < ApplicationReflex
 
   def position_params
     params.require(:position).permit(:quote_id, :price, :amount)
+  end
+
+  def operation_params
+    params.require(:position).permit(:operation)
   end
 end

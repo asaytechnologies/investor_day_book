@@ -1,28 +1,11 @@
 #position-new-container {
   .form-field {
-    @apply flex flex-col mb-4;
-
     &.hidden-by-default {
       @apply hidden;
 
       &.selected {
-        @apply flex flex-col mb-4;
+        @apply block;
       }
-    }
-
-    .form-label {
-      @apply inline-block mb-1;
-
-      line-height: 1.25rem;
-    }
-
-    .form-value {
-      @apply bg-blue-200 font-light;
-      @apply px-4 w-full;
-
-      height: 2rem;
-      line-height: 2rem;
-      border-radius: .25rem;
     }
   }
 }

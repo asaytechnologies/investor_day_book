@@ -11,29 +11,43 @@
     <%= render Shared::SidebarComponent.new(title: 'New Position') do %>
       <div id='position-new-container' class='sidebar-content'>
         <form data-controller='portfolios--position-new' data-action='submit->portfolios--position-new#submitForm'>
-          <input type='hidden' name='position[quote_id]' data-target='portfolios--position-new.quoteId' />
-          <div class='form-field hidden-by-default' data-target='portfolios--position-new.security'></div>
+
+          <div class='form-field hidden-by-default' data-target='portfolios--position-new.securityBlock'>
+            <label class='form-label'>Security</label>
+            <div class='form-value' data-target='portfolios--position-new.securityValue'></div>
+          </div>
 
           <div class='dropdown-box' data-reflex-root='#quotes' data-target='portfolios--position-new.dropdown'>
-            <label class='dropdown-label'>Select security</label>
-            <input type='text' class='dropdown-input' placeholder='Search for a quote...' data-action='debounced:input->portfolios--position-new#searchQuotes' data-target='portfolios--position-new.selectInput' />
+            <input type='hidden' name='position[quote_id]' data-target='portfolios--position-new.quoteId' />
+            <label class='form-label'>Select security</label>
+            <input type='text' class='form-value' placeholder='Search for a quote...' data-action='debounced:input->portfolios--position-new#searchQuotes' data-target='portfolios--position-new.selectInput' />
             <div id='quotes' class='dropdown-list'>
               <%= render Portfolios::QuotesComponent.new(quotes: @quotes) %>
             </div>
           </div>
 
+          <div class='form-field' data-controller='shared--select' data-shared--select-value='Buy' data-shared--select-value-index='0'>
+            <input type='hidden' name='position[operation]' data-target='portfolios--position-new.operation shared--select.valueIndex' />
+            <label class='form-label'>Transaction</label>
+            <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
+            <div class='select-list' data-target='shared--select.list'>
+              <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'>Buy</div>
+              <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'>Sell</div>
+            </div>
+          </div>
+
           <div class='form-field'>
-            <span class='form-label'>Price</span>
+            <label class='form-label'>Price</label>
             <input name='position[price]' class='form-value' data-target='portfolios--position-new.price' data-action='keyup->portfolios--position-new#refreshTotalPrice' />
           </div>
 
           <div class='form-field'>
-            <span class='form-label'>Amount</span>
+            <label class='form-label'>Amount</label>
             <input name='position[amount]' class='form-value' data-target='portfolios--position-new.amount' data-action='keyup->portfolios--position-new#refreshTotalPrice' />
           </div>
 
           <div class='form-field'>
-            <span class='form-label'>Total price</span>
+            <label class='form-label'>Total price</label>
             <input disabled class='form-value' data-target='portfolios--position-new.totalPrice' />
           </div>
 

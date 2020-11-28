@@ -1,4 +1,4 @@
-.dropdown-box {
+.form-field {
   @apply relative mb-4;
 
   .form-label {
@@ -16,14 +16,10 @@
     border-radius: .25rem;
   }
 
-  .dropdown-list {
-    @apply absolute left-0 w-full overflow-hidden;
+  .select-list {
+    @apply hidden;
 
-    top: 3.625rem;
-    border-radius: .25rem;
-    z-index: 10;
-
-    .dropdown-list-element {
+    .select-list-item {
       @apply bg-gray-100 px-4 py-2 w-full;
       @apply border-b border-gray-500;
 
@@ -34,6 +30,14 @@
       &:hover {
         @apply cursor-pointer bg-gray-200;
       }
+    }
+
+    &.open {
+      @apply block absolute left-0 w-full overflow-hidden;
+
+      top: 3.625rem;
+      border-radius: .25rem;
+      z-index: 10;
     }
   }
 }
