@@ -3,11 +3,11 @@ import ApplicationController from "../application_controller"
 export default class extends ApplicationController {
   static targets = ["window"]
 
-  open() {
+  open () {
     this.windowTarget.classList.add("open")
   }
 
-  close() {
+  close () {
     this.windowTarget.classList.remove("open")
   }
 }

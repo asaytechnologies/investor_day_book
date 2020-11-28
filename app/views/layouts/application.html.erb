@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    <input type='hidden' name='current_locale' id='current_locale' value='<%= I18n.locale %>' />
     <%= yield %>
     <%= javascript_pack_tag 'application' %>
   </body>

@@ -3,16 +3,16 @@ import ApplicationController from "../application_controller"
 export default class extends ApplicationController {
   static targets = ["list", "value", "valueIndex"]
 
-  connect() {
+  connect () {
     this.valueTarget.innerHTML = this.data.get("value")
     this.valueIndexTarget.value = this.data.get("valueIndex")
   }
 
-  open() {
+  open () {
     this.listTarget.classList.add("open")
   }
 
-  select(event) {
+  select (event) {
     this.listTarget.classList.remove("open")
 
     this.valueTarget.innerHTML = event.target.innerHTML

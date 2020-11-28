@@ -3,13 +3,13 @@ import ApplicationController from "../application_controller"
 export default class extends ApplicationController {
   static targets = ["securityValue", "securityBlock", "dropdown", "quoteId", "price", "amount", "totalPrice", "selectInput", "operation"]
 
-  searchQuotes(event) {
+  searchQuotes (event) {
     event.preventDefault()
 
-    this.stimulate('QuotesReflex#search', this.selectInputTarget.value)
+    this.stimulate('QuotesReflex#search', this.selectInputTarget.value, document.getElementById('current_locale').value)
   }
 
-  selectQuote(event) {
+  selectQuote (event) {
     event.preventDefault()
 
     this.securityValueTarget.innerHTML = event.target.getAttribute("data-quote-name")
@@ -22,17 +22,17 @@ export default class extends ApplicationController {
     this.refreshTotalPrice()
   }
 
-  refreshTotalPrice() {
+  refreshTotalPrice () {
     this.totalPriceTarget.value = parseFloat(this.priceTarget.value) * parseFloat(this.amountTarget.value)
   }
 
-  submitForm(event) {
+  submitForm (event) {
     event.preventDefault()
 
-    this.stimulate('PositionsReflex#create')
+    this.stimulate('PositionsReflex#create', document.getElementById('current_locale').value)
   }
 
-  afterCreate() {
+  afterCreate () {
     this.securityBlockTarget.classList.remove("selected")
     this.dropdownTarget.classList.remove("hidden")
     this.priceTarget.value = ""
