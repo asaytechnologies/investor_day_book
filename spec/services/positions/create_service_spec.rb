@@ -12,11 +12,11 @@ RSpec.describe Positions::CreateService, type: :service do
     context 'for buy operation' do
       let(:args) { { operation: '0' } }
 
-      it 'succeed' do
+      it 'succeeds' do
         expect(service_call.success?).to eq true
       end
 
-      it 'and call buy service' do
+      it 'and calls buy service' do
         service_call
 
         expect(Positions::Creation::BuyService).to have_received(:call).with(args.except(:operation))
@@ -26,11 +26,11 @@ RSpec.describe Positions::CreateService, type: :service do
     context 'for sell operation' do
       let(:args) { { operation: '1' } }
 
-      it 'succeed' do
+      it 'succeeds' do
         expect(service_call.success?).to eq true
       end
 
-      it 'and call sell service' do
+      it 'and calls sell service' do
         service_call
 
         expect(Positions::Creation::SellService).to have_received(:call).with(args.except(:operation))

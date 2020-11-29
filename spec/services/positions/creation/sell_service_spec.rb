@@ -17,7 +17,7 @@ RSpec.describe Positions::Creation::SellService, type: :service do
   }
 
   describe '.call' do
-    it 'succeed' do
+    it 'succeeds' do
       expect(service_call.success?).to eq true
     end
 
