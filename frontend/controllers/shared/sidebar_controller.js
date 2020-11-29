@@ -1,13 +1,14 @@
 import ApplicationController from "../application_controller"
 
 export default class extends ApplicationController {
-  static targets = ["window"]
+  open (event) {
+    const index = event.target.dataset.valueIndex
 
-  open () {
-    this.windowTarget.classList.add("open")
+    this.index = index
+    document.getElementById(`sidebar-window-${index}`).classList.add("open")
   }
 
   close () {
-    this.windowTarget.classList.remove("open")
+    document.getElementById(`sidebar-window-${this.index}`).classList.remove("open")
   }
 }

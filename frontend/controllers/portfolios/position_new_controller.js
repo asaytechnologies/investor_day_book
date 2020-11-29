@@ -12,9 +12,9 @@ export default class extends ApplicationController {
   selectQuote (event) {
     event.preventDefault()
 
-    this.securityValueTarget.innerHTML = event.target.getAttribute("data-quote-name")
-    this.priceTarget.value = event.target.getAttribute("data-quote-price")
-    this.quoteIdTarget.value = event.target.getAttribute("data-quote-id")
+    this.securityValueTarget.innerHTML = event.target.dataset.quoteName
+    this.priceTarget.value             = event.target.dataset.quotePrice
+    this.quoteIdTarget.value           = event.target.dataset.quoteId
 
     this.securityBlockTarget.classList.add("selected")
     this.dropdownTarget.classList.add("hidden")

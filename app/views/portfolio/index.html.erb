@@ -1,8 +1,10 @@
 <%= render PageWrappers::PageComponent.new do %>
   <% if @portfolios.present? %>
     <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#positions'>
-      <div class='button sidebar-open-button' data-action='click->shared--sidebar#open'>
-        <%= t('portfolios.sidebar.button') %>
+      <div class='sidebar-buttons'>
+        <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
+          <%= t('portfolios.sidebar.button') %>
+        </div>
       </div>
 
       <form id='portfolio-select'>
@@ -28,7 +30,7 @@
         <%= render Portfolios::PositionsComponent.new(positions: @positions) %>
       </div>
 
-      <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.title')) do %>
+      <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.title'), window_index: 0) do %>
         <div id='position-new-container' class='sidebar-content'>
           <form data-controller='portfolios--position-new' data-action='submit->portfolios--position-new#submitForm'>
 

@@ -18,3 +18,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - selling securities
 - creating portfolios on account page
 - creating positions for specific portfolios
+- Portfolios::Cashes::Operation model

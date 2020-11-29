@@ -38,3 +38,6 @@ en:
       title: New portfolio
       button: Add portfolio
       name: Name
+      operations:
+        button: Add/remove cash
+        title: Add/remove cash

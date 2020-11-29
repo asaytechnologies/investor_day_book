@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_28_080711) do
+ActiveRecord::Schema.define(version: 2020_11_29_193217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 2020_11_28_080711) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["portfolio_id", "amount_currency"], name: "index_portfolios_cashes_on_portfolio_id_and_amount_currency", unique: true
+  end
+
+  create_table "portfolios_cashes_operations", force: :cascade do |t|
+    t.integer "portfolios_cash_id"
+    t.integer "amount_cents", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["portfolios_cash_id"], name: "index_portfolios_cashes_operations_on_portfolios_cash_id"
   end
 
   create_table "quotes", force: :cascade do |t|

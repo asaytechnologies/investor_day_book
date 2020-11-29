@@ -1,14 +1,19 @@
 <%= render PageWrappers::PageComponent.new do %>
   <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#portfolios'>
-    <div class='button sidebar-open-button' data-action='click->shared--sidebar#open'>
-      <%= t('accounts.sidebar.button') %>
+    <div class='sidebar-buttons'>
+      <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
+        <%= t('accounts.sidebar.button') %>
+      </div>
+      <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
+        <%= t('accounts.sidebar.operations.button') %>
+      </div>
     </div>
 
     <div id='portfolios' class='portfolios-list'>
       <%= render Accounts::PortfoliosComponent.new(portfolios: @portfolios) %>
     </div>
 
-    <%= render Shared::SidebarComponent.new(title: t('accounts.sidebar.title')) do %>
+    <%= render Shared::SidebarComponent.new(title: t('accounts.sidebar.title'), window_index: 0) do %>
       <div id='portfolio-new-container' class='sidebar-content'>
         <form data-controller='accounts--portfolio-new' data-action='submit->accounts--portfolio-new#submitForm'>
 
@@ -21,6 +26,11 @@
             <%= t('accounts.sidebar.button') %>
           </button>
         </form>
+      </div>
+    <% end %>
+
+    <%= render Shared::SidebarComponent.new(title: t('accounts.sidebar.operations.title'), window_index: 1) do %>
+      <div id='portfolio-operations-container' class='sidebar-content'>
       </div>
     <% end %>
   </div>

@@ -9,6 +9,7 @@ describe Portfolios::Cash, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to :portfolio }
+    it { is_expected.to have_many(:operations).class_name('Portfolios::Cashes::Operation').dependent(:destroy) }
   end
 
   it { is_expected.to monetize(:amount) }

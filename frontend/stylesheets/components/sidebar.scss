@@ -1,11 +1,15 @@
 .sidebar-container {
   @apply relative h-full p-10;
 
-  .sidebar-open-button {
-    @apply absolute;
+  .sidebar-buttons {
+    @apply absolute flex flex-col;
 
     top: 2.5rem;
-    right: 2.5rem
+    right: 2.5rem;
+
+    .sidebar-open-button {
+      @apply mb-4;
+    }
   }
 
   .sidebar {
