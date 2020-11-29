@@ -29,7 +29,7 @@ export default class extends ApplicationController {
   submitForm (event) {
     event.preventDefault()
 
-    this.stimulate('PositionsReflex#create', document.getElementById('current_locale').value)
+    this.stimulate('PositionsReflex#create', document.getElementById('portfolio_id').value, document.getElementById('current_locale').value)
   }
 
   afterCreate () {

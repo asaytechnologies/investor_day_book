@@ -30,6 +30,8 @@ describe PortfolioController, type: :request do
         let!(:user) { create :user }
 
         before do
+          create :portfolio, user: user
+
           post user_session_path(user: { email: user.email, password: user.password })
           follow_redirect!
         end

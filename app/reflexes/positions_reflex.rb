@@ -4,20 +4,41 @@ class PositionsReflex < ApplicationReflex
   before_reflex :find_portfolio, only: [:create]
   before_reflex :find_quote, only: [:create]
 
-  def create(locale='en')
+  def index(portfolio_id='0', locale='en')
+    portfolio = find_user_portfolio_for_render(portfolio_id)
+    positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
+
+    current_locale(locale)
+    morph(
+      '#positions',
+      PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions, portfolio: portfolio))
+    )
+  end
+
+  def create(portfolio_id='0', locale='en')
     create_position
 
+    portfolio = find_user_portfolio_for_render(portfolio_id)
     positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
 
     current_locale(locale)
     morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: []))
-    morph '#positions', PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions))
+    morph(
+      '#positions',
+      PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions, portfolio: portfolio))
+    )
   end
 
   private
 
+  def find_user_portfolio_for_render(portfolio_id)
+    return if portfolio_id == '0'
+
+    current_user.portfolios.find_by(id: portfolio_id)
+  end
+
   def find_portfolio
-    @portfolio = Portfolio.find_or_create_by(user: current_user)
+    @portfolio = current_user.portfolios.find_by(id: position_params[:portfolio_id])
   end
 
   def find_quote
@@ -43,7 +64,7 @@ class PositionsReflex < ApplicationReflex
   end
 
   def position_params
-    params.require(:position).permit(:quote_id, :price, :amount)
+    params.require(:position).permit(:portfolio_id, :quote_id, :price, :amount)
   end
 
   def operation_params

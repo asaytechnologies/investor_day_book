@@ -19,6 +19,7 @@ en:
       current_total_price: Current total price
       income: Income
     sidebar:
+      select_portfolio: Select portfolio
       title: New position
       security: Security
       select_security: Select security

@@ -17,3 +17,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - SearchSphinx as search engine
 - selling securities
 - creating portfolios on account page
+- creating positions for specific portfolios

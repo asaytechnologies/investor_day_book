@@ -2,13 +2,19 @@
 
 module Portfolios
   class PositionsComponent < ViewComponent::Base
-    def initialize(positions:)
+    def initialize(positions:, portfolio: nil)
       @positions = positions
+      @portfolio = portfolio
 
+      filter_positions if @portfolio
       prepare_portfolio_stats
     end
 
     private
+
+    def filter_positions
+      @positions = @positions.where(portfolio: @portfolio)
+    end
 
     def prepare_portfolio_stats
       @portfolio_stats = @positions.group_by(&:quote).each_with_object(basis_stats) do |(quote, positions), acc|

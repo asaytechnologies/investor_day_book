@@ -19,6 +19,7 @@ ru:
       current_total_price: Текущая стоимость
       income: Разница
     sidebar:
+      select_portfolio: Выберите портфель
       title: Добавить бумагу
       security: Ценная бумага
       select_security: Выберите ценную бумагу
