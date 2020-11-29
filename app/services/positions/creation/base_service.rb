@@ -3,8 +3,6 @@
 module Positions
   module Creation
     class BaseService
-      prepend BasicService
-
       private
 
       def create_position(args={})

@@ -3,15 +3,17 @@
 module Positions
   module Creation
     class SellService < BaseService
+      prepend BasicService
+
       def call(args={})
         create_position(args.merge(selling_position: true))
-        decrease_securities_in_portfolio(args[:portfolio], args[:amount])
+        decrease_securities_in_portfolio(args[:portfolio], args[:quote], args[:amount])
       end
 
       private
 
-      def decrease_securities_in_portfolio(portfolio, amount)
-        portfolio.positions.buying.with_unsold_securities.order(created_at: :asc).find_each do |position|
+      def decrease_securities_in_portfolio(portfolio, quote, amount)
+        positions_with_existed_securities(portfolio, quote).find_each do |position|
           break if amount.zero?
 
           securities_for_selling = position.amount - position.sold_amount
@@ -23,6 +25,15 @@ module Positions
             amount = 0
           end
         end
+      end
+
+      def positions_with_existed_securities(portfolio, quote)
+        portfolio
+          .positions
+          .where(quote: quote)
+          .buying
+          .with_unsold_securities
+          .order(created_at: :asc)
       end
     end
   end
