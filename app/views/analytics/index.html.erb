@@ -27,7 +27,7 @@
       </form>
 
       <div id='positions'>
-        <%= render Portfolios::PositionsComponent.new(positions: @positions) %>
+        <%= render Analytics::PositionsComponent.new(positions: @positions) %>
       </div>
 
       <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.title'), window_index: 0) do %>
@@ -60,7 +60,7 @@
               <label class='form-label'><%= t('portfolios.sidebar.select_security') %></label>
               <input type='text' class='form-value' placeholder='<%= t('portfolios.sidebar.search') %>' data-action='debounced:input->portfolios--position-new#searchQuotes' data-target='portfolios--position-new.selectInput' />
               <div id='quotes' class='dropdown-list'>
-                <%= render Portfolios::QuotesComponent.new(quotes: @quotes) %>
+                <%= render Analytics::QuotesComponent.new(quotes: @quotes) %>
               </div>
             </div>
 

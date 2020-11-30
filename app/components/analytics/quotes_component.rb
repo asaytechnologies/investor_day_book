@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Portfolios
+module Analytics
   class QuotesComponent < ViewComponent::Base
     def initialize(quotes:)
       @quotes = quotes

@@ -10,7 +10,7 @@
     </div>
 
     <div id='portfolios' class='portfolios-list'>
-      <%= render Accounts::PortfoliosComponent.new(portfolios: @portfolios) %>
+      <%= render Portfolios::ListComponent.new(portfolios: @portfolios) %>
     </div>
 
     <%= render Shared::SidebarComponent.new(title: t('accounts.sidebar.title'), window_index: 0) do %>

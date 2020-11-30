@@ -11,7 +11,7 @@ class PositionsReflex < ApplicationReflex
     current_locale(locale)
     morph(
       '#positions',
-      PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions, portfolio: portfolio))
+      AnalyticsController.render(Analytics::PositionsComponent.new(positions: positions, portfolio: portfolio))
     )
   end
 
@@ -22,10 +22,10 @@ class PositionsReflex < ApplicationReflex
     positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
 
     current_locale(locale)
-    morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: []))
+    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: []))
     morph(
       '#positions',
-      PortfolioController.render(Portfolios::PositionsComponent.new(positions: positions, portfolio: portfolio))
+      AnalyticsController.render(Analytics::PositionsComponent.new(positions: positions, portfolio: portfolio))
     )
   end
 

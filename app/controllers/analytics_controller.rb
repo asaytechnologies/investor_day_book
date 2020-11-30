@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PortfolioController < ApplicationController
+class AnalyticsController < ApplicationController
   before_action :portfolios
   before_action :positions
 

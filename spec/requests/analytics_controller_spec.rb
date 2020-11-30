@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-describe AccountController, type: :request do
+describe AnalyticsController, type: :request do
   describe 'GET#index' do
     context 'for not logged user' do
       it 'redirects to login page' do
-        get account_index_path
+        get analytics_path
         follow_redirect!
 
         expect(last_response.body).to include('Log in')
@@ -19,7 +19,7 @@ describe AccountController, type: :request do
           post user_session_path(user: { email: user.email, password: user.password })
           follow_redirect!
 
-          get account_index_path
+          get analytics_path
           follow_redirect!
 
           expect(last_response.body).to include('Log in')
@@ -30,20 +30,22 @@ describe AccountController, type: :request do
         let!(:user) { create :user }
 
         before do
+          create :portfolio, user: user
+
           post user_session_path(user: { email: user.email, password: user.password })
           follow_redirect!
         end
 
         it 'renders english setup page' do
-          get account_index_en_path
+          get analytics_en_path
 
-          expect(last_response.body).to include('Add portfolio')
+          expect(last_response.body).to include('Select portfolio for stats')
         end
 
         it 'renders russian setup page' do
-          get account_index_ru_path
+          get analytics_ru_path
 
-          expect(last_response.body).to include('Добавить портфель')
+          expect(last_response.body).to include('Выберите портфель для статистики')
         end
       end
     end

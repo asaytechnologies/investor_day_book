@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountController < ApplicationController
+class PortfoliosController < ApplicationController
   before_action :portfolios
 
   def index; end

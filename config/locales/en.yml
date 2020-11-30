@@ -4,8 +4,8 @@ en:
   wrapper:
     navigation:
       home: Home
-      account: Account
-      portfolio: Portfolio
+      portfolios: Portfolios
+      analytics: Analytics
   portfolios:
     select:
       title: Select portfolio for stats

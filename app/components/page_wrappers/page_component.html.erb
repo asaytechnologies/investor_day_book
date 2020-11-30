@@ -2,8 +2,8 @@
   <nav class='navigation'>
     <div class='navigation-group'>
       <%= link_to t('wrapper.navigation.home'), home_index_path, class: 'navigation-link' %>
-      <%= link_to t('wrapper.navigation.account'), account_index_path, class: 'navigation-link' %>
-      <%= link_to t('wrapper.navigation.portfolio'), portfolio_index_path, class: 'navigation-link' %>
+      <%= link_to t('wrapper.navigation.portfolios'), portfolios_path, class: 'navigation-link' %>
+      <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'navigation-link' %>
     </div>
     <div class='navigation-group'>
       <%= link_to t('devise.logout'), destroy_user_session_path, class: 'navigation-link' %>

@@ -7,7 +7,7 @@ class PortfoliosReflex < ApplicationReflex
     portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result
 
     current_locale(locale)
-    morph '#portfolios', AccountController.render(Accounts::PortfoliosComponent.new(portfolios: portfolios))
+    morph '#portfolios', AccountController.render(Portfolios::ListComponent.new(portfolios: portfolios))
   end
 
   private

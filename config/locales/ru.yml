@@ -4,8 +4,8 @@ ru:
   wrapper:
     navigation:
       home: Главная
-      account: Аккаунт
-      portfolio: Портфель
+      portfolios: Портфели
+      analytics: Аналитика
   portfolios:
     select:
       title: Выберите портфель для статистики
