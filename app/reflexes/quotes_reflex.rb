@@ -8,6 +8,6 @@ class QuotesReflex < ApplicationReflex
     quotes = Quote.where(id: quotes_ids).includes(:security).order('securities.type DESC')
 
     current_locale(locale)
-    morph '#quotes', PortfolioController.render(Portfolios::QuotesComponent.new(quotes: quotes))
+    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: quotes))
   end
 end

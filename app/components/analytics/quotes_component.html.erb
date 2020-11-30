@@ -1,6 +1,12 @@
 <% if @quotes.present? %>
   <% @quotes.each do |quote| %>
-    <div class='dropdown-list-element' data-action='click->portfolios--position-new#selectQuote' data-quote-id='<%= quote.id %>' data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>' data-quote-price='<%= quote.price_cents / 100.0 %>'>
+    <div
+      class='dropdown-list-element'
+      data-action='click->analytics--position-new#selectQuote'
+      data-quote-id='<%= quote.id %>'
+      data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>'
+      data-quote-price='<%= quote.price_cents / 100.0 %>'
+    >
       <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price_cents, quote.price_currency).format} (#{quote.security.type})" %>
     </div>
   <% end %>

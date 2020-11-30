@@ -3,24 +3,24 @@
     <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#positions'>
       <div class='sidebar-buttons'>
         <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
-          <%= t('portfolios.sidebar.button') %>
+          <%= t('analytics.sidebar.button') %>
         </div>
       </div>
 
       <form id='portfolio-select'>
         <div
           class='form-field'
-          data-controller='shared--select portfolios--positions'
-          data-shared--select-value='<%= t('portfolios.select.total') %>'
+          data-controller='shared--select analytics--positions'
+          data-shared--select-value='<%= t('analytics.select.total') %>'
           data-shared--select-value-index='0'
         >
           <input type='hidden' id='portfolio_id' name='portfolio_id' data-target='shared--select.valueIndex' />
-          <label class='form-label'><%= t('portfolios.select.title') %></label>
+          <label class='form-label'><%= t('analytics.select.title') %></label>
           <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
           <div class='select-list' data-target='shared--select.list'>
-            <div class='select-list-item' data-action='click->shared--select#select click->portfolios--positions#filterPortfolios' data-value-index='0'><%= t('portfolios.select.total') %></div>
+            <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
             <% @portfolios.find_each do |portfolio| %>
-              <div class='select-list-item' data-action='click->shared--select#select click->portfolios--positions#filterPortfolios' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+              <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
             <% end %>
           </div>
         </div>
@@ -30,9 +30,9 @@
         <%= render Analytics::PositionsComponent.new(positions: @positions) %>
       </div>
 
-      <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.title'), window_index: 0) do %>
+      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title'), window_index: 0) do %>
         <div id='position-new-container' class='sidebar-content'>
-          <form data-controller='portfolios--position-new' data-action='submit->portfolios--position-new#submitForm'>
+          <form data-controller='analytics--position-new' data-action='submit->analytics--position-new#submitForm'>
 
             <div
               class='form-field'
@@ -41,7 +41,7 @@
               data-shared--select-value-index='<%= @portfolios.first.id %>'
             >
               <input type='hidden' name='position[portfolio_id]' data-target='shared--select.valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.select_portfolio') %></label>
+              <label class='form-label'><%= t('analytics.sidebar.select_portfolio') %></label>
               <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
               <div class='select-list' data-target='shared--select.list'>
                 <% @portfolios.find_each do |portfolio| %>
@@ -50,47 +50,52 @@
               </div>
             </div>
 
-            <div class='form-field hidden-by-default' data-target='portfolios--position-new.securityBlock'>
-              <label class='form-label'><%= t('portfolios.sidebar.security') %></label>
-              <div class='form-value' data-target='portfolios--position-new.securityValue'></div>
+            <div class='form-field hidden-by-default' data-target='analytics--position-new.securityBlock'>
+              <label class='form-label'><%= t('analytics.sidebar.security') %></label>
+              <div class='form-value' data-target='analytics--position-new.securityValue'></div>
             </div>
 
-            <div class='dropdown-box' data-reflex-root='#quotes' data-target='portfolios--position-new.dropdown'>
-              <input type='hidden' name='position[quote_id]' data-target='portfolios--position-new.quoteId' />
-              <label class='form-label'><%= t('portfolios.sidebar.select_security') %></label>
-              <input type='text' class='form-value' placeholder='<%= t('portfolios.sidebar.search') %>' data-action='debounced:input->portfolios--position-new#searchQuotes' data-target='portfolios--position-new.selectInput' />
+            <div class='dropdown-box' data-reflex-root='#quotes' data-target='analytics--position-new.dropdown'>
+              <input type='hidden' name='position[quote_id]' data-target='analytics--position-new.quoteId' />
+              <label class='form-label'><%= t('analytics.sidebar.select_security') %></label>
+              <input type='text' class='form-value' placeholder='<%= t('analytics.sidebar.search') %>' data-action='debounced:input->analytics--position-new#searchQuotes' data-target='analytics--position-new.selectInput' />
               <div id='quotes' class='dropdown-list'>
                 <%= render Analytics::QuotesComponent.new(quotes: @quotes) %>
               </div>
             </div>
 
-            <div class='form-field' data-controller='shared--select' data-shared--select-value='<%= t('portfolios.sidebar.buy') %>' data-shared--select-value-index='0'>
-              <input type='hidden' name='position[operation]' data-target='portfolios--position-new.operation shared--select.valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.transaction') %></label>
+            <div
+              class='form-field'
+              data-controller='shared--select'
+              data-shared--select-value='<%= t('analytics.sidebar.buy') %>'
+              data-shared--select-value-index='0'
+            >
+              <input type='hidden' name='position[operation]' data-target='analytics--position-new.operation shared--select.valueIndex' />
+              <label class='form-label'><%= t('analytics.sidebar.transaction') %></label>
               <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
               <div class='select-list' data-target='shared--select.list'>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.buy') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.sell') %></div>
+                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('analytics.sidebar.buy') %></div>
+                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('analytics.sidebar.sell') %></div>
               </div>
             </div>
 
             <div class='form-field'>
-              <label class='form-label'><%= t('portfolios.sidebar.price') %></label>
-              <input name='position[price]' class='form-value' data-target='portfolios--position-new.price' data-action='keyup->portfolios--position-new#refreshTotalPrice' />
+              <label class='form-label'><%= t('analytics.sidebar.price') %></label>
+              <input name='position[price]' class='form-value' data-target='analytics--position-new.price' data-action='keyup->analytics--position-new#refreshTotalPrice' />
             </div>
 
             <div class='form-field'>
-              <label class='form-label'><%= t('portfolios.sidebar.amount') %></label>
-              <input name='position[amount]' class='form-value' data-target='portfolios--position-new.amount' data-action='keyup->portfolios--position-new#refreshTotalPrice' />
+              <label class='form-label'><%= t('analytics.sidebar.amount') %></label>
+              <input name='position[amount]' class='form-value' data-target='analytics--position-new.amount' data-action='keyup->analytics--position-new#refreshTotalPrice' />
             </div>
 
             <div class='form-field'>
-              <label class='form-label'><%= t('portfolios.sidebar.total_price') %></label>
-              <input disabled class='form-value' data-target='portfolios--position-new.totalPrice' />
+              <label class='form-label'><%= t('analytics.sidebar.total_price') %></label>
+              <input disabled class='form-value' data-target='analytics--position-new.totalPrice' />
             </div>
 
             <button class='button' type='submit'>
-              <%= t('portfolios.sidebar.button') %>
+              <%= t('analytics.sidebar.button') %>
             </button>
           </form>
         </div>

@@ -6,7 +6,7 @@ en:
       home: Home
       portfolios: Portfolios
       analytics: Analytics
-  portfolios:
+  analytics:
     select:
       title: Select portfolio for stats
       total: All portfolios stats
@@ -31,13 +31,18 @@ en:
       search: Search for a quote...
       buy: Buy
       sell: Sell
-  accounts:
+  portfolios:
     table:
       created: Created at
     sidebar:
-      title: New portfolio
-      button: Add portfolio
-      name: Name
+      list:
+        title: New portfolio
+        button: Add portfolio
+        name: Name
       operations:
         button: Add/remove cash
         title: Add/remove cash
+        select_portfolio: Select portfolio
+        transaction: Transaction
+        deposit: Deposit
+        withdraw: Withdraw

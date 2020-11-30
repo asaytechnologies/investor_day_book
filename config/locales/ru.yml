@@ -6,7 +6,7 @@ ru:
       home: Главная
       portfolios: Портфели
       analytics: Аналитика
-  portfolios:
+  analytics:
     select:
       title: Выберите портфель для статистики
       total: Составной портфель
@@ -31,13 +31,18 @@ ru:
       search: Поиск котировок...
       buy: Покупка
       sell: Продажа
-  accounts:
+  portfolios:
     table:
       created: Создан
     sidebar:
-      title: Новый портфель
-      button: Добавить портфель
-      name: Название
+      list:
+        title: Новый портфель
+        button: Добавить портфель
+        name: Название
       operations:
         button: Внести/вывести деньги
         title: Внести/вывести деньги
+        select_portfolio: Выберите портфель
+        transaction: Операция
+        deposit: Внесение
+        withdraw: Вывод
