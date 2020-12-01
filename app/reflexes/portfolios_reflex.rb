@@ -4,10 +4,9 @@ class PortfoliosReflex < ApplicationReflex
   def create(locale='en')
     create_portfolio
 
-    portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result
+    @portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result
 
     current_locale(locale)
-    morph '#portfolios', PortfoliosController.render(Portfolios::ListComponent.new(portfolios: portfolios))
   end
 
   private

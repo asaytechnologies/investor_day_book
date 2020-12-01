@@ -1,5 +1,0 @@
-<%= @portfolios.find_each do |portfolio| %>
-  <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
-    <%= render Portfolios::ElementComponent.new(portfolio: portfolio) %>
-  </div>
-<% end %>

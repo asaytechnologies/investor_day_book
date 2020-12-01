@@ -1,7 +1,7 @@
 <h6 class='portfolio-name'><%= @portfolio.name %></h6>
 
 <% @portfolio.cashes.each do |cash| %>
-  <p><%= cash.amount_currency %> - <%= Money.new(cash.amount_cents) %></p>
+  <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
 <% end %>
 
 <p class='portfolio-created'><%= t('portfolios.table.created') %> - <%= @portfolio.created_at.strftime('%d.%m.%Y') %></p>

@@ -1,27 +1,33 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#portfolios, .portfolio'>
+  <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#portfolios, [sidebar-portfolios-list]'>
     <div class='sidebar-buttons'>
       <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
         <%= t('portfolios.sidebar.list.button') %>
       </div>
-      <% if @portfolios.present? %>
-        <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
-          <%= t('portfolios.sidebar.operations.button') %>
+      <div sidebar-portfolios-list>
+        <% if @portfolios.present? %>
+          <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
+            <%= t('portfolios.sidebar.operations.button') %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div id='portfolios' class='portfolios-list'>
+      <%= @portfolios.find_each do |portfolio| %>
+        <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
+          <%= render Portfolios::Index::ListElementComponent.new(portfolio: portfolio) %>
         </div>
       <% end %>
     </div>
 
-    <div id='portfolios' class='portfolios-list'>
-      <%= render Portfolios::ListComponent.new(portfolios: @portfolios) %>
-    </div>
-
     <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.list.title'), window_index: 0) do %>
       <div id='portfolio-new-container' class='sidebar-content'>
-        <form data-controller='accounts--portfolio-new' data-action='submit->accounts--portfolio-new#submitForm'>
+        <form data-controller='portfolios--portfolio-new' data-action='submit->portfolios--portfolio-new#submitForm'>
 
           <div class='form-field'>
             <label class='form-label'><%= t('portfolios.sidebar.list.name') %></label>
-            <input name='portfolio[name]' class='form-value' data-target='accounts--portfolio-new.name' />
+            <input name='portfolio[name]' class='form-value' data-target='portfolios--portfolio-new.name' />
           </div>
 
           <button class='button' type='submit'>
@@ -31,55 +37,57 @@
       </div>
     <% end %>
 
-    <% if @portfolios.present? %>
-      <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.operations.title'), window_index: 1) do %>
-        <div id='portfolio-operations-container' class='sidebar-content'>
-          <form data-controller='portfolios--cash-new' data-action='submit->portfolios--cash-new#submitForm'>
+    <div sidebar-portfolios-list>
+      <% if @portfolios.present? %>
+        <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.operations.title'), window_index: 1) do %>
+          <div id='portfolio-operations-container' class='sidebar-content'>
+            <form data-controller='portfolios--cash-new' data-action='submit->portfolios--cash-new#submitForm'>
 
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='portfolio_id' data-target='shared--select.valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-              <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
-              <div class='select-list' data-target='shared--select.list'>
-                <% @portfolios.find_each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
+              <div
+                class='form-field'
+                data-controller='shared--select'
+                data-shared--select-value='<%= @portfolios.first.name %>'
+                data-shared--select-value-index='<%= @portfolios.first.id %>'
+              >
+                <input type='hidden' name='portfolio_id' data-target='shared--select.valueIndex' />
+                <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
+                <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
+                <div class='select-list' data-target='shared--select.list'>
+                  <% @portfolios.find_each do |portfolio| %>
+                    <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                  <% end %>
+                </div>
               </div>
-            </div>
 
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-shared--select-value='<%= t('portfolios.sidebar.operations.deposit') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' name='portfolio[operation]' data-target='shared--select.valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
-              <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
-              <div class='select-list' data-target='shared--select.list'>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>
+              <div
+                class='form-field'
+                data-controller='shared--select'
+                data-shared--select-value='<%= t('portfolios.sidebar.operations.deposit') %>'
+                data-shared--select-value-index='0'
+              >
+                <input type='hidden' name='portfolio[operation]' data-target='shared--select.valueIndex' />
+                <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
+                <div class='form-value' data-action='click->shared--select#open' data-target='shared--select.value'></div>
+                <div class='select-list' data-target='shared--select.list'>
+                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
+                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>
+                </div>
               </div>
-            </div>
 
-            <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
-              <div class='form-field'>
-                <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
-                <input name='portfolio[<%= currency %>]' type='number' class='form-value' value=0 />
-              </div>
-            <% end %>
+              <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
+                <div class='form-field'>
+                  <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
+                  <input name='portfolio[<%= currency %>]' class='form-value' value='0' />
+                </div>
+              <% end %>
 
-            <button class='button' type='submit'>
-              <%= t('portfolios.sidebar.operations.button') %>
-            </button>
-          </form>
-        </div>
+              <button class='button' type='submit'>
+                <%= t('portfolios.sidebar.operations.button') %>
+              </button>
+            </form>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 <% end %>

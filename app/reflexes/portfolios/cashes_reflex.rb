@@ -4,10 +4,13 @@ module Portfolios
   class CashesReflex < ApplicationReflex
     before_reflex :find_portfolio, only: [:create]
 
-    def create(_locale='en')
+    def create(locale='en')
+      Portfolios::Cashes::ChangeService.call(portfolio: @portfolio, cashes_params: cashes_params)
+
+      current_locale(locale)
       morph(
         "#portfolio_#{@portfolio.id}",
-        PortfoliosController.render(Portfolios::ListComponent.new(portfolio: @portfolio))
+        PortfoliosController.render(Portfolios::Index::ListElementComponent.new(portfolio: @portfolio.reload))
       )
     end
 
