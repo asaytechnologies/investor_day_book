@@ -27,7 +27,7 @@
       </form>
 
       <div id='positions'>
-        <%= render Analytics::PositionsComponent.new(positions: @positions) %>
+        <%= render Analytics::PositionsComponent.new(portfolios: current_user.portfolios, positions: @positions) %>
       </div>
 
       <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title'), window_index: 0) do %>

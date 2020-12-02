@@ -18,6 +18,9 @@ ru:
       current_price: Текущая цена
       current_total_price: Текущая стоимость
       income: Разница
+      shares_name: Акции
+      foundations_name: Фонды
+      bonds_name: Облигации
     sidebar:
       select_portfolio: Выберите портфель
       title: Добавить бумагу

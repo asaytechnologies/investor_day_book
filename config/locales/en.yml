@@ -18,6 +18,9 @@ en:
       current_price: Current price
       current_total_price: Current total price
       income: Income
+      shares_name: Shares
+      foundations_name: Foundations
+      bonds_name: Bonds
     sidebar:
       select_portfolio: Select portfolio
       title: New position

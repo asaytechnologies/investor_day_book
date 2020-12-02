@@ -5,28 +5,16 @@ class PositionsReflex < ApplicationReflex
   before_reflex :find_quote, only: [:create]
 
   def index(portfolio_id='0', locale='en')
-    portfolio = find_user_portfolio_for_render(portfolio_id)
-    positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
-
     current_locale(locale)
-    morph(
-      '#positions',
-      AnalyticsController.render(Analytics::PositionsComponent.new(positions: positions, portfolio: portfolio))
-    )
+    render_positions(current_user, portfolio_id)
   end
 
   def create(portfolio_id='0', locale='en')
     create_position
 
-    portfolio = find_user_portfolio_for_render(portfolio_id)
-    positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
-
     current_locale(locale)
+    render_positions(current_user, portfolio_id)
     morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: []))
-    morph(
-      '#positions',
-      AnalyticsController.render(Analytics::PositionsComponent.new(positions: positions, portfolio: portfolio))
-    )
   end
 
   private
@@ -61,6 +49,22 @@ class PositionsReflex < ApplicationReflex
 
   def position_money
     position_params[:amount].to_i
+  end
+
+  def render_positions(current_user, portfolio_id)
+    portfolio = find_user_portfolio_for_render(portfolio_id)
+    positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
+
+    morph(
+      '#positions',
+      AnalyticsController.render(
+        Analytics::PositionsComponent.new(
+          portfolios: current_user.portfolios,
+          positions:  positions,
+          portfolio:  portfolio
+        )
+      )
+    )
   end
 
   def position_params
