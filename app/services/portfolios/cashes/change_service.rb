@@ -30,7 +30,7 @@ module Portfolios
       end
 
       def perform_cashes_changes
-        @portfolios_cashes.each { |portfolio_cash| perform_cash_change(portfolio_cash) }
+        @portfolios_cashes.each { |portfolios_cash| perform_cash_change(portfolios_cash) }
       end
 
       def perform_cash_change(portfolios_cash)
@@ -40,7 +40,7 @@ module Portfolios
         @operation_create_service.call(portfolios_cash: portfolios_cash, params: { amount_cents: amount_cents })
         @cash_update_service.call(
           portfolios_cash: portfolios_cash,
-          params:          { amount_cents: portfolio_cash.amount_cents + amount_cents }
+          params:          { amount_cents: portfolios_cash.amount_cents + amount_cents }
         )
       end
     end
