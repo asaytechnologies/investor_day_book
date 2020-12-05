@@ -1,7 +1,12 @@
 <h6 class='portfolio-name'><%= @portfolio.name %></h6>
 
-<% @portfolio.cashes.each do |cash| %>
-  <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
+<% if @caches.present? %>
+  <div class='portfolio-cashes'>
+    <p>Внесенные средства</p>
+    <% @caches.each do |cash| %>
+      <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
+    <% end %>
+  </div>
 <% end %>
 
 <p class='portfolio-created'><%= t('portfolios.table.created') %> - <%= @portfolio.created_at.strftime('%d.%m.%Y') %></p>

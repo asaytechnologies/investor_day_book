@@ -5,6 +5,7 @@ module Portfolios
     class ListElementComponent < ViewComponent::Base
       def initialize(portfolio:)
         @portfolio = portfolio
+        @caches    = @portfolio.cashes.where.not(amount_cents: 0)
       end
     end
   end
