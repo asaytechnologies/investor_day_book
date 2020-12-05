@@ -13,6 +13,6 @@ class AnalyticsController < ApplicationController
   end
 
   def positions
-    @positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
+    @positions = Positions::Fetching::ForAnalyticsService.call(user: current_user).result
   end
 end

@@ -53,7 +53,7 @@ class PositionsReflex < ApplicationReflex
 
   def render_positions(current_user, portfolio_id)
     portfolio = find_user_portfolio_for_render(portfolio_id)
-    positions = Positions::Fetching::ForPortfolioService.call(user: current_user).result
+    positions = Positions::Fetching::ForAnalyticsService.call(user: current_user).result
 
     morph(
       '#positions',

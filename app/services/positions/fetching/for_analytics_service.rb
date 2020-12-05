@@ -2,15 +2,13 @@
 
 module Positions
   module Fetching
-    class ForPortfolioService
+    class ForAnalyticsService
       prepend BasicService
 
       def call(user:)
         @result =
           user
           .positions
-          .buying
-          .with_unsold_securities
           .order(id: :desc)
           .includes(quote: :security)
       end
