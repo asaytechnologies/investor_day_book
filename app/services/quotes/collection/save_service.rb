@@ -6,16 +6,19 @@ module Quotes
       prepend BasicService
 
       def initialize(
-        save_from_moex_service: Saving::MoexService
+        save_from_moex_service:    Saving::MoexService,
+        save_from_tinkoff_service: Saving::TinkoffService
       )
-        @save_from_moex_service = save_from_moex_service
+        @save_from_moex_service    = save_from_moex_service
+        @save_from_tinkoff_service = save_from_tinkoff_service
       end
 
-      def call(quotes:, source:)
-        return unless quotes
+      def call(data:, source:)
+        return unless data
 
         case source
-        when Sourceable::MOEX then @save_from_moex_service.call(quotes: quotes)
+        when Sourceable::MOEX then @save_from_moex_service.call(data: data)
+        when Sourceable::TINKOFF then @save_from_tinkoff_service.call(data: data)
         end
       end
     end

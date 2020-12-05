@@ -13,25 +13,25 @@ module Quotes
         @save_service  = save_service
       end
 
-      def call(source:, date:)
+      def call(source:, date: nil)
         @source = source
         @date   = date
 
-        fetch_quotes
-          .then { |elements| save_quotes(elements) }
+        fetch_data
+          .then { |data| save_data(data) }
       end
 
       private
 
-      def fetch_quotes
+      def fetch_data
         @fetch_service
           .call(source: @source, date: @date)
           .result
       end
 
-      def save_quotes(quotes)
+      def save_data(data)
         @save_service
-          .call(quotes: quotes, source: @source)
+          .call(data: data, source: @source)
       end
     end
   end

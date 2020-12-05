@@ -9,12 +9,10 @@ module Quotes
         COLUMNS_FOR_SELECTING = 'secid,boardid,currencyid'
         NO_META = 'off'
 
-        def initialize; end
+        def call(data:)
+          @securities = data[:securities]
 
-        def call(quotes:)
-          @securities = quotes[:securities]
-
-          quotes[:quotes].each { |element| process_quote(element) }
+          data[:quotes].each { |element| process_quote(element) }
         end
 
         private
