@@ -9,7 +9,7 @@ class ApplicationRecord < ActiveRecord::Base
     {
       user_id:     user_id,
       version:     version,
-      serializer:  self.table_name,
+      serializer:  table_name,
       stat_record: records.maximum(:updated_at)
     }
   end

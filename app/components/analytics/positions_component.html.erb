@@ -1,7 +1,10 @@
 <h5>Прибыль портфеля</h5>
-<% @portfolio_stats['Total'].each do |currency, values| %>
-  <p><%= Money::Currency.new(currency).symbol %> <%= Money.new(values[:income_cents]) %></p>
-<% end %>
+<%- income_percent = @portfolio_stats['Total']['ACCUMULATE'][:income_percent] %>
+<p>
+  <%= Money::Currency.new('RUB').symbol %>
+  <%= Money.new(@portfolio_stats['Total']['ACCUMULATE'][:income_cents]) %>
+  (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
+</p>
 
 <% %w[Share Foundation Bond].each do |key| %>
   <% if @portfolio_stats[key][:elements].present? %>
@@ -17,18 +20,20 @@
           <th><%= t('analytics.table.current_price') %></th>
           <th><%= t('analytics.table.current_total_price') %></th>
           <th><%= t('analytics.table.income') %></th>
+          <th>Курсовая разница</th>
         </tr>
       </thead>
       <tbody>
-        <% @portfolio_stats[key][:elements].each do |quote, portfolio_stats| %>
+        <% @portfolio_stats[key][:elements].each do |quote, positions| %>
           <tr class='position'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
-            <td><%= portfolio_stats[:total_amount] %></td>
-            <td><%= Money.new(portfolio_stats[:total_price_cents], quote.price_currency).format %></td>
-            <td><%= Money.new(portfolio_stats[:total_price_cents] / portfolio_stats[:total_amount], quote.price_currency).format %></td>
+            <td><%= positions[:unsold_amount] %></td>
+            <td><%= Money.new(positions[:buying_unsold_cents], quote.price_currency).format %></td>
+            <td><%= Money.new(positions[:buying_unsold_average_cents], quote.price_currency).format %></td>
             <td><%= Money.new(quote.price_cents, quote.price_currency).format %></td>
-            <td><%= Money.new(portfolio_stats[:current_total_price_cents], quote.price_currency).format %></td>
-            <td><%= Money.new(portfolio_stats[:income], quote.price_currency).format %></td>
+            <td><%= Money.new(positions[:selling_unsold_cents], quote.price_currency).format %></td>
+            <td><%= Money.new(positions[:selling_unsold_income_cents], quote.price_currency).format %></td>
+            <td><%= positions[:exchange_profit] %>%</td>
           </tr>
         <% end %>
       </tbody>

@@ -10,6 +10,7 @@ module Users
     monetize :price_cents
 
     scope :buying, -> { where selling_position: false }
+    scope :selling, -> { where selling_position: true }
     scope :with_unsold_securities, -> { where sold_all: false }
   end
 end
