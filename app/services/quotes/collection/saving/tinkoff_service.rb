@@ -35,6 +35,7 @@ module Quotes
 
         def update_price_for_quote(quote, data)
           quote.price_cents = data.dig(:quote_data, :price_cents)
+          quote.figi = data.dig(:quote_data, :figi) if quote.figi.nil?
           quote.save
         end
       end
