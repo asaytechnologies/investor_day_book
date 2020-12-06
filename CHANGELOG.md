@@ -20,3 +20,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - creating positions for specific portfolios
 - Portfolios::Cashes::Operation model
 - sync service for Tinkoff api
+- api wrapper for IexCloud
