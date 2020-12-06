@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_193217) do
+ActiveRecord::Schema.define(version: 2020_12_06_165344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,7 +77,9 @@ ActiveRecord::Schema.define(version: 2020_11_29_193217) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "industry_id"
     t.string "isin"
+    t.integer "sector_id"
     t.index ["industry_id"], name: "index_securities_on_industry_id"
+    t.index ["sector_id"], name: "index_securities_on_sector_id"
     t.index ["ticker"], name: "index_securities_on_ticker"
     t.index ["uuid"], name: "index_securities_on_uuid"
   end
