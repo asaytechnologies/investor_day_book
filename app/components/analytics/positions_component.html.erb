@@ -1,14 +1,14 @@
 <h5>Прибыль портфеля</h5>
-<%- income_percent = @portfolio_stats['Total']['ACCUMULATE'][:income_percent] %>
+<%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
 <p>
   <%= Money::Currency.new('RUB').symbol %>
-  <%= Money.new(@portfolio_stats['Total']['ACCUMULATE'][:income_cents]) %>
+  <%= Money.new(@positions_analytics[:total][:summary][:income_cents]) %>
   (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
 </p>
 
-<% %w[Share Foundation Bond].each do |key| %>
-  <% if @portfolio_stats[key][:elements].present? %>
-    <h5><%= @portfolio_stats[key][:name] %></h5>
+<% %i[share foundation bond].each do |key| %>
+  <% if @positions_analytics[key][:stats].present? %>
+    <h5><%= @positions_analytics[key][:name] %></h5>
 
     <table class='positions-table'>
       <thead>
@@ -24,16 +24,16 @@
         </tr>
       </thead>
       <tbody>
-        <% @portfolio_stats[key][:elements].each do |quote, positions| %>
+        <% @positions_analytics[key][:stats].each do |quote, stats| %>
           <tr class='position'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
-            <td><%= positions[:unsold_amount] %></td>
-            <td><%= Money.new(positions[:buying_unsold_cents], quote.price_currency).format %></td>
-            <td><%= Money.new(positions[:buying_unsold_average_cents], quote.price_currency).format %></td>
+            <td><%= stats[:unsold_amount] %></td>
+            <td><%= Money.new(stats[:buying_unsold_cents], quote.price_currency).format %></td>
+            <td><%= Money.new(stats[:buying_unsold_average_cents], quote.price_currency).format %></td>
             <td><%= Money.new(quote.price_cents, quote.price_currency).format %></td>
-            <td><%= Money.new(positions[:selling_unsold_cents], quote.price_currency).format %></td>
-            <td><%= Money.new(positions[:selling_unsold_income_cents], quote.price_currency).format %></td>
-            <td><%= positions[:exchange_profit] %>%</td>
+            <td><%= Money.new(stats[:selling_unsold_cents], quote.price_currency).format %></td>
+            <td><%= Money.new(stats[:selling_unsold_income_cents], quote.price_currency).format %></td>
+            <td><%= stats[:exchange_profit] %>%</td>
           </tr>
         <% end %>
       </tbody>
@@ -41,13 +41,13 @@
   <% end %>
 <% end %>
 
-<% if @portfolio_stats['SectorPie'].size.positive? %>
+<% if @sector_pie_stats.size.positive? %>
   <h5>Состав портфеля акций по секторам (в %)</h5>
 
   <div
     id='sectors-pie-container'
     data-controller='analytics--sectors'
-    data-analytics--sectors-pie-value='<%= @portfolio_stats['SectorPie'].to_json %>'
+    data-analytics--sectors-pie-value='<%= @sector_pie_stats.to_json %>'
   >
     <canvas id='sectors-pie' width='3' height='1'></canvas>
   </div>
