@@ -40,3 +40,15 @@
     </table>
   <% end %>
 <% end %>
+
+<% if @portfolio_stats['SectorPie'].size.positive? %>
+  <h5>Состав портфеля акций по секторам (в %)</h5>
+
+  <div
+    id='sectors-pie-container'
+    data-controller='analytics--sectors'
+    data-analytics--sectors-pie-value='<%= @portfolio_stats['SectorPie'].to_json %>'
+  >
+    <canvas id='sectors-pie' width='3' height='1'></canvas>
+  </div>
+<% end %>

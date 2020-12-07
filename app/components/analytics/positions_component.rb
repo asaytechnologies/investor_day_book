@@ -9,6 +9,7 @@ module Analytics
 
       filter_positions if @portfolio
       prepare_portfolio_stats
+      calculate_sectors_pie
       calculate_total_stats
     end
 
@@ -29,7 +30,31 @@ module Analytics
         acc[quote.security.type][:elements][quote] = stats
       end
     end
-    # rubocop: enable Metrics/AbcSize
+
+    def calculate_sectors_pie
+      total_amount_cents = 0
+      @portfolio_stats['Share'][:elements].each do |quote, stats|
+        sector = quote.security.sector
+        next unless sector
+
+        sector_name = sector.name[I18n.locale.to_s]
+        cents_amount = stats[:selling_total_cents] * @portfolio_stats['Total'][quote.price_currency][:exchange_rate]
+        total_amount_cents += cents_amount
+
+        if @portfolio_stats['SectorPie'].has_key?(sector_name)
+          @portfolio_stats['SectorPie'][sector_name][:amount] += cents_amount
+        else
+          @portfolio_stats['SectorPie'][sector_name] = {
+            color:  sector.color,
+            amount: cents_amount
+          }
+        end
+      end
+
+      @portfolio_stats['SectorPie'].each do |sector_name, value|
+        @portfolio_stats['SectorPie'][sector_name][:amount] = (100.0 * value[:amount] / total_amount_cents).round(2)
+      end
+    end
 
     def calculate_total_stats
       @portfolio_stats['Total'].slice('RUB', 'USD', 'EUR').each_value do |values|
@@ -60,7 +85,8 @@ module Analytics
         },
         'Share'      => { name: t('analytics.table.shares_name'), elements: {} },
         'Foundation' => { name: t('analytics.table.foundations_name'), elements: {} },
-        'Bond'       => { name: t('analytics.table.bonds_name'), elements: {} }
+        'Bond'       => { name: t('analytics.table.bonds_name'), elements: {} },
+        'SectorPie'  => {}
       }
     end
 
@@ -69,7 +95,6 @@ module Analytics
         .then { |stats| calculate_positions_selling_stats(quote, stats) }
     end
 
-    # rubocop: disable Metrics/AbcSize
     def calculate_positions_stats(positions)
       positions.each_with_object(basis_positions_stats) do |position, acc|
         if position.selling_position?

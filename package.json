@@ -5,6 +5,7 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
+    "chart.js": "^2.9.4",
     "debounced": "^0.0.5",
     "stimulus": "^2.0.0",
     "stimulus_reflex": "^3.4.0-pre4",

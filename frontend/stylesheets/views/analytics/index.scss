@@ -1,28 +1,43 @@
-.portfolios-list {
-  @apply flex flex-row flex-wrap;
+#position-new-container {
+  .form-field {
+    &.hidden-by-default {
+      @apply hidden;
 
-  .portfolio {
-    @apply p-4 pt-2 mb-4;
-    @apply rounded;
-    @apply border border-gray-500;
-
-    width: 30%;
-    margin-right: 5%;
-
-    .portfolio-name {
-      @apply overflow-hidden;
-
-      height: 1.875rem;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .portfolio-cashes {
-      @apply mb-4;
-    }
-
-    &:nth-of-type(3n) {
-      @apply mr-0;
+      &.selected {
+        @apply block;
+      }
     }
   }
+}
+
+#positions {
+  .positions-table {
+    thead {
+      tr {
+        th {
+          @apply text-right pl-10;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          @apply text-right;
+        }
+      }
+    }
+
+    .name-column {
+      @apply text-left pl-0;
+    }
+  }
+}
+
+#portfolio-select {
+  width: 20rem;
+}
+
+#sectors-pie-container {
+  max-width: 50%;
 }

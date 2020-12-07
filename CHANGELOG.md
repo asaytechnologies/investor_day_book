@@ -22,3 +22,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - sync service for Tinkoff api
 - api wrapper for IexCloud
 - api wrapper for YahooFinance
+- rendering sectors pie for shares

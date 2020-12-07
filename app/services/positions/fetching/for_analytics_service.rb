@@ -10,7 +10,7 @@ module Positions
           user
           .positions
           .order(id: :desc)
-          .includes(quote: :security)
+          .includes(quote: [security: :sector])
       end
     end
   end

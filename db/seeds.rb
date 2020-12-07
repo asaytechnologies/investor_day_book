@@ -3,17 +3,17 @@
 Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2020-12-04')
 Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
 
-_technology    = Sector.create(name: { en: 'Technology', ru: 'Информационные технологии' })
-_financial     = Sector.create(name: { en: 'Financial', ru: 'Финансовый сектор' })
-_communication = Sector.create(name: { en: 'Communication services', ru: 'Коммуникационные услуги' })
-_healthcare    = Sector.create(name: { en: 'Healthcare', ru: 'Здравоохранение' })
-_cyclical      = Sector.create(name: { en: 'Consumer cyclical', ru: 'Товары второй необходимости' })
-_industrials   = Sector.create(name: { en: 'Industrials', ru: 'Промышленность' })
-_energy        = Sector.create(name: { en: 'Energy', ru: 'Нефтегазовый сектор' })
-_defensive     = Sector.create(name: { en: 'Consumer defensive', ru: 'Товары первой необходимости' })
-_real_estate   = Sector.create(name: { en: 'Real estate', ru: 'Недвижимость' })
-_utilities     = Sector.create(name: { en: 'Utilities', ru: 'Энергетика' })
-_materials     = Sector.create(name: { en: 'Basic materials', ru: 'Сырьевой сектор' })
+_technology    = Sector.create(name: { en: 'Technology', ru: 'Информационные технологии' }, color: '#4285f4')
+_financial     = Sector.create(name: { en: 'Financial', ru: 'Финансовый сектор' }, color: '#ab47bc')
+_communication = Sector.create(name: { en: 'Communication services', ru: 'Коммуникационные услуги' }, color: '#0f9d58')
+_healthcare    = Sector.create(name: { en: 'Healthcare', ru: 'Здравоохранение' }, color: '#db4437')
+_cyclical      = Sector.create(name: { en: 'Consumer cyclical', ru: 'Товары второй необходимости' }, color: '#f4b400')
+_industrials   = Sector.create(name: { en: 'Industrials', ru: 'Промышленность' }, color: '#00acc1')
+_energy        = Sector.create(name: { en: 'Energy', ru: 'Нефтегазовый сектор' }, color: '#c2185b')
+_defensive     = Sector.create(name: { en: 'Consumer defensive', ru: 'Товары первой необходимости' }, color: '#ff7043')
+_real_estate   = Sector.create(name: { en: 'Real estate', ru: 'Недвижимость' }, color: '#00796b')
+_utilities     = Sector.create(name: { en: 'Utilities', ru: 'Энергетика' }, color: '#9e9d24')
+_materials     = Sector.create(name: { en: 'Basic materials', ru: 'Сырьевой сектор' }, color: '#f06292')
 
 # update sectors for securities
 sectors = Sector.all.each_with_object({}) do |sector, acc|
