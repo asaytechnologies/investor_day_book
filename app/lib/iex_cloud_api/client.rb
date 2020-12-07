@@ -6,6 +6,7 @@ module IexCloudApi
   class Client
     extend Dry::Initializer
     include Stocks::Company
+    include ReferenceData::Sectors
 
     BASE_URL = 'https://cloud.iexapis.com/stable/'
     TOKEN = Rails.application.credentials.dig(:iex_cloud, :token)
