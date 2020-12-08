@@ -38,6 +38,17 @@
   width: 20rem;
 }
 
-#sectors-pie-container {
-  max-width: 50%;
+.sectors-chart-box {
+  @apply flex;
+
+  #sectors-pie-container {
+    max-width: 33%;
+  }
+
+  #legend {
+    @apply flex items-center;
+
+    flex: 1;
+    height: 16rem;
+  }
 }

@@ -42,13 +42,16 @@
 <% end %>
 
 <% if @sector_pie_stats.size.positive? %>
-  <h5>Состав портфеля акций по секторам (в %)</h5>
+  <h5>Состав портфеля акций по секторам</h5>
 
-  <div
-    id='sectors-pie-container'
-    data-controller='analytics--sectors'
-    data-analytics--sectors-pie-value='<%= @sector_pie_stats.to_json %>'
-  >
-    <canvas id='sectors-pie' width='300' height='100'></canvas>
+  <div class='sectors-chart-box'>
+    <div
+      id='sectors-pie-container'
+      data-controller='analytics--sectors'
+      data-analytics--sectors-pie-value='<%= @sector_pie_stats.to_json %>'
+    >
+      <canvas id='sectors-pie' width='600' height='200'></canvas>
+    </div>
+    <div id='legend'></div>
   </div>
 <% end %>
