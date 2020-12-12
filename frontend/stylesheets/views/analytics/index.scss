@@ -25,6 +25,10 @@
         td {
           @apply text-right;
         }
+
+        &.plan {
+          opacity: .5;
+        }
       }
     }
 

@@ -2,12 +2,15 @@
 
 module Analytics
   class PositionsComponent < ViewComponent::Base
-    def initialize(portfolios:, positions:, portfolio: nil)
+    include ViewHelper
+
+    def initialize(portfolios:, positions:, portfolio: nil, options: {})
       @portfolios = portfolios
       @positions  = positions
       @portfolio  = portfolio
+      @options    = options
 
-      filter_positions if @portfolio
+      filter_positions
       positions_analytics
       share_sectors_pie
       calculate_total_stats
@@ -16,7 +19,8 @@ module Analytics
     private
 
     def filter_positions
-      @positions = @positions.where(portfolio: @portfolio)
+      @positions = @positions.where(portfolio: @portfolio) if @portfolio
+      @positions = @positions.real unless @options[:plan]
     end
 
     def positions_analytics
@@ -24,7 +28,11 @@ module Analytics
     end
 
     def share_sectors_pie
-      @sector_pie_stats = Analytics::ShareSectorsService.call(stats: @positions_analytics.dig(:share, :stats)).result
+      @sector_pie_stats =
+        Analytics::ShareSectorsService.call(
+          stats: @positions_analytics.dig(:share, :stats),
+          plans: @positions_analytics.dig(:share, :plans)
+        ).result
     end
 
     def calculate_total_stats

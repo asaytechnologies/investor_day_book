@@ -7,6 +7,10 @@ en:
       portfolios: Portfolios
       analytics: Analytics
   analytics:
+    portfolio:
+      profit: Portfolio profit
+    sectors:
+      header: Stock portfolio composition by sectors
     select:
       title: Select portfolio for stats
       total: All portfolios stats
@@ -18,9 +22,15 @@ en:
       current_price: Current price
       current_total_price: Current total price
       income: Income
-      shares_name: Shares
-      foundations_name: Foundations
-      bonds_name: Bonds
+      exchange_profit: Exchange profit
+      plan_price: Plan price
+      share_name: Shares
+      foundation_name: Foundations
+      bond_name: Bonds
+      header:
+        plan_share: Plan for shares
+        plan_bond: Plan for bonds
+        plan_foundation: Plan for foundations
     sidebar:
       select_portfolio: Select portfolio
       title: New position
@@ -34,6 +44,11 @@ en:
       search: Search for a quote...
       buy: Buy
       sell: Sell
+      plan: Plan
+      options:
+        button: Options
+        title: Options
+        show_plans: Show plans
   portfolios:
     table:
       created: Created at

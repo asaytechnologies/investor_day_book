@@ -7,6 +7,10 @@ ru:
       portfolios: Портфели
       analytics: Аналитика
   analytics:
+    portfolio:
+      profit: Прибыль портфеля
+    sectors:
+      header: Состав портфеля акций по секторам
     select:
       title: Выберите портфель для статистики
       total: Составной портфель
@@ -18,9 +22,15 @@ ru:
       current_price: Текущая цена
       current_total_price: Текущая стоимость
       income: Разница
-      shares_name: Акции
-      foundations_name: Фонды
-      bonds_name: Облигации
+      exchange_profit: Курсовая разница
+      plan_price: Цена покупки
+      share_name: Акции
+      foundation_name: Фонды
+      bond_name: Облигации
+      header:
+        plan_share: План по акциям
+        plan_bond: План по облигациям
+        plan_foundation: План по фондам
     sidebar:
       select_portfolio: Выберите портфель
       title: Добавить бумагу
@@ -34,6 +44,11 @@ ru:
       search: Поиск котировок...
       buy: Покупка
       sell: Продажа
+      plan: Планирование
+      options:
+        button: Настройки
+        title: Настройки
+        show_plans: Показать планы
   portfolios:
     table:
       created: Создан

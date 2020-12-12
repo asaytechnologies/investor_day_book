@@ -10,13 +10,31 @@ module Analytics
 
     def call(positions:)
       @result = positions.group_by(&:quote).each_with_object(default_stats) do |(quote, positions), acc|
-        stats = perform_calculation(quote, positions)
-        update_total_stats(acc, quote, stats)
-        update_security_stats(acc, quote, stats)
+        perform_real_positions_calculation(quote, positions.reject(&:plan), acc)
+        perform_plan_positions_calculation(quote, positions.select(&:plan).first, acc)
       end
     end
 
     private
+
+    def perform_real_positions_calculation(quote, positions, acc)
+      return if positions.empty?
+
+      stats = perform_calculation(quote, positions)
+      update_total_stats(acc, quote, stats)
+      update_security_stats(acc, quote, stats)
+    end
+
+    def perform_plan_positions_calculation(quote, position, acc)
+      return if position.nil?
+
+      acc[security_symbol(quote)][:plans][quote] = {
+        plan:                true,
+        amount:              position.amount,
+        price_cents:         position.price_cents,
+        selling_total_cents: position.amount * position.price_cents
+      }
+    end
 
     def perform_calculation(quote, positions)
       calculate_basis_stats(positions)
@@ -92,9 +110,9 @@ module Analytics
 
     def default_stats
       {
-        share:      { name: I18n.t('analytics.table.shares_name'), stats: {} },
-        foundation: { name: I18n.t('analytics.table.foundations_name'), stats: {} },
-        bond:       { name: I18n.t('analytics.table.bonds_name'), stats: {} },
+        share:      { stats: {}, plans: {} },
+        foundation: { stats: {}, plans: {} },
+        bond:       { stats: {}, plans: {} },
         total:      {
           RUB:     { total_cents: 0, income_cents: 0 },
           USD:     { total_cents: 0, income_cents: 0 },

@@ -8,9 +8,10 @@ module Analytics
 
     def initialize; end
 
-    def call(stats:)
+    def call(stats:, plans:)
       initialize_variables
       collect_absolute_values(stats)
+      collect_absolute_values(plans)
       count_relative_values
       sort_result
     end

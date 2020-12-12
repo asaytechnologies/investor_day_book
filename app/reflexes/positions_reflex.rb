@@ -4,16 +4,16 @@ class PositionsReflex < ApplicationReflex
   before_reflex :find_portfolio, only: [:create]
   before_reflex :find_quote, only: [:create]
 
-  def index(portfolio_id='0', locale='en')
+  def index(portfolio_id='0', locale='en', plan=false)
     current_locale(locale)
-    render_positions(current_user, portfolio_id)
+    render_positions(current_user, portfolio_id, plan)
   end
 
   def create(portfolio_id='0', locale='en')
     create_position
 
     current_locale(locale)
-    render_positions(current_user, portfolio_id)
+    render_positions(current_user, portfolio_id, false)
     morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: []))
   end
 
@@ -51,7 +51,7 @@ class PositionsReflex < ApplicationReflex
     position_params[:amount].to_i
   end
 
-  def render_positions(current_user, portfolio_id)
+  def render_positions(current_user, portfolio_id, plan)
     portfolio = find_user_portfolio_for_render(portfolio_id)
     positions = Positions::Fetching::ForAnalyticsService.call(user: current_user).result
 
@@ -61,7 +61,8 @@ class PositionsReflex < ApplicationReflex
         Analytics::PositionsComponent.new(
           portfolios: current_user.portfolios,
           positions:  positions,
-          portfolio:  portfolio
+          portfolio:  portfolio,
+          options:    { plan: plan }
         )
       )
     )

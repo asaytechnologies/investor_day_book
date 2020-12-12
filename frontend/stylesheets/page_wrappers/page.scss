@@ -40,6 +40,8 @@
   }
 
   section.content {
+    @apply min-h-screen overflow-y-scroll;
+
     flex: 1;
   }
 }
