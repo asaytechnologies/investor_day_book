@@ -7,6 +7,8 @@ ru:
       portfolios: Портфели
       analytics: Аналитика
   analytics:
+    balance:
+      title: Баланс валют
     portfolio:
       profit: Прибыль портфеля
     sectors:
@@ -47,6 +49,10 @@ ru:
       plan: Планирование
       options:
         show_plans: Показать планы
+      balance:
+        button: Указать баланс
+        title: Баланс портфеля
+        submit_button: Обновить баланс
   portfolios:
     table:
       created: Создан

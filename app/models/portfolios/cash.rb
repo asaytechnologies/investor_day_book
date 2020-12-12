@@ -12,6 +12,9 @@ module Portfolios
              foreign_key: :portfolios_cash_id,
              dependent:   :destroy
 
+    scope :balance, -> { where balance: true }
+    scope :income, -> { where balance: false }
+
     monetize :amount_cents
   end
 end

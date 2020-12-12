@@ -7,6 +7,8 @@ en:
       portfolios: Portfolios
       analytics: Analytics
   analytics:
+    balance:
+      title: Balance of currencies
     portfolio:
       profit: Portfolio profit
     sectors:
@@ -47,6 +49,10 @@ en:
       plan: Plan
       options:
         show_plans: Show plans
+      balance:
+        button: Set balance
+        title: Portfolio balance
+        submit_button: Update balance
   portfolios:
     table:
       created: Created at

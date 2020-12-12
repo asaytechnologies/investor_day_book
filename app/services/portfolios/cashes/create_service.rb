@@ -6,8 +6,10 @@ module Portfolios
       prepend BasicService
 
       def call(portfolio:)
-        Cashable::AVAILABLE_CURRENCIES.each do |currency|
-          portfolio.cashes.create(amount: Money.new(0, currency))
+        [true, false].each do |balance|
+          Cashable::AVAILABLE_CURRENCIES.each do |currency|
+            portfolio.cashes.create(amount: Money.new(0, currency), balance: balance)
+          end
         end
       end
     end

@@ -1,9 +1,17 @@
 <h5><%= t('analytics.portfolio.profit') %></h5>
 <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
+<%- income_summary = @positions_analytics[:total][:summary][:income_cents] + @balance_analytics[:summary_cents] %>
 <p>
-  <%= money_presenter(@positions_analytics[:total][:summary][:income_cents], 'RUB') %>
+  <%= money_presenter(income_summary, 'RUB') %>
   (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
 </p>
+
+<h4><%= t('analytics.balance.title') %></h4>
+<div class='mb-8'>
+  <% @balance_analytics[:stats].each do |currency, value| %>
+    <p><%= money_presenter(value, currency) %></p>
+  <% end %>
+</div>
 
 <% %i[share foundation bond].each do |key| %>
   <% if @positions_analytics[key][:stats].present? %>

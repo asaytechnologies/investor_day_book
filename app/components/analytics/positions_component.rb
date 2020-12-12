@@ -11,6 +11,7 @@ module Analytics
       @options    = options
 
       filter_positions
+      balance_analytics
       positions_analytics
       share_sectors_pie
       calculate_total_stats
@@ -21,6 +22,10 @@ module Analytics
     def filter_positions
       @positions = @positions.where(portfolio: @portfolio) if @portfolio
       @positions = @positions.real unless @options[:plan]
+    end
+
+    def balance_analytics
+      @balance_analytics = Analytics::BalanceService.call(portfolios: @portfolio ? [@portfolio] : @portfolios).result
     end
 
     def positions_analytics
@@ -42,7 +47,8 @@ module Analytics
     def accumulated_income_percent
       return 0 if initial_portfolio_cash.zero?
 
-      (100.0 * @positions_analytics[:total][:summary][:income_cents] / initial_portfolio_cash).round(2)
+      total_income_cents = @positions_analytics[:total][:summary][:income_cents] + @balance_analytics[:summary_cents]
+      (100.0 * total_income_cents / initial_portfolio_cash).round(2)
     end
 
     def initial_portfolio_cash

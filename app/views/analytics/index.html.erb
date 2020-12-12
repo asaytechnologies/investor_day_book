@@ -5,6 +5,10 @@
         <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
           <%= t('analytics.sidebar.button') %>
         </div>
+
+        <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
+          <%= t('analytics.sidebar.balance.button') %>
+        </div>
       </div>
 
       <form id='portfolio-select'>
@@ -109,6 +113,40 @@
 
             <button class='button' type='submit'>
               <%= t('analytics.sidebar.button') %>
+            </button>
+          </form>
+        </div>
+      <% end %>
+
+      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.balance.title'), window_index: 1) do %>
+        <div id='balance-container'>
+          <form data-controller='analytics--balance' data-action='submit->analytics--balance#submitForm'>
+
+            <div
+              class='form-field'
+              data-controller='shared--select'
+              data-shared--select-value='<%= @portfolios.first.name %>'
+              data-shared--select-value-index='<%= @portfolios.first.id %>'
+            >
+              <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
+              <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
+              <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
+              <div class='select-list' data-shared--select-target='list'>
+                <% @portfolios.find_each do |portfolio| %>
+                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                <% end %>
+              </div>
+            </div>
+
+            <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
+              <div class='form-field'>
+                <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
+                <input name='portfolio[<%= currency %>]' class='form-value' value='<%= @portfolios.first.cashes.balance.find_by(amount_currency: currency.upcase)&.amount_cents.to_i / 100.0 %>' />
+              </div>
+            <% end %>
+
+            <button class='button' type='submit'>
+              <%= t('analytics.sidebar.balance.submit_button') %>
             </button>
           </form>
         </div>

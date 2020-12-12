@@ -2,7 +2,7 @@
 
 module Portfolios
   module Cashes
-    class ChangeService
+    class IncomeChangeService
       prepend BasicService
 
       def initialize(
@@ -14,7 +14,7 @@ module Portfolios
       end
 
       def call(portfolio:, cashes_params:)
-        @portfolios_cashes = portfolio.cashes
+        @portfolios_cashes = portfolio.cashes.income
         @cashes_params     = cashes_params
 
         ActiveRecord::Base.transaction do
