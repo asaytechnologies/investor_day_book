@@ -45,11 +45,11 @@
 .sectors-chart-box {
   @apply flex;
 
-  #sectors-pie-container {
+  #sectors-pie-container, #actives-pie-container {
     max-width: 33%;
   }
 
-  #legend {
+  #legend, #actives-legend {
     @apply flex items-center;
 
     flex: 1;

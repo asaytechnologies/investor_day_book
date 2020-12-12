@@ -28,12 +28,17 @@ module Analytics
     def perform_plan_positions_calculation(quote, position, acc)
       return if position.nil?
 
-      acc[security_symbol(quote)][:plans][quote] = {
+      security_symbol = security_symbol(quote)
+      currency_symbol = quote_currency_symbol(quote)
+      selling_total_cents = position.amount * position.price_cents
+
+      acc[security_symbol][:plans][quote] = {
         plan:                true,
         amount:              position.amount,
         price_cents:         position.price_cents,
-        selling_total_cents: position.amount * position.price_cents
+        selling_total_cents: selling_total_cents
       }
+      acc[security_symbol][:total_cents] += selling_total_cents * EXCHANGE_RATES[currency_symbol]
     end
 
     def perform_calculation(quote, positions)
@@ -90,14 +95,16 @@ module Analytics
     def update_total_stats(acc, quote, stats)
       currency_symbol = quote_currency_symbol(quote)
 
-      # acc[:total][currency_symbol][:total_cents]  += stats[:selling_total_cents]
-      # acc[:total][currency_symbol][:income_cents] += stats[:selling_total_income_cents]
       acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * EXCHANGE_RATES[currency_symbol]
       acc[:total][:summary][:income_cents] += stats[:selling_total_income_cents] * EXCHANGE_RATES[currency_symbol]
     end
 
     def update_security_stats(acc, quote, stats)
-      acc[security_symbol(quote)][:stats][quote] = stats
+      security_symbol = security_symbol(quote)
+      currency_symbol = quote_currency_symbol(quote)
+
+      acc[security_symbol][:stats][quote] = stats
+      acc[security_symbol][:total_cents] += stats[:selling_total_cents] * EXCHANGE_RATES[currency_symbol]
     end
 
     def quote_currency_symbol(quote)
@@ -110,13 +117,10 @@ module Analytics
 
     def default_stats
       {
-        share:      { stats: {}, plans: {} },
-        foundation: { stats: {}, plans: {} },
-        bond:       { stats: {}, plans: {} },
+        share:      { stats: {}, plans: {}, total_cents: 0 },
+        foundation: { stats: {}, plans: {}, total_cents: 0 },
+        bond:       { stats: {}, plans: {}, total_cents: 0 },
         total:      {
-          RUB:     { total_cents: 0, income_cents: 0 },
-          USD:     { total_cents: 0, income_cents: 0 },
-          EUR:     { total_cents: 0, income_cents: 0 },
           summary: { total_cents: 0, income_cents: 0 }
         }
       }

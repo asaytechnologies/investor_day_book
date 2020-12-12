@@ -9,7 +9,8 @@ class AnalyticsController < ApplicationController
   private
 
   def portfolios
-    @portfolios = current_user.portfolios
+    @portfolios = current_user.portfolios.includes(:cashes)
+    @first_portfolio_cashes = @portfolios.first.cashes.balance
   end
 
   def positions

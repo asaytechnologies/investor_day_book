@@ -75,6 +75,21 @@
   <% end %>
 <% end %>
 
+<% if @actives_pie_stats.size.positive? %>
+  <h5><%= t('analytics.actives.header') %></h5>
+
+  <div class='sectors-chart-box mb-8'>
+    <div
+      id='actives-pie-container'
+      data-controller='analytics--actives'
+      data-analytics--actives-pie-value='<%= @actives_pie_stats.to_json %>'
+    >
+      <canvas id='actives-pie' width='600' height='200'></canvas>
+    </div>
+    <div id='actives-legend'></div>
+  </div>
+<% end %>
+
 <% if @sector_pie_stats.size.positive? %>
   <h5><%= t('analytics.sectors.header') %></h5>
 

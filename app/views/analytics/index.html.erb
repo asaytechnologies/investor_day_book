@@ -1,5 +1,5 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <% if @portfolios.present? %>
+  <% if @portfolios.exists? %>
     <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#positions'>
       <div class='sidebar-buttons'>
         <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
@@ -23,7 +23,7 @@
           <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
           <div class='select-list' data-shared--select-target='list'>
             <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
-            <% @portfolios.find_each do |portfolio| %>
+            <% @portfolios.each do |portfolio| %>
               <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
             <% end %>
           </div>
@@ -43,7 +43,7 @@
       </div>
 
       <div id='positions'>
-        <%= render Analytics::PositionsComponent.new(portfolios: current_user.portfolios, positions: @positions) %>
+        <%= render Analytics::PositionsComponent.new(portfolios: @portfolios, positions: @positions) %>
       </div>
 
       <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title'), window_index: 0) do %>
@@ -60,7 +60,7 @@
               <label class='form-label'><%= t('analytics.sidebar.select_portfolio') %></label>
               <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
               <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.find_each do |portfolio| %>
+                <% @portfolios.each do |portfolio| %>
                   <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
                 <% end %>
               </div>
@@ -132,7 +132,7 @@
               <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
               <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
               <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.find_each do |portfolio| %>
+                <% @portfolios.each do |portfolio| %>
                   <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
                 <% end %>
               </div>
@@ -141,7 +141,7 @@
             <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
               <div class='form-field'>
                 <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
-                <input name='portfolio[<%= currency %>]' class='form-value' value='<%= @portfolios.first.cashes.balance.find_by(amount_currency: currency.upcase)&.amount_cents.to_i / 100.0 %>' />
+                <input name='portfolio[<%= currency %>]' class='form-value' value='<%= @first_portfolio_cashes.find { |e| e.amount_currency == currency.upcase }&.amount_cents.to_i / 100.0 %>' />
               </div>
             <% end %>
 

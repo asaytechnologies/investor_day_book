@@ -13,6 +13,7 @@ module Analytics
       filter_positions
       balance_analytics
       positions_analytics
+      actives_pie
       share_sectors_pie
       calculate_total_stats
     end
@@ -30,6 +31,16 @@ module Analytics
 
     def positions_analytics
       @positions_analytics = Analytics::PositionsService.call(positions: @positions).result
+    end
+
+    def actives_pie
+      @actives_pie_stats =
+        Analytics::ActivesService.call(
+          currencies:  @balance_analytics[:summary_cents],
+          shares:      @positions_analytics[:share][:total_cents],
+          bonds:       @positions_analytics[:bond][:total_cents],
+          foundations: @positions_analytics[:foundation][:total_cents]
+        ).result
     end
 
     def share_sectors_pie

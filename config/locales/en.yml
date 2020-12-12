@@ -6,13 +6,20 @@ en:
       home: Home
       portfolios: Portfolios
       analytics: Analytics
+  actives:
+    shares: Shares
+    bonds: Bonds
+    foundations: Foundations
+    currencies: Currencies
   analytics:
+    actives:
+      header: Actives composition
     balance:
       title: Balance of currencies
     portfolio:
       profit: Portfolio profit
     sectors:
-      header: Stock portfolio composition by sectors
+      header: Shares portfolio composition by sectors
     select:
       title: Select portfolio for stats
       total: All portfolios stats
