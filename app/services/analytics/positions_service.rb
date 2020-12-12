@@ -11,7 +11,7 @@ module Analytics
     def call(positions:)
       @result = positions.group_by(&:quote).each_with_object(default_stats) do |(quote, positions), acc|
         perform_real_positions_calculation(quote, positions.reject(&:plan), acc)
-        perform_plan_positions_calculation(quote, positions.select(&:plan).first, acc)
+        perform_plan_positions_calculation(quote, positions.find(&:plan), acc)
       end
     end
 
