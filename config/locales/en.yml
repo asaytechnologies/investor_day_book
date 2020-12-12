@@ -46,8 +46,6 @@ en:
       sell: Sell
       plan: Plan
       options:
-        button: Options
-        title: Options
         show_plans: Show plans
   portfolios:
     table:

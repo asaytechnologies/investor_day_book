@@ -5,10 +5,6 @@
         <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
           <%= t('analytics.sidebar.button') %>
         </div>
-
-        <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
-          <%= t('analytics.sidebar.options.button') %>
-        </div>
       </div>
 
       <form id='portfolio-select'>
@@ -29,6 +25,18 @@
           </div>
         </div>
       </form>
+
+      <div id='options-container' data-controller='analytics--options'>
+        <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
+          <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
+          <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
+            <div class='toggle-box-content'>
+              <span data-shared--toggle-target='switch' class='toggle-value'></span>
+              <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div id='positions'>
         <%= render Analytics::PositionsComponent.new(portfolios: current_user.portfolios, positions: @positions) %>
@@ -103,22 +111,6 @@
               <%= t('analytics.sidebar.button') %>
             </button>
           </form>
-        </div>
-      <% end %>
-
-      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.options.title'), window_index: 1) do %>
-        <div id='options-container' data-controller='analytics--options'>
-
-          <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-            <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
-            <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
-              <div class='toggle-box-content'>
-                <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
-              </div>
-            </div>
-          </div>
-
         </div>
       <% end %>
     </div>

@@ -46,8 +46,6 @@ ru:
       sell: Продажа
       plan: Планирование
       options:
-        button: Настройки
-        title: Настройки
         show_plans: Показать планы
   portfolios:
     table:
