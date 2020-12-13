@@ -36,6 +36,7 @@ en:
       share_name: Shares
       foundation_name: Foundations
       bond_name: Bonds
+      face_value: Face value
       header:
         plan_share: Plan for shares
         plan_bond: Plan for bonds

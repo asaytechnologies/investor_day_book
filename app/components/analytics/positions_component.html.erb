@@ -22,6 +22,9 @@
         <tr>
           <th class='name-column'><%= t('analytics.table.name') %></th>
           <th><%= t('analytics.table.amount') %></th>
+          <% if key == :bond %>
+            <th><%= t('analytics.table.face_value') %></th>
+          <% end %>
           <th><%= t('analytics.table.average_price') %></th>
           <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.current_price') %></th>
@@ -35,6 +38,9 @@
           <tr class='position'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
             <td><%= stats[:unsold_amount] %></td>
+            <% if key == :bond %>
+              <td><%= money_presenter(quote.face_value_cents, quote.price_currency) %></td>
+            <% end %>
             <td><%= money_presenter(stats[:buying_unsold_average_cents], quote.price_currency) %></td>
             <td><%= money_presenter(stats[:buying_unsold_cents], quote.price_currency) %></td>
             <td><%= money_presenter(quote.price_cents, quote.price_currency) %></td>
@@ -55,6 +61,9 @@
         <tr>
           <th class='name-column'><%= t('analytics.table.name') %></th>
           <th><%= t('analytics.table.amount') %></th>
+          <% if key == :bond %>
+            <th><%= t('analytics.table.face_value') %></th>
+          <% end %>
           <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.plan_price') %></th>
           <th><%= t('analytics.table.current_price') %></th>
@@ -65,6 +74,9 @@
           <tr class='position plan'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
             <td><%= stats[:amount] %></td>
+            <% if key == :bond %>
+              <td><%= money_presenter(quote.face_value_cents, quote.price_currency) %></td>
+            <% end %>
             <td><%= money_presenter(stats[:selling_total_cents], quote.price_currency) %></td>
             <td><%= money_presenter(stats[:price_cents], quote.price_currency) %></td>
             <td><%= money_presenter(quote.price_cents, quote.price_currency) %></td>

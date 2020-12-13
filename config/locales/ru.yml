@@ -36,6 +36,7 @@ ru:
       share_name: Акции
       foundation_name: Фонды
       bond_name: Облигации
+      face_value: Номинал
       header:
         plan_share: План по акциям
         plan_bond: План по облигациям
