@@ -17,8 +17,14 @@
       text-overflow: ellipsis;
     }
 
-    .portfolio-cashes {
-      @apply mb-4;
+    .portfolio-cashes-list {
+      @apply flex;
+
+      .portfolio-cashes {
+        @apply mb-4;
+
+        flex: 1;
+      }
     }
 
     &:nth-of-type(3n) {

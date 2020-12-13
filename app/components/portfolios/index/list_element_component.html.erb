@@ -1,12 +1,23 @@
 <h6 class='portfolio-name'><%= @portfolio.name %></h6>
 
-<% if @caches.present? %>
-  <div class='portfolio-cashes'>
-    <p>Внесенные средства</p>
-    <% @caches.each do |cash| %>
-      <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
-    <% end %>
-  </div>
-<% end %>
+<p class='portfolio-created mb-4'><%= t('portfolios.table.created') %> - <%= @portfolio.created_at.strftime('%d.%m.%Y') %></p>
 
-<p class='portfolio-created'><%= t('portfolios.table.created') %> - <%= @portfolio.created_at.strftime('%d.%m.%Y') %></p>
+<div class='portfolio-cashes-list'>
+  <% if @income.present? %>
+    <div class='portfolio-cashes'>
+      <p>Внесенные средства</p>
+      <% @income.each do |cash| %>
+        <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @balance.present? %>
+    <div class='portfolio-cashes'>
+      <p>Баланс</p>
+      <% @balance.each do |cash| %>
+        <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
