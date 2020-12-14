@@ -35,7 +35,7 @@ module Analytics
 
     def count_relative_values
       @result.each do |_key, value|
-        value[:amount] = (100.0 * value[:amount] / @total_amount_cents).round(2)
+        value[:amount] = @total_amount_cents.zero? ? 0 : (100.0 * value[:amount] / @total_amount_cents).round(2)
       end
     end
 

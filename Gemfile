@@ -47,8 +47,12 @@ gem 'redis-rails'
 # Reactive Rails
 gem 'stimulus_reflex', '3.4.0.pre4'
 
+# Search engine
 gem 'mysql2', '~> 0.4', platform: :ruby
 gem 'thinking-sphinx', '~> 5.0'
+
+# any cable instead of action cable
+gem 'anycable-rails', '~> 1.0'
 
 group :development, :test do
   # testing
