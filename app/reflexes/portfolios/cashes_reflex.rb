@@ -25,16 +25,14 @@ module Portfolios
 
     def render_positions(portfolio_id, plan)
       portfolio = find_user_portfolio_for_render(portfolio_id)
-      positions = Positions::Fetching::ForAnalyticsService.call(user: current_user).result
 
       morph(
         '#positions',
         AnalyticsController.render(
           Analytics::PositionsComponent.new(
-            portfolios: current_user.portfolios,
-            positions:  positions,
-            portfolio:  portfolio,
-            options:    { plan: plan == 'true' }
+            current_user: current_user,
+            portfolio:    portfolio,
+            options:      { plan: plan == 'true' }
           )
         )
       )

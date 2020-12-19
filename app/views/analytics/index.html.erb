@@ -43,7 +43,7 @@
       </div>
 
       <div id='positions'>
-        <%= render Analytics::PositionsComponent.new(portfolios: @portfolios, positions: @positions) %>
+        <%= render Analytics::PositionsComponent.new(current_user: current_user) %>
       </div>
 
       <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title'), window_index: 0) do %>

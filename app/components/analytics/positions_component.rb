@@ -4,11 +4,11 @@ module Analytics
   class PositionsComponent < ViewComponent::Base
     include ViewHelper
 
-    def initialize(portfolios:, positions:, portfolio: nil, options: {})
-      @portfolios = portfolios
-      @positions  = positions
+    def initialize(current_user:, portfolio: nil, options: {})
+      @portfolios = current_user.portfolios
       @portfolio  = portfolio
       @options    = options
+      @positions  = Positions::Fetching::ForAnalyticsService.call(user: current_user).result
 
       find_exchange_rates
       filter_positions
