@@ -8,7 +8,7 @@
     "chart.js": "^2.9.4",
     "debounced": "^0.0.5",
     "stimulus": "^2.0.0",
-    "stimulus_reflex": "^3.4.0-pre4",
+    "stimulus_reflex": "^3.4.0",
     "tailwindcss": "^1.9.6"
   },
   "version": "0.1.0",

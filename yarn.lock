@@ -1698,10 +1698,10 @@ bytes@3.1.0, bytes@^3.0.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-"cable_ready@>= 4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/cable_ready/-/cable_ready-4.3.0.tgz#69c6c6963a60d7891f43c7530e343007a00a50b3"
-  integrity sha512-/hjwgdwMoe2hE5KKunsuWXDTr26GzwR7CovdFKHdSHD/yZTFFIv/eY27slMiXUEb57X12GHdliSM59rftTKpoQ==
+"cable_ready@>= 4.4":
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/cable_ready/-/cable_ready-4.4.6.tgz#a46c879ec48b722d78cb1fbe0c1850d2f6b2762a"
+  integrity sha512-nqo50yrnOlV0CKc+ysXnIzwulk7q54hGYUwbJb1s0pBY0eu1yjDhgdU8g9dxfO5xapK6S7oceuEnZ4FQawbU5g==
   dependencies:
     morphdom "^2.6.1"
 
@@ -7007,13 +7007,13 @@ stimulus@^2.0.0:
     "@stimulus/core" "^2.0.0"
     "@stimulus/webpack-helpers" "^2.0.0"
 
-stimulus_reflex@^3.4.0-pre4:
-  version "3.4.0-pre4"
-  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-3.4.0-pre4.tgz#88d4ed21d7cf611befec05db8963becd6bfe3496"
-  integrity sha512-FJXh2hp4GXb3X5H8abEfci8xde6QwsGUOFlY2303Tsn1Hj2K7rFyRXE/j7uzuTkz65zLaSV7DLEUCDtcDLGvgA==
+stimulus_reflex@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-3.4.0.tgz#3f8d4c77cf9e9fb7cd5bdce25fe52dddad22874f"
+  integrity sha512-hZrEzlmt8LWBZlmHadwPQh/JLqqLmwpkqxRN2DaDkEIXLhIUVL1kXvjsR4w/m4WIFDnFKiL0HEiCKHk8gfho6w==
   dependencies:
     "@rails/actioncable" ">= 6.0"
-    cable_ready ">= 4.3.0"
+    cable_ready ">= 4.4"
 
 stream-browserify@^2.0.1:
   version "2.0.2"

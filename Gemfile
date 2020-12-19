@@ -45,7 +45,7 @@ gem 'tinkoff_invest', '0.2.0'
 gem 'redis-rails'
 
 # Reactive Rails
-gem 'stimulus_reflex', '3.4.0.pre4'
+gem 'stimulus_reflex', '~> 3.4.0'
 
 # Search engine
 gem 'mysql2', '~> 0.4', platform: :ruby
