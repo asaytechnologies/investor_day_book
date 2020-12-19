@@ -4,11 +4,9 @@ module Analytics
   class PositionsService
     prepend BasicService
 
-    EXCHANGE_RATES = { RUB: 1, USD: 74.25, EUR: 90.26 }.freeze
+    def call(positions:, exchange_rates:)
+      @exchange_rates = exchange_rates
 
-    def initialize; end
-
-    def call(positions:)
       @result = positions.group_by(&:quote).each_with_object(default_stats) do |(quote, positions), acc|
         perform_real_positions_calculation(quote, positions.reject(&:plan), acc)
         perform_plan_positions_calculation(quote, positions.find(&:plan), acc)
@@ -38,7 +36,7 @@ module Analytics
         price_cents:         position.price_cents,
         selling_total_cents: selling_total_cents
       }
-      acc[security_symbol][:total_cents] += selling_total_cents * EXCHANGE_RATES[currency_symbol]
+      acc[security_symbol][:total_cents] += selling_total_cents * @exchange_rates[currency_symbol]
     end
 
     def perform_calculation(quote, positions)
@@ -95,8 +93,8 @@ module Analytics
     def update_total_stats(acc, quote, stats)
       currency_symbol = quote_currency_symbol(quote)
 
-      acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * EXCHANGE_RATES[currency_symbol]
-      acc[:total][:summary][:income_cents] += stats[:selling_total_income_cents] * EXCHANGE_RATES[currency_symbol]
+      acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:income_cents] += stats[:selling_total_income_cents] * @exchange_rates[currency_symbol]
     end
 
     def update_security_stats(acc, quote, stats)
@@ -104,7 +102,7 @@ module Analytics
       currency_symbol = quote_currency_symbol(quote)
 
       acc[security_symbol][:stats][quote] = stats
-      acc[security_symbol][:total_cents] += stats[:selling_total_cents] * EXCHANGE_RATES[currency_symbol]
+      acc[security_symbol][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
     end
 
     def quote_currency_symbol(quote)

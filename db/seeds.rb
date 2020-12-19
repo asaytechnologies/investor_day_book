@@ -2,6 +2,7 @@
 
 Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2020-12-04')
 Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
+ExchangeRates::SyncronizeService.call
 
 technology    = Sector.create(name: { en: 'Technology', ru: 'Информационные технологии' }, color: '#4285f4')
 financial     = Sector.create(name: { en: 'Financial', ru: 'Финансовый сектор' }, color: '#ab47bc')

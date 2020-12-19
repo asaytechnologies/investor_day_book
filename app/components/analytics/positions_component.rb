@@ -10,6 +10,7 @@ module Analytics
       @portfolio  = portfolio
       @options    = options
 
+      find_exchange_rates
       filter_positions
       balance_analytics
       positions_analytics
@@ -20,17 +21,34 @@ module Analytics
 
     private
 
+    def find_exchange_rates
+      rub_exchange_rates = ExchangeRate.where(rate_currency: 'RUB')
+      @exchange_rates = {
+        RUB: rub_exchange_rates.find { |e| e.base_currency == 'RUB' }.rate_amount,
+        USD: rub_exchange_rates.find { |e| e.base_currency == 'USD' }.rate_amount,
+        EUR: rub_exchange_rates.find { |e| e.base_currency == 'EUR' }.rate_amount
+      }
+    end
+
     def filter_positions
       @positions = @positions.where(portfolio: @portfolio) if @portfolio
       @positions = @positions.real unless @options[:plan]
     end
 
     def balance_analytics
-      @balance_analytics = Analytics::BalanceService.call(portfolios: @portfolio ? [@portfolio] : @portfolios).result
+      @balance_analytics =
+        Analytics::BalanceService.call(
+          portfolios:     @portfolio ? [@portfolio] : @portfolios,
+          exchange_rates: @exchange_rates
+        ).result
     end
 
     def positions_analytics
-      @positions_analytics = Analytics::PositionsService.call(positions: @positions).result
+      @positions_analytics =
+        Analytics::PositionsService.call(
+          positions:      @positions,
+          exchange_rates: @exchange_rates
+        ).result
     end
 
     def actives_pie
@@ -46,8 +64,9 @@ module Analytics
     def share_sectors_pie
       @sector_pie_stats =
         Analytics::ShareSectorsService.call(
-          stats: @positions_analytics.dig(:share, :stats),
-          plans: @positions_analytics.dig(:share, :plans)
+          stats:          @positions_analytics.dig(:share, :stats),
+          plans:          @positions_analytics.dig(:share, :plans),
+          exchange_rates: @exchange_rates
         ).result
     end
 

@@ -4,11 +4,9 @@ module Analytics
   class ShareSectorsService
     prepend BasicService
 
-    EXCHANGE_RATES = { RUB: 1, USD: 74.25, EUR: 90.26 }.freeze
+    def call(stats:, plans:, exchange_rates:)
+      @exchange_rates = exchange_rates
 
-    def initialize; end
-
-    def call(stats:, plans:)
       initialize_variables
       collect_absolute_values(stats)
       collect_absolute_values(plans)
@@ -65,7 +63,7 @@ module Analytics
     end
 
     def cents_amount(quote, stats)
-      stats[:selling_total_cents] * EXCHANGE_RATES[quote.price_currency.to_sym]
+      stats[:selling_total_cents] * @exchange_rates[quote.price_currency.to_sym]
     end
   end
 end

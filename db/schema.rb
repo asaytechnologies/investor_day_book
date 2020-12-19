@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_123049) do
+ActiveRecord::Schema.define(version: 2020_12_19_094709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "exchange_rates", force: :cascade do |t|
+    t.string "base_currency"
+    t.decimal "rate_amount", precision: 12, scale: 6
+    t.string "rate_currency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["base_currency", "rate_currency"], name: "index_exchange_rates_on_base_currency_and_rate_currency", unique: true
+    t.index ["rate_currency"], name: "index_exchange_rates_on_rate_currency"
+  end
 
   create_table "industries", force: :cascade do |t|
     t.jsonb "name", default: {}, null: false

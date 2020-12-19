@@ -4,15 +4,13 @@ module Analytics
   class BalanceService
     prepend BasicService
 
-    EXCHANGE_RATES = { RUB: 1, USD: 74.25, EUR: 90.26 }.freeze
-
-    def call(portfolios:)
+    def call(portfolios:, exchange_rates:)
       @result =
         portfolios.each_with_object(default_stats) do |portfolio, acc|
           portfolio.cashes.balance.each do |cash|
             currency_symbol = cash.amount_currency.to_sym
             acc[:stats][currency_symbol] += cash.amount_cents
-            acc[:summary_cents] += cash.amount_cents * EXCHANGE_RATES[currency_symbol]
+            acc[:summary_cents] += cash.amount_cents * exchange_rates[currency_symbol]
           end
         end
     end

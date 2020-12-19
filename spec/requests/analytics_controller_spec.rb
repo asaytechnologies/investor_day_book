@@ -31,6 +31,9 @@ describe AnalyticsController, type: :request do
 
         before do
           create :portfolio, user: user
+          create :exchange_rate, rate_currency: 'RUB', rate_amount: 1, base_currency: 'RUB'
+          create :exchange_rate, rate_currency: 'RUB', rate_amount: 75, base_currency: 'USD'
+          create :exchange_rate, rate_currency: 'RUB', rate_amount: 90, base_currency: 'EUR'
 
           post user_session_path(user: { email: user.email, password: user.password })
           follow_redirect!
