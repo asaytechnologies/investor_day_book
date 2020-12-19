@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2020-12-04')
 Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
 ExchangeRates::SyncronizeService.call
@@ -103,3 +105,25 @@ Share.find_by(ticker: 'PRTK').update(sector: healthcare) # Протек
 Share.find_by(ticker: 'LIFE').update(sector: healthcare) # Фармсинтез
 
 Share.find_by(ticker: 'QIWI').update(sector: technology) # Киви
+
+sector_links = {
+  'technology'    => technology,
+  'financial'     => financial,
+  'communication' => communication,
+  'healthcare'    => healthcare,
+  'cyclical'      => cyclical,
+  'industrials'   => industrials,
+  'energy'        => energy,
+  'defensive'     => defensive,
+  'real_estate'   => real_estate,
+  'utilities'     => utilities,
+  'materials'     => materials
+}
+
+rows = CSV.read(Rails.root.join('db/stocks.csv'), col_sep: ',', headers: false)
+rows.each do |row|
+  ticker = row[0]
+  sector = sector_links[row[1]]
+
+  Share.find_by(ticker: ticker)&.update(sector: sector)
+end
