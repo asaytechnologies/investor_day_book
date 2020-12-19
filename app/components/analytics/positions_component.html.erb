@@ -67,6 +67,7 @@
           <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.plan_price') %></th>
           <th><%= t('analytics.table.current_price') %></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -80,6 +81,13 @@
             <td><%= money_presenter(stats[:selling_total_cents], quote.price_currency) %></td>
             <td><%= money_presenter(stats[:price_cents], quote.price_currency) %></td>
             <td><%= money_presenter(quote.price_cents, quote.price_currency) %></td>
+            <td
+              class='remove-plan'
+              data-action='click->analytics#destroyPlan'
+              data-value-index='<%= stats[:position_id] %>'
+            >
+              x
+            </td>
           </tr>
         <% end %>
       </tbody>

@@ -17,6 +17,13 @@ class PositionsReflex < ApplicationReflex
     morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: []))
   end
 
+  def destroy(args={})
+    destroy_position(args['position_id'])
+
+    current_locale(args['locale'])
+    render_positions(args['portfolio_id'], args['show_plans'])
+  end
+
   private
 
   def find_user_portfolio_for_render(portfolio_id)
@@ -40,6 +47,13 @@ class PositionsReflex < ApplicationReflex
       price:     position_price,
       amount:    position_money,
       operation: operation_params[:operation]
+    )
+  end
+
+  def destroy_position(position_id)
+    Positions::DestroyService.call(
+      position_id: position_id,
+      user:        current_user
     )
   end
 

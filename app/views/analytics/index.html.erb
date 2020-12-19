@@ -1,6 +1,6 @@
 <%= render PageWrappers::PageComponent.new do %>
   <% if @portfolios.exists? %>
-    <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#positions'>
+    <div class='sidebar-container' data-controller='shared--sidebar analytics' data-reflex-root='#positions'>
       <div class='sidebar-buttons'>
         <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
           <%= t('analytics.sidebar.button') %>

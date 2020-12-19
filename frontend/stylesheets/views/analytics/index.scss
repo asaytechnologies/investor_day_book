@@ -28,6 +28,12 @@
 
         &.plan {
           opacity: .5;
+
+          td {
+            &.remove-plan {
+              @apply cursor-pointer;
+            }
+          }
         }
       }
     }

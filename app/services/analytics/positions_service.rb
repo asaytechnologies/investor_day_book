@@ -23,6 +23,7 @@ module Analytics
       update_security_stats(acc, quote, stats)
     end
 
+    # rubocop: disable Metrics/AbcSize
     def perform_plan_positions_calculation(quote, position, acc)
       return if position.nil?
 
@@ -34,10 +35,12 @@ module Analytics
         plan:                true,
         amount:              position.amount,
         price_cents:         position.price_cents,
-        selling_total_cents: selling_total_cents
+        selling_total_cents: selling_total_cents,
+        position_id:         position.id
       }
       acc[security_symbol][:total_cents] += selling_total_cents * @exchange_rates[currency_symbol]
     end
+    # rubocop: enable Metrics/AbcSize
 
     def perform_calculation(quote, positions)
       calculate_basis_stats(positions)
