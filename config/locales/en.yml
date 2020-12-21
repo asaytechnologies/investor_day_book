@@ -1,6 +1,14 @@
 en:
   devise:
     logout: Logout
+    sign_up: Sign Up
+    sign_in: Login
+    email: Email
+    password: Password
+    password_confirmation: Password confirmation
+    minimum: "%{amount} characters minimum"
+    have_account: Already have account?
+    have_no_account: Don't have account?
   wrapper:
     navigation:
       home: Home

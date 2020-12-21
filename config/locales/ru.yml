@@ -1,6 +1,14 @@
 ru:
   devise:
     logout: Выход
+    sign_up: Регистрация
+    sign_in: Вход
+    email: Почта
+    password: Пароль
+    password_confirmation: Подтверждение пароля
+    minimum: "как минимум %{amount} символов"
+    have_account: Уже есть аккаунт?
+    have_no_account: Еще нет аккаунта?
   wrapper:
     navigation:
       home: Главная

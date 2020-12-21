@@ -1,0 +1,21 @@
+.devise-page {
+  @apply h-full;
+  @apply flex items-center justify-center;
+
+  .devise-content {
+    width: 30rem;
+
+    h2 {
+      @apply mt-0;
+      @apply text-center;
+    }
+
+    .account_existing {
+      @apply mb-4;
+
+      a {
+        @apply underline;
+      }
+    }
+  }
+}
