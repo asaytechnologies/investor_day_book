@@ -40,6 +40,16 @@
             </div>
           </div>
         </div>
+
+        <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
+          <input type='hidden' id='show_dividents' name='show_dividents' data-shared--toggle-target='value' />
+          <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#toggleDividents'>
+            <div class='toggle-box-content'>
+              <span data-shared--toggle-target='switch' class='toggle-value'></span>
+              <span class='toggle-text'><%= t('analytics.sidebar.options.show_dividents') %></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id='positions'>

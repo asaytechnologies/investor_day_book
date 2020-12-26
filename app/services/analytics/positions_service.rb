@@ -4,8 +4,9 @@ module Analytics
   class PositionsService
     prepend BasicService
 
-    def call(positions:, exchange_rates:)
+    def call(positions:, exchange_rates:, dividents: false)
       @exchange_rates = exchange_rates
+      @dividents      = dividents
 
       @result = positions.group_by(&:quote).each_with_object(default_stats) do |(quote, positions), acc|
         perform_real_positions_calculation(quote, positions.reject(&:plan), acc)
@@ -73,7 +74,9 @@ module Analytics
       # selling price for unsold securities + selling price for sold securities
       selling_total_cents  = selling_unsold_cents + stats[:selling_sold_cents]
       # selling price for unsold securities + selling price for sold securities - buying price for all securities
-      selling_total_income_cents  = selling_total_cents - stats[:buying_total_cents]
+      selling_total_income_cents = selling_total_cents - stats[:buying_total_cents]
+      # dividents
+      dividents_amount_cents = quote.average_year_dividents_amount.to_f * 100 * stats[:unsold_amount]
       # difference between selling and buying price of unsold securities
       selling_unsold_income_cents = selling_unsold_cents - stats[:buying_unsold_cents]
       # average prices
@@ -86,19 +89,23 @@ module Analytics
         selling_unsold_cents:        selling_unsold_cents,
         selling_total_cents:         selling_total_cents,
         selling_total_income_cents:  selling_total_income_cents,
+        dividents_amount_cents:      dividents_amount_cents,
         selling_unsold_income_cents: selling_unsold_income_cents,
         buying_unsold_average_cents: buying_unsold_average_cents,
         exchange_profit:             exchange_profit
       )
     end
-    # rubocop: enable Metrics/AbcSize
 
     def update_total_stats(acc, quote, stats)
       currency_symbol = quote_currency_symbol(quote)
 
       acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
       acc[:total][:summary][:income_cents] += stats[:selling_total_income_cents] * @exchange_rates[currency_symbol]
+      return unless @dividents
+
+      acc[:total][:summary][:income_cents] += stats[:dividents_amount_cents] * @exchange_rates[currency_symbol]
     end
+    # rubocop: enable Metrics/AbcSize
 
     def update_security_stats(acc, quote, stats)
       security_symbol = security_symbol(quote)

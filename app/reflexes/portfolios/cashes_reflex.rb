@@ -18,12 +18,12 @@ module Portfolios
       Portfolios::Cashes::BalanceChangeService.call(portfolio: @portfolio, cashes_params: cashes_params)
 
       current_locale(args['locale'])
-      render_positions(args['portfolio_id'], args['show_plans'])
+      render_positions(args['portfolio_id'], args['show_plans'], args['show_dividents'])
     end
 
     private
 
-    def render_positions(portfolio_id, plan)
+    def render_positions(portfolio_id, plan, dividents)
       portfolio = find_user_portfolio_for_render(portfolio_id)
 
       morph(
@@ -32,7 +32,7 @@ module Portfolios
           Analytics::PositionsComponent.new(
             current_user: current_user,
             portfolio:    portfolio,
-            options:      { plan: plan == 'true' }
+            options:      { plan: plan == 'true', dividents: dividents == 'true' }
           )
         )
       )

@@ -47,7 +47,8 @@ module Analytics
       @positions_analytics =
         Analytics::PositionsService.call(
           positions:      @positions,
-          exchange_rates: @exchange_rates
+          exchange_rates: @exchange_rates,
+          dividents:      @options[:dividents]
         ).result
     end
 

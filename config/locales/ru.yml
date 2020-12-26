@@ -45,6 +45,8 @@ ru:
       foundation_name: Фонды
       bond_name: Облигации
       face_value: Номинал
+      dividents: Дивиденды
+      coupons: Купоны
       header:
         plan_share: План по акциям
         plan_bond: План по облигациям
@@ -65,6 +67,7 @@ ru:
       plan: Планирование
       options:
         show_plans: Показать планы
+        show_dividents: Показать доход за 1 год
       balance:
         button: Указать баланс
         title: Баланс портфеля

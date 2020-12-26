@@ -45,6 +45,8 @@ en:
       foundation_name: Foundations
       bond_name: Bonds
       face_value: Face value
+      dividents: Dividents
+      coupons: Coupons
       header:
         plan_share: Plan for shares
         plan_bond: Plan for bonds
@@ -65,6 +67,7 @@ en:
       plan: Plan
       options:
         show_plans: Show plans
+        show_dividents: Show dividents for 1 year
       balance:
         button: Set balance
         title: Portfolio balance
