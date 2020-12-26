@@ -13,8 +13,8 @@ module ExchangeRates
     end
 
     def call
-      Cashable::AVAILABLE_CURRENCIES.each do |base_currency|
-        Cashable::AVAILABLE_CURRENCIES.each do |rate_currency|
+      Cashable::AVAILABLE_CURRENCIES_UPCASE.each do |base_currency|
+        Cashable::AVAILABLE_CURRENCIES_UPCASE.each do |rate_currency|
           perform_exchage_rate(base_currency, rate_currency)
         end
       end
