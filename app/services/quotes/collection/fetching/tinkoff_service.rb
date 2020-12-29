@@ -8,7 +8,7 @@ module Quotes
 
         TINKOFF_API_TOKEN = Rails.application.credentials.dig(:tinkoff, :token)
         TINKOFF_API_REQUESTS_LIMIT = 100
-        TINKOFF_API_REQUESTS_TIMEOUT = 60
+        TINKOFF_API_REQUESTS_TIMEOUT = 70
 
         def initialize(tinkoff_api_client: TinkoffInvest::V1::Client.new(token: TINKOFF_API_TOKEN))
           @tinkoff_api_client = tinkoff_api_client

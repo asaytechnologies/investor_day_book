@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_26_072245) do
+ActiveRecord::Schema.define(version: 2020_12_26_162405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "bonds_coupons", force: :cascade do |t|
+    t.integer "quote_id"
+    t.datetime "payment_date"
+    t.decimal "coupon_value", precision: 12, scale: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quote_id"], name: "index_bonds_coupons_on_quote_id"
+  end
 
   create_table "exchange_rates", force: :cascade do |t|
     t.string "base_currency"

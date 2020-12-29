@@ -12,5 +12,6 @@ describe Bond, type: :model do
     it { is_expected.to belong_to(:sector).optional }
     it { is_expected.to have_many(:quotes).dependent(:destroy) }
     it { is_expected.to have_many(:positions).class_name('Users::Position').through(:quotes) }
+    it { is_expected.to have_many(:coupons).class_name('Bonds::Coupon').through(:quotes) }
   end
 end

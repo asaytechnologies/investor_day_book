@@ -6,8 +6,9 @@ module Quotes
       class MoexService
         prepend BasicService
 
-        COLUMNS_FOR_SELECTING = 'secid,boardid,currencyid'
-        NO_META = 'off'
+        def initialize(coupons_create_service: ::Bonds::Coupons::CreateService.new)
+          @coupons_create_service = coupons_create_service
+        end
 
         def call(data:)
           @securities = data[:securities]
@@ -21,7 +22,8 @@ module Quotes
           data
             .merge(ticker_info: @securities[data[:ticker]])
             .then { |element| find_or_create_security(element) }
-            .then { |element| find_or_create_quote(element) }
+            .then { |element| find_quote(element) }
+            .then { |element| find_or_create_bonds_coupons(element) }
         end
 
         def find_or_create_security(data)
@@ -37,27 +39,35 @@ module Quotes
           data.merge(security: security)
         end
 
-        def find_or_create_quote(data)
-          return if data[:price].nil?
-
-          quote = find_quote(data)
-          update_price_for_quote(quote, data)
-        end
-
         def find_quote(data)
-          Quote.find_or_initialize_by(security: data[:security], board: data[:board]) do |object|
-            object.source = Sourceable::MOEX
-          end
+          return data if data[:price].nil?
+
+          data.merge(quote: find_or_create_quote(data))
         end
 
-        def update_price_for_quote(quote, data)
-          if quote.new_record?
-            currency = data[:ticker_info][:boards].find { |element| element[1] == data[:board] }[2]
-            quote.price = Money.new(data[:price] * 100, currency)
-          else
-            quote.price_cents = data[:price] * 100
+        def find_or_create_quote(data)
+          attrs = { security: data[:security], price_currency: currency(data) }
+          quote = Quote.find_or_initialize_by(attrs) do |object|
+            object.source = Sourceable::MOEX
+            object.face_value_cents = data[:ticker_info][:face_value].to_f * 100
+            object.board = data[:board]
           end
-          quote.save
+          quote.price_cents = data[:price] * 100
+          quote.save!
+          quote
+        end
+
+        def currency(data)
+          return data[:currency] if data[:security_type] == 'Bond'
+
+          data[:ticker_info][:boards].find { |element| element[1] == data[:board] }[2]
+        end
+
+        def find_or_create_bonds_coupons(data)
+          return unless data[:quote]
+          return if data[:security_type] != 'Bond'
+
+          @coupons_create_service.call(quote: data[:quote], ticker_info: data[:ticker_info])
         end
       end
     end
