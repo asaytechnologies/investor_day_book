@@ -51,15 +51,12 @@
             <td><%= money_presenter(stats[:buying_unsold_cents], quote.price_currency) %></td>
             <td><%= money_presenter(quote.price_cents, quote.price_currency) %></td>
             <td><%= money_presenter(stats[:selling_unsold_cents], quote.price_currency) %></td>
-            <% if key == :share && @options[:dividents] %>
+            <% if key.in?(%i[share bond]) && @options[:dividents] %>
               <td>
                 <% if stats[:dividents_amount_cents].positive? %>
                   <%= money_presenter(stats[:dividents_amount_cents], quote.price_currency) %>
                 <% end %>
               </td>
-            <% end %>
-            <% if key == :bond && @options[:dividents] %>
-              <td></td>
             <% end %>
             <td><%= money_presenter(stats[:selling_unsold_income_cents], quote.price_currency) %></td>
             <td><%= stats[:exchange_profit] %>%</td>

@@ -75,8 +75,6 @@ module Analytics
       selling_total_cents  = selling_unsold_cents + stats[:selling_sold_cents]
       # selling price for unsold securities + selling price for sold securities - buying price for all securities
       selling_total_income_cents = selling_total_cents - stats[:buying_total_cents]
-      # dividents
-      dividents_amount_cents = quote.average_year_dividents_amount.to_f * 100 * stats[:unsold_amount]
       # difference between selling and buying price of unsold securities
       selling_unsold_income_cents = selling_unsold_cents - stats[:buying_unsold_cents]
       # average prices
@@ -89,11 +87,24 @@ module Analytics
         selling_unsold_cents:        selling_unsold_cents,
         selling_total_cents:         selling_total_cents,
         selling_total_income_cents:  selling_total_income_cents,
-        dividents_amount_cents:      dividents_amount_cents,
+        dividents_amount_cents:      dividents_amount_cents(quote, stats[:unsold_amount]),
         selling_unsold_income_cents: selling_unsold_income_cents,
         buying_unsold_average_cents: buying_unsold_average_cents,
         exchange_profit:             exchange_profit
       )
+    end
+
+    def dividents_amount_cents(quote, unsold_amount)
+      return quote.average_year_dividents_amount.to_f * 100 * unsold_amount if quote.security.is_a?(Share)
+      return 0 if quote.security.is_a?(Foundation)
+
+      coupons_values =
+        quote
+        .coupons
+        .where('payment_date > ? AND payment_date < ?', DateTime.now, DateTime.now + 1.year)
+        .pluck(:coupon_value)
+        .sum
+      coupons_values * 100 * unsold_amount
     end
 
     def update_total_stats(acc, quote, stats)
