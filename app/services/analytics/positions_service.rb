@@ -4,17 +4,33 @@ module Analytics
   class PositionsService
     prepend BasicService
 
-    def call(positions:, exchange_rates:, dividents: false)
+    def call(user:, portfolio_ids:, exchange_rates:, options: {})
       @exchange_rates = exchange_rates
-      @dividents      = dividents
+      @options        = options
 
-      @result = positions.group_by(&:quote).each_with_object(default_stats) do |(quote, positions), acc|
+      fetch_positions(user)
+      filter_positions(portfolio_ids)
+      perform_analytics
+    end
+
+    private
+
+    def fetch_positions(user)
+      @positions = Positions::Fetching::ForAnalyticsService.new.call(user: user)
+    end
+
+    def filter_positions(portfolio_ids)
+      @positions = @positions.where(portfolio: portfolio_ids)
+      @positions = @positions.real unless @options[:plan]
+      @positions = @positions.includes(quote: :coupons) if @options[:dividents]
+    end
+
+    def perform_analytics
+      @result = @positions.group_by(&:quote).each_with_object(default_stats) do |(quote, positions), acc|
         perform_real_positions_calculation(quote, positions.reject(&:plan), acc)
         perform_plan_positions_calculation(quote, positions.find(&:plan), acc)
       end
     end
-
-    private
 
     def perform_real_positions_calculation(quote, positions, acc)
       return if positions.empty?
@@ -95,6 +111,7 @@ module Analytics
     end
 
     def dividents_amount_cents(quote, unsold_amount)
+      return 0 unless @options[:dividents]
       return quote.average_year_dividents_amount.to_f * 100 * unsold_amount if quote.security.is_a?(Share)
       return 0 if quote.security.is_a?(Foundation)
 
@@ -112,7 +129,7 @@ module Analytics
 
       acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
       acc[:total][:summary][:income_cents] += stats[:selling_total_income_cents] * @exchange_rates[currency_symbol]
-      return unless @dividents
+      return unless @options[:dividents]
 
       acc[:total][:summary][:income_cents] += stats[:dividents_amount_cents] * @exchange_rates[currency_symbol]
     end

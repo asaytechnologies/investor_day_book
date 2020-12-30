@@ -3,11 +3,8 @@
 module Positions
   module Fetching
     class ForAnalyticsService
-      prepend BasicService
-
       def call(user:)
-        @result =
-          user
+        user
           .positions
           .order(id: :desc)
           .includes(quote: [security: :sector])

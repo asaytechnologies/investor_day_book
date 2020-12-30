@@ -5,13 +5,11 @@ module Analytics
     include ViewHelper
 
     def initialize(current_user:, portfolio: nil, options: {})
-      @portfolios = current_user.portfolios
-      @portfolio  = portfolio
-      @options    = options
-      @positions  = Positions::Fetching::ForAnalyticsService.call(user: current_user).result
+      @portfolio_ids = portfolio ? [portfolio.id] : current_user.portfolios.ids
+      @options       = options
+      @user          = current_user
 
       find_exchange_rates
-      filter_positions
       balance_analytics
       positions_analytics
       actives_pie
@@ -22,23 +20,20 @@ module Analytics
     private
 
     def find_exchange_rates
-      rub_exchange_rates = ExchangeRate.where(rate_currency: 'RUB')
-      @exchange_rates = {
-        RUB: rub_exchange_rates.find { |e| e.base_currency == 'RUB' }.rate_amount,
-        USD: rub_exchange_rates.find { |e| e.base_currency == 'USD' }.rate_amount,
-        EUR: rub_exchange_rates.find { |e| e.base_currency == 'EUR' }.rate_amount
-      }
-    end
-
-    def filter_positions
-      @positions = @positions.where(portfolio: @portfolio) if @portfolio
-      @positions = @positions.real unless @options[:plan]
+      @exchange_rates = Rails.cache.fetch('RUB_exchange_rates', expires_in: 4.hours) do
+        rub_exchange_rates = ExchangeRate.where(rate_currency: 'RUB')
+        {
+          RUB: rub_exchange_rates.find { |e| e.base_currency == 'RUB' }.rate_amount,
+          USD: rub_exchange_rates.find { |e| e.base_currency == 'USD' }.rate_amount,
+          EUR: rub_exchange_rates.find { |e| e.base_currency == 'EUR' }.rate_amount
+        }
+      end
     end
 
     def balance_analytics
       @balance_analytics =
         Analytics::BalanceService.call(
-          portfolios:     @portfolio ? [@portfolio] : @portfolios,
+          portfolio_ids:  @portfolio_ids,
           exchange_rates: @exchange_rates
         ).result
     end
@@ -46,9 +41,10 @@ module Analytics
     def positions_analytics
       @positions_analytics =
         Analytics::PositionsService.call(
-          positions:      @positions,
+          user:           @user,
+          portfolio_ids:  @portfolio_ids,
           exchange_rates: @exchange_rates,
-          dividents:      @options[:dividents]
+          options:        @options
         ).result
     end
 
@@ -84,7 +80,7 @@ module Analytics
 
     def initial_portfolio_cash
       @initial_portfolio_cash ||=
-        Portfolios::Cash.where(amount_currency: 'RUB', portfolio: @portfolio || @portfolios).sum(&:amount_cents)
+        Portfolios::Cash.where(amount_currency: 'RUB', portfolio: @portfolio_ids).sum(&:amount_cents)
     end
   end
 end
