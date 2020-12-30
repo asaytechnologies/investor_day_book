@@ -23,11 +23,39 @@
 
     <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.list.title'), window_index: 0) do %>
       <div id='portfolio-new-container' class='sidebar-content'>
-        <form data-controller='portfolios--portfolio-new' data-action='submit->portfolios--portfolio-new#submitForm'>
+        <form
+          data-controller='portfolios--portfolio-new'
+          data-action='submit->portfolios--portfolio-new#submitForm'
+          data-portfolios--portfolio-new-source='Tinkoff'
+        >
 
           <div class='form-field'>
             <label class='form-label'><%= t('portfolios.sidebar.list.name') %></label>
-            <input name='portfolio[name]' class='form-value' data-portfolios--portfolio-newtarget='name' />
+            <input name='portfolio[name]' class='form-value' data-portfolios--portfolio-new-target='name' />
+          </div>
+
+          <div
+            class='form-field'
+            data-controller='shared--select'
+            data-shared--select-value='Tinkoff'
+            data-shared--select-value-index='0'
+          >
+            <input type='hidden' data-shared--select-target='valueIndex' />
+            <label class='form-label'><%= t('portfolios.sidebar.operations.select_source') %></label>
+            <div
+              class='form-value'
+              data-action='click->shared--select#open'
+              data-shared--select-target='value'
+              data-portfolios--portfolio-new-target='source'
+            ></div>
+            <div class='select-list' data-shared--select-target='list'>
+              <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'>Tinkoff</div>
+            </div>
+          </div>
+
+          <div class='form-field'>
+            <label class='form-label'><%= t('portfolios.sidebar.list.file') %></label>
+            <input type='file' name='file' class='form-value' data-portfolios--portfolio-new-target='file' />
           </div>
 
           <button class='button' type='submit'>

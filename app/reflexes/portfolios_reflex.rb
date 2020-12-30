@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class PortfoliosReflex < ApplicationReflex
-  def create(locale='en')
+  def create(args={})
     create_portfolio
 
     @portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result
 
-    current_locale(locale)
+    current_locale(args['locale'])
   end
 
   private
