@@ -54,6 +54,9 @@ gem 'thinking-sphinx', '~> 5.0'
 # any cable instead of action cable
 gem 'anycable-rails', '~> 1.0'
 
+# read xlsx files
+gem 'roo-xls', '~> 1.2.0'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
