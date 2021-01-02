@@ -8,4 +8,6 @@ class User < ApplicationRecord
 
   has_many :portfolios, inverse_of: :user, dependent: :destroy
   has_many :positions, class_name: 'Users::Position', through: :portfolios
+
+  has_many :uploads, dependent: :destroy
 end

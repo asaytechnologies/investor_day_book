@@ -15,6 +15,7 @@ describe User, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:portfolios).dependent(:destroy) }
     it { is_expected.to have_many(:positions).class_name('Users::Position').through(:portfolios) }
+    it { is_expected.to have_many(:uploads).dependent(:destroy) }
   end
 
   it 'invalid without email' do

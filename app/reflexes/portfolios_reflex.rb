@@ -2,7 +2,7 @@
 
 class PortfoliosReflex < ApplicationReflex
   def create(args={})
-    create_portfolio
+    create_portfolio(args['guid'])
 
     @portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result
 
@@ -11,8 +11,8 @@ class PortfoliosReflex < ApplicationReflex
 
   private
 
-  def create_portfolio
-    Portfolios::CreateService.call(portfolio_params.merge(user: current_user))
+  def create_portfolio(guid)
+    Portfolios::CreateService.call(portfolio_params.merge(user: current_user, guid: guid))
   end
 
   def portfolio_params

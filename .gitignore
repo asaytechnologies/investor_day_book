@@ -38,3 +38,4 @@ dump.rdb
 
 /db/sphinx
 /config/*.sphinx.conf
+/storage

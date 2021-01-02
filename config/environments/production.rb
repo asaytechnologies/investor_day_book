@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
+  config.active_storage.service = :local
+
   # Specify AnyCable WebSocket server URL to use by JS client
   config.after_initialize do
     config.action_cable.url = ActionCable.server.config.url = ENV.fetch('CABLE_URL') if AnyCable::Rails.enabled?
