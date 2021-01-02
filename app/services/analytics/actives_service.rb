@@ -4,6 +4,13 @@ module Analytics
   class ActivesService
     prepend BasicService
 
+    COLORS = [
+      '#2480cc',
+      '#f93b4b',
+      '#29b327',
+      '#00c1ec'
+    ].freeze
+
     def call(args={})
       initialize_variables
       collect_values(args)
@@ -19,8 +26,8 @@ module Analytics
     end
 
     def collect_values(args)
-      args.each do |key, value|
-        add_sector(I18n.t("actives.#{key}"), 'red', value)
+      args.each.with_index do |(key, value), index|
+        add_sector(I18n.t("actives.#{key}"), COLORS[index], value)
         update_total_cents_counter(value)
       end
     end

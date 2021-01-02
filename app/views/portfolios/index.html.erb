@@ -5,7 +5,7 @@
         <%= t('portfolios.sidebar.list.button') %>
       </div>
       <div sidebar-portfolios-list>
-        <% if @portfolios.present? %>
+        <% if @portfolios.exists? %>
           <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
             <%= t('portfolios.sidebar.operations.button') %>
           </div>
@@ -14,7 +14,7 @@
     </div>
 
     <div id='portfolios' class='portfolios-list'>
-      <%= @portfolios.find_each do |portfolio| %>
+      <% @portfolios.each do |portfolio| %>
         <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
           <%= render Portfolios::Index::ListElementComponent.new(portfolio: portfolio) %>
         </div>
@@ -66,7 +66,7 @@
     <% end %>
 
     <div sidebar-portfolios-list>
-      <% if @portfolios.present? %>
+      <% if @portfolios.exists? %>
         <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.operations.title'), window_index: 1) do %>
           <div id='portfolio-operations-container'>
             <form data-controller='portfolios--cash-new' data-action='submit->portfolios--cash-new#submitForm'>
@@ -81,7 +81,7 @@
                 <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
                 <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
                 <div class='select-list' data-shared--select-target='list'>
-                  <% @portfolios.find_each do |portfolio| %>
+                  <% @portfolios.each do |portfolio| %>
                     <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
                   <% end %>
                 </div>

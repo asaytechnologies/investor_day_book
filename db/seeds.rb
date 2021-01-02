@@ -2,20 +2,20 @@
 
 require 'csv'
 
-Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2020-12-28')
+Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2020-12-29')
 Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
 ExchangeRates::SyncronizeService.call
 
-technology    = Sector.create(name: { en: 'Technology', ru: 'Информационные технологии' }, color: '#4285f4')
-financial     = Sector.create(name: { en: 'Financial', ru: 'Финансовый сектор' }, color: '#ab47bc')
-communication = Sector.create(name: { en: 'Communication services', ru: 'Коммуникационные услуги' }, color: '#0f9d58')
-healthcare    = Sector.create(name: { en: 'Healthcare', ru: 'Здравоохранение' }, color: '#db4437')
+technology    = Sector.create(name: { en: 'Technology', ru: 'Информационные технологии' }, color: '#2480cc')
+financial     = Sector.create(name: { en: 'Financial', ru: 'Финансовый сектор' }, color: '#f93b4b')
+communication = Sector.create(name: { en: 'Communication services', ru: 'Коммуникационные услуги' }, color: '#ff7518')
+healthcare    = Sector.create(name: { en: 'Healthcare', ru: 'Здравоохранение' }, color: '#00c1ec')
 cyclical      = Sector.create(name: { en: 'Consumer cyclical', ru: 'Товары второй необходимости' }, color: '#f4b400')
-industrials   = Sector.create(name: { en: 'Industrials', ru: 'Промышленность' }, color: '#00acc1')
-energy        = Sector.create(name: { en: 'Energy', ru: 'Нефтегазовый сектор' }, color: '#c2185b')
-defensive     = Sector.create(name: { en: 'Consumer defensive', ru: 'Товары первой необходимости' }, color: '#ff7043')
+industrials   = Sector.create(name: { en: 'Industrials', ru: 'Промышленность' }, color: '#7747ff')
+energy        = Sector.create(name: { en: 'Energy', ru: 'Нефтегазовый сектор' }, color: '#fe5da3')
+defensive     = Sector.create(name: { en: 'Consumer defensive', ru: 'Товары первой необходимости' }, color: '#eba23a')
 real_estate   = Sector.create(name: { en: 'Real estate', ru: 'Недвижимость' }, color: '#00796b')
-utilities     = Sector.create(name: { en: 'Utilities', ru: 'Энергетика' }, color: '#9e9d24')
+utilities     = Sector.create(name: { en: 'Utilities', ru: 'Энергетика' }, color: '#29b327')
 materials     = Sector.create(name: { en: 'Basic materials', ru: 'Сырьевой сектор' }, color: '#f06292')
 
 # update sectors for securities
