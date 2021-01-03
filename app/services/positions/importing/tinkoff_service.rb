@@ -12,14 +12,15 @@ module Positions
       SELL_OPERATION = '1'
       BUY_OPERATION = '0'
 
-      def call(file_url:, portfolio:)
-        return unless file_url
+      def call(file:, portfolio:)
+        return unless file
 
-        @file_url  = file_url
+        @file  = file
         @portfolio = portfolio
         @positions = []
 
         parse_xls_file
+        destroy_old_positions
         save_positions
       end
 
@@ -27,16 +28,18 @@ module Positions
 
       def parse_xls_file
         list_is_started = false
-        Roo::Excel.new(@file_url).sheet(0).each do |row|
-          unless list_is_started
-            list_is_started = true if row[0] == START_MARKER
-            next
-          end
-          break if row[0] == END_MARKER
-          next if row[0].to_i.zero?
-          next if row[22].include?(REPO_MARKER)
+        @file.open do |file|
+          Roo::Excel.new(file).sheet(0).each do |row|
+            unless list_is_started
+              list_is_started = true if row[0] == START_MARKER
+              next
+            end
+            break if row[0] == END_MARKER
+            next if row[0].to_i.zero?
+            next if row[22].include?(REPO_MARKER)
 
-          add_position(row)
+            add_position(row)
+          end
         end
       end
 
@@ -49,6 +52,10 @@ module Positions
           currency:    row[43],
           amount:      row[47].to_i
         }
+      end
+
+      def destroy_old_positions
+        @portfolio.positions.destroy_all
       end
 
       def save_positions

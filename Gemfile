@@ -43,6 +43,7 @@ gem 'tinkoff_invest', '0.2.0'
 
 # Background Jobs
 gem 'redis-rails'
+gem 'sidekiq', '~> 6.1'
 
 # Reactive Rails
 gem 'stimulus_reflex', '~> 3.4.0'

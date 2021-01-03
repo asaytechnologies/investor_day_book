@@ -80,6 +80,7 @@ GEM
     cable_ready (4.4.6)
       rails (>= 5.2)
     concurrent-ruby (1.1.7)
+    connection_pool (2.2.3)
     crass (1.0.6)
     database_cleaner (1.8.5)
     devise (4.7.3)
@@ -287,6 +288,10 @@ GEM
     semantic_range (2.3.1)
     shoulda-matchers (4.4.1)
       activesupport (>= 4.2.0)
+    sidekiq (6.1.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simplecov (0.20.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -376,6 +381,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   shoulda-matchers
+  sidekiq (~> 6.1)
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

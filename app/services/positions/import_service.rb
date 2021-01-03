@@ -10,9 +10,9 @@ module Positions
       @from_tinkoff_service = from_tinkoff_service
     end
 
-    def call(source:, file_url:, portfolio:)
+    def call(source:, file:, portfolio:)
       case source
-      when Sourceable::TINKOFF then @from_tinkoff_service.call(file_url: file_url, portfolio: portfolio)
+      when Sourceable::TINKOFF then @from_tinkoff_service.call(file: file, portfolio: portfolio)
       end
     end
   end
