@@ -15,7 +15,7 @@ module Positions
       def call(file:, portfolio:)
         return unless file
 
-        @file  = file
+        @file = file
         @portfolio = portfolio
         @positions = []
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Portfolios
-  class ImportInitialDataJob < ActiveJob::Base
+  class ImportInitialDataJob < ApplicationJob
     queue_as :default
 
     retry_on ActiveRecord::RecordNotFound, wait: 5.seconds, attempts: 5

@@ -41,7 +41,23 @@
 
   section.content {
     @apply min-h-screen overflow-y-scroll;
+    @apply relative;
 
     flex: 1;
+
+    #notifications {
+      @apply absolute z-10;
+
+      top: 1rem;
+      right: 1rem;
+
+      .notification {
+        @apply px-4 py-3 mb-2 rounded-lg;
+
+        &.success {
+          @apply bg-green-600 text-white;
+        }
+      }
+    }
   }
 }

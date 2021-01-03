@@ -25,7 +25,8 @@ export default class extends ApplicationController {
       Rails.ajax({
         url: "/uploads",
         type: "post",
-        data: formData
+        data: formData,
+        success: () => this.success()
       })
     } else {
       this.createPortfolioRequest(null)
@@ -44,8 +45,15 @@ export default class extends ApplicationController {
       'PortfoliosReflex#create',
       args
     )
+  }
 
-    console.log("File was uploaded")
+  success () {
+    const notification = document.createElement("div")
+    notification.classList.add("notification")
+    notification.classList.add("success")
+    notification.innerHTML = "<p>File for portfolio is uploaded</p><p>Portfolio positions will be created in a few minutes</p>"
+    document.getElementById("notifications").append(notification)
+    setTimeout(() => notification.remove(), 2500)
   }
 
   afterCreate () {
