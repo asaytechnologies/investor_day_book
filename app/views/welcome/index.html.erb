@@ -1,8 +1,24 @@
-<h1>Welcome</h1>
+<div id='welcome-page' class='container'>
+  <div class='welcome-navigation'>
+    <div class='left-side'>
+      <%= link_to t('welcome.investor'), portfolios_path %>
+    </div>
+    <div class='right-side'>
+      <% if user_signed_in? %>
+        <%= link_to t('welcome.dashboard'), portfolios_path, class: 'button' %>
+      <% else %>
+        <%= link_to t('welcome.login'), new_user_session_path, class: 'link' %>
+        <%= link_to t('welcome.register'), new_user_registration_path, class: 'button' %>
+      <% end %>
+    </div>
+  </div>
+  <div class='welcome-content'>
+    <div class='left-side'>
+      <h2><%= t('welcome.title') %></h2>
+      <p><%= t('welcome.description') %></p>
+    </div>
+    <div class='right-side'>
 
-<% if user_signed_in? %>
-  <%= link_to 'Logout', destroy_user_session_path %>
-<% else %>
-  <%= link_to 'Login', new_user_session_path %>
-  <%= link_to 'Signup', new_user_registration_path %>
-<% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+#welcome-page {
+  @apply mx-auto h-full flex flex-col;
+
+  .welcome-navigation {
+    @apply flex justify-between pt-4;
+
+    .left-side {
+      a {
+        line-height: 2.5rem;
+      }
+    }
+
+    .right-side {
+      .link {
+        @apply mr-4;
+      }
+    }
+  }
+
+  .welcome-content {
+    @apply flex items-center;
+
+    flex: 1;
+
+    .left-side {
+      @apply flex flex-col;
+
+      width: 50%;
+    }
+
+    .right-size {
+      width: 50%;
+    }
+  }
+}

@@ -7,9 +7,9 @@
   }
 
   .form-value {
-    @apply bg-blue-200 font-light leading-8;
-    @apply px-4 w-full h-8;
-    @apply rounded;
+    @apply bg-white font-light leading-8;
+    @apply px-4 py-1 w-full h-10;
+    @apply border border-blue-200 rounded;
   }
 
   .select-list {

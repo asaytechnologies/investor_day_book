@@ -1,14 +1,22 @@
 en:
+  welcome:
+    investor: InvestorDayBook
+    dashboard: Dashboard
+    login: Log in
+    register: Register
+    title: Simple and convenient service for investment planning
+    description: Keep records and analyze the positions of your investment portfolios, draw up a plan for subsequent investments, plan profitability.
   devise:
+    title: Welcome
     logout: Logout
-    sign_up: Sign Up
-    sign_in: Login
+    sign_up: Sign up
+    sign_in: Log in
     email: Email
     password: Password
     password_confirmation: Password confirmation
     minimum: "%{amount} characters minimum"
-    have_account: Already have account?
-    have_no_account: Don't have account?
+    have_account: Already signed up?
+    have_no_account: First time at InvestorDayBook?
   wrapper:
     navigation:
       home: Home

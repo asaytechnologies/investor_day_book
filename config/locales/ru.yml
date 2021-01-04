@@ -1,14 +1,22 @@
 ru:
+  welcome:
+    investor: InvestorDayBook
+    dashboard: Аналитика
+    login: Войти
+    register: Регистрация
+    title: Простой и удобный сервис для планирования инвестиций
+    description: Ведите учет и анализируйте позиции ваших инвестиционных портфелей, составляйте план последующих инвестиций, планируйте доходность.
   devise:
+    title: Добро пожаловать
     logout: Выход
     sign_up: Регистрация
-    sign_in: Вход
+    sign_in: Войти
     email: Почта
     password: Пароль
     password_confirmation: Подтверждение пароля
     minimum: "как минимум %{amount} символов"
-    have_account: Уже есть аккаунт?
-    have_no_account: Еще нет аккаунта?
+    have_account: Уже зарегистрированы?
+    have_no_account: Впервые на InvestorDayBook?
   wrapper:
     navigation:
       home: Главная

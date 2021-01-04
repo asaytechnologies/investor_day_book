@@ -1,5 +1,9 @@
 <%= render PageWrappers::DeviseComponent.new do %>
-  <h2><%= t('devise.sign_in') %></h2>
+  <h2><%= t('devise.title') %></h2>
+  <p class='account_existing'>
+    <%= t('devise.have_no_account') %>
+    <%= link_to t('devise.sign_up'), new_user_registration_path %>
+  </p>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class='form-field'>
@@ -18,11 +22,6 @@
         <%= f.label :remember_me %>
       </div>
     <% end %>
-
-    <p class='account_existing'>
-      <%= t('devise.have_no_account') %>
-      <%= link_to t('devise.sign_up'), new_user_registration_path %>
-    </p>
 
     <div class='actions'>
       <%= f.submit t('devise.sign_in'), class: 'button' %>
