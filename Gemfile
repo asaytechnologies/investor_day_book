@@ -12,7 +12,7 @@ gem 'rails', '~> 6.1.0'
 gem 'pg', '1.2.3'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.0.2'
+gem 'puma', '~> 5.1'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'foreman', '0.87.2'
@@ -39,7 +39,7 @@ gem 'faraday', '~> 1.1'
 gem 'faraday_middleware', '~> 1.0'
 
 # tinkoff invest api
-gem 'tinkoff_invest', '0.2.0'
+gem 'tinkoff_invest'
 
 # Background Jobs
 gem 'redis-rails'
