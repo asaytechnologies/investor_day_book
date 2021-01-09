@@ -1,22 +1,6 @@
 <div class='page'>
-  <nav class='navigation'>
-    <div class='navigation-group'>
-      <%= link_to t('wrapper.navigation.home'), home_index_path, class: 'navigation-link' %>
-      <%= link_to t('wrapper.navigation.portfolios'), portfolios_path, class: 'navigation-link' %>
-      <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'navigation-link' %>
-    </div>
-    <div class='navigation-group'>
-      <%= link_to t('devise.logout'), destroy_user_session_path, class: 'navigation-link' %>
-    </div>
-
-    <div class='navigation-footer'>
-      <% I18n.available_locales.each do |locale| %>
-        <%= link_to '', change_locale(locale), class: "flag flag_#{locale}" %>
-      <% end %>
-    </div>
-  </nav>
-  <section class='content'>
-    <div id='notifications'></div>
+  <div id='notifications'></div>
+  <main class='content container mx-auto'>
     <%= content %>
-  </section>
+  </main>
 </div>

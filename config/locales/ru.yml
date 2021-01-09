@@ -4,7 +4,7 @@ ru:
     dashboard: Аналитика
     login: Войти
     register: Регистрация
-    title: Простой и удобный сервис для планирования инвестиций
+    title: Сервис планирования инвестиций
     description: Ведите учет и анализируйте позиции ваших инвестиционных портфелей, составляйте план последующих инвестиций, планируйте доходность.
   devise:
     title: Добро пожаловать
@@ -19,7 +19,6 @@ ru:
     have_no_account: Впервые на InvestorDayBook?
   wrapper:
     navigation:
-      home: Главная
       portfolios: Портфели
       analytics: Аналитика
   actives:
@@ -83,6 +82,8 @@ ru:
   portfolios:
     table:
       created: Создан
+      incomes: Внесенные средства
+      balance: Баланс
     sidebar:
       list:
         title: Новый портфель

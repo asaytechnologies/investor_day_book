@@ -8,7 +8,7 @@
     .toggle-value {
       @apply inline-block relative mr-2;
       @apply w-10 h-6;
-      @apply border border-2 border-gray-400 rounded-xl;
+      @apply border-2 border-gray-300 rounded-xl;
 
       &:before {
         @apply absolute;
@@ -25,6 +25,8 @@
       }
 
       &.selected {
+        @apply border-2 border-blue-500 rounded-xl;
+
         &:before {
           @apply bg-blue-500;
 

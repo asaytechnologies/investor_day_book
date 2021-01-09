@@ -7,23 +7,29 @@
   }
 
   .form-value {
-    @apply bg-blue-200 font-light leading-8;
-    @apply px-4 w-full h-8;
-    @apply rounded;
+    @apply bg-white font-light leading-8;
+    @apply px-4 w-full h-10;
+    @apply border border-blue-200 rounded;
   }
 
   .dropdown-list {
-    @apply absolute left-0 w-full overflow-hidden z-10;
-    @apply rounded;
+    @apply absolute left-0 w-full;
+    @apply overflow-y-scroll z-10;
 
-    top: 3.625rem;
+    max-height: 25rem;
 
     .dropdown-list-element {
-      @apply bg-gray-100 px-4 py-2 w-full;
-      @apply border-b border-gray-500;
+      @apply bg-white px-4 py-2 w-full;
+      @apply border-b border-gray-200;
+      @apply border-r border-blue-200;
+      @apply border-l border-blue-200;
+
+      &:nth-of-type(1) {
+        border-radius: .25rem .25rem 0 0;
+      }
 
       &:nth-last-of-type(1) {
-        @apply border-none;
+        border-radius: 0 0 .25rem .25rem;
       }
 
       &:hover {

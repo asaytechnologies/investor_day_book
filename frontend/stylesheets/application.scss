@@ -5,14 +5,14 @@
 @import "general";
 @import "general/headline";
 
-@import "page_wrappers/page.scss";
-@import "page_wrappers/devise_page.scss";
-
 @import "components/form.scss";
 @import "components/sidebar.scss";
 @import "components/dropdown.scss";
 @import "components/button.scss";
 @import "components/toggle.scss";
+
+@import "page_wrappers/page.scss";
+@import "page_wrappers/devise_page.scss";
 
 @import "views/analytics/index.scss";
 @import "views/portfolios/index.scss";

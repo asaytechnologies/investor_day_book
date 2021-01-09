@@ -1,0 +1,26 @@
+<header class='content-navigation'>
+  <div class='navigation-block' data-controller='shared--navigation'>
+    <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
+      Navigation
+    </h4>
+    <div class='navigation-dropdown' data-shared--navigation-target='list'>
+      <%= link_to t('wrapper.navigation.portfolios'), portfolios_path, class: 'navigation-dropdown-link' %>
+      <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'navigation-dropdown-link' %>
+    </div>
+  </div>
+
+  <div class='profile-block navigation-block' data-controller='shared--navigation'>
+    <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
+      Profile
+    </h4>
+    <div class='navigation-dropdown' data-shared--navigation-target='list'>
+      <div class='select-language'>
+        <% I18n.available_locales.each do |locale| %>
+          <%= link_to '', change_locale(locale), class: "flag flag_#{locale}" %>
+        <% end %>
+      </div>
+
+      <%= link_to t('devise.logout'), destroy_user_session_path, class: 'logout-link' %>
+    </div>
+  </div>
+</header>

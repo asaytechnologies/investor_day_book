@@ -9,6 +9,6 @@ class AnalyticsController < ApplicationController
 
   def portfolios
     @portfolios = current_user.portfolios
-    @first_portfolio_cashes = @portfolios.first.cashes.balance
+    @first_portfolio_cashes = @portfolios.first&.cashes&.balance
   end
 end

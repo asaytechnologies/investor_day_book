@@ -3,21 +3,15 @@
 <p class='portfolio-created mb-4'><%= t('portfolios.table.created') %> - <%= @portfolio.created_at.strftime('%d.%m.%Y') %></p>
 
 <div class='portfolio-cashes-list'>
-  <% if @cashes.income.exists? %>
+  <% unless incomes.empty? %>
     <div class='portfolio-cashes'>
-      <p>Внесенные средства</p>
-      <% @cashes.income.each do |cash| %>
-        <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
-      <% end %>
+      <p><%= t('portfolios.table.incomes') %>: <%= incomes %></p>
     </div>
   <% end %>
 
-  <% if @cashes.balance.exists? %>
+  <% unless balance.empty? %>
     <div class='portfolio-cashes'>
-      <p>Баланс</p>
-      <% @cashes.balance.each do |cash| %>
-        <p><%= Money::Currency.new(cash.amount_currency).symbol %> <%= Money.new(cash.amount_cents) %></p>
-      <% end %>
+      <p><%= t('portfolios.table.balance') %>: <%= balance %></p>
     </div>
   <% end %>
 </div>

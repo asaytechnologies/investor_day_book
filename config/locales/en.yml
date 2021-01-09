@@ -4,7 +4,7 @@ en:
     dashboard: Dashboard
     login: Log in
     register: Register
-    title: Simple and convenient service for investment planning
+    title: Investment planning service
     description: Keep records and analyze the positions of your investment portfolios, draw up a plan for subsequent investments, plan profitability.
   devise:
     title: Welcome
@@ -19,7 +19,6 @@ en:
     have_no_account: First time at InvestorDayBook?
   wrapper:
     navigation:
-      home: Home
       portfolios: Portfolios
       analytics: Analytics
   actives:
@@ -83,6 +82,8 @@ en:
   portfolios:
     table:
       created: Created at
+      incomes: Incomes
+      balance: Balance
     sidebar:
       list:
         title: New portfolio

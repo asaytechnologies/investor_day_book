@@ -1,34 +1,15 @@
 .portfolios-list {
-  @apply flex flex-row flex-wrap;
-
   .portfolio {
-    @apply p-4 pt-2 mb-4;
-    @apply rounded;
-    @apply border border-gray-500;
+    @apply py-2 px-4;
 
-    width: 30%;
-    margin-right: 5%;
-
-    .portfolio-name {
-      @apply overflow-hidden;
-
-      height: 1.875rem;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+    &:hover {
+      @apply bg-gray-100;
     }
 
     .portfolio-cashes-list {
-      @apply flex;
-
       .portfolio-cashes {
         @apply mb-4;
-
-        flex: 1;
       }
-    }
-
-    &:nth-of-type(3n) {
-      @apply mr-0;
     }
   }
 }

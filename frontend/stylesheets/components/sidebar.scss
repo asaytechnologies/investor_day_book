@@ -1,16 +1,5 @@
 .sidebar-container {
-  @apply relative h-full p-10;
-
-  .sidebar-buttons {
-    @apply fixed flex flex-col;
-
-    top: 2.5rem;
-    right: 2.5rem;
-
-    .sidebar-open-button {
-      @apply mb-4;
-    }
-  }
+  @apply relative h-full p-10 pt-0;
 
   .sidebar {
     @apply hidden bg-white shadow-lg;

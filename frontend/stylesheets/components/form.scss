@@ -16,8 +16,8 @@
     @apply hidden;
 
     .select-list-item {
-      @apply bg-gray-100 px-4 py-2 w-full;
-      @apply border-b border-gray-500;
+      @apply bg-white px-4 py-2 w-full;
+      @apply border-b border-gray-200;
 
       &:nth-last-of-type(1) {
         @apply border-none;
@@ -29,10 +29,11 @@
     }
 
     &.open {
-      @apply block absolute left-0 w-full overflow-hidden z-10;
-      @apply rounded;
+      @apply block absolute left-0 w-full;
+      @apply overflow-hidden z-20 bg-white;
+      @apply border border-blue-200 rounded;
 
-      top: 3.625rem;
+      border-top: none;
     }
   }
 }

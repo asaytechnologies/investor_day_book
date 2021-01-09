@@ -2,7 +2,7 @@
 
 require 'csv'
 
-Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2020-12-29')
+Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2021-01-08')
 Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
 ExchangeRates::SyncronizeService.call
 

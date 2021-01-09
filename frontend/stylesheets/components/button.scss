@@ -1,8 +1,20 @@
 .button {
-  @apply inline-block px-4 py-2;
-  @apply bg-indigo-500 text-white rounded;
+  @apply inline-block px-6 py-3;
+  @apply text-white cursor-pointer;
+  @apply bg-gradient-to-r from-indigo-700 to-blue-500;
+  @apply rounded-3xl;
 
-  &:hover {
-    @apply cursor-pointer bg-indigo-600;
+  &.button-sm {
+    @apply text-base font-medium;
+    @apply px-4 py-2;
+  }
+
+  &.button-lg {
+    @apply text-lg font-medium;
+  }
+
+  &.button-reverse {
+    @apply bg-gradient-to-r from-white to-white;
+    @apply text-indigo-700 border border-indigo-700;
   }
 }

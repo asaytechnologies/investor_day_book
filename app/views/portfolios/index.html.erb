@@ -1,19 +1,25 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='sidebar-container' data-controller='shared--sidebar' data-reflex-root='#portfolios, [sidebar-portfolios-list]'>
-    <div class='sidebar-buttons'>
-      <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='0'>
-        <%= t('portfolios.sidebar.list.button') %>
-      </div>
-      <div sidebar-portfolios-list>
-        <% if @portfolios.exists? %>
-          <div class='button sidebar-open-button' data-action='click->shared--sidebar#open' data-value-index='1'>
-            <%= t('portfolios.sidebar.operations.button') %>
-          </div>
-        <% end %>
-      </div>
-    </div>
+  <div class='page-container sidebar-container' data-controller='shared--sidebar' data-reflex-root='#portfolios, [sidebar-portfolios-list]'>
 
-    <div id='portfolios' class='portfolios-list'>
+    <%= render Shared::HeaderComponent.new(current_user: current_user) %>
+
+    <section class='content-header'>
+      <h4 class='content-title'><%= t('wrapper.navigation.portfolios') %></h4>
+      <div class='content-buttons'>
+        <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
+          <%= t('portfolios.sidebar.list.button') %>
+        </span>
+        <div sidebar-portfolios-list>
+          <% if @portfolios.exists? %>
+            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
+              <%= t('portfolios.sidebar.operations.button') %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </section>
+
+    <div id='portfolios' class='page-content portfolios-list'>
       <% @portfolios.each do |portfolio| %>
         <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
           <%= render Portfolios::Index::ListElementComponent.new(portfolio: portfolio) %>

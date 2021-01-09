@@ -14,7 +14,6 @@ Rails.application.routes.draw do
       post 'users' => 'users/registrations#create', :as => :user_registration
     end
 
-    resources :home, only: %i[index]
     resources :portfolios, only: %i[index]
     resources :analytics, only: %i[index]
 

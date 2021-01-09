@@ -1,24 +1,26 @@
-<div id='welcome-page' class='container'>
-  <div class='welcome-navigation'>
-    <div class='left-side'>
+<div id='welcome-page'>
+  <header class='header'>
+    <div class='header-logo'>
       <%= link_to t('welcome.investor'), portfolios_path %>
     </div>
-    <div class='right-side'>
+    <nav class='header-links'>
       <% if user_signed_in? %>
-        <%= link_to t('welcome.dashboard'), portfolios_path, class: 'button' %>
+        <%= link_to t('welcome.dashboard'), portfolios_path, class: 'button button-lg' %>
       <% else %>
-        <%= link_to t('welcome.login'), new_user_session_path, class: 'link' %>
-        <%= link_to t('welcome.register'), new_user_registration_path, class: 'button' %>
+        <%= link_to t('welcome.login'), new_user_session_path, class: 'header-link' %>
+        <%= link_to t('welcome.register'), new_user_registration_path, class: 'button button-lg' %>
       <% end %>
+    </nav>
+  </header>
+  <main class='container mx-auto'>
+    <div class='welcome-content'>
+      <div class='welcome-content-header'>
+        <h1><%= t('welcome.title') %></h1>
+        <p><%= t('welcome.description') %></p>
+      </div>
     </div>
-  </div>
-  <div class='welcome-content'>
-    <div class='left-side'>
-      <h2><%= t('welcome.title') %></h2>
-      <p><%= t('welcome.description') %></p>
-    </div>
-    <div class='right-side'>
-
-    </div>
-  </div>
+  </main>
+  <footer>
+    <em>InvestorDayBook is build by ASAY Technologies.</em>
+  </footer>
 </div>

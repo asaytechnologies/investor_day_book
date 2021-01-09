@@ -11,17 +11,17 @@
     }
 
     .account_existing {
-      @apply mb-4 text-center;
+      @apply mb-4 text-center text-xl;
 
       a {
         @apply underline text-blue-500 font-semibold;
+
+        text-decoration-thickness: 2px;
       }
     }
 
     .actions {
-      .button {
-        @apply w-full;
-      }
+      @apply flex justify-center;
     }
   }
 }
