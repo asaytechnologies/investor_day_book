@@ -36,7 +36,7 @@ module Quotes
               object.name = { ru: data[:name], en: data[:ticker_info][:latname] }
             end
 
-          data.merge(security: security)
+          data.merge(security_id: security.id)
         end
 
         def find_quote(data)
@@ -46,15 +46,21 @@ module Quotes
         end
 
         def find_or_create_quote(data)
-          attrs = { security: data[:security], price_currency: currency(data) }
+          attrs = { security_id: data[:security_id], price_currency: currency(data) }
           quote = Quote.find_or_initialize_by(attrs) do |object|
             object.source = Sourceable::MOEX
             object.face_value_cents = data[:ticker_info][:face_value].to_f * 100
             object.board = data[:board]
           end
-          quote.price_cents = data[:price] * 100
+          quote.price_cents = quote_price_cents(quote, data)
           quote.save!
           quote
+        end
+
+        def quote_price_cents(quote, data)
+          return data[:price] * quote.face_value_cents / 100.0 if data[:security_type] == 'Bond'
+
+          data[:price] * 100
         end
 
         def currency(data)

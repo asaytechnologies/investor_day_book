@@ -125,7 +125,7 @@ module Quotes
             board:         line[0],
             name:          line[1],
             ticker:        line[2],
-            price:         price * 10.0,
+            price:         price,
             currency:      line[4]
           }
           @bonds_tickers << line[2]

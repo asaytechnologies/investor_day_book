@@ -14,7 +14,7 @@ module Quotes
 
         def process_data(data)
           find_or_create_security(data)
-            .then { |security| data.merge(security: security) }
+            .then { |security| data.merge(security_id: security.id) }
             .then { |data| find_or_initialize_quote(data) }
             .then { |quote| update_quote(quote, data) }
         end
@@ -27,7 +27,7 @@ module Quotes
         end
 
         def find_or_initialize_quote(data)
-          attrs = data[:quote_data].slice(:price_currency).merge(security: data[:security])
+          attrs = data[:quote_data].slice(:price_currency).merge(security_id: data[:security_id])
           Quote.find_or_initialize_by(attrs) do |object|
             object.source           = Sourceable::TINKOFF
             object.face_value_cents = data.dig(:quote_data, :face_value_cents)
