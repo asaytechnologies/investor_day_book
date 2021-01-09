@@ -72,6 +72,7 @@ module Quotes
         def find_or_create_bonds_coupons(data)
           return unless data[:quote]
           return if data[:security_type] != 'Bond'
+          return if data[:quote].coupons.exists?
 
           @coupons_create_service.call(quote: data[:quote], ticker_info: data[:ticker_info])
         end
