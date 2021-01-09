@@ -5,7 +5,7 @@ module Users
     protected
 
     def after_sign_in_path_for(_resource)
-      home_index_path
+      analytics_path
     end
   end
 end
