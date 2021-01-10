@@ -9,7 +9,19 @@
   .form-value {
     @apply bg-white font-light leading-8;
     @apply px-4 py-1 w-full h-10;
-    @apply border border-blue-200 rounded;
+    @apply border border-blue-500 rounded;
+
+    &.select-value {
+      @apply cursor-pointer relative;
+
+      &:after {
+        @apply absolute right-0 top-0;
+        @apply w-8 h-full;
+        @apply border-l border-blue-500;
+
+        content: '';
+      }
+    }
   }
 
   .select-list {
@@ -24,14 +36,14 @@
       }
 
       &:hover {
-        @apply cursor-pointer bg-gray-200;
+        @apply cursor-pointer bg-blue-200;
       }
     }
 
     &.open {
       @apply block absolute left-0 w-full;
       @apply overflow-hidden z-20 bg-white;
-      @apply border border-blue-200 rounded;
+      @apply border border-blue-500 rounded;
 
       border-top: none;
     }

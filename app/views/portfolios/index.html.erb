@@ -43,6 +43,7 @@
           <div
             class='form-field'
             data-controller='shared--select'
+            data-action='shared--select:click:outside->shared--select#close'
             data-shared--select-value='Tinkoff'
             data-shared--select-value-index='0'
           >
@@ -50,7 +51,7 @@
             <label class='form-label'><%= t('portfolios.sidebar.operations.select_source') %></label>
             <div
               class='form-value'
-              data-action='click->shared--select#open'
+              data-action='click->shared--select#toggle'
               data-shared--select-target='value'
               data-portfolios--portfolio-new-target='source'
             ></div>
@@ -80,12 +81,13 @@
               <div
                 class='form-field'
                 data-controller='shared--select'
+                data-action='shared--select:click:outside->shared--select#close'
                 data-shared--select-value='<%= @portfolios.first.name %>'
                 data-shared--select-value-index='<%= @portfolios.first.id %>'
               >
                 <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
                 <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-                <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
+                <div class='form-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
                 <div class='select-list' data-shared--select-target='list'>
                   <% @portfolios.each do |portfolio| %>
                     <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
@@ -96,12 +98,13 @@
               <div
                 class='form-field'
                 data-controller='shared--select'
+                data-action='shared--select:click:outside->shared--select#close'
                 data-shared--select-value='<%= t('portfolios.sidebar.operations.deposit') %>'
                 data-shared--select-value-index='0'
               >
                 <input type='hidden' name='portfolio[operation]' data-shared--select-target='valueIndex' />
                 <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
-                <div class='form-value' data-action='click->shared--select#open' data-shared--select-target='value'></div>
+                <div class='form-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
                 <div class='select-list' data-shared--select-target='list'>
                   <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
                   <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>

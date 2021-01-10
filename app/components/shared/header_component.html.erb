@@ -1,5 +1,5 @@
 <header class='content-navigation'>
-  <div class='navigation-block' data-controller='shared--navigation'>
+  <div class='navigation-block' data-controller='shared--navigation' data-action='shared--navigation:click:outside->shared--navigation#close'>
     <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
       Navigation
     </h4>
@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div class='profile-block navigation-block' data-controller='shared--navigation'>
+  <div class='profile-block navigation-block' data-controller='shared--navigation' data-action='shared--navigation:click:outside->shared--navigation#close'>
     <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
       Profile
     </h4>

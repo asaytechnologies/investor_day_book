@@ -9,7 +9,7 @@
   .form-value {
     @apply bg-white font-light leading-8;
     @apply px-4 w-full h-10;
-    @apply border border-blue-200 rounded;
+    @apply border border-blue-500 rounded;
   }
 
   .dropdown-list {
@@ -21,8 +21,8 @@
     .dropdown-list-element {
       @apply bg-white px-4 py-2 w-full;
       @apply border-b border-gray-200;
-      @apply border-r border-blue-200;
-      @apply border-l border-blue-200;
+      @apply border-r border-blue-500;
+      @apply border-l border-blue-500;
 
       &:nth-of-type(1) {
         border-radius: .25rem .25rem 0 0;
@@ -33,7 +33,7 @@
       }
 
       &:hover {
-        @apply cursor-pointer bg-gray-200;
+        @apply cursor-pointer bg-blue-200;
       }
     }
   }
