@@ -50,7 +50,7 @@
             <input type='hidden' data-shared--select-target='valueIndex' />
             <label class='form-label'><%= t('portfolios.sidebar.operations.select_source') %></label>
             <div
-              class='form-value'
+              class='form-value select-value'
               data-action='click->shared--select#toggle'
               data-shared--select-target='value'
               data-portfolios--portfolio-new-target='source'
@@ -87,7 +87,7 @@
               >
                 <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
                 <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-                <div class='form-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
+                <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
                 <div class='select-list' data-shared--select-target='list'>
                   <% @portfolios.each do |portfolio| %>
                     <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
@@ -104,7 +104,7 @@
               >
                 <input type='hidden' name='portfolio[operation]' data-shared--select-target='valueIndex' />
                 <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
-                <div class='form-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
+                <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
                 <div class='select-list' data-shared--select-target='list'>
                   <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
                   <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>

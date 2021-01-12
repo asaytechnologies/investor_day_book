@@ -21,6 +21,25 @@
 
         content: '';
       }
+
+      &:before {
+        @apply absolute;
+        @apply border-2 border-blue-500 w-3 h-3;
+
+        content: '';
+        right: .625rem;
+        top: .625rem;
+        transform: rotate(-45deg);
+        border-top: none;
+        border-right: none;
+      }
+
+      &.open {
+        &:before {
+          transform: rotate(135deg);
+          top: 1rem;
+        }
+      }
     }
   }
 

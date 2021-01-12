@@ -14,16 +14,16 @@ export default class extends ApplicationController {
 
   toggle () {
     this.listTarget.classList.toggle("open")
+    this.valueTarget.classList.toggle("open")
   }
 
   close (event) {
-    event.preventDefault()
-
     this.listTarget.classList.remove("open")
+    this.valueTarget.classList.remove("open")
   }
 
   select (event) {
-    this.listTarget.classList.remove("open")
+    this.close()
 
     this.valueTarget.innerHTML = event.target.innerHTML
     this.valueIndexTarget.value = event.target.dataset.valueIndex
