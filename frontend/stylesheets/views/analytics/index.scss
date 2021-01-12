@@ -14,16 +14,21 @@
   .positions-table {
     thead {
       tr {
+        @apply bg-blue-800 text-white;
+
         th {
-          @apply text-right pl-10;
+          @apply text-right pl-10 pr-2 py-2;
         }
       }
     }
 
     tbody {
       tr {
+        @apply cursor-pointer;
+
         td {
           @apply text-right;
+          @apply py-1 pr-2;
         }
 
         &.plan {
@@ -35,11 +40,23 @@
             }
           }
         }
+
+        &:hover {
+          @apply bg-gray-200;
+        }
+
+        &.profitable {
+          @apply bg-green-400;
+
+          &:hover {
+            @apply bg-green-500;
+          }
+        }
       }
     }
 
     .name-column {
-      @apply text-left pl-0;
+      @apply text-left pl-2;
     }
   }
 }

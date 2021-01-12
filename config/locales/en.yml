@@ -75,6 +75,7 @@ en:
       options:
         show_plans: Show plans
         show_dividents: Show dividents for 1 year
+        additional: Additional options
       balance:
         button: Set balance
         title: Portfolio balance

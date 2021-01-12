@@ -75,6 +75,7 @@ ru:
       options:
         show_plans: Показать планы
         show_dividents: Показать доход за 1 год
+        additional: Дополнительные фильтры
       balance:
         button: Указать баланс
         title: Баланс портфеля

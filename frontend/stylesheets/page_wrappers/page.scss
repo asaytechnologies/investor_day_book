@@ -1,25 +1,25 @@
 .page {
-  @apply flex flex-col h-screen;
+  @apply relative flex flex-col h-screen;
+
+  #notifications {
+    @apply absolute z-10;
+
+    top: 1rem;
+    left: 1rem;
+
+    .notification {
+      @apply px-4 py-3 mb-2 rounded-lg;
+
+      &.success {
+        @apply bg-green-400 text-white;
+      }
+    }
+  }
 
   main.content {
     @apply relative;
 
     flex: 1;
-
-    #notifications {
-      @apply absolute z-10;
-
-      top: 1rem;
-      right: 1rem;
-
-      .notification {
-        @apply px-4 py-3 mb-2 rounded-lg;
-
-        &.success {
-          @apply bg-green-600 text-white;
-        }
-      }
-    }
 
     .page-container {
       @apply flex flex-col;

@@ -4,7 +4,7 @@
 
       <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
-      <section class='content-header'>
+      <section class='content-header container mx-auto'>
         <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
         <div class='content-buttons'>
           <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
@@ -17,43 +17,46 @@
       </section>
 
       <div class='page-content'>
-        <form id='portfolio-select'>
-          <div
-            class='form-field'
-            data-controller='shared--select analytics--positions'
-            data-action='shared--select:click:outside->shared--select#close'
-            data-shared--select-value='<%= t('analytics.select.total') %>'
-            data-shared--select-value-index='0'
-          >
-            <input type='hidden' id='portfolio_id' name='portfolio_id' data-shared--select-target='valueIndex' />
-            <label class='form-label'><%= t('analytics.select.title') %></label>
-            <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-            <div class='select-list' data-shared--select-target='list'>
-              <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
-              <% @portfolios.each do |portfolio| %>
-                <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-              <% end %>
-            </div>
-          </div>
-        </form>
-
-        <div id='options-container' data-controller='analytics--options'>
-          <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-            <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
-            <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
-              <div class='toggle-box-content'>
-                <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
+        <div class='flex container mx-auto'>
+          <form id='portfolio-select' class='mr-10'>
+            <div
+              class='form-field'
+              data-controller='shared--select analytics--positions'
+              data-action='shared--select:click:outside->shared--select#close'
+              data-shared--select-value='<%= t('analytics.select.total') %>'
+              data-shared--select-value-index='0'
+            >
+              <input type='hidden' id='portfolio_id' name='portfolio_id' data-shared--select-target='valueIndex' />
+              <label class='form-label'><%= t('analytics.select.title') %></label>
+              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
+              <div class='select-list' data-shared--select-target='list'>
+                <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
+                <% @portfolios.each do |portfolio| %>
+                  <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                <% end %>
               </div>
             </div>
-          </div>
+          </form>
 
-          <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-            <input type='hidden' id='show_dividents' name='show_dividents' data-shared--toggle-target='value' />
-            <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#toggleDividents'>
-              <div class='toggle-box-content'>
-                <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                <span class='toggle-text'><%= t('analytics.sidebar.options.show_dividents') %></span>
+          <div id='options-container' data-controller='analytics--options'>
+            <p><%= t('analytics.sidebar.options.additional') %></p>
+            <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
+              <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
+              <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
+                <div class='toggle-box-content'>
+                  <span data-shared--toggle-target='switch' class='toggle-value'></span>
+                  <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
+                </div>
+              </div>
+            </div>
+
+            <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
+              <input type='hidden' id='show_dividents' name='show_dividents' data-shared--toggle-target='value' />
+              <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#toggleDividents'>
+                <div class='toggle-box-content'>
+                  <span data-shared--toggle-target='switch' class='toggle-value'></span>
+                  <span class='toggle-text'><%= t('analytics.sidebar.options.show_dividents') %></span>
+                </div>
               </div>
             </div>
           </div>

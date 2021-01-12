@@ -3,7 +3,7 @@
 
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
-    <section class='content-header'>
+    <section class='content-header container mx-auto'>
       <h4 class='content-title'><%= t('wrapper.navigation.portfolios') %></h4>
       <div class='content-buttons'>
         <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
@@ -19,7 +19,7 @@
       </div>
     </section>
 
-    <div id='portfolios' class='page-content portfolios-list'>
+    <div id='portfolios' class='page-content portfolios-list container mx-auto'>
       <% @portfolios.each do |portfolio| %>
         <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
           <%= render Portfolios::Index::ListElementComponent.new(portfolio: portfolio) %>
