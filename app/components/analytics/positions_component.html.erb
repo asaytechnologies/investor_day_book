@@ -1,24 +1,3 @@
-<div class='flex container mx-auto'>
-  <div class='mr-10'>
-    <h4><%= t('analytics.portfolio.profit') %></h4>
-    <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
-    <%- income_summary = @positions_analytics[:total][:summary][:income_cents] + @balance_analytics[:summary_cents] %>
-    <p>
-      <%= money_presenter(income_summary, 'RUB') %>
-      (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
-    </p>
-  </div>
-
-  <div>
-    <h4><%= t('analytics.balance.title') %></h4>
-    <div class='mb-8'>
-      <% @balance_analytics[:stats].each do |currency, value| %>
-        <p><%= money_presenter(value, currency) %></p>
-      <% end %>
-    </div>
-  </div>
-</div>
-
 <% %i[share bond foundation].each do |key| %>
   <% if @positions_analytics[key][:stats].present? %>
     <h4><%= t("analytics.table.#{key}_name") %></h4>
@@ -48,7 +27,7 @@
       <tbody>
         <% @positions_analytics[key][:stats].each do |quote, stats| %>
           <% next if stats[:unsold_amount].zero? %>
-          <tr class='position <%= 'profitable' if stats[:exchange_profit].positive? %>'>
+          <tr class='position'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
             <td><%= stats[:unsold_amount] %></td>
             <% if key == :bond %>
@@ -66,7 +45,7 @@
               </td>
             <% end %>
             <td><%= money_presenter(stats[:selling_unsold_income_cents], quote.price_currency) %></td>
-            <td><%= stats[:exchange_profit] %>%</td>
+            <td class='<%= 'profitable' if stats[:exchange_profit].positive? %> <%= 'negative' if stats[:exchange_profit].negative? %>'><%= stats[:exchange_profit] %>%</td>
           </tr>
         <% end %>
       </tbody>
@@ -114,6 +93,27 @@
     </table>
   <% end %>
 <% end %>
+
+<div class='flex'>
+  <div class='mr-10'>
+    <h4><%= t('analytics.portfolio.profit') %></h4>
+    <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
+    <%- income_summary = @positions_analytics[:total][:summary][:income_cents] + @balance_analytics[:summary_cents] %>
+    <p>
+      <%= money_presenter(income_summary, 'RUB') %>
+      (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
+    </p>
+  </div>
+
+  <div>
+    <h4><%= t('analytics.balance.title') %></h4>
+    <div class='mb-8'>
+      <% @balance_analytics[:stats].each do |currency, value| %>
+        <p><%= money_presenter(value, currency) %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <% if @actives_pie_stats.size.positive? %>
   <h5><%= t('analytics.actives.header') %></h5>

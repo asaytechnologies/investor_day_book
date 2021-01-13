@@ -26,9 +26,25 @@
       tr {
         @apply cursor-pointer;
 
+        &:nth-of-type(odd) {
+          @apply bg-gray-100;
+        }
+
+        &:hover {
+          @apply bg-gray-200;
+        }
+
         td {
           @apply text-right;
           @apply py-1 pr-2;
+
+          &.profitable {
+            @apply text-green-500;
+          }
+
+          &.negative {
+            @apply text-red-500;
+          }
         }
 
         &.plan {
@@ -38,18 +54,6 @@
             &.remove-plan {
               @apply cursor-pointer;
             }
-          }
-        }
-
-        &:hover {
-          @apply bg-gray-200;
-        }
-
-        &.profitable {
-          @apply bg-green-400;
-
-          &:hover {
-            @apply bg-green-500;
           }
         }
       }
