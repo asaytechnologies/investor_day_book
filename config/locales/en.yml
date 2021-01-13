@@ -1,6 +1,6 @@
 en:
   welcome:
-    investor: InvestorDayBook
+    investor: InvestPlan
     dashboard: Dashboard
     login: Log in
     register: Register
@@ -8,6 +8,8 @@ en:
     description: Keep records and analyze the positions of your investment portfolios, draw up a plan for subsequent investments, plan profitability.
   devise:
     title: Welcome
+    confirmation_link: You can confirm your account email through the link below
+    confirm_account: Confirm my account
     logout: Logout
     sign_up: Sign up
     sign_in: Log in
@@ -16,7 +18,7 @@ en:
     password_confirmation: Password confirmation
     minimum: "%{amount} characters minimum"
     have_account: Already signed up?
-    have_no_account: First time at InvestorDayBook?
+    have_no_account: First time at InvestPlan?
   wrapper:
     navigation:
       portfolios: Portfolios

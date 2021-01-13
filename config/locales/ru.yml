@@ -1,6 +1,6 @@
 ru:
   welcome:
-    investor: InvestorDayBook
+    investor: InvestPlan
     dashboard: Аналитика
     login: Войти
     register: Регистрация
@@ -8,6 +8,8 @@ ru:
     description: Ведите учет и анализируйте позиции ваших инвестиционных портфелей, составляйте план последующих инвестиций, планируйте доходность.
   devise:
     title: Добро пожаловать
+    confirmation_link: Вы можете подтвердить свою почту, пройдя по этой ссылке
+    confirm_account: Подтвердить почту
     logout: Выход
     sign_up: Регистрация
     sign_in: Войти
@@ -16,7 +18,7 @@ ru:
     password_confirmation: Подтверждение пароля
     minimum: "как минимум %{amount} символов"
     have_account: Уже зарегистрированы?
-    have_no_account: Впервые на InvestorDayBook?
+    have_no_account: Впервые на InvestPlan?
   wrapper:
     navigation:
       portfolios: Портфели

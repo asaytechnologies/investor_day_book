@@ -4,20 +4,22 @@
 
       <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
-      <section class='content-header container mx-auto'>
-        <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
-        <div class='content-buttons'>
-          <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
-            <%= t('analytics.sidebar.button') %>
-          </span>
-          <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
-            <%= t('analytics.sidebar.balance.button') %>
-          </span>
+      <section class='content-header'>
+        <div class='content-header-body container mx-auto'>
+          <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
+          <div class='content-buttons'>
+            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
+              <%= t('analytics.sidebar.button') %>
+            </span>
+            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
+              <%= t('analytics.sidebar.balance.button') %>
+            </span>
+          </div>
         </div>
       </section>
 
       <div class='page-content'>
-        <div class='flex mt-10'>
+        <div class='flex mt-6'>
           <form id='portfolio-select' class='mr-10'>
             <div
               class='form-field'

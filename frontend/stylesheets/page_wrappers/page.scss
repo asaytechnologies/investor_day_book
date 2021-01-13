@@ -1,3 +1,14 @@
+.header-link {
+  @apply mr-4;
+  @apply text-xl font-semibold underline;
+
+  text-decoration-thickness: 2px;
+
+  &:hover {
+    @apply text-blue-800;
+  }
+}
+
 .page {
   @apply relative flex flex-col h-screen;
 
@@ -27,74 +38,57 @@
       flex: 1;
 
       header.content-navigation {
-        @apply flex justify-center relative;
+        @apply flex justify-end relative;
 
-        .navigation-block {
-          @apply relative flex justify-center;
+        .header-links {
+          @apply flex items-center;
+        }
+
+        .profile-block {
+          .navigation-link {
+            img {
+              @apply w-12 h-12 rounded-lg cursor-pointer;
+            }
+          }
 
           .navigation-dropdown {
             @apply hidden;
 
             &.open {
-              @apply absolute flex;
+              @apply absolute right-0 flex flex-col;
               @apply bg-blue-500 rounded-lg;
               @apply p-4;
 
               top: 4rem;
-            }
+              width: 12rem;
 
-            .navigation-dropdown-link {
-              @apply bg-blue-400 text-white font-semibold;
-              @apply inline-block p-4;
-              @apply rounded;
+              .select-language {
+                @apply flex pl-4;
 
-              &:nth-of-type(1) {
-                @apply mr-4;
-              }
+                .flag {
+                  @apply inline-block mr-1 h-4;
 
-              &:hover {
-                @apply bg-blue-600;
-              }
-            }
-          }
+                  width: 1.5625rem;
+                  background: url("../images/flags.png");
 
-          &.profile-block {
-            @apply absolute right-0 top-0;
+                  &.flag_ru {
+                    background-size: 100%;
+                    background-position: 0 0;
+                  }
 
-            .navigation-dropdown {
-              &.open {
-                @apply flex-col right-0;
-
-                width: 12rem;
-
-                .select-language {
-                  @apply flex pl-4;
-
-                  .flag {
-                    @apply inline-block mr-1 h-4;
-
-                    width: 1.5625rem;
-                    background: url("../images/flags.png");
-
-                    &.flag_ru {
-                      background-size: 100%;
-                      background-position: 0 0;
-                    }
-
-                    &.flag_en {
-                      background-size: 100%;
-                      background-position: 0 -1rem;
-                    }
+                  &.flag_en {
+                    background-size: 100%;
+                    background-position: 0 -1rem;
                   }
                 }
+              }
 
-                .logout-link {
-                  @apply px-4 py-2 mt-4;
-                  @apply text-white font-semibold rounded-lg;
+              .logout-link {
+                @apply px-4 py-2 mt-4;
+                @apply text-white font-semibold rounded-lg;
 
-                  &:hover {
-                    @apply bg-blue-600;
-                  }
+                &:hover {
+                  @apply bg-blue-600;
                 }
               }
             }
@@ -103,7 +97,11 @@
       }
 
       section.content-header {
-        @apply flex justify-between items-center;
+        @apply bg-blue-100;
+
+        .content-header-body {
+          @apply flex justify-between items-center;
+        }
 
         .content-buttons {
           @apply py-2;
@@ -116,6 +114,8 @@
       }
 
       .page-content {
+        @apply p-10 pt-0;
+
         flex: 1;
       }
     }

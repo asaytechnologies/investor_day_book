@@ -2,7 +2,7 @@
   .portfolio {
     @apply py-2 px-4;
 
-    &:hover {
+    &:nth-of-type(odd) {
       @apply bg-gray-100;
     }
 

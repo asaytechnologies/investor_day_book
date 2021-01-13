@@ -23,7 +23,8 @@ module.exports = {
         600: '#2563eB',
         500: '#3b82f6',
         400: '#60a5fa',
-        200: '#bfdbfe'
+        200: '#bfdbfe',
+        100: '#dbeafe'
       },
       'indigo': {
         700: '#4338ca'

@@ -3,28 +3,32 @@
 
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
-    <section class='content-header container mx-auto'>
-      <h4 class='content-title'><%= t('wrapper.navigation.portfolios') %></h4>
-      <div class='content-buttons'>
-        <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
-          <%= t('portfolios.sidebar.list.button') %>
-        </span>
-        <div sidebar-portfolios-list>
-          <% if @portfolios.exists? %>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
-              <%= t('portfolios.sidebar.operations.button') %>
-            </span>
-          <% end %>
+    <section class='content-header'>
+      <div class='content-header-body container mx-auto'>
+        <h4 class='content-title'><%= t('wrapper.navigation.portfolios') %></h4>
+        <div class='content-buttons'>
+          <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
+            <%= t('portfolios.sidebar.list.button') %>
+          </span>
+          <div sidebar-portfolios-list>
+            <% if @portfolios.exists? %>
+              <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
+                <%= t('portfolios.sidebar.operations.button') %>
+              </span>
+            <% end %>
+          </div>
         </div>
       </div>
     </section>
 
-    <div id='portfolios' class='page-content portfolios-list container mx-auto'>
-      <% @portfolios.each do |portfolio| %>
-        <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
-          <%= render Portfolios::Index::ListElementComponent.new(portfolio: portfolio) %>
-        </div>
-      <% end %>
+    <div id='portfolios' class='page-content portfolios-list mt-4'>
+      <div class='container mx-auto'>
+        <% @portfolios.each do |portfolio| %>
+          <div id='portfolio_<%= portfolio.id %>' class='portfolio'>
+            <%= render Portfolios::Index::ListElementComponent.new(portfolio: portfolio) %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.list.title'), window_index: 0) do %>

@@ -9,15 +9,6 @@
         line-height: 2.5rem;
       }
     }
-
-    .header-links {
-      .header-link {
-        @apply mr-4;
-        @apply text-xl font-semibold underline;
-
-        text-decoration-thickness: 2px;
-      }
-    }
   }
 
   main {

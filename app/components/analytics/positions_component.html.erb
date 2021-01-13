@@ -2,7 +2,7 @@
   <% if @positions_analytics[key][:stats].present? %>
     <h4><%= t("analytics.table.#{key}_name") %></h4>
 
-    <table class='positions-table mb-8'>
+    <table class='positions-table mb-4'>
       <thead>
         <tr>
           <th class='name-column'><%= t('analytics.table.name') %></th>
@@ -55,7 +55,7 @@
   <% if @positions_analytics[key][:plans].present? %>
     <h5><%= t("analytics.table.header.plan_#{key}") %></h5>
 
-    <table class='positions-table mb-8'>
+    <table class='positions-table mb-4'>
       <thead>
         <tr>
           <th class='name-column'><%= t('analytics.table.name') %></th>
@@ -118,7 +118,7 @@
 <% if @actives_pie_stats.size.positive? %>
   <h5><%= t('analytics.actives.header') %></h5>
 
-  <div class='sectors-chart-box mb-8'>
+  <div class='sectors-chart-box mb-4'>
     <div
       id='actives-pie-container'
       data-controller='analytics--actives'
@@ -133,7 +133,7 @@
 <% if @sector_pie_stats.size.positive? %>
   <h5><%= t('analytics.sectors.header') %></h5>
 
-  <div class='sectors-chart-box mb-8'>
+  <div class='sectors-chart-box mb-4'>
     <div
       id='sectors-pie-container'
       data-controller='analytics--sectors'

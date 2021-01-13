@@ -13,8 +13,16 @@
     @apply text-lg font-medium;
   }
 
+  &:hover {
+    @apply bg-gradient-to-r from-blue-700 to-indigo-700;
+  }
+
   &.button-reverse {
     @apply bg-gradient-to-r from-white to-white;
     @apply text-indigo-700 border border-indigo-700;
+
+    &:hover {
+      @apply bg-gradient-to-r from-white via-white to-blue-100;
+    }
   }
 }
