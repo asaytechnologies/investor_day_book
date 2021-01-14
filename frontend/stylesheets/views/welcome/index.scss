@@ -42,5 +42,9 @@
   footer {
     @apply p-4;
     @apply flex justify-center;
+
+    em {
+      @apply mr-4;
+    }
   }
 }

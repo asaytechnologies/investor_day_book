@@ -2,12 +2,10 @@
 
 module Shared
   class HeaderComponent < ViewComponent::Base
+    include ApplicationHelper
+
     def initialize(current_user:)
       @current_user = current_user
-    end
-
-    def change_locale(locale)
-      url_for(request.params.merge(locale: locale.to_s))
     end
 
     def gravatar_source
