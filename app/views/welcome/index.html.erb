@@ -1,11 +1,11 @@
 <div id='welcome-page'>
   <header class='header'>
     <div class='header-logo'>
-      <%= link_to t('welcome.investor'), portfolios_path %>
+      <%= link_to t('welcome.investor'), analytics_path %>
     </div>
     <nav class='header-links'>
       <% if user_signed_in? %>
-        <%= link_to t('welcome.dashboard'), portfolios_path, class: 'button button-lg' %>
+        <%= link_to t('welcome.dashboard'), analytics_path, class: 'button button-lg' %>
       <% else %>
         <%= link_to t('welcome.login'), new_user_session_path, class: 'header-link' %>
         <%= link_to t('welcome.register'), new_user_registration_path, class: 'button button-lg' %>
