@@ -29,6 +29,9 @@ ru:
     foundations: Фонды
     currencies: Валюта
   analytics:
+    no_portfolio:
+      title: Необходимо сперва создать хотя бы один портфель, чтобы получить доступ к аналитике
+      goto: Портфели
     actives:
       header: Состав активов
     balance:
@@ -74,6 +77,7 @@ ru:
       buy: Покупка
       sell: Продажа
       plan: Планирование
+      operation_date: Дата операции
       options:
         show_plans: Показать планы
         show_dividents: Показать доход за 1 год
@@ -99,3 +103,4 @@ ru:
         transaction: Операция
         deposit: Внесение
         withdraw: Вывод
+        select_source: Выберите брокера при загрузке файла

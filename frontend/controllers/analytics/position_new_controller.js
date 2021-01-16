@@ -1,7 +1,7 @@
 import ApplicationController from "../application_controller"
 
 export default class extends ApplicationController {
-  static targets = ["securityValue", "securityBlock", "dropdown", "quoteId", "price", "amount", "totalPrice", "selectInput", "operation"]
+  static targets = ["securityValue", "securityBlock", "dropdown", "quoteId", "price", "amount", "totalPrice", "selectInput", "operation", "date"]
 
   searchQuotes (event) {
     event.preventDefault()

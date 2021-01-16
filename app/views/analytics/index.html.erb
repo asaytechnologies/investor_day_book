@@ -1,12 +1,12 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <% if @portfolios.exists? %>
-    <div class='page-container sidebar-container' data-controller='shared--sidebar analytics' data-reflex-root='#positions'>
+  <div class='page-container sidebar-container' data-controller='shared--sidebar analytics' data-reflex-root='#positions'>
 
-      <%= render Shared::HeaderComponent.new(current_user: current_user) %>
+    <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
-      <section class='content-header'>
-        <div class='content-header-body container mx-auto'>
-          <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
+    <section class='content-header'>
+      <div class='content-header-body container mx-auto'>
+        <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
+        <% if @portfolios.exists? %>
           <div class='content-buttons'>
             <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
               <%= t('analytics.sidebar.button') %>
@@ -15,9 +15,11 @@
               <%= t('analytics.sidebar.balance.button') %>
             </span>
           </div>
-        </div>
-      </section>
+        <% end %>
+      </div>
+    </section>
 
+    <% if @portfolios.exists? %>
       <div class='page-content'>
         <div class='flex mt-6'>
           <form id='portfolio-select' class='mr-10'>
@@ -132,6 +134,11 @@
             </div>
 
             <div class='form-field'>
+              <label class='form-label'><%= t('analytics.sidebar.operation_date') %></label>
+              <input name='position[operation_date]' class='form-value' data-analytics--position-new-target='date' />
+            </div>
+
+            <div class='form-field'>
               <label class='form-label'><%= t('analytics.sidebar.total_price') %></label>
               <input disabled class='form-value' data-analytics--position-new-target='totalPrice' />
             </div>
@@ -177,6 +184,13 @@
           </form>
         </div>
       <% end %>
-    </div>
-  <% end %>
+    <% else %>
+      <div class='page-content portfolios-list mt-4'>
+        <div class='container mx-auto'>
+          <h5><%= t('analytics.no_portfolio.title') %></h5>
+          <%= link_to t('analytics.no_portfolio.goto'), portfolios_path, class: 'button' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

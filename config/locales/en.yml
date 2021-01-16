@@ -29,6 +29,9 @@ en:
     foundations: Foundations
     currencies: Currencies
   analytics:
+    no_portfolio:
+      title: You don't have portfolios and analytics is not available
+      goto: Go to portfolios page
     actives:
       header: Actives composition
     balance:
@@ -74,6 +77,7 @@ en:
       buy: Buy
       sell: Sell
       plan: Plan
+      operation_date: Operation date
       options:
         show_plans: Show plans
         show_dividents: Show dividents for 1 year
@@ -99,3 +103,4 @@ en:
         transaction: Transaction
         deposit: Deposit
         withdraw: Withdraw
+        select_source: Select file source

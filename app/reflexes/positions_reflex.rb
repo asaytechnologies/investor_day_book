@@ -42,11 +42,12 @@ class PositionsReflex < ApplicationReflex
 
   def create_position
     Positions::CreateService.call(
-      portfolio: @portfolio,
-      quote:     @quote,
-      price:     position_price,
-      amount:    position_money,
-      operation: operation_params[:operation]
+      portfolio:      @portfolio,
+      quote:          @quote,
+      price:          position_price,
+      amount:         position_money,
+      operation:      position_params[:operation],
+      operation_date: DateTime.parse(position_params[:operation_date])
     )
   end
 
@@ -81,10 +82,6 @@ class PositionsReflex < ApplicationReflex
   end
 
   def position_params
-    params.require(:position).permit(:portfolio_id, :quote_id, :price, :amount)
-  end
-
-  def operation_params
-    params.require(:position).permit(:operation)
+    params.require(:position).permit(:portfolio_id, :quote_id, :price, :amount, :operation, :operation_date)
   end
 end
