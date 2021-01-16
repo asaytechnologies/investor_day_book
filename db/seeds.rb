@@ -127,3 +127,23 @@ rows.each do |row|
 
   Share.find_by(ticker: ticker)&.update(sector: sector)
 end
+
+Security.find_by(ticker: 'T').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 2.08)
+Security.find_by(ticker: 'KO').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 1.68)
+Security.find_by(ticker: 'HPE').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 0.48)
+Security.find_by(ticker: 'WMB').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 1.68)
+Security.find_by(ticker: 'VZ').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 3.14)
+Security.find_by(ticker: 'ABBV').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 5.2)
+Security.find_by(ticker: 'BGS').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 1.9)
+Security.find_by(ticker: 'CSCO').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 1.48)
+Security.find_by(ticker: 'KHC').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 1.6)
+Security.find_by(ticker: 'XRX').quotes.find_by(price_currency: 'USD').update(average_year_dividents_amount: 1)
+
+Security.find_by(ticker: 'MAGN').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 3.77)
+Security.find_by(ticker: 'NMTP').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 1.35)
+Security.find_by(ticker: 'SBER').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 18)
+Security.find_by(ticker: 'ENRU').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 0.09)
+Security.find_by(ticker: 'MTSS').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 42)
+Security.find_by(ticker: 'MOEX').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 8)
+Security.find_by(ticker: 'DSKY').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 10.5)
+Security.find_by(ticker: 'GAZP').quotes.find_by(price_currency: 'RUB').update(average_year_dividents_amount: 15)
