@@ -35,9 +35,17 @@ module Analytics
     def perform_real_positions_calculation(quote, positions, acc)
       return if positions.empty?
 
+      # skip positions from analytics if they are totally sold
+      total_unsold_amount = total_unsold_amount(positions)
+      return if total_unsold_amount.zero?
+
       stats = perform_calculation(quote, positions)
       update_total_stats(acc, quote, stats)
       update_security_stats(acc, quote, stats)
+    end
+
+    def total_unsold_amount(positions)
+      positions.reject(&:selling_position?).sum { |element| element.amount - element.sold_amount }
     end
 
     # rubocop: disable Metrics/AbcSize

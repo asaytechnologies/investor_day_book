@@ -26,7 +26,6 @@
       </thead>
       <tbody>
         <% @positions_analytics[key][:stats].each do |quote, stats| %>
-          <% next if stats[:unsold_amount].zero? %>
           <tr class='position'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
             <td><%= stats[:unsold_amount] %></td>
