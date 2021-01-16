@@ -304,6 +304,10 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
+    skylight (4.3.2)
+      skylight-core (= 4.3.2)
+    skylight-core (4.3.2)
+      activesupport (>= 4.2.0)
     spreadsheet (1.2.6)
       ruby-ole (>= 1.0)
     spring (2.1.1)
@@ -390,6 +394,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq (~> 6.1)
   simplecov
+  skylight (~> 4.3.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   stimulus_reflex (~> 3.4.0)

@@ -61,6 +61,9 @@ gem 'roo-xls', '~> 1.2.0'
 # error notifications
 gem 'bugsnag', '~> 6.19.0'
 
+# performance tracker
+gem 'skylight', '~> 4.3.0'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
