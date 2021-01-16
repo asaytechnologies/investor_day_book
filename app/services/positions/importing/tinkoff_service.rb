@@ -46,7 +46,7 @@ module Positions
       def add_position(row)
         @positions << {
           external_id:    row[0],
-          operation_date: DateTime.parse(row[5]),
+          operation_date: row[5],
           operation:      row[22] == SELL_OPERATION_MARKER ? SELL_OPERATION : BUY_OPERATION,
           ticker:         row[33],
           price:          row[38].tr(',', '.').to_f,

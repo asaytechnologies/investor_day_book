@@ -47,7 +47,7 @@ class PositionsReflex < ApplicationReflex
       price:          position_price,
       amount:         position_money,
       operation:      position_params[:operation],
-      operation_date: DateTime.parse(position_params[:operation_date])
+      operation_date: position_params[:operation_date]
     )
   end
 

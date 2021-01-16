@@ -15,11 +15,32 @@ module Positions
     end
 
     def call(args={})
-      case args[:operation]
-      when '0' then @buy_service.call(args.except(:operation))
-      when '1' then @sell_service.call(args.except(:operation))
-      when '2' then @plan_service.call(args.except(:operation))
+      @args = args
+      position_service.call(position_params)
+    end
+
+    private
+
+    def position_service
+      case @args[:operation]
+      when '0' then @buy_service
+      when '1' then @sell_service
+      when '2' then @plan_service
       end
+    end
+
+    def position_params
+      @args
+        .except(:operation)
+        .merge(operation_date: operation_date)
+    end
+
+    def operation_date
+      return if @args[:operation_date].blank?
+
+      DateTime.parse(@args[:operation_date])
+    rescue Date::Error => _e
+      nil
     end
   end
 end
