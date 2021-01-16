@@ -65,14 +65,14 @@ ru:
         plan_foundation: План по фондам
     sidebar:
       select_portfolio: Выберите портфель
-      title: Добавить бумагу
+      title: Добавить операцию
       security: Ценная бумага
       select_security: Выберите ценную бумагу
       transaction: Операция
       price: Цена
       amount: Кол-во
       total_price: Стоимость операции
-      button: Добавить бумагу
+      button: Добавить операцию
       search: Поиск котировок...
       buy: Покупка
       sell: Продажа
