@@ -17,6 +17,6 @@ test:
 
 production:
   <<: *default
-  database: investor_day_book_production
-  username: investor_day_book
-  password: <%= ENV['INVESTOR_DAY_BOOK_DATABASE_PASSWORD'] %>
+  database: investor_day_book
+  username: <%= Rails.application.credentials.dig(:database, :username) %>
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
