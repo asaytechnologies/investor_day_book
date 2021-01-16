@@ -55,15 +55,18 @@ module Analytics
       security_symbol = security_symbol(quote)
       currency_symbol = quote_currency_symbol(quote)
       selling_total_cents = position.amount * position.price_cents
+      dividents = dividents_amount_cents(quote, position.amount)
 
       acc[security_symbol][:plans][quote] = {
-        plan:                true,
-        amount:              position.amount,
-        price_cents:         position.price_cents,
-        selling_total_cents: selling_total_cents,
-        position_id:         position.id
+        plan:                   true,
+        amount:                 position.amount,
+        price_cents:            position.price_cents,
+        selling_total_cents:    selling_total_cents,
+        dividents_amount_cents: dividents,
+        position_id:            position.id
       }
       acc[security_symbol][:total_cents] += selling_total_cents * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:income_cents] += dividents * @exchange_rates[currency_symbol]
     end
     # rubocop: enable Metrics/AbcSize
 

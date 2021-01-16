@@ -62,9 +62,15 @@
           <% if key == :bond %>
             <th><%= t('analytics.table.face_value') %></th>
           <% end %>
-          <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.plan_price') %></th>
+          <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.current_price') %></th>
+          <% if key == :share && @options[:dividents] %>
+            <th><%= t('analytics.table.dividents') %></th>
+          <% end %>
+          <% if key == :bond && @options[:dividents] %>
+            <th><%= t('analytics.table.coupons') %></th>
+          <% end %>
           <th></th>
         </tr>
       </thead>
@@ -76,9 +82,16 @@
             <% if key == :bond %>
               <td><%= money_presenter(quote.face_value_cents, quote.price_currency) %></td>
             <% end %>
-            <td><%= money_presenter(stats[:selling_total_cents], quote.price_currency) %></td>
             <td><%= money_presenter(stats[:price_cents], quote.price_currency) %></td>
+            <td><%= money_presenter(stats[:selling_total_cents], quote.price_currency) %></td>
             <td><%= money_presenter(quote.price_cents, quote.price_currency) %></td>
+            <% if key.in?(%i[share bond]) && @options[:dividents] %>
+              <td>
+                <% if stats[:dividents_amount_cents].positive? %>
+                  <%= money_presenter(stats[:dividents_amount_cents], quote.price_currency) %>
+                <% end %>
+              </td>
+            <% end %>
             <td
               class='remove-plan'
               data-action='click->analytics#destroyPlan'
