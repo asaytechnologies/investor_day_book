@@ -58,6 +58,9 @@ gem 'anycable-rails', '~> 1.0'
 # read xlsx files
 gem 'roo-xls', '~> 1.2.0'
 
+# error notifications
+gem 'bugsnag', '~> 6.19.0'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
