@@ -44,7 +44,6 @@ gem 'tinkoff_invest'
 # Background Jobs
 gem 'redis-namespace'
 gem 'redis-rails'
-gem 'sidekiq', '~> 6.1'
 
 # Reactive Rails
 gem 'stimulus_reflex', '~> 3.4.0'
@@ -69,6 +68,9 @@ gem 'skylight', '~> 4.3.0'
 gem 'spring'
 gem 'spring-watcher-listen', '~> 2.0.0'
 
+# cron jobs
+gem 'whenever', require: false
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
@@ -88,7 +90,6 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', '~> 1.6.0', require: false
   gem 'capistrano-rvm', require: false
-  gem 'capistrano-sidekiq', '~> 2.0.0'
   gem 'letter_opener'
   gem 'listen', '~> 3.2'
 end

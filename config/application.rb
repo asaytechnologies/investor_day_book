@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module InvestorDayBook
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
 
     I18n.available_locales = %i[en ru]
     config.i18n.default_locale = :en
@@ -40,7 +40,6 @@ module InvestorDayBook
       g.helper false
     end
 
-    config.autoload_paths += %W[#{config.root}/app/jobs]
-    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :inline
   end
 end

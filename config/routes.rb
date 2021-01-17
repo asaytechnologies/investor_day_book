@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web, at: '/admin/sidekiq'
-
   localized do
     devise_for :users,
                skip:        %i[omniauth_callbacks confirmation registration],
