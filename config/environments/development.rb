@@ -7,6 +7,7 @@ Rails.application.configure do
   config.after_initialize do
     if AnyCable::Rails.enabled?
       config.action_cable.url = ActionCable.server.config.url = ENV.fetch('CABLE_URL', 'ws://localhost:8080/cable')
+      config.action_cable.allowed_request_origins = ['http://localhost:5000']
     end
   end
   # Settings specified here will take precedence over those in config/application.rb.

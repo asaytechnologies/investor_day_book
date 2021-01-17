@@ -5,7 +5,10 @@ Rails.application.configure do
 
   # Specify AnyCable WebSocket server URL to use by JS client
   config.after_initialize do
-    config.action_cable.url = ActionCable.server.config.url = ENV.fetch('CABLE_URL', 'wss://167.99.223.210:5000/cable') if AnyCable::Rails.enabled?
+    if AnyCable::Rails.enabled?
+      config.action_cable.url = ActionCable.server.config.url = ENV.fetch('CABLE_URL', 'wss://invest-plan.pro:3334/cable')
+      config.action_cable.allowed_request_origins = ['https://invest-plan.pro']
+    end
   end
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -48,7 +51,10 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store
+  config.public_file_server.headers = {
+    'Cache-Control' => "public, max-age=#{2.days.to_i}"
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque

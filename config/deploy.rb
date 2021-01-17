@@ -10,6 +10,7 @@ set :repo_url, 'git@github.com:asaytechnologies/investor_day_book.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/html/invest_plan'
 set :deploy_user, 'deploy'
+set :anycable_systemctl_service_name, 'anycable-rpc.service'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -89,7 +90,16 @@ namespace :sphinx do
   end
 end
 
+namespace :anycable do
+  task :restart do
+    on roles(:app) do
+      execute :sudo, :systemctl, :restart, fetch(:anycable_systemctl_service_name)
+    end
+  end
+end
+
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
 after 'deploy:restart', 'sphinx:configure'
 after 'sphinx:configure', 'sphinx:rebuild'
+after 'deploy:publishing', 'anycable:restart'
