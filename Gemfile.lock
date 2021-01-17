@@ -239,6 +239,8 @@ GEM
     redis-activesupport (5.2.0)
       activesupport (>= 3, < 7)
       redis-store (>= 1.3, < 2)
+    redis-namespace (1.8.0)
+      redis (>= 3.0.4)
     redis-rack (2.1.3)
       rack (>= 2.0.8, < 3)
       redis-store (>= 1.2, < 2)
@@ -413,6 +415,7 @@ DEPENDENCIES
   pg (= 1.2.3)
   puma (~> 5.1)
   rails (~> 6.1.0)
+  redis-namespace
   redis-rails
   roo-xls (~> 1.2.0)
   route_translator

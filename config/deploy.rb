@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.15.0'
 
@@ -25,9 +27,11 @@ set :deploy_user, 'deploy'
 # append :linked_files, "config/database.yml"
 set :linked_files, fetch(:linked_files, []).push('config/master.key')
 
+# rubocop: disable Layout/LineLength
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'storage')
+# rubocop: enable Layout/LineLength
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

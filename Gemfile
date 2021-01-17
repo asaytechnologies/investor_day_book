@@ -42,6 +42,7 @@ gem 'faraday_middleware', '~> 1.0'
 gem 'tinkoff_invest'
 
 # Background Jobs
+gem 'redis-namespace'
 gem 'redis-rails'
 gem 'sidekiq', '~> 6.1'
 
