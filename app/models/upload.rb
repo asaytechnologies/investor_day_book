@@ -11,7 +11,7 @@ class Upload < ApplicationRecord
 
   def perform_uploading
     case name
-    when 'portfolio_initial_data' then Portfolios::ImportInitialDataJob.perform_now(upload: self)
+    when 'portfolio_initial_data' then Portfolios::ImportInitialDataJob.perform_later(upload: self)
     end
   end
 end
