@@ -64,6 +64,9 @@ gem 'bugsnag', '~> 6.19.0'
 # performance tracker
 gem 'skylight', '~> 4.3.0'
 
+# To run daemonized `anycabled`
+# gem 'daemons', '~> 1.3', require: false
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
@@ -80,6 +83,7 @@ end
 
 group :development do
   gem 'capistrano', '~> 3.15.0', require: false
+  # gem 'capistrano-anycable'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', '~> 1.6.0', require: false
   gem 'capistrano-rvm', require: false

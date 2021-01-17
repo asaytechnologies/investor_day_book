@@ -4,6 +4,7 @@
 require 'capistrano/setup'
 
 # Include default deployment tasks
+# require 'capistrano/anycable'
 require 'capistrano/deploy'
 require 'capistrano/rvm'
 require 'capistrano/bundler'
