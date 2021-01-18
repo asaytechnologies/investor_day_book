@@ -42,6 +42,7 @@
           <div class='form-field'>
             <label class='form-label'><%= t('portfolios.sidebar.list.name') %></label>
             <input name='portfolio[name]' class='form-value' data-portfolios--portfolio-new-target='name' />
+            <em><%= t('portfolios.sidebar.list.file_optional') %></em>
           </div>
 
           <div
@@ -66,7 +67,8 @@
 
           <div class='form-field'>
             <label class='form-label'><%= t('portfolios.sidebar.list.file') %></label>
-            <input type='file' name='file' class='form-value' data-portfolios--portfolio-new-target='file' />
+            <input type='file' name='file' class='form-value' data-portfolios--portfolio-new-target='file' accept='.xls' />
+            <em><%= t('portfolios.sidebar.list.tinkoff') %></em>
           </div>
 
           <button class='button' type='submit'>

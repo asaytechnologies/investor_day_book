@@ -102,6 +102,9 @@ en:
         title: New portfolio
         button: Add portfolio
         name: Name
+        file: File
+        tinkoff: Currently, only import of XLS-files of Tinkoff Investments reports is supported
+        file_optional: If you have data on the broker's operations, then you can use it to import a list of completed operations
       operations:
         button: Add/remove cash
         title: Add/remove cash
