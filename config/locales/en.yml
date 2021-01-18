@@ -1,4 +1,7 @@
 en:
+  meta:
+    keywords: investments, invest, portfolio, analytics, stocks, shares
+    description: InvestPlan - investment planning service
   welcome:
     investor: InvestPlan
     dashboard: Dashboard

@@ -1,4 +1,7 @@
 ru:
+  meta:
+    keywords: инвестиции, портфель, аналитика, акции, облигации
+    description: InvestPlan - сервис планирования инвестиций
   welcome:
     investor: InvestPlan
     dashboard: Аналитика
