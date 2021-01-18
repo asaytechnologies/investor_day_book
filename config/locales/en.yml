@@ -6,6 +6,9 @@ en:
     register: Register
     title: Investment planning service
     description: Keep records and analyze the positions of your investment portfolios, draw up a plan for subsequent investments, plan profitability.
+  footer:
+    need_help: Need help? Ask it at
+    telegram: Telegram channel
   devise:
     title: Welcome
     confirmation_link: You can confirm your account email through the link below

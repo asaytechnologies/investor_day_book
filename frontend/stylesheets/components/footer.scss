@@ -1,0 +1,22 @@
+footer {
+  @apply p-4;
+  @apply flex flex-col items-center;
+
+  .help-text {
+    @apply text-xl mb-2;
+
+    .footer-link {
+      @apply underline;
+
+      text-decoration-thickness: 2px;
+
+      &:hover {
+        @apply text-blue-800;
+      }
+    }
+  }
+
+  em {
+    @apply mr-4;
+  }
+}

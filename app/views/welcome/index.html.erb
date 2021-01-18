@@ -20,12 +20,5 @@
       </div>
     </div>
   </main>
-  <footer>
-    <em>InvestPlan is build by ASAY Technologies.</em>
-    <div class='select-language'>
-      <% I18n.available_locales.each do |locale| %>
-        <%= link_to '', change_locale(locale), class: "flag flag_#{locale}" %>
-      <% end %>
-    </div>
-  </footer>
+  <%= render Shared::FooterComponent.new(change_locale: true) %>
 </div>
