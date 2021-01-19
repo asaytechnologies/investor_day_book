@@ -6,6 +6,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
     "chart.js": "^2.9.4",
+    "compression-webpack-plugin": "^6.1.1",
     "debounced": "^0.0.5",
     "stimulus": "^2.0.0",
     "stimulus-use": "^0.21.4",
