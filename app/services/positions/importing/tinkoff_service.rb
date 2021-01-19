@@ -27,21 +27,38 @@ module Positions
       private
 
       def parse_xls_file
-        list_is_started = false
         @file.open do |file|
-          Roo::Excel.new(file).sheet(0).each do |row|
-            unless list_is_started
-              list_is_started = true if row[0] == START_MARKER
-              next
-            end
-            break if row[0] == END_MARKER
-            next if row[0].to_i.zero?
-            next if row[22].include?(REPO_MARKER)
+          rows = read_xls_file_rows(file)
+          break unless rows
 
-            add_position(row)
-          end
+          parse_rows(rows)
         end
       end
+
+      def read_xls_file_rows(file)
+        case File.extname(file)
+        when '.xlsx' then Creek::Book.new(file).sheets[0].rows
+        when '.xls' then Roo::Excel.new(file).sheet(0)
+        end
+      end
+
+      # rubocop: disable Metrics/CyclomaticComplexity
+      def parse_rows(rows)
+        list_is_started = false
+        rows.each do |row|
+          row = row.values if row.is_a?(Hash)
+          unless list_is_started
+            list_is_started = true if row[0] == START_MARKER
+            next
+          end
+          break if row[0] == END_MARKER
+          next if row[0].to_i.zero?
+          next if row[22].include?(REPO_MARKER)
+
+          add_position(row)
+        end
+      end
+      # rubocop: enable Metrics/CyclomaticComplexity
 
       def add_position(row)
         @positions << {

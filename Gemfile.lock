@@ -99,6 +99,9 @@ GEM
     chronic (0.10.2)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
+    creek (2.5.2)
+      nokogiri (>= 1.10.0)
+      rubyzip (>= 1.0.0)
     database_cleaner (1.8.5)
     devise (4.7.3)
       bcrypt (~> 3.0)
@@ -392,6 +395,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rails (~> 1.6.0)
   capistrano-rvm
+  creek
   database_cleaner (~> 1.8.5)
   devise
   dry-initializer (~> 3.0)

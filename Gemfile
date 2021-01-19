@@ -56,6 +56,7 @@ gem 'thinking-sphinx', '~> 5.0'
 gem 'anycable-rails', '~> 1.0'
 
 # read xlsx files
+gem 'creek'
 gem 'roo-xls', '~> 1.2.0'
 
 # error notifications
