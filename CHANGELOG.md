@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - js compression
 - import XLSX files
+- version to footer
 
 ## [1.0.1] - 18.01.2021
 ### Added
