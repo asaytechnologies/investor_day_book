@@ -8,13 +8,22 @@
     "chart.js": "^2.9.4",
     "compression-webpack-plugin": "^6.1.1",
     "debounced": "^0.0.5",
+    "js-cookie": "^2.2.1",
     "stimulus": "^2.0.0",
     "stimulus-use": "^0.21.4",
     "stimulus_reflex": "^3.4.0",
-    "tailwindcss": "^1.9.6"
+    "tailwindcss": "^1.9.6",
+    "ttag": "^1.7.23"
   },
   "version": "1.0.0",
   "devDependencies": {
+    "ttag-cli": "^1.9.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "initPO": "ttag init ru frontend/locales/ru.po",
+    "updatePO": "ttag update frontend/locales/ru.po frontend/controllers",
+    "po2json": "ttag po2json frontend/locales/ru.po > frontend/locales/ru.po.json -p",
+    "updateTranslations": "yarn updatePO && yarn po2json"
   }
 }

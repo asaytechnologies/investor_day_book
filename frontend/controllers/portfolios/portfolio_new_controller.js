@@ -1,4 +1,5 @@
 import Rails from "@rails/ujs"
+import { t } from "ttag"
 
 import ApplicationController from "../application_controller"
 
@@ -51,7 +52,7 @@ export default class extends ApplicationController {
     const notification = document.createElement("div")
     notification.classList.add("notification")
     notification.classList.add("success")
-    notification.innerHTML = "<p>File for portfolio is uploaded</p><p>Portfolio positions will be created in a few minutes</p>"
+    notification.innerHTML = `<p>${t`File for portfolio is uploaded`}</p><p>${t`Portfolio positions will be created in a few minutes`}</p>`
     document.getElementById("notifications").append(notification)
     setTimeout(() => notification.remove(), 2500)
   }

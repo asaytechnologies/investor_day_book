@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   private
 
   def current_locale
-    I18n.locale = params[:locale]
+    I18n.locale = cookies[:invest_plan_locale] = params[:locale]
   end
 end
