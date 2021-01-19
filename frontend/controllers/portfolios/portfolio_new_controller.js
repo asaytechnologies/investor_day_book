@@ -12,6 +12,13 @@ export default class extends ApplicationController {
   submitForm (event) {
     event.preventDefault()
 
+    if (this.nameTarget.value.length === 0) {
+      this.nameTarget.classList.add("error")
+      return
+    } else {
+      this.nameTarget.classList.remove("error")
+    }
+
     const file = this.fileTarget
     if (file.files && file.files[0] && file.files[0].size <= megabyte) {
       const guid = this.generateRandomHex(guidSize)

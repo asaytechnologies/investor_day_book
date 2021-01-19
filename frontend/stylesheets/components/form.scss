@@ -11,6 +11,10 @@
     @apply px-4 py-1 w-full h-10;
     @apply border border-blue-500 rounded;
 
+    &.error {
+      @apply border-red-500;
+    }
+
     &.select-value {
       @apply cursor-pointer relative;
 
