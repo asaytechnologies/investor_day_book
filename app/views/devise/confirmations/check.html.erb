@@ -1,0 +1,7 @@
+<%= render PageWrappers::DeviseComponent.new do %>
+  <div class='confirmation-page'>
+    <h2><%= t('devise.confirmation.title') %></h2>
+    <p><%= t('devise.confirmation.description', email: params[:email]) %></p>
+    <%= link_to t('devise.confirmation.to_login_page'), new_user_session_path, class: 'button button-lg' %>
+  </div>
+<% end %>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     as :user do
       get 'users/confirmation' => 'users/confirmations#show', :as => :user_confirmation
+      get 'users/confirmation/check' => 'users/confirmations#check', :as => :check_confirmations
 
       get 'users/signup' => 'users/registrations#new', :as => :new_user_registration
       post 'users' => 'users/registrations#create', :as => :user_registration

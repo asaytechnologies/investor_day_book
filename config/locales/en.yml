@@ -25,6 +25,10 @@ en:
     minimum: "%{amount} characters minimum"
     have_account: Already signed up?
     have_no_account: First time at InvestPlan?
+    confirmation:
+      title: Check your email
+      description: "We sent email with activation link to %{email}"
+      to_login_page: Go to login page
   wrapper:
     navigation:
       portfolios: Portfolios

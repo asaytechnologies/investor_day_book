@@ -5,6 +5,14 @@
   .devise-content {
     width: 30rem;
 
+    .confirmation-page {
+      @apply flex flex-col items-center;
+
+      p {
+        @apply mb-4 text-center;
+      }
+    }
+
     h2 {
       @apply mt-0;
       @apply text-center;

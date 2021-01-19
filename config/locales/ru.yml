@@ -25,6 +25,10 @@ ru:
     minimum: "как минимум %{amount} символов"
     have_account: Уже зарегистрированы?
     have_no_account: Впервые на InvestPlan?
+    confirmation:
+      title: Проверьте вашу электронную почту
+      description: "Письмо со ссылкой для активации было отправлено на вашу почту %{email}"
+      to_login_page: На страницу входа
   wrapper:
     navigation:
       portfolios: Портфели
