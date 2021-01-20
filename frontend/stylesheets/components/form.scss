@@ -8,7 +8,7 @@
 
   .form-value {
     @apply bg-white font-light leading-8;
-    @apply px-4 py-1 w-full h-10;
+    @apply px-4 py-1 w-full;
     @apply border border-blue-500 rounded;
 
     &.error {
