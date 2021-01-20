@@ -25,12 +25,12 @@ set :deploy_user, 'deploy'
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml"
-set :linked_files, fetch(:linked_files, []).push('config/master.key')
+set :linked_files, fetch(:linked_files, []).push('config/master.key', 'config/production.sphinx.conf')
 
 # rubocop: disable Layout/LineLength
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'storage')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'storage', 'db/sphinx', 'tmp/binlog')
 # rubocop: enable Layout/LineLength
 
 # Default value for default_env is {}
@@ -75,7 +75,7 @@ namespace :sphinx do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, 'ts:rebuild'
+          execute :bundle, 'exec rails ts:rebuild'
         end
       end
     end
@@ -86,7 +86,7 @@ namespace :sphinx do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, 'ts:configure'
+          execute :bundle, 'exec rails ts:configure'
         end
       end
     end
@@ -95,5 +95,5 @@ end
 
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
-after 'deploy:restart', 'sphinx:configure'
-after 'sphinx:configure', 'sphinx:rebuild'
+# after 'deploy:restart', 'sphinx:configure'
+# after 'sphinx:configure', 'sphinx:rebuild'
