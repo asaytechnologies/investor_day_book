@@ -44,9 +44,8 @@ en:
       goto: Go to portfolios page
     actives:
       header: Actives composition
-    balance:
-      title: Balance of currencies
     portfolio:
+      total_price: Portfolio actives price
       profit: Portfolio profit
     sectors:
       header: Shares portfolio composition by sectors

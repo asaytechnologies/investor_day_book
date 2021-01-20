@@ -44,10 +44,9 @@ ru:
       goto: Портфели
     actives:
       header: Состав активов
-    balance:
-      title: Баланс валют
     portfolio:
-      profit: Прибыль портфеля
+      total_price: Стоимость активов портфеля
+      profit: Доходность портфеля
     sectors:
       header: Состав портфеля акций по секторам
     select:

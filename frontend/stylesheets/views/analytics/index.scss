@@ -10,6 +10,23 @@
   }
 }
 
+#portfolio-totals {
+  @apply flex flex-col;
+
+  h4 {
+    @apply text-2xl mt-0 mb-2 text-gray-400;
+
+    line-height: 1;
+
+    span {
+      @apply font-normal text-xl text-black;
+
+      font-family: "Open Sans", sans-serif;
+      line-height: 1;
+    }
+  }
+}
+
 #positions {
   .positions-table {
     thead {

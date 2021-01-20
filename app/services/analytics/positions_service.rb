@@ -20,7 +20,7 @@ module Analytics
     end
 
     def filter_positions(portfolio_ids)
-      @positions = @positions.where(portfolio: portfolio_ids)
+      @positions = @positions.buying.where(portfolio: portfolio_ids).with_unsold_securities
       @positions = @positions.real unless @options[:plan]
       @positions = @positions.includes(quote: :coupons) if @options[:dividents]
     end
@@ -35,17 +35,9 @@ module Analytics
     def perform_real_positions_calculation(quote, positions, acc)
       return if positions.empty?
 
-      # skip positions from analytics if they are totally sold
-      total_unsold_amount = total_unsold_amount(positions)
-      return if total_unsold_amount.zero?
-
       stats = perform_calculation(quote, positions)
       update_total_stats(acc, quote, stats)
       update_security_stats(acc, quote, stats)
-    end
-
-    def total_unsold_amount(positions)
-      positions.reject(&:selling_position?).sum { |element| element.amount - element.sold_amount }
     end
 
     # rubocop: disable Metrics/AbcSize
@@ -66,7 +58,7 @@ module Analytics
         position_id:            position.id
       }
       acc[security_symbol][:total_cents] += selling_total_cents * @exchange_rates[currency_symbol]
-      acc[:total][:summary][:income_cents] += dividents * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:total_cents] += dividents * @exchange_rates[currency_symbol]
     end
     # rubocop: enable Metrics/AbcSize
 
@@ -139,10 +131,9 @@ module Analytics
       currency_symbol = quote_currency_symbol(quote)
 
       acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
-      acc[:total][:summary][:income_cents] += stats[:selling_total_income_cents] * @exchange_rates[currency_symbol]
       return unless @options[:dividents]
 
-      acc[:total][:summary][:income_cents] += stats[:dividents_amount_cents] * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:total_cents] += stats[:dividents_amount_cents] * @exchange_rates[currency_symbol]
     end
     # rubocop: enable Metrics/AbcSize
 

@@ -1,3 +1,21 @@
+<div id='portfolio-totals'>
+  <h4>
+    <%= t('analytics.portfolio.total_price') %>:
+    <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
+    <span>
+      <%= money_presenter(@positions_analytics[:total][:summary][:total_price_cents], 'RUB') %>
+    </span>
+  </h4>
+  <h4>
+    <%= t('analytics.portfolio.profit') %>:
+    <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
+    <span>
+      <%= money_presenter(@positions_analytics[:total][:summary][:total_income_cents], 'RUB') %>
+      (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
+    </span>
+  </h4>
+</div>
+
 <% %i[share bond foundation].each do |key| %>
   <% if @positions_analytics[key][:stats].present? %>
     <h4><%= t("analytics.table.#{key}_name") %></h4>
@@ -105,27 +123,6 @@
     </table>
   <% end %>
 <% end %>
-
-<div class='flex'>
-  <div class='mr-10'>
-    <h4><%= t('analytics.portfolio.profit') %></h4>
-    <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
-    <%- income_summary = @positions_analytics[:total][:summary][:income_cents] + @balance_analytics[:summary_cents] %>
-    <p>
-      <%= money_presenter(income_summary, 'RUB') %>
-      (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
-    </p>
-  </div>
-
-  <div>
-    <h4><%= t('analytics.balance.title') %></h4>
-    <div class='mb-8'>
-      <% @balance_analytics[:stats].each do |currency, value| %>
-        <p><%= money_presenter(value, currency) %></p>
-      <% end %>
-    </div>
-  </div>
-</div>
 
 <% if @actives_pie_stats.size.positive? %>
   <h5><%= t('analytics.actives.header') %></h5>
