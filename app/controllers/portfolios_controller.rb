@@ -8,6 +8,6 @@ class PortfoliosController < ApplicationController
   private
 
   def portfolios
-    @portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result
+    @portfolios = Portfolios::Fetching::ForAccountService.call(user: current_user).result.to_a
   end
 end

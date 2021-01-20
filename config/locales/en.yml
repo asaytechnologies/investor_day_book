@@ -45,8 +45,8 @@ en:
     actives:
       header: Actives composition
     portfolio:
-      total_price: Portfolio actives price
-      profit: Portfolio profit
+      total_price: Actives price
+      profit: Profit
     sectors:
       header: Shares portfolio composition by sectors
     select:

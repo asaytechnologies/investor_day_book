@@ -1,0 +1,21 @@
+<% @portfolios.each do |portfolio| %>
+  <div id='portfolio_<%= portfolio[:id] %>' class='portfolio'>
+    <h6 class='portfolio-name'><%= portfolio[:name] %></h6>
+
+    <p class='portfolio-created mb-4'><%= t('portfolios.table.created') %> - <%= portfolio[:created] %></p>
+
+    <div class='portfolio-cashes-list'>
+      <% unless portfolio[:incomes].empty? %>
+        <div class='portfolio-cashes'>
+          <p><%= t('portfolios.table.incomes') %>: <%= portfolio[:incomes] %></p>
+        </div>
+      <% end %>
+
+      <% unless portfolio[:balance].empty? %>
+        <div class='portfolio-cashes'>
+          <p><%= t('portfolios.table.balance') %>: <%= portfolio[:balance] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

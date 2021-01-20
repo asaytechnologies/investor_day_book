@@ -45,8 +45,8 @@ ru:
     actives:
       header: Состав активов
     portfolio:
-      total_price: Стоимость активов портфеля
-      profit: Доходность портфеля
+      total_price: Стоимость активов
+      profit: Доходность
     sectors:
       header: Состав портфеля акций по секторам
     select:
