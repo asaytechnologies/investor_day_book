@@ -106,5 +106,6 @@ end
 
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
-after 'deploy:restart', 'sphinx:start'
-after 'sphinx:start', 'sphinx:rebuild'
+# sphinx:start need only after server reboot
+# after 'deploy:restart', 'sphinx:start'
+after 'deploy:restart', 'sphinx:rebuild'
