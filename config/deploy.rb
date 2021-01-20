@@ -96,4 +96,4 @@ end
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
 # after 'deploy:restart', 'sphinx:configure'
-# after 'sphinx:configure', 'sphinx:rebuild'
+after 'deploy:restart', 'sphinx:rebuild'
