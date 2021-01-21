@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - catching route errors
 
+### Modified
+- html optimisation
+
 ## [1.0.4] - 20.01.2021
 ### Modified
 - AR performance for portfolios page
