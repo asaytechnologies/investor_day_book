@@ -1,0 +1,13 @@
+<header class='header'>
+  <div class='header-logo'>
+    <%= link_to t('welcome.investor'), root_path %>
+  </div>
+  <nav class='header-links'>
+    <% if @current_user %>
+      <%= link_to t('welcome.dashboard'), analytics_path, class: 'button button-lg' %>
+    <% else %>
+      <%= link_to t('welcome.login'), new_user_session_path, class: 'header-link' %>
+      <%= link_to t('welcome.register'), new_user_registration_path, class: 'button button-lg' %>
+    <% end %>
+  </nav>
+</header>

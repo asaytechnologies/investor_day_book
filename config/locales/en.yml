@@ -1,4 +1,6 @@
 en:
+  errors:
+    route_not_found: This page does not exist
   meta:
     keywords: investments, invest, portfolio, analytics, stocks, shares
     description: InvestPlan - investment planning service

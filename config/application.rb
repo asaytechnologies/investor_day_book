@@ -41,5 +41,10 @@ module InvestorDayBook
     end
 
     config.active_job.queue_adapter = :inline
+
+    # Catch 404s
+    config.after_initialize do |app|
+      app.routes.append { match '*path', to: 'application#catch_route_error', via: :all }
+    end
   end
 end
