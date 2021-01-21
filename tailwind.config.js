@@ -2,6 +2,8 @@ module.exports = {
   future: {},
   purge: [],
   theme: {
+    fontFamily: {},
+    screens: {},
     colors: {
       'white': '#fff',
       'black': '#000',
@@ -31,8 +33,34 @@ module.exports = {
         700: '#4338ca'
       }
     },
+    transitionDuration: {},
+    transitionDelay: {},
+    translate: {},
+    opacity: {},
     extend: {},
+    animation: {},
+    backgroundPosition: {},
+    boxShadow: {},
+    gridColumn: {},
+    gridColumnEnd: {},
+    gridColumnStart: {},
+    gridRow: {},
+    gridRowStart: {},
+    gridRowEnd: {},
+    gridTemplateColumns: {},
+    gridTemplateRows: {},
+    letterSpacing: {},
+    order: {},
+    placeholderColor: {},
+    placeholderOpacity: {},
+    scale: {},
+    skew: {},
+    divideColor: {},
+    divideOpacity: {},
+    ringColor: {}
   },
-  variants: {},
+  variants: {
+    appearance: []
+  },
   plugins: [],
 }
