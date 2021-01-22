@@ -4,20 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [1.0.6] - 22.01.2021
 ### Added
-- scheduled jobs for quotes syncronization
+- scheduled jobs for quotes synchronization
+
+### Modified
+- size of tailwind classes
 
 ## [1.0.5] - 21.01.2021
 ### Added
 - catching route errors
 
 ### Modified
-- size of tailwind classes
-
-### Modified
-- html optimization
-- css optimization
+- html optimisation
+- css optimisation
 
 ## [1.0.4] - 20.01.2021
 ### Modified
