@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - catching route errors
 
 ### Modified
+- size of tailwind classes
+
+### Modified
 - html optimization
 - css optimization
 

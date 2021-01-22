@@ -1,8 +1,10 @@
 .button {
   @apply inline-block px-6 py-3;
-  @apply text-white cursor-pointer;
-  @apply bg-gradient-to-r from-indigo-700 to-blue-500;
+  @apply cursor-pointer;
   @apply rounded-3xl;
+
+  background: linear-gradient(to right, $governor_bay, $dodger_blue);
+  color: $white;
 
   &.button-sm {
     @apply text-base font-medium;
@@ -14,15 +16,18 @@
   }
 
   &:hover {
-    @apply bg-gradient-to-r from-blue-700 to-indigo-700;
+    background: linear-gradient(to right, $persian_blue, $governor_bay);
   }
 
   &.button-reverse {
-    @apply bg-gradient-to-r from-white to-white;
-    @apply text-indigo-700 border border-indigo-700;
+    @apply border;
+
+    background: $white;
+    color: $governor_bay;
+    border-color: $governor_bay;
 
     &:hover {
-      @apply bg-gradient-to-r from-white via-white to-blue-100;
+      background: linear-gradient(to right, $white 0%, $white 50%, $pattens_blue);
     }
   }
 }

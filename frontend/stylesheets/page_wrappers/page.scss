@@ -5,7 +5,7 @@
   text-decoration-thickness: 2px;
 
   &:hover {
-    @apply text-blue-800;
+    color: $persian_blue;
   }
 }
 
@@ -22,7 +22,8 @@
       @apply px-4 py-3 mb-2 rounded-lg;
 
       &.success {
-        @apply bg-green-400 text-white;
+        background: $shamrock;
+        color: $white;
       }
     }
   }
@@ -56,11 +57,12 @@
 
             &.open {
               @apply absolute right-0 flex flex-col;
-              @apply bg-blue-500 rounded-lg;
+              @apply rounded-lg;
               @apply p-4;
 
               top: 4rem;
               width: 12rem;
+              background: $dodger_blue;
 
               .select-language {
                 @apply flex pl-4;
@@ -68,10 +70,12 @@
 
               .logout-link {
                 @apply px-4 py-2 mt-4;
-                @apply text-white font-semibold rounded-lg;
+                @apply font-semibold rounded-lg;
+
+                color: $white;
 
                 &:hover {
-                  @apply bg-blue-600;
+                  background: $royal_blue;
                 }
               }
             }
@@ -80,7 +84,7 @@
       }
 
       section.content-header {
-        @apply bg-blue-100;
+        background: $pattens_blue;
 
         .content-header-body {
           @apply flex justify-between items-center;

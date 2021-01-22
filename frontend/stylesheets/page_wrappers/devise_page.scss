@@ -22,8 +22,9 @@
       @apply mb-4 text-center text-xl;
 
       a {
-        @apply underline text-blue-500 font-semibold;
+        @apply underline font-semibold;
 
+        color: $dodger_blue;
         text-decoration-thickness: 2px;
       }
     }

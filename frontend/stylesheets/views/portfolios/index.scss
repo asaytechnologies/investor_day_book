@@ -3,7 +3,7 @@
     @apply py-2 px-4;
 
     &:nth-of-type(odd) {
-      @apply bg-gray-100;
+      background: $athens_gray_light;
     }
 
     .portfolio-cashes-list {

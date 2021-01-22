@@ -2,9 +2,10 @@
   @apply relative h-full;
 
   .sidebar {
-    @apply hidden bg-white;
+    @apply hidden;
 
     width: 30rem;
+    background: $white;
 
     &.open {
       @apply block fixed top-0 right-0;

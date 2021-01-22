@@ -3,43 +3,63 @@ module.exports = {
   purge: [],
   theme: {
     fontFamily: {},
-    screens: {},
-    colors: {
-      'white': '#fff',
-      'black': '#000',
-      'gray': {
-        400: '#9ca3af',
-        300: '#d1d5db',
-        200: '#e5e7eb',
-        100: '#f3f4f6'
-      },
-      'red': {
-        500: '#EF4444'
-      },
-      'green': {
-        500: '#10b981',
-        400: '#34d399'
-      },
-      'blue': {
-        800: '#1e40af',
-        700: '#1d4ed8',
-        600: '#2563eB',
-        500: '#3b82f6',
-        400: '#60a5fa',
-        200: '#bfdbfe',
-        100: '#dbeafe'
-      },
-      'indigo': {
-        700: '#4338ca'
-      }
+    spacing: {
+      0: '0px',
+      1: '0.25rem',
+      2: '0.5rem',
+      3: '0.75rem',
+      4: '1rem',
+      6: '1.5rem',
+      8: '2rem',
+      10: '2.5rem',
+      12: '3rem',
+      20: '5rem'
     },
+    fontSize: {
+      sm: ['0.875rem', { lineHeight: '1.25rem' }],
+      base: ['1rem', { lineHeight: '1.5rem' }],
+      lg: ['1.125rem', { lineHeight: '1.75rem' }],
+      xl: ['1.25rem', { lineHeight: '1.75rem' }],
+      '2xl': ['1.5rem', { lineHeight: '2rem' }],
+      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+      '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+      '5xl': ['3rem', { lineHeight: '1' }],
+      '6xl': ['3.75rem', { lineHeight: '1' }]
+    },
+    fontWeight: {
+      light: '300',
+      normal: '400',
+      medium: '500',
+      semibold: '600'
+    },
+    height: (theme) => ({
+      ...theme('spacing'),
+      full: '100%',
+      screen: '100vh',
+    }),
+    width: (theme) => ({
+      ...theme('spacing'),
+      full: '100%'
+    }),
+    margin: (theme, { negative }) => ({
+      auto: 'auto',
+      ...theme('spacing')
+    }),
+    screens: {},
+    colors: {},
+    backgroundColor: {},
+    backgroundImage: {},
+    backgroundOpacity: {},
+    backgroundPosition: {},
+    backgroundSize: {},
+    borderColor: {},
+    borderOpacity: {},
     transitionDuration: {},
     transitionDelay: {},
     translate: {},
     opacity: {},
     extend: {},
     animation: {},
-    backgroundPosition: {},
     boxShadow: {},
     gridColumn: {},
     gridColumnEnd: {},
@@ -50,6 +70,12 @@ module.exports = {
     gridTemplateColumns: {},
     gridTemplateRows: {},
     letterSpacing: {},
+    keyframes: {},
+    inset: (theme, { negative }) => ({
+      auto: 'auto',
+      ...theme('spacing'),
+      full: '100%',
+    }),
     order: {},
     placeholderColor: {},
     placeholderOpacity: {},
@@ -57,10 +83,24 @@ module.exports = {
     skew: {},
     divideColor: {},
     divideOpacity: {},
-    ringColor: {}
+    ringColor: {},
+    maxHeight: {},
+    maxWidth: {},
+    order: {}
+  },
+  corePlugins: {
+    float: false
   },
   variants: {
-    appearance: []
+    appearance: [],
+    backgroundColor: [],
+    backgroundOpacity: [],
+    borderColor: [],
+    borderOpacity: [],
+    boxShadow: [],
+    textColor: [],
+    textDecoration: [],
+    textOpacity: [],
   },
   plugins: [],
 }

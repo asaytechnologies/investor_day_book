@@ -7,12 +7,15 @@
   }
 
   .form-value {
-    @apply bg-white font-light leading-8;
+    @apply font-light leading-8;
     @apply px-4 py-1 w-full;
-    @apply border border-blue-500 rounded;
+    @apply border rounded;
+
+    background: $white;
+    border-color: $dodger_blue;
 
     &.error {
-      @apply border-red-500;
+      border-color: $flamingo;
     }
 
     &.select-value {
@@ -21,14 +24,17 @@
       &:after {
         @apply absolute right-0 top-0;
         @apply w-8 h-full;
-        @apply border-l border-blue-500;
+        @apply border-l;
 
         content: '';
+        border-left-color: $dodger_blue;
       }
 
       &:before {
         @apply absolute;
-        @apply border-2 border-blue-500 w-3 h-3;
+        @apply border-2 w-3 h-3;
+
+        border-color: $dodger_blue;
 
         content: '';
         right: .625rem;
@@ -51,24 +57,31 @@
     @apply hidden;
 
     .select-list-item {
-      @apply bg-white px-4 py-2 w-full;
-      @apply border-b border-gray-200;
+      @apply px-4 py-2 w-full;
+      @apply border-b;
+
+      background: $white;
+      border-bottom-color: $athens_gray;
 
       &:nth-last-of-type(1) {
         @apply border-none;
       }
 
       &:hover {
-        @apply cursor-pointer bg-blue-100;
+        @apply cursor-pointer;
+
+        background: $pattens_blue;
       }
     }
 
     &.open {
       @apply block absolute left-0 w-full;
-      @apply overflow-hidden z-20 bg-white;
-      @apply border border-blue-500 rounded;
+      @apply overflow-hidden z-20;
+      @apply border rounded;
 
+      background: $white;
       border-top: none;
+      border-color: $dodger_blue;
     }
   }
 }
