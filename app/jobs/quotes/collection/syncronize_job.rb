@@ -14,15 +14,6 @@ module Quotes
         Quotes::Collection::SyncronizeService.call(source: 'moex', date: (Time.zone.today - 1.day).to_s)
         Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
         ExchangeRates::SyncronizeService.call
-        success_notify
-      end
-
-      private
-
-      def success_notify
-        Bugsnag.notify('Quotes syncronization is completed') do |report|
-          report.severity = 'info'
-        end
       end
     end
   end
