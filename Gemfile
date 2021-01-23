@@ -68,6 +68,10 @@ gem 'skylight', '~> 4.3.0'
 # cron jobs
 gem 'whenever', require: false
 
+# active jobs adapter
+gem 'que', '1.0.0.beta4'
+gem 'que-web', '~> 0.9.3'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'

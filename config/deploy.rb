@@ -104,8 +104,36 @@ namespace :sphinx do
   end
 end
 
+namespace :que do
+  desc 'Start que worker'
+  task :start do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          # rubocop: disable Layout/LineLength
+          execute "nohup bash -l -c 'cd #{release_path} && RAILS_ENV=production que ./config/environment.rb >> #{release_path}/log/que.log 2>&1 &' > /dev/null 2>&1"
+          # rubocop: enable Layout/LineLength
+        end
+      end
+    end
+  end
+
+  desc 'Stop que worker'
+  task :stop do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute "ps aux | grep '[b]in/que' | awk '{ print $2 }' | xargs kill"
+        end
+      end
+    end
+  end
+end
+
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
 # sphinx:start need only after server reboot
 # after 'deploy:restart', 'sphinx:start'
 after 'deploy:restart', 'sphinx:rebuild'
+after 'sphinx:rebuild', 'que:stop'
+after 'que:stop', 'que:start'

@@ -29,6 +29,8 @@ module InvestorDayBook
     I18n.available_locales = %i[en ru]
     config.i18n.default_locale = :en
 
+    config.active_record.schema_format = :sql
+
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.generators do |g|
@@ -40,12 +42,8 @@ module InvestorDayBook
       g.helper false
     end
 
-    config.active_job.queue_adapter = :async
-    config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new(
-      min_threads: 1,
-      max_threads: 2 * Concurrent.processor_count,
-      idletime:    600.seconds
-    )
+    config.active_job.queue_adapter = :que
+    config.action_mailer.deliver_later_queue_name = 'default'
 
     # Catch 404s
     config.after_initialize do |app|
