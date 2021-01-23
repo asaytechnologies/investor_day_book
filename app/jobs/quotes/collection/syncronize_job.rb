@@ -14,6 +14,7 @@ module Quotes
         Quotes::Collection::SyncronizeService.call(source: 'moex', date: (Time.zone.today - 1.day).to_s)
         Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
         ExchangeRates::SyncronizeService.call
+        Infosnag.call(text: "Синхронизация котировок завершена, #{Time.zone.today}")
       end
     end
   end

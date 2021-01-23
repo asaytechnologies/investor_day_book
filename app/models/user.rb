@@ -10,4 +10,14 @@ class User < ApplicationRecord
   has_many :positions, class_name: 'Users::Position', through: :portfolios
 
   has_many :uploads, dependent: :destroy
+
+  scope :unconfirmed, -> { where confirmed_at: nil }
+
+  after_create :send_create_notification
+
+  private
+
+  def send_create_notification
+    Users::CreateNotificationJob.perform_later(id: id)
+  end
 end
