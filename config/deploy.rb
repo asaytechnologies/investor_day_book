@@ -110,7 +110,7 @@ namespace :que do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute 'cd #{release_path} && RAILS_ENV=production exec bundle exec que ./config/environment.rb'
+          execute :bundle, 'RAILS_ENV=production exec que ./config/environment.rb'
         end
       end
     end
