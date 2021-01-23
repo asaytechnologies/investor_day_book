@@ -22,27 +22,27 @@ module Analytics
 
     def initialize_variables
       @result = {}
-      @total_amount_cents = 0
+      @total_amount_price = 0
     end
 
     def collect_values(args)
       args.each.with_index do |(key, value), index|
         add_sector(I18n.t("actives.#{key}"), COLORS[index], value)
-        update_total_cents_counter(value)
+        update_total_price_counter(value)
       end
     end
 
-    def add_sector(sector_name, sector_color, cents_amount)
-      @result[sector_name] = { color: sector_color, amount: cents_amount }
+    def add_sector(sector_name, sector_color, amount)
+      @result[sector_name] = { color: sector_color, amount: amount }
     end
 
-    def update_total_cents_counter(cents_amount)
-      @total_amount_cents += cents_amount
+    def update_total_price_counter(amount)
+      @total_amount_price += amount
     end
 
     def count_relative_values
       @result.each do |_key, value|
-        value[:amount] = @total_amount_cents.zero? ? 0 : (100.0 * value[:amount] / @total_amount_cents).round(2)
+        value[:amount] = @total_amount_price.zero? ? 0 : (100.0 * value[:amount] / @total_amount_price).round(2)
       end
     end
 

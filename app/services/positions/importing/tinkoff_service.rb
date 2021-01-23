@@ -67,7 +67,7 @@ module Positions
           operation:      row[22] == SELL_OPERATION_MARKER ? SELL_OPERATION : BUY_OPERATION,
           ticker:         row[33],
           price:          row[38].tr(',', '.').to_f,
-          currency:       row[43],
+          price_currency: row[43],
           amount:         row[47].to_i
         }
       end
@@ -81,19 +81,14 @@ module Positions
           quote =
             Quote
             .joins(:security)
-            .where(price_currency: position[:currency])
+            .where(price_currency: position[:price_currency])
             .where(securities: { ticker: position[:ticker] })
             .first
           next unless quote
 
-          Positions::CreateService.call(
-            portfolio:      @portfolio,
-            quote:          quote,
-            price:          Money.new(position[:price] * 100, position[:currency]),
-            amount:         position[:amount],
-            operation:      position[:operation],
-            operation_date: position[:operation_date]
-          )
+          attrs = { portfolio: @portfolio, quote: quote }
+          attrs = attrs.merge(position.slice(:price, :price_currency, :amount, :operation, :operation_date))
+          Positions::CreateService.call(attrs)
         end
       end
     end

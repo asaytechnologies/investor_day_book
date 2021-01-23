@@ -52,15 +52,15 @@ module Quotes
             object.face_value_cents = data[:ticker_info][:face_value].to_f * 100
             object.board = data[:board]
           end
-          quote.price_cents = quote_price_cents(quote, data)
+          quote.price = quote_price(quote, data)
           quote.save!
           quote
         end
 
-        def quote_price_cents(quote, data)
-          return data[:price] * quote.face_value_cents / 100.0 if data[:security_type] == 'Bond'
+        def quote_price(quote, data)
+          return data[:price] * quote.face_value_cents / 10_000.0 if data[:security_type] == 'Bond'
 
-          data[:price] * 100
+          data[:price]
         end
 
         def currency(data)

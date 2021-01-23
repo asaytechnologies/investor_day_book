@@ -51,10 +51,10 @@ module Analytics
     def actives_pie
       @actives_pie_stats =
         Analytics::ActivesService.call(
-          currencies:  @balance_analytics[:summary_cents],
-          shares:      @positions_analytics[:share][:total_cents],
-          bonds:       @positions_analytics[:bond][:total_cents],
-          foundations: @positions_analytics[:foundation][:total_cents]
+          currencies:  @balance_analytics[:summary_price],
+          shares:      @positions_analytics[:share][:total_price],
+          bonds:       @positions_analytics[:bond][:total_price],
+          foundations: @positions_analytics[:foundation][:total_price]
         ).result
     end
 
@@ -68,28 +68,26 @@ module Analytics
     end
 
     def calculate_total_stats
-      @positions_analytics[:total][:summary][:total_price_cents] = total_price_cents
-      @positions_analytics[:total][:summary][:total_income_cents] = total_income_cents
+      @positions_analytics[:total][:summary][:total_price] += @balance_analytics[:summary_price]
+      @positions_analytics[:total][:summary][:total_income_price] = total_income_price
       @positions_analytics[:total][:summary][:income_percent] = accumulated_income_percent
     end
 
-    def total_price_cents
-      @positions_analytics[:total][:summary][:total_cents] + @balance_analytics[:summary_cents]
-    end
-
-    def total_income_cents
-      @positions_analytics[:total][:summary][:total_price_cents] - initial_portfolio_cash
+    def total_income_price
+      @positions_analytics[:total][:summary][:total_price] - initial_portfolio_cash
     end
 
     def accumulated_income_percent
       return 0 if initial_portfolio_cash.zero?
 
-      (100.0 * @positions_analytics[:total][:summary][:total_income_cents] / initial_portfolio_cash).round(2)
+      (100.0 * @positions_analytics[:total][:summary][:total_income_price] / initial_portfolio_cash).round(2)
     end
 
     def initial_portfolio_cash
       @initial_portfolio_cash ||=
-        Portfolios::Cash.where(amount_currency: 'RUB', portfolio: @portfolio_ids, balance: false).sum(&:amount_cents)
+        Portfolios::Cash
+        .where(amount_currency: 'RUB', portfolio: @portfolio_ids, balance: false)
+        .sum(&:amount_cents) / 100
     end
   end
 end

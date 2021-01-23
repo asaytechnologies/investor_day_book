@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - telegram info notifications
 
+### Modified
+- saving quotes and positions prices as decimals
+
 ## [1.0.6] - 22.01.2021
 ### Added
 - scheduled jobs for quotes synchronization

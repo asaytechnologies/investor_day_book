@@ -13,6 +13,4 @@ class Quote < ApplicationRecord
            dependent:  :destroy
 
   has_many :coupons, class_name: 'Bonds::Coupon', inverse_of: :quote, dependent: :destroy
-
-  monetize :price_cents
 end

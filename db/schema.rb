@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_174957) do
+ActiveRecord::Schema.define(version: 2021_01_23_100736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_174957) do
     t.string "figi"
     t.integer "face_value_cents"
     t.decimal "average_year_dividents_amount", precision: 12, scale: 6
+    t.decimal "price", precision: 15, scale: 6
     t.index ["security_id"], name: "index_quotes_on_security_id"
   end
 
@@ -175,6 +176,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_174957) do
     t.boolean "selling_position", default: false, null: false
     t.boolean "plan", default: false, null: false
     t.datetime "operation_date"
+    t.decimal "price", precision: 15, scale: 6
     t.index ["portfolio_id"], name: "index_users_positions_on_portfolio_id"
     t.index ["quote_id"], name: "index_users_positions_on_quote_id"
   end

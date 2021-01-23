@@ -12,6 +12,4 @@ describe Quote, type: :model do
     it { is_expected.to have_many(:positions).class_name('Users::Position').dependent(:destroy) }
     it { is_expected.to have_many(:coupons).class_name('Bonds::Coupon').dependent(:destroy) }
   end
-
-  it { is_expected.to monetize(:price) }
 end

@@ -44,8 +44,9 @@ class PositionsReflex < ApplicationReflex
     Positions::CreateService.call(
       portfolio:      @portfolio,
       quote:          @quote,
-      price:          position_price,
-      amount:         position_money,
+      price:          position_params[:price].to_f,
+      price_currency: @quote.price_currency,
+      amount:         position_params[:amount].to_i,
       operation:      position_params[:operation],
       operation_date: position_params[:operation_date]
     )
@@ -56,14 +57,6 @@ class PositionsReflex < ApplicationReflex
       position_id: position_id,
       user:        current_user
     )
-  end
-
-  def position_price
-    Money.new(position_params[:price].to_f * 100, @quote.price_currency)
-  end
-
-  def position_money
-    position_params[:amount].to_i
   end
 
   def render_positions(portfolio_id, plan, dividents)

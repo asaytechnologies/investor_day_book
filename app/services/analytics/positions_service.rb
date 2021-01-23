@@ -46,19 +46,19 @@ module Analytics
 
       security_symbol = security_symbol(quote)
       currency_symbol = quote_currency_symbol(quote)
-      selling_total_cents = position.amount * position.price_cents
-      dividents = dividents_amount_cents(quote, position.amount)
+      selling_total_price = position.amount * position.price
+      dividents = dividents_amount_price(quote, position.amount)
 
       acc[security_symbol][:plans][quote] = {
         plan:                   true,
         amount:                 position.amount,
-        price_cents:            position.price_cents,
-        selling_total_cents:    selling_total_cents,
-        dividents_amount_cents: dividents,
+        price:                  position.price,
+        selling_total_price:    selling_total_price,
+        dividents_amount_price: dividents,
         position_id:            position.id
       }
-      acc[security_symbol][:total_cents] += selling_total_cents * @exchange_rates[currency_symbol]
-      acc[:total][:summary][:total_cents] += dividents * @exchange_rates[currency_symbol]
+      acc[security_symbol][:total_price] += selling_total_price * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:total_price] += dividents * @exchange_rates[currency_symbol]
     end
     # rubocop: enable Metrics/AbcSize
 
@@ -76,46 +76,46 @@ module Analytics
     end
 
     def update_selling_stats(acc, position)
-      acc[:selling_sold_cents] += position.amount * position.price_cents
+      acc[:selling_sold_price] += position.amount * position.price
     end
 
     def update_buying_stats(acc, position)
       unsold_amount = position.amount - position.sold_amount
       acc[:unsold_amount]       += unsold_amount
-      acc[:buying_unsold_cents] += unsold_amount * position.price_cents
-      acc[:buying_total_cents]  += position.amount * position.price_cents
+      acc[:buying_unsold_price] += unsold_amount * position.price
+      acc[:buying_total_price]  += position.amount * position.price
     end
 
     # rubocop: disable Metrics/AbcSize
     def calculate_selling_stats(quote, stats)
       # selling price for unsold securities
-      selling_unsold_cents = quote.price_cents * stats[:unsold_amount]
+      selling_unsold_price = quote.price * stats[:unsold_amount]
       # selling price for unsold securities + selling price for sold securities
-      selling_total_cents  = selling_unsold_cents + stats[:selling_sold_cents]
+      selling_total_price  = selling_unsold_price + stats[:selling_sold_price]
       # selling price for unsold securities + selling price for sold securities - buying price for all securities
-      selling_total_income_cents = selling_total_cents - stats[:buying_total_cents]
+      selling_total_income_price = selling_total_price - stats[:buying_total_price]
       # difference between selling and buying price of unsold securities
-      selling_unsold_income_cents = selling_unsold_cents - stats[:buying_unsold_cents]
+      selling_unsold_income_price = selling_unsold_price - stats[:buying_unsold_price]
       # average prices
-      buying_unsold_average_cents =
-        stats[:unsold_amount].zero? ? 0 : (stats[:buying_unsold_cents].to_f / stats[:unsold_amount])
+      buying_unsold_average_price =
+        stats[:unsold_amount].zero? ? 0 : (stats[:buying_unsold_price].to_f / stats[:unsold_amount]).round(5)
       exchange_profit =
-        buying_unsold_average_cents.zero? ? 0 : ((quote.price_cents / buying_unsold_average_cents - 1) * 100).round(2)
+        buying_unsold_average_price.zero? ? 0 : ((quote.price / buying_unsold_average_price - 1) * 100).round(2)
 
       stats.merge(
-        selling_unsold_cents:        selling_unsold_cents,
-        selling_total_cents:         selling_total_cents,
-        selling_total_income_cents:  selling_total_income_cents,
-        dividents_amount_cents:      dividents_amount_cents(quote, stats[:unsold_amount]),
-        selling_unsold_income_cents: selling_unsold_income_cents,
-        buying_unsold_average_cents: buying_unsold_average_cents,
+        selling_unsold_price:        selling_unsold_price,
+        selling_total_price:         selling_total_price,
+        selling_total_income_price:  selling_total_income_price,
+        dividents_amount_price:      dividents_amount_price(quote, stats[:unsold_amount]),
+        selling_unsold_income_price: selling_unsold_income_price,
+        buying_unsold_average_price: buying_unsold_average_price,
         exchange_profit:             exchange_profit
       )
     end
 
-    def dividents_amount_cents(quote, unsold_amount)
+    def dividents_amount_price(quote, unsold_amount)
       return 0 unless @options[:dividents]
-      return quote.average_year_dividents_amount.to_f * 100 * unsold_amount if quote.security.is_a?(Share)
+      return quote.average_year_dividents_amount.to_f * unsold_amount if quote.security.is_a?(Share)
       return 0 if quote.security.is_a?(Foundation)
 
       coupons_values =
@@ -124,16 +124,16 @@ module Analytics
         .where('payment_date > ? AND payment_date < ?', DateTime.now, DateTime.now + 1.year)
         .pluck(:coupon_value)
         .sum
-      coupons_values * 100 * unsold_amount
+      coupons_values * unsold_amount
     end
 
     def update_total_stats(acc, quote, stats)
       currency_symbol = quote_currency_symbol(quote)
 
-      acc[:total][:summary][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:total_price] += stats[:selling_total_price] * @exchange_rates[currency_symbol]
       return unless @options[:dividents]
 
-      acc[:total][:summary][:total_cents] += stats[:dividents_amount_cents] * @exchange_rates[currency_symbol]
+      acc[:total][:summary][:total_price] += stats[:dividents_amount_price] * @exchange_rates[currency_symbol]
     end
     # rubocop: enable Metrics/AbcSize
 
@@ -142,7 +142,7 @@ module Analytics
       currency_symbol = quote_currency_symbol(quote)
 
       acc[security_symbol][:stats][quote] = stats
-      acc[security_symbol][:total_cents] += stats[:selling_total_cents] * @exchange_rates[currency_symbol]
+      acc[security_symbol][:total_price] += stats[:selling_total_price] * @exchange_rates[currency_symbol]
     end
 
     def quote_currency_symbol(quote)
@@ -155,11 +155,11 @@ module Analytics
 
     def default_stats
       {
-        share:      { stats: {}, plans: {}, total_cents: 0 },
-        foundation: { stats: {}, plans: {}, total_cents: 0 },
-        bond:       { stats: {}, plans: {}, total_cents: 0 },
+        share:      { stats: {}, plans: {}, total_price: 0 },
+        foundation: { stats: {}, plans: {}, total_price: 0 },
+        bond:       { stats: {}, plans: {}, total_price: 0 },
         total:      {
-          summary: { total_cents: 0, income_cents: 0 }
+          summary: { total_price: 0 }
         }
       }
     end
@@ -167,9 +167,9 @@ module Analytics
     def basis_stats
       {
         unsold_amount:       0, # unsold amount of securities
-        buying_unsold_cents: 0, # buying total price cents of unsold securities
-        buying_total_cents:  0, # buying total price cents of all securities
-        selling_sold_cents:  0 # selling total price cents of sold securities
+        buying_unsold_price: 0, # buying total price of unsold securities
+        buying_total_price:  0, # buying total price of all securities
+        selling_sold_price:  0 # selling total price of sold securities
       }
     end
   end

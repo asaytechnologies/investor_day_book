@@ -5,9 +5,9 @@
       data-action='click->analytics--position-new#selectQuote'
       data-quote-id='<%= quote.id %>'
       data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>'
-      data-quote-price='<%= quote.price_cents / 100.0 %>'
+      data-quote-price='<%= quote.price %>'
     >
-      <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price_cents, quote.price_currency).format} (#{quote.security.type})" %>
+      <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price * 100, quote.price_currency).format} (#{quote.security.type})" %>
     </div>
   <% end %>
 <% end %>

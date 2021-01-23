@@ -50,7 +50,7 @@ module Quotes
             },
             quote_data:    {
               face_value_cents: line['faceValue'].to_f * 100,
-              price_cents:      quote_data.dig('payload', 'closePrice').to_f * 100,
+              price:            quote_data.dig('payload', 'closePrice').to_f,
               price_currency:   line['currency'],
               figi:             line['figi']
             }
