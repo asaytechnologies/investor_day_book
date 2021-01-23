@@ -135,5 +135,6 @@ after 'deploy:published', 'bundler:clean'
 # sphinx:start need only after server reboot
 # after 'deploy:restart', 'sphinx:start'
 after 'deploy:restart', 'sphinx:rebuild'
-after 'sphinx:rebuild', 'que:start'
-# after 'que:stop', 'que:start'
+# que:stop don't need after server restart
+after 'sphinx:rebuild', 'que:stop'
+after 'que:stop', 'que:start'
