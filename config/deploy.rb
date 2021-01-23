@@ -130,9 +130,12 @@ end
 
 after 'bundler:install', 'yarn:install'
 after 'deploy:published', 'bundler:clean'
-# sphinx:start need only after server reboot
-# after 'deploy:restart', 'sphinx:start'
 after 'deploy:restart', 'sphinx:rebuild'
-# que:stop don't need after server restart
-after 'sphinx:rebuild', 'que:start'
-# after 'que:stop', 'que:start'
+
+# after server restart need to do
+# cap production sphinx:start
+# cap production que:start
+
+# after deploy need to do
+# cap production que:stop
+# cap production que:start
