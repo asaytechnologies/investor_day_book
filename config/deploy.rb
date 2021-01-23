@@ -110,9 +110,7 @@ namespace :que do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          # rubocop: disable Layout/LineLength
-          execute "nohup bash -l -c 'cd #{release_path} && RAILS_ENV=production que ./config/environment.rb >> #{release_path}/log/que.log 2>&1 &' > /dev/null 2>&1"
-          # rubocop: enable Layout/LineLength
+          execute 'cd #{release_path} && RAILS_ENV=production exec bundle exec que ./config/environment.rb'
         end
       end
     end
@@ -136,5 +134,5 @@ after 'deploy:published', 'bundler:clean'
 # after 'deploy:restart', 'sphinx:start'
 after 'deploy:restart', 'sphinx:rebuild'
 # que:stop don't need after server restart
-after 'sphinx:rebuild', 'que:stop'
-after 'que:stop', 'que:start'
+after 'sphinx:rebuild', 'que:start'
+# after 'que:stop', 'que:start'
