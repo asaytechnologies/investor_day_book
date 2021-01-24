@@ -1,18 +1,66 @@
 .dropdown-box {
   @apply relative mb-4;
 
+  .dropdown-clear {
+    @apply absolute text-xl cursor-pointer;
+
+    top: 1.875rem;
+    right: .5rem;
+    color: $royal_blue;
+  }
+
   .form-label {
     @apply inline-block mb-1;
     @apply leading-5;
   }
 
   .form-value {
+    @apply relative;
     @apply font-light leading-8;
-    @apply px-4 w-full h-10;
+    @apply px-4 py-1 w-full;
     @apply border rounded;
 
     background: $white;
     border-color: $dodger_blue;
+  }
+
+  .dropdown-clear {
+    @apply cursor-pointer absolute right-0;
+    @apply border-l;
+
+    width: 33px;
+    height: 42px;
+    z-index: 10;
+    top: 26px;
+    border-left-color: $dodger_blue;
+
+    &:after {
+      @apply absolute;
+      @apply border-2 w-3 h-3;
+
+      border-color: $dodger_blue;
+
+      content: '';
+      right: 11px;
+      top: 22px;
+      transform: rotate(135deg);
+      border-top: none;
+      border-right: none;
+    }
+
+    &:before {
+      @apply absolute;
+      @apply border-2 w-3 h-3;
+
+      border-color: $dodger_blue;
+
+      content: '';
+      right: 11px;
+      top: 8px;
+      transform: rotate(-45deg);
+      border-top: none;
+      border-right: none;
+    }
   }
 
   .dropdown-list {
@@ -21,10 +69,11 @@
 
     max-height: 25rem;
 
-    .dropdown-list-element {
-      @apply px-4 py-2 w-full;
+    .dropdown-list-header, .dropdown-list-element {
+      @apply w-full;
 
-      background: $white;
+      border-width: 1px;
+      border-top: none;
       border-bottom-color: $athens_gray;
       border-right-color: $dodger_blue;
       border-left-color: $dodger_blue;
@@ -36,6 +85,19 @@
       &:nth-last-of-type(1) {
         border-radius: 0 0 .25rem .25rem;
       }
+    }
+
+    .dropdown-list-header {
+      @apply px-4 py-1;
+
+      background: $athens_gray;
+      font-weight: 600;
+    }
+
+    .dropdown-list-element {
+      @apply px-4 py-2;
+
+      background: $white;
 
       &:hover {
         @apply cursor-pointer;

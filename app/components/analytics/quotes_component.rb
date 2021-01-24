@@ -2,8 +2,14 @@
 
 module Analytics
   class QuotesComponent < ViewComponent::Base
-    def initialize(quotes:)
-      @quotes = quotes
+    include ViewHelper
+
+    def initialize(quote_ids: [])
+      @quotes =
+        Quote
+        .where(id: quote_ids)
+        .includes(:security)
+        .group_by { |e| e.security.type }
     end
   end
 end

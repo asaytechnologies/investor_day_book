@@ -1,13 +1,20 @@
 <% if @quotes.present? %>
-  <% @quotes.each do |quote| %>
-    <div
-      class='dropdown-list-element'
-      data-action='click->analytics--position-new#selectQuote'
-      data-quote-id='<%= quote.id %>'
-      data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>'
-      data-quote-price='<%= quote.price %>'
-    >
-      <%= "#{quote.security.ticker} (#{quote.security.name[I18n.locale.to_s]}), #{Money.new(quote.price * 100, quote.price_currency).format} (#{quote.security.type})" %>
-    </div>
+  <% %w[share bond foundation].each do |key| %>
+    <% if @quotes[key.capitalize].present? %>
+      <div class='dropdown-list-header'>
+        <%= t("analytics.table.#{key}_name") %>
+      </div>
+      <% @quotes[key.capitalize].each do |quote| %>
+        <div
+          class='dropdown-list-element'
+          data-action='click->analytics--position-new#selectQuote'
+          data-quote-id='<%= quote.id %>'
+          data-quote-name='<%= quote.security.name[I18n.locale.to_s] %>'
+          data-quote-price='<%= quote.price %>'
+        >
+          <%= "#{quote.security.name[I18n.locale.to_s]} (#{quote.security.ticker}), #{money_presenter(quote.price, quote.price_currency)}" %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

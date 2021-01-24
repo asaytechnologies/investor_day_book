@@ -18,6 +18,54 @@
       border-color: $flamingo;
     }
 
+    &.with-form-value-clear {
+      @apply relative;
+
+      &:after {
+        @apply absolute right-0 top-0;
+        @apply w-8 h-full;
+        @apply border-l;
+
+        content: '';
+        border-left-color: $dodger_blue;
+      }
+
+      .form-value-clear {
+        @apply cursor-pointer absolute right-0 top-0;
+        @apply w-8 h-full;
+
+        z-index: 10;
+
+        &:after {
+          @apply absolute;
+          @apply border-2 w-3 h-3;
+
+          border-color: $dodger_blue;
+
+          content: '';
+          right: .625rem;
+          top: 21px;
+          transform: rotate(135deg);
+          border-top: none;
+          border-right: none;
+        }
+
+        &:before {
+          @apply absolute;
+          @apply border-2 w-3 h-3;
+
+          border-color: $dodger_blue;
+
+          content: '';
+          right: .625rem;
+          top: 7px;
+          transform: rotate(-45deg);
+          border-top: none;
+          border-right: none;
+        }
+      }
+    }
+
     &.select-value {
       @apply cursor-pointer relative;
 

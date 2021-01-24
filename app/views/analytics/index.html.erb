@@ -94,15 +94,19 @@
 
             <div class='form-field hidden-by-default' data-analytics--position-new-target='securityBlock'>
               <label class='form-label'><%= t('analytics.sidebar.security') %></label>
-              <div class='form-value' data-analytics--position-new-target='securityValue'></div>
+              <div class='form-value with-form-value-clear'>
+                <span data-analytics--position-new-target='securityValue'></span>
+                <span class='form-value-clear' data-action='click->analytics--position-new#clearSecurity'></span>
+              </div>
             </div>
 
             <div class='dropdown-box' data-reflex-root='#quotes' data-analytics--position-new-target='dropdown'>
               <input type='hidden' name='position[quote_id]' data-analytics--position-new-target='quoteId' />
-              <label class='form-label'><%= t('analytics.sidebar.select_security') %></label>
+              <label class='form-label'><%= t('analytics.sidebar.select_security') %> *</label>
               <input type='text' class='form-value' placeholder='<%= t('analytics.sidebar.search') %>' data-action='debounced:input->analytics--position-new#searchQuotes' data-analytics--position-new-target='selectInput' />
+              <span class='dropdown-clear hidden' data-action='click->analytics--position-new#clearSearch' data-analytics--position-new-target='clearSearch'></span>
               <div id='quotes' class='dropdown-list'>
-                <%= render Analytics::QuotesComponent.new(quotes: @quotes) %>
+                <%= render Analytics::QuotesComponent.new(quote_ids: []) %>
               </div>
             </div>
 
@@ -124,12 +128,12 @@
             </div>
 
             <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.price') %></label>
+              <label class='form-label'><%= t('analytics.sidebar.price') %> *</label>
               <input name='position[price]' class='form-value' data-analytics--position-new-target='price' data-action='keyup->analytics--position-new#refreshTotalPrice' />
             </div>
 
             <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.amount') %></label>
+              <label class='form-label'><%= t('analytics.sidebar.amount') %> *</label>
               <input name='position[amount]' class='form-value' data-analytics--position-new-target='amount' data-action='keyup->analytics--position-new#refreshTotalPrice' />
             </div>
 

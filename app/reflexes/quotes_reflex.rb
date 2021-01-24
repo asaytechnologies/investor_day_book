@@ -2,10 +2,9 @@
 
 class QuotesReflex < ApplicationReflex
   def search(query='', locale='en')
-    quotes_ids = Quotes::SearchService.call(query: query).result&.map(&:id)
-    quotes = quotes_ids ? Quote.where(id: quotes_ids).includes(:security).order('securities.type DESC') : []
+    quote_ids = query.blank? ? [] : Quotes::SearchService.call(query: query).result&.map(&:id)
 
     current_locale(locale)
-    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: quotes))
+    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quote_ids: quote_ids))
   end
 end
