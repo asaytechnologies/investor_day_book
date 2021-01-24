@@ -5,7 +5,7 @@ module Quotes
     class SyncronizeJob < ApplicationJob
       queue_as :default
 
-      SKIPPED_DAY_INDECES = [0, 7].freeze
+      SKIPPED_DAY_INDECES = [0, 6].freeze
 
       def perform
         # skip on sunday and monday
