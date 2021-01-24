@@ -92,20 +92,17 @@ module Analytics
       selling_unsold_price = quote.price * stats[:unsold_amount]
       # selling price for unsold securities + selling price for sold securities
       selling_total_price  = selling_unsold_price + stats[:selling_sold_price]
-      # selling price for unsold securities + selling price for sold securities - buying price for all securities
-      selling_total_income_price = selling_total_price - stats[:buying_total_price]
       # difference between selling and buying price of unsold securities
       selling_unsold_income_price = selling_unsold_price - stats[:buying_unsold_price]
       # average prices
       buying_unsold_average_price =
-        stats[:unsold_amount].zero? ? 0 : (stats[:buying_unsold_price].to_f / stats[:unsold_amount]).round(5)
+        stats[:unsold_amount].zero? ? 0 : (stats[:buying_unsold_price].to_f / stats[:unsold_amount]).round(4)
       exchange_profit =
         buying_unsold_average_price.zero? ? 0 : ((quote.price / buying_unsold_average_price - 1) * 100).round(2)
 
       stats.merge(
         selling_unsold_price:        selling_unsold_price,
         selling_total_price:         selling_total_price,
-        selling_total_income_price:  selling_total_income_price,
         dividents_amount_price:      dividents_amount_price(quote, stats[:unsold_amount]),
         selling_unsold_income_price: selling_unsold_income_price,
         buying_unsold_average_price: buying_unsold_average_price,

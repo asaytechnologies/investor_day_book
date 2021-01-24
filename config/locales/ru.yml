@@ -58,9 +58,9 @@ ru:
       name: Название
       amount: Кол-во
       total_price: Стоимость покупки
-      average_price: Средняя цена
-      current_price: Текущая цена
-      current_total_price: Текущая стоимость
+      average_price: Ср. цена покупки
+      current_price: Цена
+      current_total_price: Стоимость
       income: Разница
       exchange_profit: Курсовая разница
       plan_price: Цена покупки

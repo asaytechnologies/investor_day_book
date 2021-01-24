@@ -58,9 +58,9 @@ en:
       name: Name
       amount: Amount
       total_price: Total price
-      average_price: Average price
-      current_price: Current price
-      current_total_price: Current total price
+      average_price: Buying average price
+      current_price: Price
+      current_total_price: Total price
       income: Income
       exchange_profit: Exchange profit
       plan_price: Plan price
