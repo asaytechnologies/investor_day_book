@@ -1,6 +1,6 @@
 <header class='header'>
   <div class='header-logo'>
-    <%= link_to t('welcome.investor'), root_path %>
+    <%= link_to image_tag(asset_pack_path('media/images/pictures/invest-plan-logo.png'), alt: 'invest plan logo', width: 173, height: 52), root_path %>
   </div>
   <nav class='header-links'>
     <% if @current_user %>

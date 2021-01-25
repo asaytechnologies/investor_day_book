@@ -8,3 +8,4 @@ import "controllers"
 import "../stylesheets/application.scss"
 
 import "../locales"
+import "../images"

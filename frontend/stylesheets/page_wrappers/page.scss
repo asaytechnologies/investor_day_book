@@ -113,15 +113,4 @@
   @apply inline-block mr-1 h-4;
 
   width: 1.5625rem;
-  background: url("../images/flags.png");
-
-  &.flag_ru {
-    background-size: 100%;
-    background-position: 0 0;
-  }
-
-  &.flag_en {
-    background-size: 100%;
-    background-position: 0 -1rem;
-  }
 }

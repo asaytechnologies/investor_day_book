@@ -6,7 +6,7 @@
   <% if @change_locale %>
     <div class='select-language'>
       <% I18n.available_locales.each do |locale| %>
-        <%= link_to '', change_locale(locale), class: "flag flag_#{locale}" %>
+        <%= link_to image_tag(asset_pack_path("media/images/icons/#{locale}.png"), alt: 'change locale', width: 25, height: 17), change_locale(locale), class: 'flag' %>
       <% end %>
     </div>
   <% end %>
