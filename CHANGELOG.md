@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Modified
 - synchronization jobs time execution
+- gravatar improvements
 
 ## [1.0.7] - 25.01.2021
 ### Added

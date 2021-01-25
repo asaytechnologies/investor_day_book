@@ -5,7 +5,7 @@
   </nav>
   <div class='profile-block' data-controller='shared--navigation' data-action='shared--navigation:click:outside->shared--navigation#close'>
     <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
-      <%= image_tag gravatar_source %>
+      <%= image_tag gravatar_source, width: 48, height: 48, alt: 'gravatar' %>
     </h4>
     <div class='navigation-dropdown' data-shared--navigation-target='list'>
       <div class='select-language'>

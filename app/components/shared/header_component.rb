@@ -9,7 +9,7 @@ module Shared
     end
 
     def gravatar_source
-      "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@current_user.email.downcase)}"
+      "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@current_user.email.downcase)}?s=96"
     end
   end
 end
