@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [1.0.8] - 25.01.2021
 ### Added
 - icons and logo
 
@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - synchronization jobs time execution
 - gravatar improvements
 
-## [1.0.7] - 25.01.2021
+## [1.0.7] - 24.01.2021
 ### Added
 - que as active jobs adapter
 - telegram info notifications
