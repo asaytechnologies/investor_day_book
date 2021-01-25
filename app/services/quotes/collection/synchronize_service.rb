@@ -2,7 +2,7 @@
 
 module Quotes
   module Collection
-    class SyncronizeService
+    class SynchronizeService
       prepend BasicService
 
       def initialize(

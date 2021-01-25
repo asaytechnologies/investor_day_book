@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExchangeRates
-  class SyncronizeService
+  class SynchronizeService
     prepend BasicService
 
     SAME_CURRENCY_COEFFICIENT = 1
