@@ -1,36 +1,39 @@
 .header-link {
-  @apply mr-4;
-  @apply text-xl font-semibold underline;
-
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: underline;
   text-decoration-thickness: 2px;
 
   &:hover {
-    color: $persian_blue;
+    color: $royal_blue;
   }
 }
 
 .page {
-  @apply relative flex flex-col h-screen;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 
   #notifications {
-    @apply absolute z-10;
-
+    position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 10;
 
     .notification {
       @apply px-4 py-3 mb-2 rounded-lg;
 
       &.success {
-        background: $shamrock;
+        background: $mountain_meadow;
         color: $white;
       }
     }
   }
 
   main.content {
-    @apply relative;
-
+    position: relative;
     flex: 1;
 
     .page-container {

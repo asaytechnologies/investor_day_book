@@ -1,14 +1,6 @@
 .dropdown-box {
   @apply relative mb-4;
 
-  .dropdown-clear {
-    @apply absolute text-xl cursor-pointer;
-
-    top: 1.875rem;
-    right: .5rem;
-    color: $royal_blue;
-  }
-
   .form-label {
     @apply inline-block mb-1;
     @apply leading-5;
@@ -102,7 +94,7 @@
       &:hover {
         @apply cursor-pointer;
 
-        background: $french_pass;
+        background: $pattens_blue;
       }
     }
   }
