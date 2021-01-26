@@ -31,14 +31,13 @@
           <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.current_price') %></th>
           <th><%= t('analytics.table.current_total_price') %></th>
+          <th><%= t('analytics.table.income') %></th>
           <% if key == :share && @options[:dividents] %>
             <th><%= t('analytics.table.dividents') %></th>
           <% end %>
           <% if key == :bond && @options[:dividents] %>
             <th><%= t('analytics.table.coupons') %></th>
           <% end %>
-          <th><%= t('analytics.table.income') %></th>
-          <th><%= t('analytics.table.exchange_profit') %></th>
         </tr>
       </thead>
       <tbody>
@@ -51,8 +50,12 @@
             <% end %>
             <td><%= money_presenter(stats[:buying_unsold_average_price], quote.price_currency) %></td>
             <td><%= money_presenter(stats[:buying_unsold_price], quote.price_currency) %></td>
-            <td><%= money_presenter(quote.price, quote.price_currency) %></td>
+            <td class='price'><%= money_presenter(quote.price, quote.price_currency) %></td>
             <td><%= money_presenter(stats[:selling_unsold_price], quote.price_currency) %></td>
+            <td class='profit <%= 'profitable' if stats[:exchange_profit].positive? %> <%= 'negative' if stats[:exchange_profit].negative? %>'>
+              <%= money_presenter(stats[:selling_unsold_income_price], quote.price_currency) %>
+              (<%= stats[:exchange_profit] %>%)
+            </td>
             <% if key.in?(%i[share bond]) && @options[:dividents] %>
               <td>
                 <% if stats[:dividents_amount_price].positive? %>
@@ -60,10 +63,28 @@
                 <% end %>
               </td>
             <% end %>
-            <td><%= money_presenter(stats[:selling_unsold_income_price], quote.price_currency) %></td>
-            <td class='<%= 'profitable' if stats[:exchange_profit].positive? %> <%= 'negative' if stats[:exchange_profit].negative? %>'><%= stats[:exchange_profit] %>%</td>
           </tr>
         <% end %>
+        <%- stats = @positions_analytics[key] %>
+        <%- profit = stats[:total_price].round(2) - stats[:total_buy_price].round(2) %>
+        <tr class='position total'>
+          <td class='name-column'><%= t('analytics.table.summary') %></td>
+          <td></td>
+          <% if key == :bond %>
+            <td></td>
+          <% end %>
+          <td></td>
+          <td><%= money_presenter(stats[:total_buy_price].round(2), 'RUB') %></td>
+          <td></td>
+          <td><%= money_presenter(stats[:total_price].round(2), 'RUB') %></td>
+          <td class='profit <%= 'profitable' if profit.positive? %> <%= 'negative' if profit.negative? %>'>
+            <%= money_presenter(profit, 'RUB') %>
+            (<%= (100 * profit / stats[:total_buy_price]).round(2) %>%)
+          </td>
+          <% if key.in?(%i[share bond]) && @options[:dividents] %>
+            <td><%= money_presenter(stats[:total_dividents].round(2), 'RUB') %></td>
+          <% end %>
+        </tr>
       </tbody>
     </table>
   <% end %>

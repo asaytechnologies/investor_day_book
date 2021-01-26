@@ -2,6 +2,6 @@
 
 module ViewHelper
   def money_presenter(price, currency)
-    "#{Money::Currency.new(currency).symbol} #{price}"
+    "#{price} #{Money::Currency.new(currency).symbol}"
   end
 end

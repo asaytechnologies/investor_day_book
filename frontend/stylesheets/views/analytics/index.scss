@@ -54,9 +54,21 @@
           background: $athens_gray;
         }
 
+        &.total {
+          background: $pattens_blue;
+
+          td {
+            font-weight: 600;
+          }
+        }
+
         td {
           @apply text-right;
           @apply py-1 pr-2;
+
+          &.profit, &.price {
+            padding-left: 2rem;
+          }
 
           &.profitable {
             color: $mountain_meadow;

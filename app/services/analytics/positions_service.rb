@@ -83,7 +83,6 @@ module Analytics
       unsold_amount = position.amount - position.sold_amount
       acc[:unsold_amount]       += unsold_amount
       acc[:buying_unsold_price] += unsold_amount * position.price
-      acc[:buying_total_price]  += position.amount * position.price
     end
 
     # rubocop: disable Metrics/AbcSize
@@ -139,7 +138,9 @@ module Analytics
       currency_symbol = quote_currency_symbol(quote)
 
       acc[security_symbol][:stats][quote] = stats
+      acc[security_symbol][:total_buy_price] += stats[:buying_unsold_price] * @exchange_rates[currency_symbol]
       acc[security_symbol][:total_price] += stats[:selling_total_price] * @exchange_rates[currency_symbol]
+      acc[security_symbol][:total_dividents] += stats[:dividents_amount_price] * @exchange_rates[currency_symbol]
     end
 
     def quote_currency_symbol(quote)
@@ -152,9 +153,9 @@ module Analytics
 
     def default_stats
       {
-        share:      { stats: {}, plans: {}, total_price: 0 },
-        foundation: { stats: {}, plans: {}, total_price: 0 },
-        bond:       { stats: {}, plans: {}, total_price: 0 },
+        share:      { stats: {}, plans: {}, total_buy_price: 0, total_price: 0, total_dividents: 0 },
+        foundation: { stats: {}, plans: {}, total_buy_price: 0, total_price: 0, total_dividents: 0 },
+        bond:       { stats: {}, plans: {}, total_buy_price: 0, total_price: 0, total_dividents: 0 },
         total:      {
           summary: { total_price: 0 }
         }
@@ -165,7 +166,6 @@ module Analytics
       {
         unsold_amount:       0, # unsold amount of securities
         buying_unsold_price: 0, # buying total price of unsold securities
-        buying_total_price:  0, # buying total price of all securities
         selling_sold_price:  0 # selling total price of sold securities
       }
     end

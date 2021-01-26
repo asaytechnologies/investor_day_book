@@ -55,14 +55,14 @@ ru:
       title: Выберите портфель для статистики
       total: Составной портфель
     table:
+      summary: Итого
       name: Название
       amount: Кол-во
       total_price: Стоимость покупки
       average_price: Ср. цена покупки
       current_price: Цена
       current_total_price: Стоимость
-      income: Разница
-      exchange_profit: Курсовая разница
+      income: Доходность
       plan_price: Цена покупки
       share_name: Акции
       foundation_name: Фонды

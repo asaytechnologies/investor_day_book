@@ -55,14 +55,14 @@ en:
       title: Select portfolio for stats
       total: All portfolios stats
     table:
+      summary: Summary
       name: Name
       amount: Amount
       total_price: Total price
       average_price: Buying average price
       current_price: Price
       current_total_price: Total price
-      income: Income
-      exchange_profit: Exchange profit
+      income: Profit
       plan_price: Plan price
       share_name: Shares
       foundation_name: Foundations
