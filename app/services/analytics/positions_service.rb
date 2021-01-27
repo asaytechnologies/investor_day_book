@@ -131,7 +131,6 @@ module Analytics
 
       acc[:total][:summary][:total_price] += stats[:dividents_amount_price] * @exchange_rates[currency_symbol]
     end
-    # rubocop: enable Metrics/AbcSize
 
     def update_security_stats(acc, quote, stats)
       security_symbol = security_symbol(quote)
@@ -142,6 +141,7 @@ module Analytics
       acc[security_symbol][:total_price] += stats[:selling_total_price] * @exchange_rates[currency_symbol]
       acc[security_symbol][:total_dividents] += stats[:dividents_amount_price] * @exchange_rates[currency_symbol]
     end
+    # rubocop: enable Metrics/AbcSize
 
     def quote_currency_symbol(quote)
       quote.price_currency.to_sym

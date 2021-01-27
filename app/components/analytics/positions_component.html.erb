@@ -65,8 +65,6 @@
             <% end %>
           </tr>
         <% end %>
-        <%- stats = @positions_analytics[key] %>
-        <%- profit = stats[:total_price].round(2) - stats[:total_buy_price].round(2) %>
         <tr class='position total'>
           <td class='name-column'><%= t('analytics.table.summary') %></td>
           <td></td>
@@ -74,15 +72,15 @@
             <td></td>
           <% end %>
           <td></td>
-          <td><%= money_presenter(stats[:total_buy_price].round(2), 'RUB') %></td>
+          <td><%= money_presenter(@positions_analytics[key][:total_buy_price].round(2), 'RUB') %></td>
           <td></td>
-          <td><%= money_presenter(stats[:total_price].round(2), 'RUB') %></td>
-          <td class='profit <%= 'profitable' if profit.positive? %> <%= 'negative' if profit.negative? %>'>
-            <%= money_presenter(profit, 'RUB') %>
-            (<%= (100 * profit / stats[:total_buy_price]).round(2) %>%)
+          <td><%= money_presenter(@positions_analytics[key][:total_price].round(2), 'RUB') %></td>
+          <td class='profit <%= 'profitable' if @positions_analytics[key][:total_profit].positive? %> <%= 'negative' if @positions_analytics[key][:total_profit].negative? %>'>
+            <%= money_presenter(@positions_analytics[key][:total_profit], 'RUB') %>
+            (<%= @positions_analytics[key][:total_profit_percent] %>%)
           </td>
           <% if key.in?(%i[share bond]) && @options[:dividents] %>
-            <td><%= money_presenter(stats[:total_dividents].round(2), 'RUB') %></td>
+            <td><%= money_presenter(@positions_analytics[key][:total_dividents].round(2), 'RUB') %></td>
           <% end %>
         </tr>
       </tbody>

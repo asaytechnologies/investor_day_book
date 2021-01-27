@@ -58,10 +58,10 @@ en:
       summary: Summary
       name: Name
       amount: Amount
-      total_price: Total price
-      average_price: Buying average price
-      current_price: Price
-      current_total_price: Total price
+      total_price: Purchase value
+      average_price: Purchase price
+      current_price: Sale price
+      current_total_price: Sale value
       income: Profit
       plan_price: Plan price
       share_name: Shares

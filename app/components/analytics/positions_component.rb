@@ -67,11 +67,19 @@ module Analytics
         ).result
     end
 
+    # rubocop: disable Metrics/AbcSize
     def calculate_total_stats
       @positions_analytics[:total][:summary][:total_price] += @balance_analytics[:summary_price]
       @positions_analytics[:total][:summary][:total_income_price] = total_income_price
       @positions_analytics[:total][:summary][:income_percent] = accumulated_income_percent
+      %i[share bond foundation].each do |key|
+        profit = @positions_analytics[key][:total_price].round(2) - @positions_analytics[key][:total_buy_price].round(2)
+        @positions_analytics[key][:total_profit] = profit
+        @positions_analytics[key][:total_profit_percent] =
+          (100 * profit / @positions_analytics[key][:total_buy_price]).round(2)
+      end
     end
+    # rubocop: enable Metrics/AbcSize
 
     def total_income_price
       @positions_analytics[:total][:summary][:total_price] - initial_portfolio_cash

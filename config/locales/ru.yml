@@ -59,9 +59,9 @@ ru:
       name: Название
       amount: Кол-во
       total_price: Стоимость покупки
-      average_price: Ср. цена покупки
-      current_price: Цена
-      current_total_price: Стоимость
+      average_price: Цена покупки
+      current_price: Цена продажи
+      current_total_price: Стоимость продажи
       income: Доходность
       plan_price: Цена покупки
       share_name: Акции
