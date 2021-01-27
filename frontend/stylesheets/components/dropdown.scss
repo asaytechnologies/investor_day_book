@@ -1,38 +1,40 @@
 .dropdown-box {
-  @apply relative mb-4;
+  position: relative;
+  margin-bottom: 1rem;
 
   .form-label {
-    @apply inline-block mb-1;
-    @apply leading-5;
+    display: inline-block;
+    margin-bottom: .25rem;
+    line-height: 1.25rem;
   }
 
   .form-value {
-    @apply relative;
-    @apply font-light leading-8;
-    @apply px-4 py-1 w-full;
-    @apply border rounded;
-
+    position: relative;
+    font-weight: 300;
+    line-height: 2rem;
+    padding: .25rem 1rem;
+    width: 100%;
+    border: 1px solid $dodger_blue;
+    border-radius: .25rem;
     background: $white;
-    border-color: $dodger_blue;
   }
 
   .dropdown-clear {
-    @apply cursor-pointer absolute right-0;
-    @apply border-l;
-
+    position: absolute;
     width: 33px;
     height: 42px;
     z-index: 10;
     top: 26px;
-    border-left-color: $dodger_blue;
+    right: 0;
+    border-left: 1px solid $dodger_blue;
+    cursor: pointer;
 
     &:after {
-      @apply absolute;
-      @apply border-2 w-3 h-3;
-
-      border-color: $dodger_blue;
-
+      position: absolute;
+      border: 2px solid $dodger_blue;
       content: '';
+      width: .75rem;
+      height: .75rem;
       right: 11px;
       top: 22px;
       transform: rotate(135deg);
@@ -41,12 +43,11 @@
     }
 
     &:before {
-      @apply absolute;
-      @apply border-2 w-3 h-3;
-
-      border-color: $dodger_blue;
-
+      position: absolute;
+      border: 2px solid $dodger_blue;
       content: '';
+      width: .75rem;
+      height: .75rem;
       right: 11px;
       top: 8px;
       transform: rotate(-45deg);
@@ -56,14 +57,15 @@
   }
 
   .dropdown-list {
-    @apply absolute left-0 w-full;
-    @apply overflow-y-scroll z-10;
-
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow-y: scroll;
+    z-index: 10;
     max-height: 25rem;
 
     .dropdown-list-header, .dropdown-list-element {
-      @apply w-full;
-
+      width: 100%;
       border-width: 1px;
       border-top: none;
       border-bottom-color: $athens_gray;
@@ -80,20 +82,17 @@
     }
 
     .dropdown-list-header {
-      @apply px-4 py-1;
-
+      padding: .25rem 1rem;
       background: $athens_gray;
       font-weight: 600;
     }
 
     .dropdown-list-element {
-      @apply px-4 py-2;
-
+      padding: .5rem 1rem;
       background: $white;
 
       &:hover {
-        @apply cursor-pointer;
-
+        cursor: pointer;
         background: $pattens_blue;
       }
     }

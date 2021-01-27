@@ -1,39 +1,45 @@
 .sidebar-container {
-  @apply relative h-full;
+  position: relative;
+  height: 100%;
 
   .sidebar {
-    @apply hidden;
-
+    display: none;
     width: 30rem;
     background: $white;
 
     &.open {
-      @apply block fixed top-0 right-0;
-      @apply h-full py-4 px-8;
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      padding: 1rem 2rem;
     }
 
     .sidebar-header {
-      @apply relative;
+      position: relative;
 
       .sidebar-title {
-        @apply text-2xl font-medium text-center;
+        font-size: 1.5rem;
+        font-weight: 500;
+        text-align: center;
       }
 
       .close {
-        @apply absolute top-0;
-
+        position: absolute;
+        top: 0;
         right: -1rem;
 
         span {
-          @apply inline-block p-1;
-
+          display: inline-block;
+          padding: .25rem;
           border-radius: 50%;
         }
       }
     }
 
     .sidebar-content {
-      @apply mt-4;
+      margin-top: 1rem;
     }
   }
 }
