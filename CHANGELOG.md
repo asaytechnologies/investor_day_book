@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - total summary for actives types
 
+### Modified
+- positions import service
+
 ## [1.0.8] - 25.01.2021
 ### Added
 - icons and logo

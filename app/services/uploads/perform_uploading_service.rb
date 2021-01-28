@@ -12,7 +12,6 @@ module Uploads
 
     def uploads
       Upload
-        .where(completed: false)
         .where('created_at < ?', DateTime.now - 15.seconds)
     end
 

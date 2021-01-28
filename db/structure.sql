@@ -806,7 +806,8 @@ CREATE TABLE public.users_positions (
     selling_position boolean DEFAULT false NOT NULL,
     plan boolean DEFAULT false NOT NULL,
     operation_date timestamp without time zone,
-    price numeric(15,6)
+    price numeric(15,6),
+    external_id character varying
 );
 
 
@@ -1342,6 +1343,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210116080517'),
 ('20210117174957'),
 ('20210123100736'),
-('20210123192011');
+('20210123192011'),
+('20210128192141');
 
 

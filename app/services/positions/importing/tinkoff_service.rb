@@ -20,7 +20,6 @@ module Positions
         @positions = []
 
         parse_xls_file
-        destroy_old_positions
         save_positions
       end
 
@@ -72,12 +71,10 @@ module Positions
         }
       end
 
-      def destroy_old_positions
-        @portfolio.positions.destroy_all
-      end
-
       def save_positions
         @positions.each do |position|
+          next if position_exist?(position[:external_id])
+
           quote =
             Quote
             .joins(:security)
@@ -87,9 +84,15 @@ module Positions
           next unless quote
 
           attrs = { portfolio: @portfolio, quote: quote }
-          attrs = attrs.merge(position.slice(:price, :price_currency, :amount, :operation, :operation_date))
+          attrs = attrs.merge(
+            position.slice(:price, :price_currency, :amount, :operation, :operation_date, :external_id)
+          )
           Positions::CreateService.call(attrs)
         end
+      end
+
+      def position_exist?(external_id)
+        @portfolio.positions.exists?(external_id: external_id)
       end
     end
   end
