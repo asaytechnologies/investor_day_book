@@ -19,12 +19,6 @@ describe Users::RegistrationsController, type: :request do
             post user_registration_en_path(user: params)
           }.not_to change(User, :count)
         end
-
-        it 'and renders error' do
-          post user_registration_en_path(user: params)
-
-          expect(last_response.body).to include('Password is too short')
-        end
       end
 
       context 'for not matched passwords' do
@@ -34,12 +28,6 @@ describe Users::RegistrationsController, type: :request do
           expect {
             post user_registration_en_path(user: params)
           }.not_to change(User, :count)
-        end
-
-        it 'and renders error' do
-          post user_registration_en_path(user: params)
-
-          expect(last_response.body).to include('Password confirmation doesn')
         end
       end
 
@@ -51,12 +39,6 @@ describe Users::RegistrationsController, type: :request do
           expect {
             post user_registration_en_path(user: params)
           }.not_to change(User, :count)
-        end
-
-        it 'and renders error' do
-          post user_registration_en_path(user: params)
-
-          expect(last_response.body).to include('Email has already been taken')
         end
       end
     end
@@ -72,11 +54,10 @@ describe Users::RegistrationsController, type: :request do
         }.to change(User, :count).by(1)
       end
 
-      it 'and redirects to home page' do
+      it 'and redirects to confirm page' do
         post user_registration_en_path(user: params)
-        follow_redirect!
 
-        expect(last_response.body).to include('Welcome')
+        expect(last_response.location).to include('users/confirmation/check')
       end
     end
   end

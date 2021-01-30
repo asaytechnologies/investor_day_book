@@ -39,7 +39,7 @@ module Analytics
     end
 
     def positions_analytics
-      @positions_analytics =
+      @positions =
         Analytics::PositionsService.call(
           user:           @user,
           portfolio_ids:  @portfolio_ids,
@@ -52,43 +52,43 @@ module Analytics
       @actives_pie_stats =
         Analytics::ActivesService.call(
           currencies:  @balance_analytics[:summary_price],
-          shares:      @positions_analytics[:share][:total_price],
-          bonds:       @positions_analytics[:bond][:total_price],
-          foundations: @positions_analytics[:foundation][:total_price]
+          shares:      @positions[:share][:total_price],
+          bonds:       @positions[:bond][:total_price],
+          foundations: @positions[:foundation][:total_price]
         ).result
     end
 
     def share_sectors_pie
       @sector_pie_stats =
         Analytics::ShareSectorsService.call(
-          stats:          @positions_analytics.dig(:share, :stats),
-          plans:          @positions_analytics.dig(:share, :plans),
+          stats:          @positions.dig(:share, :stats),
+          plans:          @positions.dig(:share, :plans),
           exchange_rates: @exchange_rates
         ).result
     end
 
     # rubocop: disable Metrics/AbcSize
     def calculate_total_stats
-      @positions_analytics[:total][:summary][:total_price] += @balance_analytics[:summary_price]
-      @positions_analytics[:total][:summary][:total_income_price] = total_income_price
-      @positions_analytics[:total][:summary][:income_percent] = accumulated_income_percent
+      @positions[:total][:summary][:total_price] += @balance_analytics[:summary_price]
+      @positions[:total][:summary][:total_income_price] = total_income_price
+      @positions[:total][:summary][:income_percent] = accumulated_income_percent
       %i[share bond foundation].each do |key|
-        profit = @positions_analytics[key][:total_price].round(2) - @positions_analytics[key][:total_buy_price].round(2)
-        @positions_analytics[key][:total_profit] = profit
-        @positions_analytics[key][:total_profit_percent] =
-          @positions_analytics[key][:total_buy_price].zero? ? 0 : (100 * profit / @positions_analytics[key][:total_buy_price]).round(2)
+        profit = @positions[key][:total_price].round(2) - @positions[key][:total_buy_price].round(2)
+        @positions[key][:total_profit] = profit
+        @positions[key][:total_profit_percent] =
+          @positions[key][:total_buy_price].zero? ? 0 : (100 * profit / @positions[key][:total_buy_price]).round(2)
       end
     end
     # rubocop: enable Metrics/AbcSize
 
     def total_income_price
-      @positions_analytics[:total][:summary][:total_price] - initial_portfolio_cash
+      @positions[:total][:summary][:total_price] - initial_portfolio_cash
     end
 
     def accumulated_income_percent
       return 0 if initial_portfolio_cash.zero?
 
-      (100.0 * @positions_analytics[:total][:summary][:total_income_price] / initial_portfolio_cash).round(2)
+      (100.0 * @positions[:total][:summary][:total_income_price] / initial_portfolio_cash).round(2)
     end
 
     def initial_portfolio_cash

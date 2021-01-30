@@ -2,21 +2,21 @@
   <h4>
     <%= t('analytics.portfolio.total_price') %>:
     <span>
-      <%= money_presenter(@positions_analytics[:total][:summary][:total_price].round(2), 'RUB') %>
+      <%= money_presenter(@positions[:total][:summary][:total_price].round(2), 'RUB') %>
     </span>
   </h4>
   <h4>
     <%= t('analytics.portfolio.profit') %>:
-    <%- income_percent = @positions_analytics[:total][:summary][:income_percent] %>
+    <%- income_percent = @positions[:total][:summary][:income_percent] %>
     <span>
-      <%= money_presenter(@positions_analytics[:total][:summary][:total_income_price].round(2), 'RUB') %>
+      <%= money_presenter(@positions[:total][:summary][:total_income_price].round(2), 'RUB') %>
       (<span class='<%= 'positive' if income_percent.positive? %>'><%= '+' if income_percent.positive? %><%= income_percent %>%</span>)
     </span>
   </h4>
 </div>
 
 <% %i[share bond foundation].each do |key| %>
-  <% if @positions_analytics[key][:stats].present? %>
+  <% if @positions[key][:stats].present? %>
     <h4><%= t("analytics.table.#{key}_name") %></h4>
 
     <table class='table positions-table mb-4'>
@@ -41,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @positions_analytics[key][:stats].each do |quote, stats| %>
+        <% @positions[key][:stats].each do |quote, stats| %>
           <tr class='position'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
             <td><%= stats[:unsold_amount] %></td>
@@ -72,22 +72,22 @@
             <td></td>
           <% end %>
           <td></td>
-          <td><%= money_presenter(@positions_analytics[key][:total_buy_price].round(2), 'RUB') %></td>
+          <td><%= money_presenter(@positions[key][:total_buy_price].round(2), 'RUB') %></td>
           <td></td>
-          <td><%= money_presenter(@positions_analytics[key][:total_price].round(2), 'RUB') %></td>
-          <td class='profit <%= 'profitable' if @positions_analytics[key][:total_profit].positive? %> <%= 'negative' if @positions_analytics[key][:total_profit].negative? %>'>
-            <%= money_presenter(@positions_analytics[key][:total_profit], 'RUB') %>
-            (<%= @positions_analytics[key][:total_profit_percent] %>%)
+          <td><%= money_presenter(@positions[key][:total_price].round(2), 'RUB') %></td>
+          <td class='profit <%= 'profitable' if @positions[key][:total_profit].positive? %> <%= 'negative' if @positions[key][:total_profit].negative? %>'>
+            <%= money_presenter(@positions[key][:total_profit], 'RUB') %>
+            (<%= @positions[key][:total_profit_percent] %>%)
           </td>
           <% if key.in?(%i[share bond]) && @options[:dividents] %>
-            <td><%= money_presenter(@positions_analytics[key][:total_dividents].round(2), 'RUB') %></td>
+            <td><%= money_presenter(@positions[key][:total_dividents].round(2), 'RUB') %></td>
           <% end %>
         </tr>
       </tbody>
     </table>
   <% end %>
 
-  <% if @positions_analytics[key][:plans].present? %>
+  <% if @positions[key][:plans].present? %>
     <h5><%= t("analytics.table.header.plan_#{key}") %></h5>
 
     <table class='positions-table mb-4'>
@@ -111,7 +111,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @positions_analytics[key][:plans].each do |quote, stats| %>
+        <% @positions[key][:plans].each do |quote, stats| %>
           <tr class='position plan'>
             <td class='name-column'><%= quote.security.name[I18n.locale.to_s] %></td>
             <td><%= stats[:amount] %></td>

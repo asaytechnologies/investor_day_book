@@ -12,9 +12,8 @@
     </div>
 
     <div class='form-field'>
-      <%= f.label :password, class: 'form-label', value: t('devise.password') %>
-      <% if @minimum_password_length %>
-        <em>(<%= t('devise.minimum', amount: @minimum_password_length) %>)</em><br />
+      <%= f.label :password, class: 'form-label' do %>
+        <em><%= t('devise.password') %> (<%= t('devise.minimum', amount: @minimum_password_length) %>)</em><br />
       <% end %>
       <%= f.password_field :password, autocomplete: 'new-password', class: 'form-value' %>
     </div>

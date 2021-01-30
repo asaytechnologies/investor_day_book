@@ -19,7 +19,9 @@ RSpec.describe Positions::CreateService, type: :service do
       it 'and calls buy service' do
         service_call
 
-        expect(Positions::Creation::BuyService).to have_received(:call).with(args.except(:operation))
+        expect(Positions::Creation::BuyService).to(
+          have_received(:call).with(args.except(:operation).merge(operation_date: nil))
+        )
       end
     end
 
@@ -33,7 +35,9 @@ RSpec.describe Positions::CreateService, type: :service do
       it 'and calls sell service' do
         service_call
 
-        expect(Positions::Creation::SellService).to have_received(:call).with(args.except(:operation))
+        expect(Positions::Creation::SellService).to(
+          have_received(:call).with(args.except(:operation).merge(operation_date: nil))
+        )
       end
     end
   end

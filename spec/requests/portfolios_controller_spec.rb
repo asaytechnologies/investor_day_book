@@ -3,11 +3,11 @@
 describe PortfoliosController, type: :request do
   describe 'GET#index' do
     context 'for not logged user' do
-      it 'redirects to login page' do
+      it 'redirects to login page', :aggregate_failures do
         get portfolios_path
-        follow_redirect!
 
-        expect(last_response.body).to include('Log in')
+        expect(last_response).to be_redirect
+        expect(last_response.location).to include('users/login')
       end
     end
 
@@ -15,14 +15,14 @@ describe PortfoliosController, type: :request do
       context 'for unconfirmed user' do
         let!(:user) { create :user, :unconfirmed }
 
-        it 'renders english setup page' do
+        it 'renders english setup page', :aggregate_failures do
           post user_session_path(user: { email: user.email, password: user.password })
           follow_redirect!
 
           get portfolios_path
-          follow_redirect!
 
-          expect(last_response.body).to include('Log in')
+          expect(last_response).to be_redirect
+          expect(last_response.location).to include('users/login')
         end
       end
 
