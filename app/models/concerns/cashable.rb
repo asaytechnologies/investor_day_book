@@ -13,9 +13,13 @@ module Cashable
     RUB
   ].freeze
 
+  USD_UPCASE = 'USD'
+  EUR_UPCASE = 'EUR'
+  RUB_UPCASE = 'RUB'
+
   AVAILABLE_CURRENCIES_UPCASE = [
-    USD.upcase,
-    EUR.upcase,
-    RUB.upcase
+    USD_UPCASE,
+    EUR_UPCASE,
+    RUB_UPCASE
   ].freeze
 end

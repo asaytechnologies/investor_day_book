@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Modified
 - positions import service
+- portfolios page, selecting currency and broker for new portfolio
 
 ## [1.0.8] - 25.01.2021
 ### Added

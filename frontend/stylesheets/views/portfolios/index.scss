@@ -1,6 +1,6 @@
 .portfolios-list {
   .portfolio {
-    @apply py-2 px-4;
+    padding: .5rem 1rem;
 
     &:nth-of-type(odd) {
       background: $athens_gray_light;
@@ -8,7 +8,7 @@
 
     .portfolio-cashes-list {
       .portfolio-cashes {
-        @apply mb-4;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -16,6 +16,8 @@
 
 #portfolio-new-container {
   em {
-    @apply text-sm mt-2 inline-block;
+    display: inline-block;
+    font-size: 0.875rem;
+    margin-top: .5rem;
   }
 }

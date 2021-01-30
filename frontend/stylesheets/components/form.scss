@@ -1,65 +1,71 @@
 .form-field {
-  @apply relative mb-4;
+  position: relative;
+  margin-bottom: 1rem;
 
   .form-label {
-    @apply inline-block mb-1;
-    @apply leading-5;
+    display: inline-block;
+    margin-bottom: .25rem;
+    line-height: 1.25rem;
   }
 
   .form-value {
-    @apply font-light leading-8;
-    @apply px-4 py-1 w-full;
-    @apply border rounded;
-
     background: $white;
-    border-color: $dodger_blue;
+    border: 1px solid $dodger_blue;
+    border-radius: .25rem;
+    padding: .25rem 1rem;
+    width: 100%;
+    min-height: 2.625rem;
+    font-weight: 300;
+    line-height: 2rem;
 
     &.error {
       border-color: $flamingo;
     }
 
     &.with-form-value-clear {
-      @apply relative;
+      position: relative;
 
       &:after {
-        @apply absolute right-0 top-0;
-        @apply w-8 h-full;
-        @apply border-l;
-
         content: '';
-        border-left-color: $dodger_blue;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2rem;
+        height: 100%;
+        border-left: 1px solid $dodger_blue;
       }
 
       .form-value-clear {
-        @apply cursor-pointer absolute right-0 top-0;
-        @apply w-8 h-full;
-
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2rem;
+        height: 100%;
+        cursor: pointer;
         z-index: 10;
 
         &:after {
-          @apply absolute;
-          @apply border-2 w-3 h-3;
-
-          border-color: $dodger_blue;
-
           content: '';
+          position: absolute;
           right: .625rem;
           top: 21px;
           transform: rotate(135deg);
+          border: 2px solid $dodger_blue;
+          width: .75rem;
+          height: .75rem;
           border-top: none;
           border-right: none;
         }
 
         &:before {
-          @apply absolute;
-          @apply border-2 w-3 h-3;
-
-          border-color: $dodger_blue;
-
           content: '';
+          position: absolute;
           right: .625rem;
           top: 7px;
           transform: rotate(-45deg);
+          border: 2px solid $dodger_blue;
+          width: .75rem;
+          height: .75rem;
           border-top: none;
           border-right: none;
         }
@@ -67,27 +73,28 @@
     }
 
     &.select-value {
-      @apply cursor-pointer relative;
+      position: relative;
+      cursor: pointer;
 
       &:after {
-        @apply absolute right-0 top-0;
-        @apply w-8 h-full;
-        @apply border-l;
-
         content: '';
-        border-left-color: $dodger_blue;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2rem;
+        height: 100%;
+        border-left: 1px solid $dodger_blue;
       }
 
       &:before {
-        @apply absolute;
-        @apply border-2 w-3 h-3;
-
-        border-color: $dodger_blue;
-
         content: '';
+        position: absolute;
         right: .625rem;
         top: .625rem;
         transform: rotate(-45deg);
+        border: 2px solid $dodger_blue;
+        width: .75rem;
+        height: .75rem;
         border-top: none;
         border-right: none;
       }
@@ -102,34 +109,36 @@
   }
 
   .select-list {
-    @apply hidden;
+    display: none;
 
     .select-list-item {
-      @apply px-4 py-2 w-full;
-      @apply border-b;
-
       background: $white;
-      border-bottom-color: $athens_gray;
+      padding: .5rem 1rem;
+      border-bottom: 1px solid $athens_gray;
+      width: 100%;
+      min-height: 41px;
 
       &:nth-last-of-type(1) {
-        @apply border-none;
+        border: none;
       }
 
       &:hover {
-        @apply cursor-pointer;
-
         background: $pattens_blue;
+        cursor: pointer;
       }
     }
 
     &.open {
-      @apply block absolute left-0 w-full;
-      @apply overflow-hidden z-20;
-      @apply border rounded;
-
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 100%;
       background: $white;
+      border: 1px solid $dodger_blue;
       border-top: none;
-      border-color: $dodger_blue;
+      border-radius: .25rem;
+      overflow: hidden;
+      z-index: 20;
     }
   }
 }

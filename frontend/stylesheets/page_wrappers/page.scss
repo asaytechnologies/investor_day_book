@@ -33,12 +33,14 @@
   }
 
   main.content {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    position: relative;
 
     .page-container {
-      @apply flex flex-col;
-
+      display: flex;
+      flex-direction: column;
       flex: 1;
 
       header.content-navigation {
@@ -71,8 +73,17 @@
                 @apply flex pl-4;
               }
 
-              .logout-link {
-                @apply px-4 py-2 mt-4;
+              .settings-links {
+                margin: 1.5rem 0 .5rem;
+
+                a {
+                  display: inline-block;
+                  width: 100%;
+                }
+              }
+
+              .settings-link {
+                @apply px-4 py-2;
                 @apply font-semibold rounded-lg;
 
                 color: $white;

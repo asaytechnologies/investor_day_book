@@ -1,21 +1,24 @@
-<% @portfolios.each do |portfolio| %>
-  <div id='portfolio_<%= portfolio[:id] %>' class='portfolio'>
-    <h6 class='portfolio-name'><%= portfolio[:name] %></h6>
-
-    <p class='portfolio-created mb-4'><%= t('portfolios.table.created') %> - <%= portfolio[:created] %></p>
-
-    <div class='portfolio-cashes-list'>
-      <% unless portfolio[:incomes].empty? %>
-        <div class='portfolio-cashes'>
-          <p><%= t('portfolios.table.incomes') %>: <%= portfolio[:incomes] %></p>
-        </div>
+<div class='container mx-auto'>
+  <table class='table mb-4'>
+    <thead>
+      <tr>
+        <th class='name-column'><%= t('portfolios.index.table_header.name') %></th>
+        <th><%= t('portfolios.index.table_header.currency') %></th>
+        <th><%= t('portfolios.index.table_header.broker') %></th>
+        <th><%= t('portfolios.index.table_header.created') %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @portfolios.each do |portfolio| %>
+        <tr>
+          <td class='name-column'><%= portfolio.name %></td>
+          <td><%= portfolio.currency %></td>
+          <td><%= portfolio.broker_name %></td>
+          <td><%= portfolio.created_at.strftime('%d.%m.%Y') %></td>
+          <td></td>
+        </tr>
       <% end %>
-
-      <% unless portfolio[:balance].empty? %>
-        <div class='portfolio-cashes'>
-          <p><%= t('portfolios.table.balance') %>: <%= portfolio[:balance] %></p>
-        </div>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+    </tbody>
+  </table>
+</div>

@@ -462,7 +462,9 @@ CREATE TABLE public.portfolios (
     name character varying(255),
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    guid character varying
+    guid character varying,
+    source integer,
+    currency integer
 );
 
 
@@ -1344,6 +1346,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210117174957'),
 ('20210123100736'),
 ('20210123192011'),
-('20210128192141');
+('20210128192141'),
+('20210130105223'),
+('20210130120524');
 
 

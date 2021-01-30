@@ -76,7 +76,7 @@ module Analytics
         profit = @positions_analytics[key][:total_price].round(2) - @positions_analytics[key][:total_buy_price].round(2)
         @positions_analytics[key][:total_profit] = profit
         @positions_analytics[key][:total_profit_percent] =
-          (100 * profit / @positions_analytics[key][:total_buy_price]).round(2)
+          @positions_analytics[key][:total_buy_price].zero? ? 0 : (100 * profit / @positions_analytics[key][:total_buy_price]).round(2)
       end
     end
     # rubocop: enable Metrics/AbcSize

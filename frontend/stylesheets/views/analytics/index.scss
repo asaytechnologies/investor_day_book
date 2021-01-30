@@ -31,29 +31,8 @@
 
 #positions {
   .positions-table {
-    thead {
-      tr {
-        background: $persian_blue;
-        color: $white;
-
-        th {
-          @apply text-right pl-10 pr-2 py-2;
-        }
-      }
-    }
-
     tbody {
       tr {
-        @apply cursor-pointer;
-
-        &:nth-of-type(odd) {
-          background: $athens_gray_light;
-        }
-
-        &:hover {
-          background: $athens_gray;
-        }
-
         &.total {
           background: $pattens_blue;
 
@@ -63,9 +42,6 @@
         }
 
         td {
-          @apply text-right;
-          @apply py-1 pr-2;
-
           &.profit, &.price {
             padding-left: 2rem;
           }
@@ -90,10 +66,6 @@
           }
         }
       }
-    }
-
-    .name-column {
-      @apply text-left pl-2;
     }
   }
 }

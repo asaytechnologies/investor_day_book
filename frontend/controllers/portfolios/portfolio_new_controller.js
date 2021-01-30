@@ -7,7 +7,12 @@ const megabyte = 1024000
 const guidSize = 12
 
 export default class extends ApplicationController {
-  static targets = ["name", "file", "source"]
+  static targets = ["name", "file", "source", "currency"]
+
+  selectBroker (event) {
+    this.fileTarget.disabled = (event.target.dataset.valueIndex === "-1")
+    this.fileTarget.accept = event.target.dataset.valueFormats
+  }
 
   submitForm (event) {
     event.preventDefault()

@@ -1,6 +1,5 @@
 <header class='content-navigation container mx-auto'>
   <nav class='header-links'>
-    <%= link_to t('wrapper.navigation.portfolios'), portfolios_path, class: 'header-link' %>
     <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'header-link' %>
   </nav>
   <div class='profile-block' data-controller='shared--navigation' data-action='shared--navigation:click:outside->shared--navigation#close'>
@@ -13,8 +12,10 @@
           <%= link_to image_tag(asset_pack_path("media/images/icons/#{locale}.png"), alt: 'change locale', width: 25, height: 17), change_locale(locale), class: 'flag' %>
         <% end %>
       </div>
-
-      <%= link_to t('devise.logout'), destroy_user_session_path, class: 'logout-link' %>
+      <div class='settings-links'>
+        <%= link_to t('wrapper.navigation.portfolios'), portfolios_path, class: 'settings-link' %>
+      </div>
+      <%= link_to t('devise.logout'), destroy_user_session_path, class: 'settings-link' %>
     </div>
   </div>
 </header>

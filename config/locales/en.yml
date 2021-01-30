@@ -98,18 +98,23 @@ en:
         title: Portfolio balance
         submit_button: Update balance
   portfolios:
-    table:
-      created: Created at
-      incomes: Incomes
-      balance: Balance
+    index:
+      table_header:
+        name: Name
+        currency: Currency
+        broker: Broker name
+        created: Created at
+      form_new:
+        currency: Choose main currency
+        select_source: Select broker
+        no_source: No broker
     sidebar:
       list:
         title: New portfolio
         button: Add portfolio
         name: Name
         file: File
-        tinkoff: Currently, only import of XLS and XLSX files of Tinkoff Investments reports is supported
-        file_optional: If you have data on the broker's operations, then you can use it to import a list of completed operations
+        file_optional: If you have data on the broker's operations, then you can select file to import a list of completed operations
       operations:
         button: Add/remove cash
         title: Add/remove cash
@@ -117,4 +122,3 @@ en:
         transaction: Transaction
         deposit: Deposit
         withdraw: Withdraw
-        select_source: Select file source

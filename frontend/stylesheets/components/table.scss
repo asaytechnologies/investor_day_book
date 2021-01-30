@@ -1,0 +1,42 @@
+.table {
+  width: 100%;
+  border-radius: .25rem;
+  overflow: hidden;
+
+  thead {
+    tr {
+      background: $persian_blue;
+      color: $white;
+
+      th {
+        text-align: right;
+        padding: .5rem;
+        padding-left: 2.5rem;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      cursor: pointer;
+
+      &:nth-of-type(odd) {
+        background: $athens_gray_light;
+      }
+
+      &:hover {
+        background: $athens_gray;
+      }
+
+      td {
+        text-align: right;
+        padding: .4rem .5rem;
+      }
+    }
+  }
+
+  .name-column {
+    text-align: left;
+    padding-left: .5rem;
+  }
+}
