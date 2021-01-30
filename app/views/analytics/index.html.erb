@@ -4,7 +4,7 @@
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
     <section class='content-header'>
-      <div class='content-header-body container mx-auto'>
+      <div class='content-header-body container'>
         <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
         <% if @portfolios.present? %>
           <div class='content-buttons'>
@@ -24,8 +24,8 @@
 
     <% if @portfolios.present? %>
       <div class='page-content'>
-        <div class='flex mt-6'>
-          <form id='portfolio-select' class='mr-10'>
+        <div id='analytics-header'>
+          <form id='portfolio-select'>
             <div
               class='form-field'
               data-controller='shared--select analytics--positions'
@@ -107,7 +107,7 @@
               <input type='hidden' name='position[quote_id]' data-analytics--position-new-target='quoteId' />
               <label class='form-label'><%= t('analytics.sidebar.select_security') %> *</label>
               <input type='text' class='form-value' placeholder='<%= t('analytics.sidebar.search') %>' data-action='debounced:input->analytics--position-new#searchQuotes' data-analytics--position-new-target='selectInput' />
-              <span class='dropdown-clear hidden' data-action='click->analytics--position-new#clearSearch' data-analytics--position-new-target='clearSearch'></span>
+              <span class='dropdown-clear' data-action='click->analytics--position-new#clearSearch' data-analytics--position-new-target='clearSearch'></span>
               <div id='quotes' class='dropdown-list'>
                 <%= render Analytics::QuotesComponent.new(quote_ids: []) %>
               </div>
@@ -243,8 +243,8 @@
         </div>
       <% end %>
     <% else %>
-      <div class='page-content portfolios-list mt-4'>
-        <div class='container mx-auto'>
+      <div class='page-content portfolios-list'>
+        <div class='container'>
           <h5><%= t('analytics.no_portfolio.title') %></h5>
           <%= link_to t('analytics.no_portfolio.goto'), portfolios_path, class: 'button' %>
         </div>

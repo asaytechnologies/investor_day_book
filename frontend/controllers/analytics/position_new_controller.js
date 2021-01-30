@@ -7,9 +7,9 @@ export default class extends ApplicationController {
     event.preventDefault()
 
     if (this.selectInputTarget.value.length > 0) {
-      this.clearSearchTarget.classList.remove("hidden")
+      this.clearSearchTarget.classList.add("open")
     } else {
-      this.clearSearchTarget.classList.add("hidden")
+      this.clearSearchTarget.classList.remove("open")
     }
 
     this.stimulate("QuotesReflex#search", this.selectInputTarget.value, document.getElementById("current_locale").value)
@@ -18,7 +18,7 @@ export default class extends ApplicationController {
   clearSearch () {
     this.selectInputTarget.value = ""
     this.securityValueTarget.innerHTML = ""
-    this.clearSearchTarget.classList.add("hidden")
+    this.clearSearchTarget.classList.remove("open")
     this.stimulate("QuotesReflex#search", "", document.getElementById("current_locale").value)
   }
 
@@ -66,7 +66,7 @@ export default class extends ApplicationController {
   }
 
   afterCreate () {
-    this.clearSearchTarget.classList.add("hidden")
+    this.clearSearchTarget.classList.remove("open")
     this.securityBlockTarget.classList.remove("selected")
     this.dropdownTarget.classList.remove("hidden")
     this.priceTarget.value = ""

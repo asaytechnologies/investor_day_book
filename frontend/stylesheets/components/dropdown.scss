@@ -28,6 +28,11 @@
     right: 0;
     border-left: 1px solid $dodger_blue;
     cursor: pointer;
+    display: none;
+
+    &.open {
+      display: block;
+    }
 
     &:after {
       position: absolute;

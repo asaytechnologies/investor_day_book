@@ -23,7 +23,9 @@
     z-index: 10;
 
     .notification {
-      @apply px-4 py-3 mb-2 rounded-lg;
+      padding: .75rem 1rem;
+      margin-bottom: .5rem;
+      border-radius: .5rem;
 
       &.success {
         background: $mountain_meadow;
@@ -44,33 +46,42 @@
       flex: 1;
 
       header.content-navigation {
-        @apply flex justify-end relative;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
 
         .header-links {
-          @apply flex items-center;
+          display: flex;
+          align-items: center;
         }
 
         .profile-block {
           .navigation-link {
             img {
-              @apply w-12 h-12 rounded-lg cursor-pointer;
+              width: 3rem;
+              height: 3rem;
+              border-radius: .5rem;
+              cursor: pointer;
             }
           }
 
           .navigation-dropdown {
-            @apply hidden;
+            display: none;
 
             &.open {
-              @apply absolute right-0 flex flex-col;
-              @apply rounded-lg;
-              @apply p-4;
-
+              position: absolute;
               top: 4rem;
+              right: 0;
               width: 12rem;
+              display: flex;
+              flex-direction: column;
+              padding: 1rem;
               background: $dodger_blue;
+              border-radius: .5rem;
 
               .select-language {
-                @apply flex pl-4;
+                display: flex;
+                padding-left: 1rem;
               }
 
               .settings-links {
@@ -83,10 +94,10 @@
               }
 
               .settings-link {
-                @apply px-4 py-2;
-                @apply font-semibold rounded-lg;
-
+                padding: .5rem 1rem;
+                border-radius: .5rem;
                 color: $white;
+                font-weight: 600;
 
                 &:hover {
                   background: $royal_blue;
@@ -101,30 +112,33 @@
         background: $pattens_blue;
 
         .content-header-body {
-          @apply flex justify-between items-center;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
 
         .content-buttons {
-          @apply py-2;
-          @apply flex flex-row-reverse;
+          display: flex;
+          flex-direction: row-reverse;
+          padding: .5rem 0;
 
           .button {
-            @apply ml-4;
+            margin-left: 1rem;
           }
         }
       }
 
       .page-content {
-        @apply p-10 pt-0;
-
         flex: 1;
+        padding: 0 2.5rem 2.5rem;
       }
     }
   }
 }
 
 .flag {
-  @apply inline-block mr-1 h-4;
-
+  display: inline-block;
+  margin-right: .25rem;
   width: 1.5625rem;
+  height: 1rem;
 }

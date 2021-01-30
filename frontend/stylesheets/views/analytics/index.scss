@@ -1,29 +1,36 @@
+#analytics-header {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
 #position-new-container {
   .form-field {
     &.hidden-by-default {
-      @apply hidden;
+      display: none;
 
       &.selected {
-        @apply block;
+        display: block;
       }
     }
   }
 }
 
 #portfolio-totals {
-  @apply flex flex-col;
+  display: flex;
+  flex-direction: column;
 
   h4 {
-    @apply text-2xl mt-0 mb-2;
-
     color: $gray_chateau;
+    font-size: 1.5rem;
     line-height: 1;
+    margin-top: 0;
+    margin-bottom: .5rem;
 
     span {
-      @apply font-normal text-xl;
-
       font-family: "Open Sans", sans-serif;
       color: $black;
+      font-size: 1.25rem;
+      font-weight: 400;
       line-height: 1;
     }
   }
@@ -61,7 +68,7 @@
 
           td {
             &.remove-plan {
-              @apply cursor-pointer;
+              cursor: pointer;
             }
           }
         }
@@ -72,18 +79,20 @@
 
 #portfolio-select {
   width: 20rem;
+  margin-right: 2.5rem;
 }
 
 .sectors-chart-box {
-  @apply flex;
+  display: flex;
+  margin-bottom: 1rem;
 
   #sectors-pie-container, #actives-pie-container {
     max-width: 33%;
   }
 
   #legend, #actives-legend {
-    @apply flex items-center;
-
+    display: flex;
+    align-items: center;
     flex: 1;
     height: 16rem;
   }
