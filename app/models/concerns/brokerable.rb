@@ -14,7 +14,7 @@ module Brokerable
 
   LISTABLE_BROKERS = [
     { name: { en: 'Tinkoff', ru: 'Тинькофф' }, index: 0, formats: '.xls,.xlsx', available: true },
-    { name: { en: 'Sberbank', ru: 'Сбербанк' }, index: 1, formats: '', available: false },
+    { name: { en: 'Sberbank', ru: 'Сбербанк' }, index: 1, formats: '', available: true },
     { name: { en: 'VTB', ru: 'ВТБ' }, index: 2, formats: '', available: false },
     { name: { en: 'Otkritie', ru: 'Открытие' }, index: 3, formats: '', available: false },
     { name: { en: 'BKS', ru: 'БКС' }, index: 4, formats: '', available: false },

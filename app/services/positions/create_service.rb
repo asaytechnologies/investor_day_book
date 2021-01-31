@@ -37,8 +37,9 @@ module Positions
 
     def operation_date
       return if @args[:operation_date].blank?
+      return DateTime.parse(@args[:operation_date]) if @args[:operation_date].is_a?(String)
 
-      DateTime.parse(@args[:operation_date])
+      @args[:operation_date]
     rescue Date::Error => _e
       nil
     end

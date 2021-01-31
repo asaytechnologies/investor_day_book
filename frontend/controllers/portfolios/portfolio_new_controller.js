@@ -31,7 +31,6 @@ export default class extends ApplicationController {
 
       const formData = new FormData()
       formData.append("upload[file]", file.files[0])
-      formData.append("upload[source]", this.sourceTarget.innerHTML.toLowerCase())
       formData.append("upload[name]", "portfolio_initial_data")
       formData.append("upload[guid]", guid)
 

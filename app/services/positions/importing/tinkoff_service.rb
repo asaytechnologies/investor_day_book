@@ -2,9 +2,7 @@
 
 module Positions
   module Importing
-    class TinkoffService
-      prepend BasicService
-
+    class TinkoffService < BaseService
       START_MARKER = '1.1 Информация о совершенных и исполненных сделках на конец отчетного периода'
       END_MARKER = '1.2 Информация о неисполненных сделках на конец отчетного периода'
       REPO_MARKER = 'РЕПО'
@@ -24,22 +22,6 @@ module Positions
       end
 
       private
-
-      def parse_xls_file
-        @file.open do |file|
-          rows = read_xls_file_rows(file)
-          break unless rows
-
-          parse_rows(rows)
-        end
-      end
-
-      def read_xls_file_rows(file)
-        case File.extname(file)
-        when '.xlsx' then Creek::Book.new(file).sheets[0].rows
-        when '.xls' then Roo::Excel.new(file).sheet(0)
-        end
-      end
 
       # rubocop: disable Metrics/CyclomaticComplexity
       def parse_rows(rows)
@@ -69,30 +51,6 @@ module Positions
           price_currency: row[43],
           amount:         row[47].to_i
         }
-      end
-
-      def save_positions
-        @positions.each do |position|
-          next if position_exist?(position[:external_id])
-
-          quote =
-            Quote
-            .joins(:security)
-            .where(price_currency: position[:price_currency])
-            .where(securities: { ticker: position[:ticker] })
-            .first
-          next unless quote
-
-          attrs = { portfolio: @portfolio, quote: quote }
-          attrs = attrs.merge(
-            position.slice(:price, :price_currency, :amount, :operation, :operation_date, :external_id)
-          )
-          Positions::CreateService.call(attrs)
-        end
-      end
-
-      def position_exist?(external_id)
-        @portfolio.positions.exists?(external_id: external_id)
       end
     end
   end

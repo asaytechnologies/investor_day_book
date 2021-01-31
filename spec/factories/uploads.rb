@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :upload do
     guid { '12345678asdf' }
-    source { 'tinkoff' }
     name { 'portfolio_initial_data' }
     association :user
 

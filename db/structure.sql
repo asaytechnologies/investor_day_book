@@ -726,7 +726,6 @@ CREATE TABLE public.uploads (
     id bigint NOT NULL,
     guid character varying,
     name character varying,
-    source character varying,
     user_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -1348,6 +1347,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210123192011'),
 ('20210128192141'),
 ('20210130105223'),
-('20210130120524');
+('20210130120524'),
+('20210131111945');
 
 
