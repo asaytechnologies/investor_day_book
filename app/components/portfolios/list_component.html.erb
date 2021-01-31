@@ -9,14 +9,20 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-controller='portfolios--list'>
       <% @portfolios.each do |portfolio| %>
         <tr>
           <td class='name-column'><%= portfolio.name %></td>
           <td><%= portfolio.currency %></td>
           <td><%= portfolio.broker_name %></td>
           <td><%= portfolio.created_at.strftime('%d.%m.%Y') %></td>
-          <td></td>
+          <td class='portfolio-actions'>
+            <span
+              class='delete-portfolio'
+              data-action='click->portfolios--list#destroyPortfolio'
+              data-value-index='<%= portfolio.id %>'
+            ></span>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -26,6 +26,12 @@
         "msgstr": [
           "Данные портфеля будут загружены в течение пары минут"
         ]
+      },
+      "Do you really want to delete portfolio?": {
+        "msgid": "Do you really want to delete portfolio?",
+        "msgstr": [
+          "Вы действительно хотите удалить портфель?"
+        ]
       }
     }
   }

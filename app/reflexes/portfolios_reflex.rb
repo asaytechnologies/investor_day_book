@@ -7,6 +7,12 @@ class PortfoliosReflex < ApplicationReflex
     render_portfolios
   end
 
+  def destroy(args={})
+    destroy_portfolio(args['portfolio_id'])
+    current_locale(args['locale'])
+    render_portfolios
+  end
+
   private
 
   def render_portfolios
@@ -22,6 +28,10 @@ class PortfoliosReflex < ApplicationReflex
 
   def create_portfolio(guid)
     Portfolios::CreateService.call(portfolio_params.merge(user: current_user, guid: guid))
+  end
+
+  def destroy_portfolio(portfolio_id)
+    Portfolios::DestroyService.call(user: current_user, id: portfolio_id)
   end
 
   def portfolio_params

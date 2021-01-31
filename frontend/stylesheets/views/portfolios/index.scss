@@ -1,16 +1,44 @@
 .portfolios-list {
   margin-top: 1rem;
 
-  .portfolio {
-    padding: .5rem 1rem;
+  .portfolio-actions {
+    display: flex;
+    flex-direction: row-reverse;
 
-    &:nth-of-type(odd) {
-      background: $athens_gray_light;
-    }
+    span {
+      position: relative;
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 1px solid $dodger_blue;
+      border-radius: .25rem;
+      background: $white;
 
-    .portfolio-cashes-list {
-      .portfolio-cashes {
-        margin-bottom: 1rem;
+      &:hover {
+        background: $athens_gray_light;
+      }
+
+      &.delete-portfolio {
+        &:after, &:before {
+          position: absolute;
+          border: 2px solid $dodger_blue;
+          content: '';
+          width: .75rem;
+          height: .75rem;
+          right: 5px;
+          border-top: none;
+          border-right: none;
+        }
+
+        &:after {
+          top: 12px;
+          transform: rotate(135deg);
+        }
+
+        &:before {
+          top: -2px;
+          transform: rotate(-45deg);
+        }
       }
     }
   }
