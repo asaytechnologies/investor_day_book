@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - total summary for actives types
 - Sberbank broker importing data
 - deleting portfolios
+- clearing portfolios
 
 ### Modified
 - positions import service

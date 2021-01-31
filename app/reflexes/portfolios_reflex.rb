@@ -13,6 +13,12 @@ class PortfoliosReflex < ApplicationReflex
     render_portfolios
   end
 
+  def clear(args={})
+    clear_portfolio(args['portfolio_id'])
+    current_locale(args['locale'])
+    render_portfolios
+  end
+
   private
 
   def render_portfolios
@@ -32,6 +38,10 @@ class PortfoliosReflex < ApplicationReflex
 
   def destroy_portfolio(portfolio_id)
     Portfolios::DestroyService.call(user: current_user, id: portfolio_id)
+  end
+
+  def clear_portfolio(portfolio_id)
+    Portfolios::ClearService.call(user: current_user, id: portfolio_id)
   end
 
   def portfolio_params
