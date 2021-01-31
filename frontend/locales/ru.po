@@ -15,6 +15,10 @@ msgstr "Файл для портфеля загружен"
 msgid "Portfolio positions will be created in a few minutes"
 msgstr "Данные портфеля будут загружены в течение пары минут"
 
-#: frontend/controllers/portfolios/list_controller.js:7
+#: frontend/controllers/portfolios/list_controller.js:20
 msgid "Do you really want to delete portfolio?"
 msgstr "Вы действительно хотите удалить портфель?"
+
+#: frontend/controllers/portfolios/list_controller.js:7
+msgid "Do you really want to delete all operations in portfolio?"
+msgstr "Вы действительно хотите удалить все операции по портфелю?"

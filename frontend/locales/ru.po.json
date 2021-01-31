@@ -32,6 +32,12 @@
         "msgstr": [
           "Вы действительно хотите удалить портфель?"
         ]
+      },
+      "Do you really want to delete all operations in portfolio?": {
+        "msgid": "Do you really want to delete all operations in portfolio?",
+        "msgstr": [
+          "Вы действительно хотите удалить все операции по портфелю?"
+        ]
       }
     }
   }
