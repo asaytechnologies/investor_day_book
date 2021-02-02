@@ -34,7 +34,7 @@ module Positions
           end
           break if row[0] == END_MARKER
           next if row[0].to_i.zero?
-          next if row[22].include?(REPO_MARKER)
+          next if row[22]&.include?(REPO_MARKER)
 
           add_position(row)
         end
