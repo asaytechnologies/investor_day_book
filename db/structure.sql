@@ -729,7 +729,8 @@ CREATE TABLE public.uploads (
     user_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    completed boolean DEFAULT false NOT NULL
+    completed boolean DEFAULT false NOT NULL,
+    failed boolean DEFAULT false NOT NULL
 );
 
 
@@ -1348,6 +1349,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210128192141'),
 ('20210130105223'),
 ('20210130120524'),
-('20210131111945');
+('20210131111945'),
+('20210202194930');
 
 

@@ -13,6 +13,7 @@ module Uploads
     def uploads
       Upload
         .not_completed
+        .not_failed
         .where('created_at < ?', DateTime.now - 15.seconds)
     end
 
@@ -32,6 +33,7 @@ module Uploads
         report.severity = 'error'
         report.add_tab(:upload, { id: upload.id })
       end
+      upload.update(failed: true)
     end
   end
 end

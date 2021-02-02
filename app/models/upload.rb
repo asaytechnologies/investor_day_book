@@ -6,4 +6,5 @@ class Upload < ApplicationRecord
   belongs_to :user
 
   scope :not_completed, -> { where completed: false }
+  scope :not_failed, -> { where failed: false }
 end
