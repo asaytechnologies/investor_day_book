@@ -13,8 +13,8 @@ module Positions
 
         @file = file
         @portfolio = portfolio
-        @positions = []
 
+        set_initial_values
         parse_xls_file
         save_positions
       end

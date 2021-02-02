@@ -7,6 +7,19 @@ module Positions
 
       private
 
+      def set_initial_values
+        @positions = []
+        @header_indeces = {
+          external_id:    0,
+          operation_date: 0,
+          operation:      0,
+          ticker:         0,
+          price:          0,
+          price_currency: 0,
+          amount:         0
+        }
+      end
+
       def parse_xls_file
         @file.open do |file|
           rows = read_xls_file_rows(file)
