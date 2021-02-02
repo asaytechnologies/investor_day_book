@@ -17,7 +17,7 @@ module Positions
       end
 
       def read_xls_file_rows(file)
-        case File.extname(file)
+        case File.extname(file).downcase
         when '.xlsx' then Creek::Book.new(file).sheets[0].rows
         when '.xls' then Roo::Excel.new(file).sheet(0)
         end
