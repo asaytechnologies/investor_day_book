@@ -6,7 +6,7 @@ module Quotes
 
     private
 
-    # skip on sunday and monday
+    # skip on some days
     def skipped_day?(day_inxeces)
       Time.zone.today.wday.in?(day_inxeces)
     end

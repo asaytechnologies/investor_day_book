@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   mount Que::Web => '/que'
 
   get '/sitemap' => 'sitemaps#index'
+
+  resources :uploads, only: %i[create]
+
   devise_for :users, skip: %i[session registration password confirmation], controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
@@ -26,8 +29,6 @@ Rails.application.routes.draw do
 
     resources :portfolios, only: %i[index]
     resources :analytics, only: %i[index]
-
-    resources :uploads, only: %i[create]
 
     root to: 'welcome#index'
   end

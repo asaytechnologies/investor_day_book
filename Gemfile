@@ -104,6 +104,7 @@ end
 group :test do
   gem 'faker'
   gem 'json_spec'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
