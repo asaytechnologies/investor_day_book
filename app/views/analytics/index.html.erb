@@ -45,28 +45,30 @@
             </div>
           </form>
 
-          <div id='options-container' data-controller='analytics--options'>
-            <p><%= t('analytics.sidebar.options.additional') %></p>
-            <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-              <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
-              <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
-                <div class='toggle-box-content'>
-                  <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                  <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
+          <% if false %>
+            <div id='options-container' data-controller='analytics--options'>
+              <p><%= t('analytics.sidebar.options.additional') %></p>
+              <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
+                <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
+                <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
+                  <div class='toggle-box-content'>
+                    <span data-shared--toggle-target='switch' class='toggle-value'></span>
+                    <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-              <input type='hidden' id='show_dividents' name='show_dividents' data-shared--toggle-target='value' />
-              <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#toggleDividents'>
-                <div class='toggle-box-content'>
-                  <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                  <span class='toggle-text'><%= t('analytics.sidebar.options.show_dividents') %></span>
+              <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
+                <input type='hidden' id='show_dividents' name='show_dividents' data-shared--toggle-target='value' />
+                <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#toggleDividents'>
+                  <div class='toggle-box-content'>
+                    <span data-shared--toggle-target='switch' class='toggle-value'></span>
+                    <span class='toggle-text'><%= t('analytics.sidebar.options.show_dividents') %></span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
 
         <div id='positions'>

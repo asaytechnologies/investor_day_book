@@ -20,9 +20,12 @@ module Analytics
     end
 
     def filter_positions(portfolio_ids)
-      @positions = @positions.buying.where(portfolio: portfolio_ids).with_unsold_securities
-      @positions = @positions.real unless @options[:plan]
-      @positions = @positions.includes(quote: :coupons) if @options[:dividents]
+      @positions =
+        @positions
+        .buying
+        .where(portfolio: portfolio_ids)
+        .with_unsold_securities
+        .includes(quote: :coupons)
     end
 
     def perform_analytics
@@ -110,8 +113,7 @@ module Analytics
     end
 
     def dividents_amount_price(quote, unsold_amount)
-      return 0 unless @options[:dividents]
-      return quote.average_year_dividents_amount.to_f * unsold_amount if quote.security.is_a?(Share)
+      return (quote.average_year_dividents_amount.to_f * unsold_amount).round(2) if quote.security.is_a?(Share)
       return 0 if quote.security.is_a?(Foundation)
 
       coupons_values =
@@ -127,8 +129,6 @@ module Analytics
       currency_symbol = quote_currency_symbol(quote)
 
       acc[:total][:summary][:total_price] += stats[:selling_total_price] * @exchange_rates[currency_symbol]
-      return unless @options[:dividents]
-
       acc[:total][:summary][:total_price] += stats[:dividents_amount_price] * @exchange_rates[currency_symbol]
     end
 

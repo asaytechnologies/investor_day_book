@@ -6,22 +6,22 @@ class PositionsReflex < ApplicationReflex
 
   def index(args={})
     current_locale(args['locale'])
-    render_positions(args['portfolio_id'], args['show_plans'], args['show_dividents'])
+    render_positions(args['portfolio_id'])
   end
 
   def create(args={})
     create_position
 
     current_locale(args['locale'])
-    render_positions(args['portfolio_id'], args['show_plans'], args['show_dividents'])
-    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quotes: []))
+    render_positions(args['portfolio_id'])
+    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quote_ids: []))
   end
 
   def destroy(args={})
     destroy_position(args['position_id'])
 
     current_locale(args['locale'])
-    render_positions(args['portfolio_id'], args['show_plans'], args['show_dividents'])
+    render_positions(args['portfolio_id'])
   end
 
   private
@@ -59,7 +59,7 @@ class PositionsReflex < ApplicationReflex
     )
   end
 
-  def render_positions(portfolio_id, plan, dividents)
+  def render_positions(portfolio_id)
     portfolio = find_user_portfolio_for_render(portfolio_id)
 
     morph(
@@ -67,8 +67,7 @@ class PositionsReflex < ApplicationReflex
       AnalyticsController.render(
         Analytics::PositionsComponent.new(
           current_user: current_user,
-          portfolio:    portfolio,
-          options:      { plan: plan == 'true', dividents: dividents == 'true' }
+          portfolio:    portfolio
         )
       )
     )

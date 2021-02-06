@@ -8,19 +8,19 @@ module Portfolios
       Portfolios::Cashes::IncomeChangeService.call(portfolio: @portfolio, cashes_params: cashes_params)
 
       current_locale(args['locale'])
-      render_positions(args['portfolio_id'], args['show_plans'], args['show_dividents'])
+      render_positions(args['portfolio_id'])
     end
 
     def update_balance(args={})
       Portfolios::Cashes::BalanceChangeService.call(portfolio: @portfolio, cashes_params: cashes_params)
 
       current_locale(args['locale'])
-      render_positions(args['portfolio_id'], args['show_plans'], args['show_dividents'])
+      render_positions(args['portfolio_id'])
     end
 
     private
 
-    def render_positions(portfolio_id, plan, dividents)
+    def render_positions(portfolio_id)
       portfolio = find_user_portfolio_for_render(portfolio_id)
 
       morph(
@@ -28,8 +28,7 @@ module Portfolios
         AnalyticsController.render(
           Analytics::PositionsComponent.new(
             current_user: current_user,
-            portfolio:    portfolio,
-            options:      { plan: plan == 'true', dividents: dividents == 'true' }
+            portfolio:    portfolio
           )
         )
       )

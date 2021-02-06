@@ -32,10 +32,10 @@
           <th><%= t('analytics.table.current_price') %></th>
           <th><%= t('analytics.table.current_total_price') %></th>
           <th><%= t('analytics.table.income') %></th>
-          <% if key == :share && @options[:dividents] %>
+          <% if key == :share %>
             <th><%= t('analytics.table.dividents') %></th>
           <% end %>
-          <% if key == :bond && @options[:dividents] %>
+          <% if key == :bond %>
             <th><%= t('analytics.table.coupons') %></th>
           <% end %>
         </tr>
@@ -56,7 +56,7 @@
               <%= money_presenter(stats[:selling_unsold_income_price], quote.price_currency) %>
               (<%= stats[:exchange_profit] %>%)
             </td>
-            <% if key.in?(%i[share bond]) && @options[:dividents] %>
+            <% if key.in?(%i[share bond]) %>
               <td>
                 <% if stats[:dividents_amount_price].positive? %>
                   <%= money_presenter(stats[:dividents_amount_price], quote.price_currency) %>
@@ -79,7 +79,7 @@
             <%= money_presenter(@positions[key][:total_profit], 'RUB') %>
             (<%= @positions[key][:total_profit_percent] %>%)
           </td>
-          <% if key.in?(%i[share bond]) && @options[:dividents] %>
+          <% if key.in?(%i[share bond]) %>
             <td><%= money_presenter(@positions[key][:total_dividents].round(2), 'RUB') %></td>
           <% end %>
         </tr>
@@ -101,10 +101,10 @@
           <th><%= t('analytics.table.plan_price') %></th>
           <th><%= t('analytics.table.total_price') %></th>
           <th><%= t('analytics.table.current_price') %></th>
-          <% if key == :share && @options[:dividents] %>
+          <% if key == :share %>
             <th><%= t('analytics.table.dividents') %></th>
           <% end %>
-          <% if key == :bond && @options[:dividents] %>
+          <% if key == :bond %>
             <th><%= t('analytics.table.coupons') %></th>
           <% end %>
           <th></th>
@@ -121,7 +121,7 @@
             <td><%= money_presenter(stats[:price], quote.price_currency) %></td>
             <td><%= money_presenter(stats[:selling_total_price], quote.price_currency) %></td>
             <td><%= money_presenter(quote.price, quote.price_currency) %></td>
-            <% if key.in?(%i[share bond]) && @options[:dividents] %>
+            <% if key.in?(%i[share bond]) %>
               <td>
                 <% if stats[:dividents_amount_price].positive? %>
                   <%= money_presenter(stats[:dividents_amount_price], quote.price_currency) %>

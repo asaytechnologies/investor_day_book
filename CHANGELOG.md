@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - VTB broker importing data
 
+### Modified
+- always render plans and dividents
+
 ## [1.1.0] - 06.02.2021
 ### Added
 - login through google
