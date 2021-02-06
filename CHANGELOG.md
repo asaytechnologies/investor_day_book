@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - login through google
+- more text for welcome page
 
 ### Modified
 - parsing xls positions files with headers

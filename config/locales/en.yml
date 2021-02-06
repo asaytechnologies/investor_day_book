@@ -2,8 +2,9 @@ en:
   errors:
     route_not_found: This page does not exist
   meta:
-    keywords: investments, invest, portfolio, analytics, stocks, shares
-    description: InvestPlan - investment planning service
+    title: InvestPlan - investment planning service, keep portfolios and actives
+    keywords: investments, invest, plan, planning, portfolio, analytics, stocks, shares, funds, actives, dividends, coupons
+    description: InvestPlan - investment planning service, keep portfolios and actives, portfolio profitability and getting analytics
   welcome:
     investor: InvestPlan
     dashboard: Dashboard
@@ -11,6 +12,25 @@ en:
     register: Register
     title: Investment planning service
     description: Keep records and analyze the positions of your investment portfolios, draw up a plan for subsequent investments, plan profitability.
+    block1:
+      title: Portfolios
+      text1: Maintain an unlimited number of portfolios
+      text2: Portfolios can contain any number of actives
+      text3: Adding portfolio transactions manually
+      text4: Import of transactions from brokers' reports (Tinkoff, Sberbank)
+    block2:
+      title: Actives
+      text1: "Accounting for actives of various types: stocks, bonds and funds"
+      text2: Automatic update of actives prices and values ​​from stock exchanges
+      text3: Calculation of return on individual actives or groups of actives
+      text4: Display of dividends and coupons
+      text5: Accounting for planned purchases
+    block3:
+      title: Analytics
+      text1: Portfolio profitability analysis
+      text2: Composition of actives by type
+      text3: Composition of stock portfolio by sector
+      text4: Analytics is available both for individual portfolios and for the entire account
   footer:
     need_help: Need help? Ask it at
     telegram: Telegram channel
@@ -40,7 +60,7 @@ en:
   actives:
     shares: Shares
     bonds: Bonds
-    foundations: Foundations
+    foundations: Funds
     currencies: Currencies
   analytics:
     no_portfolio:
@@ -67,7 +87,7 @@ en:
       income: Profit
       plan_price: Plan price
       share_name: Shares
-      foundation_name: Foundations
+      foundation_name: Funds
       bond_name: Bonds
       face_value: Face value
       dividents: Dividents
@@ -75,7 +95,7 @@ en:
       header:
         plan_share: Plan for shares
         plan_bond: Plan for bonds
-        plan_foundation: Plan for foundations
+        plan_foundation: Plan for funds
     sidebar:
       select_portfolio: Select portfolio
       title: New position

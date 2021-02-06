@@ -6,6 +6,36 @@
         <h1><%= t('welcome.title') %></h1>
         <p><%= t('welcome.description') %></p>
       </div>
+      <div class='welcome-content-body'>
+        <div class='block'>
+          <div><%= t('welcome.block1.title') %></div>
+          <ul>
+            <li><%= t('welcome.block1.text1') %></li>
+            <li><%= t('welcome.block1.text2') %></li>
+            <li><%= t('welcome.block1.text3') %></li>
+            <li><%= t('welcome.block1.text4') %></li>
+          </ul>
+        </div>
+        <div class='block'>
+          <div><%= t('welcome.block2.title') %></div>
+          <ul>
+            <li><%= t('welcome.block2.text1') %></li>
+            <li><%= t('welcome.block2.text2') %></li>
+            <li><%= t('welcome.block2.text3') %></li>
+            <li><%= t('welcome.block2.text4') %></li>
+            <li><%= t('welcome.block2.text5') %></li>
+          </ul>
+        </div>
+        <div class='block'>
+          <div><%= t('welcome.block3.title') %></div>
+          <ul>
+            <li><%= t('welcome.block3.text1') %></li>
+            <li><%= t('welcome.block3.text2') %></li>
+            <li><%= t('welcome.block3.text3') %></li>
+            <li><%= t('welcome.block3.text4') %></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </main>
   <%= render Shared::FooterComponent.new(change_locale: true) %>
