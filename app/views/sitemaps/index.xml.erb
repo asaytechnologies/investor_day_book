@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<% cache 'invest_plan_sitemap', expires_in: 24.hours do %>
+  <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <% I18n.available_locales.each do |locale| %>
+      <%- I18n.locale = locale %>
+      <url>
+        <loc><%= root_url %></loc>
+      </url>
+      <url>
+        <loc><%= new_user_registration_url %></loc>
+      </url>
+      <url>
+        <loc><%= new_user_session_url %></loc>
+      </url>
+      <url>
+        <loc><%= portfolios_url %></loc>
+      </url>
+      <url>
+        <loc><%= analytics_url %></loc>
+      </url>
+    <% end %>
+  </urlset>
+<% end %>
