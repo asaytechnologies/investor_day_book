@@ -40,5 +40,26 @@
       display: flex;
       justify-content: center;
     }
+
+    .oauth {
+      margin-top: 1rem;
+
+      a {
+        display: flex;
+
+        span {
+          line-height: 2rem;
+
+          img {
+            width: 2rem;
+            height: 2rem;
+          }
+
+          &:nth-of-type(1) {
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
   }
 }

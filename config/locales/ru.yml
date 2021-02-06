@@ -31,6 +31,8 @@ ru:
       title: Проверьте вашу электронную почту
       description: "Письмо со ссылкой для активации было отправлено на вашу почту %{email}"
       to_login_page: На страницу входа
+    oauth:
+      with_google: Вход через Google
   wrapper:
     navigation:
       portfolios: Портфели

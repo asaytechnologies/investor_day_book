@@ -42,7 +42,6 @@ gem 'faraday_middleware', '~> 1.0'
 gem 'tinkoff_invest'
 
 # Background Jobs
-gem 'redis-namespace'
 gem 'redis-rails'
 
 # Reactive Rails
@@ -71,6 +70,10 @@ gem 'whenever', require: false
 # active jobs adapter
 gem 'que', '1.0.0.beta4'
 gem 'que-web', '~> 0.9.3'
+
+# Oauth authentication
+gem 'omniauth', '~> 1.9.0'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
 
 group :development, :test do
   # testing

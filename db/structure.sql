@@ -421,6 +421,39 @@ ALTER SEQUENCE public.exchange_rates_id_seq OWNED BY public.exchange_rates.id;
 
 
 --
+-- Name: identities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.identities (
+    id bigint NOT NULL,
+    provider character varying NOT NULL,
+    uid character varying NOT NULL,
+    user_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.identities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.identities_id_seq OWNED BY public.identities.id;
+
+
+--
 -- Name: industries; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -868,6 +901,13 @@ ALTER TABLE ONLY public.exchange_rates ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: identities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities ALTER COLUMN id SET DEFAULT nextval('public.identities_id_seq'::regclass);
+
+
+--
 -- Name: industries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -990,6 +1030,14 @@ ALTER TABLE ONLY public.bonds_coupons
 
 ALTER TABLE ONLY public.exchange_rates
     ADD CONSTRAINT exchange_rates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: identities identities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities
+    ADD CONSTRAINT identities_pkey PRIMARY KEY (id);
 
 
 --
@@ -1151,6 +1199,20 @@ CREATE UNIQUE INDEX index_exchange_rates_on_base_currency_and_rate_currency ON p
 --
 
 CREATE INDEX index_exchange_rates_on_rate_currency ON public.exchange_rates USING btree (rate_currency);
+
+
+--
+-- Name: index_identities_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_identities_on_uid_and_provider ON public.identities USING btree (uid, provider);
+
+
+--
+-- Name: index_identities_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_identities_on_user_id ON public.identities USING btree (user_id);
 
 
 --
@@ -1350,6 +1412,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210130105223'),
 ('20210130120524'),
 ('20210131111945'),
-('20210202194930');
+('20210202194930'),
+('20210206074220');
 
 

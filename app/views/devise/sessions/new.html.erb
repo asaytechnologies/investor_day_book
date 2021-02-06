@@ -7,12 +7,16 @@
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class='form-field'>
-      <%= f.label :email, class: 'form-label', value: t('devise.email') %>
+      <%= f.label :email, class: 'form-label' do %>
+        <%= t('devise.email') %>
+      <% end %>
       <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-value' %>
     </div>
 
     <div class='form-field'>
-      <%= f.label :password, class: 'form-label', value: t('devise.password') %>
+      <%= f.label :password, class: 'form-label' do %>
+        <%= t('devise.password') %>
+      <% end %>
       <%= f.password_field :password, autocomplete: 'current-password', class: 'form-value' %>
     </div>
 
@@ -27,4 +31,6 @@
       <%= f.submit t('devise.sign_in'), class: 'button button-lg' %>
     </div>
   <% end %>
+
+  <%= render 'shared/oauth' %>
 <% end %>

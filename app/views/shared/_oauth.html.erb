@@ -1,0 +1,6 @@
+<div class='oauth'>
+  <%= link_to user_google_oauth2_omniauth_authorize_path, method: :post do %>
+    <span><%= image_tag asset_pack_path('media/images/icons/google.svg'), alt: 'google logo' %></span>
+    <span><%= t('devise.oauth.with_google') %></span>
+  <% end %>
+</div>

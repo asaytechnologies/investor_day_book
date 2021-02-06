@@ -5,6 +5,10 @@ require 'que/web'
 Rails.application.routes.draw do
   mount Que::Web => '/que'
 
+  devise_for :users, skip: %i[session registration password confirmation], controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
+
   localized do
     devise_for :users,
                skip:        %i[omniauth_callbacks confirmation registration],

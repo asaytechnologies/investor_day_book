@@ -31,6 +31,8 @@ en:
       title: Check your email
       description: "We sent email with activation link to %{email}"
       to_login_page: Go to login page
+    oauth:
+      with_google: Login with Google
   wrapper:
     navigation:
       portfolios: Portfolios
