@@ -17,7 +17,7 @@ en:
       text1: Maintain an unlimited number of portfolios
       text2: Portfolios can contain any number of actives
       text3: Adding portfolio transactions manually
-      text4: Import of transactions from brokers' reports (Tinkoff, Sberbank)
+      text4: Import of transactions from brokers' reports (Tinkoff, Sberbank, VTB)
     block2:
       title: Actives
       text1: "Accounting for actives of various types: stocks, bonds and funds"
