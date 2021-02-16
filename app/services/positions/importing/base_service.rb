@@ -9,6 +9,9 @@ module Positions
 
       def set_initial_values
         @positions = []
+      end
+
+      def set_header_indeces
         @header_indeces = {
           external_id:    0,
           operation_date: 0,
@@ -20,19 +23,19 @@ module Positions
         }
       end
 
-      def parse_xls_file
+      def parse_xls_file(data_sheet_index:)
         @file.open do |file|
-          rows = read_xls_file_rows(file)
+          rows = read_xls_file_rows(file, data_sheet_index)
           break unless rows
 
           parse_rows(rows)
         end
       end
 
-      def read_xls_file_rows(file)
+      def read_xls_file_rows(file, data_sheet_index)
         case File.extname(file).downcase
-        when '.xlsx' then Creek::Book.new(file).sheets[0].rows
-        when '.xls' then Roo::Excel.new(file).sheet(0)
+        when '.xlsx' then Creek::Book.new(file).sheets[data_sheet_index].rows
+        when '.xls' then Roo::Excel.new(file).sheet(data_sheet_index)
         end
       end
 

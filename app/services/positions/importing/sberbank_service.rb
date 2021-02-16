@@ -15,7 +15,7 @@ module Positions
         @portfolio = portfolio
 
         set_initial_values
-        parse_xls_file
+        parse_xls_file(data_sheet_index: 0)
         save_positions
       end
 

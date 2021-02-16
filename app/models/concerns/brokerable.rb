@@ -20,6 +20,6 @@ module Brokerable
     { name: { en: 'BKS', ru: 'БКС' }, index: 4, formats: '', available: false },
     { name: { en: 'Finam', ru: 'Финам' }, index: 5, formats: '', available: false },
     { name: { en: 'Alfabank', ru: 'Альфабанк' }, index: 6, formats: '', available: false },
-    { name: { en: 'Freedom Finance', ru: 'Фридом Финанс' }, index: 7, formats: '', available: false }
+    { name: { en: 'Freedom Finance', ru: 'Фридом Финанс' }, index: 7, formats: '.xls,.xlsx', available: true }
   ].freeze
 end
