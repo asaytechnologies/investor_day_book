@@ -25,7 +25,7 @@ module Analytics
         .buying
         .where(portfolio: portfolio_ids)
         .with_unsold_securities
-        .includes(quote: :coupons)
+        .includes(:quote)
     end
 
     def perform_analytics
@@ -116,13 +116,7 @@ module Analytics
       return (quote.average_year_dividents_amount.to_f * unsold_amount).round(2) if quote.security.is_a?(Share)
       return 0 if quote.security.is_a?(Foundation)
 
-      coupons_values =
-        quote
-        .coupons
-        .where('payment_date > ? AND payment_date < ?', DateTime.now, DateTime.now + 1.year)
-        .pluck(:coupon_value)
-        .sum
-      coupons_values * unsold_amount
+      quote.coupons_sum_for_time_range * unsold_amount
     end
 
     def update_total_stats(acc, quote, stats)
