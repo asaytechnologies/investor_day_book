@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - sitemap
 - Freedom Finance broker importing data
+- rendering list of operations
 
 ### Modified
 - use cache for storing quote coupons sum for time range

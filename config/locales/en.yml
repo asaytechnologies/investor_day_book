@@ -57,6 +57,7 @@ en:
     navigation:
       portfolios: Portfolios
       analytics: Analytics
+      operations: Operations
   actives:
     shares: Shares
     bonds: Bonds
@@ -144,3 +145,15 @@ en:
         transaction: Transaction
         deposit: Deposit
         withdraw: Withdraw
+  operations:
+    index:
+      table_header:
+        name: Name
+        ticker: Ticker
+        operation: Operation
+        amount: Amount
+        price: Price
+        total_price: Total price
+        date: Date
+      sell: Selling
+      buy: Buying

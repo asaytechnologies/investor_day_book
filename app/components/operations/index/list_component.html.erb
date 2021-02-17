@@ -1,0 +1,28 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th class='name-column'><%= t('operations.index.table_header.name') %></th>
+      <th><%= t('operations.index.table_header.ticker') %></th>
+      <th><%= t('operations.index.table_header.operation') %></th>
+      <th><%= t('operations.index.table_header.amount') %></th>
+      <th><%= t('operations.index.table_header.price') %></th>
+      <th><%= t('operations.index.table_header.total_price') %></th>
+      <th><%= t('operations.index.table_header.date') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @positions.each do |position| %>
+      <tr>
+        <td class='name-column'><%= position.quote.security.name[I18n.locale.to_s] %></td>
+        <td><%= position.quote.security.ticker %></td>
+        <td><%= position.selling_position ? t('operations.index.sell') : t('operations.index.buy') %></td>
+        <td><%= position.amount %></td>
+        <td><%= money_presenter(position.price, position.quote.price_currency) %></td>
+        <td><%= money_presenter(position.price * position.amount, position.quote.price_currency) %></td>
+        <td><%= position.operation_date.strftime('%d.%m.%Y') %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

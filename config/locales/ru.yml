@@ -57,6 +57,7 @@ ru:
     navigation:
       portfolios: Портфели
       analytics: Аналитика
+      operations: Операции
   actives:
     shares: Акции
     bonds: Облигации
@@ -144,3 +145,15 @@ ru:
         transaction: Операция
         deposit: Внесение
         withdraw: Вывод
+  operations:
+    index:
+      table_header:
+        name: Название
+        ticker: Тикер
+        operation: Операция
+        amount: Кол-во
+        price: Цена
+        total_price: Стоимость
+        date: Дата
+      sell: Продажа
+      buy: Покупка

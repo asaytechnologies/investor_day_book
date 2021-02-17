@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     resources :portfolios, only: %i[index]
     resources :analytics, only: %i[index]
+    resources :operations, only: %i[index]
 
     root to: 'welcome#index'
   end

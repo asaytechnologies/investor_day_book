@@ -1,6 +1,7 @@
 <header class='content-navigation container'>
   <nav class='header-links'>
     <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'header-link' %>
+    <%= link_to t('wrapper.navigation.operations'), operations_path, class: 'header-link' %>
   </nav>
   <div class='profile-block' data-controller='shared--navigation' data-action='shared--navigation:click:outside->shared--navigation#close'>
     <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
