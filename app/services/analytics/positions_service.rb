@@ -60,8 +60,8 @@ module Analytics
         dividents_amount_price: dividents,
         position_id:            position.id
       }
-      acc[security_symbol][:total_price] += selling_total_price * @exchange_rates[currency_symbol]
-      acc[:total][:summary][:total_price] += dividents * @exchange_rates[currency_symbol]
+      acc[security_symbol][:plan_total_price] += selling_total_price * @exchange_rates[currency_symbol]
+      acc[security_symbol][:plan_total_dividents] += dividents * @exchange_rates[currency_symbol]
     end
     # rubocop: enable Metrics/AbcSize
 
@@ -147,12 +147,22 @@ module Analytics
 
     def default_stats
       {
-        share:      { stats: {}, plans: {}, total_buy_price: 0, total_price: 0, total_dividents: 0 },
-        foundation: { stats: {}, plans: {}, total_buy_price: 0, total_price: 0, total_dividents: 0 },
-        bond:       { stats: {}, plans: {}, total_buy_price: 0, total_price: 0, total_dividents: 0 },
-        total:      {
-          summary: { total_price: 0 }
-        }
+        share:      default_security_hash,
+        foundation: default_security_hash,
+        bond:       default_security_hash,
+        total:      { summary: { total_price: 0 } }
+      }
+    end
+
+    def default_security_hash
+      {
+        stats:                {},
+        plans:                {},
+        total_buy_price:      0,
+        total_price:          0,
+        total_dividents:      0,
+        plan_total_price:     0,
+        plan_total_dividents: 0
       }
     end
 

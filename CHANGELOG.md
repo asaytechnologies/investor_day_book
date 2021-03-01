@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - use cache for storing quote coupons sum for time range
 
+### Fixed
+- positions calculations for plans analytics
+
 ## [1.1.0] - 06.02.2021
 ### Added
 - login through google

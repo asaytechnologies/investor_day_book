@@ -137,6 +137,20 @@
             </td>
           </tr>
         <% end %>
+        <tr class='position total'>
+          <td class='name-column'><%= t('analytics.table.summary') %></td>
+          <td></td>
+          <% if key == :bond %>
+            <td></td>
+          <% end %>
+          <td></td>
+          <td><%= money_presenter(@positions[key][:plan_total_price].round(2), 'RUB') %></td>
+          <td></td>
+          <% if key.in?(%i[share bond]) %>
+            <td><%= money_presenter(@positions[key][:plan_total_dividents].round(2), 'RUB') %></td>
+          <% end %>
+          <td></td>
+        </tr>
       </tbody>
     </table>
   <% end %>
