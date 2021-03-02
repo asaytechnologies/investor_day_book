@@ -143,6 +143,7 @@ GEM
     innertube (1.1.0)
     joiner (0.6.0)
       activerecord (>= 6.1.0)
+    json (2.5.1)
     json_spec (1.1.5)
       multi_json (~> 1.0)
       rspec (>= 2.0, < 4.0)
@@ -262,6 +263,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recaptcha (5.7.0)
+      json
     redis (4.2.5)
     redis-actionpack (5.2.0)
       actionpack (>= 5, < 7)
@@ -454,6 +457,7 @@ DEPENDENCIES
   que-web (~> 0.9.3)
   rails (~> 6.1.0)
   rails-controller-testing
+  recaptcha
   redis-rails
   roo-xls (~> 1.2.0)
   route_translator

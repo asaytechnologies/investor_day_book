@@ -75,6 +75,9 @@ gem 'que-web', '~> 0.9.3'
 gem 'omniauth', '~> 1.9.0'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 
+# recaptcha
+gem 'recaptcha', require: 'recaptcha/rails'
+
 group :development, :test do
   # testing
   gem 'database_cleaner', '~> 1.8.5'
