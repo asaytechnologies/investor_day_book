@@ -3,11 +3,11 @@
     <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'header-link' %>
     <%= link_to t('wrapper.navigation.operations'), operations_path, class: 'header-link' %>
   </nav>
-  <div class='profile-block' data-controller='shared--navigation' data-action='shared--navigation:click:outside->shared--navigation#close'>
-    <h4 class='navigation-link' data-action='click->shared--navigation#toggle'>
+  <div class='profile-block toggle'>
+    <h4 class='navigation-link' @click.prevent='toggle()'>
       <%= image_tag gravatar_source, width: 48, height: 48, alt: 'gravatar' %>
     </h4>
-    <div class='navigation-dropdown' data-shared--navigation-target='list'>
+    <div class='navigation-dropdown' v-show='isOpen'>
       <div class='select-language'>
         <% I18n.available_locales.each do |locale| %>
           <%= link_to image_tag(asset_pack_path("media/images/icons/#{locale}.png"), alt: 'change locale', width: 25, height: 17), change_locale(locale), class: 'flag' %>

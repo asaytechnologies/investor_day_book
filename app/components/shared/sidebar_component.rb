@@ -2,9 +2,8 @@
 
 module Shared
   class SidebarComponent < ViewComponent::Base
-    def initialize(title:, window_index:)
-      @title        = title
-      @window_index = window_index
+    def initialize(title:)
+      @title = title
     end
   end
 end

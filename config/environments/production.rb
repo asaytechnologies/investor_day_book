@@ -2,16 +2,6 @@
 
 Rails.application.configure do
   config.active_storage.service = :local
-
-  # rubocop: disable Layout/LineLength
-  # Specify AnyCable WebSocket server URL to use by JS client
-  config.after_initialize do
-    if AnyCable::Rails.enabled?
-      config.action_cable.url = ActionCable.server.config.url = ENV.fetch('CABLE_URL', 'wss://invest-plan.pro:3334/cable')
-      config.action_cable.allowed_request_origins = ['https://invest-plan.pro']
-    end
-  end
-  # rubocop: enable Layout/LineLength
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
