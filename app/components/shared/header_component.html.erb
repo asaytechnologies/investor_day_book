@@ -3,7 +3,7 @@
     <%= link_to t('wrapper.navigation.analytics'), analytics_path, class: 'header-link' %>
     <%= link_to t('wrapper.navigation.operations'), operations_path, class: 'header-link' %>
   </nav>
-  <div class='profile-block toggle'>
+  <div class='profile-block' data-behavior='navigation-toggle'>
     <h4 class='navigation-link' @click.prevent='toggle()'>
       <%= image_tag gravatar_source, width: 48, height: 48, alt: 'gravatar' %>
     </h4>

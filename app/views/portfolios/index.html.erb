@@ -1,5 +1,5 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='page-container sidebar-container'>
+  <div id='portfolios-index-page' class='page-container sidebar-container'>
 
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
 
@@ -7,82 +7,42 @@
       <div class='content-header-body container'>
         <h4 class='content-title'><%= t('wrapper.navigation.portfolios') %></h4>
         <div class='content-buttons'>
-          <div class='toggle'>
-            <span class='button button-sm button-reverse' @click.prevent='open()'>
+          <div data-behavior='new-portfolio-sidebar'>
+            <span class='button button-sm button-reverse' @click.prevent='openSidebar()'>
               <%= t('portfolios.sidebar.list.button') %>
             </span>
 
             <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.list.title')) do %>
               <div id='portfolio-new-container' class='sidebar-content'>
-                <form
-                  data-controller='portfolios--portfolio-new'
-                  data-action='submit->portfolios--portfolio-new#submitForm'
-                  data-portfolios--portfolio-new-source=''
-                >
-
+                <form>
                   <div class='form-field'>
                     <label class='form-label'><%= t('portfolios.sidebar.list.name') %> *</label>
-                    <input name='portfolio[name]' class='form-value' data-portfolios--portfolio-new-target='name' />
+                    <input class='form-value' v-model='name' :class='{ error: validation && name.length === 0 }' />
                   </div>
 
-                  <div
-                    class='form-field'
-                    data-controller='shared--select'
-                    data-action='shared--select:click:outside->shared--select#close'
-                    data-shared--select-value='RUB'
-                    data-shared--select-value-index='2'
-                  >
-                    <input name='portfolio[currency]' type='hidden' data-shared--select-target='valueIndex' />
+                  <div class='form-field'>
                     <label class='form-label'><%= t('portfolios.index.form_new.currency') %>*</label>
-                    <div
-                      class='form-value select-value'
-                      data-action='click->shared--select#toggle'
-                      data-shared--select-target='value'
-                      data-portfolios--portfolio-new-target='currency'
-                    ></div>
-                    <div class='select-list' data-shared--select-target='list'>
+                    <div class='form-value select-value' @click.prevent='toggleCurrencySelect()'>{{ currencyName }}</div>
+                    <div class='select-list' v-show='isCurrencySelectOpen'>
                       <% Cashable::AVAILABLE_CURRENCIES_UPCASE.each.with_index do |currency, index| %>
-                        <div
-                          class='select-list-item'
-                          data-action='click->shared--select#select'
-                          data-value-index='<%= index %>'
-                        >
+                        <div class='select-list-item' @click.prevent="selectCurrency('<%= currency %>', <%= index %>)">
                           <%= currency %>
                         </div>
                       <% end %>
                     </div>
                   </div>
 
-                  <div
-                    class='form-field'
-                    data-controller='shared--select'
-                    data-action='shared--select:click:outside->shared--select#close'
-                    data-shared--select-value=''
-                    data-shared--select-value-index='-1'
-                  >
-                    <input name='portfolio[source]' type='hidden' data-shared--select-target='valueIndex' />
+                  <div class='form-field'>
                     <label class='form-label'><%= t('portfolios.index.form_new.select_source') %></label>
-                    <div
-                      class='form-value select-value'
-                      data-action='click->shared--select#toggle'
-                      data-shared--select-target='value'
-                      data-portfolios--portfolio-new-target='source'
-                    ></div>
-                    <div class='select-list' data-shared--select-target='list'>
-                      <div
-                        class='select-list-item'
-                        data-action='click->shared--select#select click->portfolios--portfolio-new#selectBroker'
-                        data-value-index='-1'
-                        data-value-formats=''
-                      >
+                    <div class='form-value select-value' @click.prevent='toggleSourceSelect()'>{{ sourceName }}</div>
+                    <div class='select-list' v-show='isSourceSelectOpen'>
+                      <div class='select-list-item' @click.prevent="selectBroker('', -1, '')">
                         <%= t('portfolios.index.form_new.no_source') %>
                       </div>
                       <% Brokerable::LISTABLE_BROKERS.select { |e| e[:available] }.each do |broker| %>
                         <div
                           class='select-list-item'
-                          data-action='click->shared--select#select click->portfolios--portfolio-new#selectBroker'
-                          data-value-index='<%= broker[:index] %>'
-                          data-value-formats='<%= broker[:formats] %>'
+                          @click.prevent="selectBroker('<%= broker[:name][I18n.locale] %>', <%= broker[:index] %>, '<%= broker[:formats] %>')"
                         >
                           <%= broker[:name][I18n.locale] %>
                         </div>
@@ -92,11 +52,11 @@
 
                   <div class='form-field'>
                     <label class='form-label'><%= t('portfolios.sidebar.list.file') %></label>
-                    <input type='file' name='file' class='form-value' data-portfolios--portfolio-new-target='file' accept='.xls,.xlsx' disabled />
+                    <input type='file' class='form-value' v-bind:accept='fileFormats' v-bind:disabled='!isSourceSelected' />
                     <em><%= t('portfolios.sidebar.list.file_optional') %></em>
                   </div>
 
-                  <button class='button' type='submit'>
+                  <button class='button' @click.prevent='submitForm()'>
                     <%= t('portfolios.sidebar.list.button') %>
                   </button>
                 </form>
