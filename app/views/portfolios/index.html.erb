@@ -1,8 +1,6 @@
 <%= render PageWrappers::PageComponent.new do %>
   <div id='portfolios-index-page' class='page-container sidebar-container'>
-
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
-
     <section class='content-header'>
       <div class='content-header-body container'>
         <h4 class='content-title'><%= t('wrapper.navigation.portfolios') %></h4>
@@ -52,7 +50,7 @@
 
                   <div class='form-field'>
                     <label class='form-label'><%= t('portfolios.sidebar.list.file') %></label>
-                    <input type='file' class='form-value' v-bind:accept='fileFormats' v-bind:disabled='!isSourceSelected' />
+                    <input type='file' class='form-value' :accept='fileFormats' :disabled='!isSourceSelected' @change='uploadFile($event)' />
                     <em><%= t('portfolios.sidebar.list.file_optional') %></em>
                   </div>
 
@@ -66,9 +64,32 @@
         </div>
       </div>
     </section>
-
     <div id='portfolios' class='page-content portfolios-list'>
-      <%= render Portfolios::ListComponent.new(current_user: current_user) %>
+      <div class='container'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th class='name-column'><%= t('portfolios.index.table_header.name') %></th>
+              <th><%= t('portfolios.index.table_header.currency') %></th>
+              <th><%= t('portfolios.index.table_header.broker') %></th>
+              <th><%= t('portfolios.index.table_header.created') %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for='portfolio in portfolios' :key='portfolio.attributes.id'>
+              <td class='name-column'>{{ portfolio.attributes.name }}</td>
+              <td>{{ portfolio.attributes.currency }}</td>
+              <td>{{ portfolio.attributes.broker_name }}</td>
+              <td>{{ portfolio.attributes.created_at }}</td>
+              <td class='portfolio-actions'>
+                <span class='delete-portfolio' @click.prevent='destroyPortfolio(portfolio.attributes.id)'></span>
+                <span class='clear-portfolio' @click.prevent='clearPortfolio(portfolio.attributes.id)'></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 <% end %>

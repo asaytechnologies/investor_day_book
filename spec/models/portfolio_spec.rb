@@ -11,5 +11,6 @@ describe Portfolio, type: :model do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many(:positions).class_name('Users::Position').dependent(:destroy) }
     it { is_expected.to have_many(:cashes).class_name('Portfolios::Cash').dependent(:destroy) }
+    it { is_expected.to have_many(:uploads).dependent(:destroy) }
   end
 end

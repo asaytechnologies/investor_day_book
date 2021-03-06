@@ -12,6 +12,7 @@
     "vue": "^2.6.12",
     "vue-click-outside": "^1.1.0",
     "vue-loader": "^15.9.6",
+    "vue-resource": "^1.5.2",
     "vue-template-compiler": "^2.6.12"
   },
   "version": "1.1.0",
@@ -21,7 +22,7 @@
   },
   "scripts": {
     "initPO": "ttag init ru frontend/locales/ru.po",
-    "updatePO": "ttag update frontend/locales/ru.po frontend/controllers",
+    "updatePO": "ttag update frontend/locales/ru.po frontend/components",
     "po2json": "ttag po2json frontend/locales/ru.po > frontend/locales/ru.po.json -p",
     "updateTranslations": "yarn updatePO && yarn po2json"
   }

@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :upload do
-    guid { '12345678asdf' }
     name { 'portfolio_initial_data' }
     association :user
+    association :uploadable, factory: :portfolio
 
     trait :with_file do
       file {

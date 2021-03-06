@@ -20,7 +20,7 @@ module Uploads
     def perform_upload(upload)
       return unless upload.file.attached?
 
-      portfolio = upload.user.portfolios.find_by(guid: upload.guid)
+      portfolio = upload.uploadable
       return unless portfolio
 
       Positions::ImportService.call(

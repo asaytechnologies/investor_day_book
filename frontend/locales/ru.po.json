@@ -27,16 +27,16 @@
           "Данные портфеля будут загружены в течение пары минут"
         ]
       },
-      "Do you really want to delete portfolio?": {
-        "msgid": "Do you really want to delete portfolio?",
+      "Portfolio is destroyed": {
+        "msgid": "Portfolio is destroyed",
         "msgstr": [
-          "Вы действительно хотите удалить портфель?"
+          "Портфель удален"
         ]
       },
-      "Do you really want to delete all operations in portfolio?": {
-        "msgid": "Do you really want to delete all operations in portfolio?",
+      "Portfolio is cleared": {
+        "msgid": "Portfolio is cleared",
         "msgstr": [
-          "Вы действительно хотите удалить все операции по портфелю?"
+          "Операции портфеля удалены"
         ]
       }
     }

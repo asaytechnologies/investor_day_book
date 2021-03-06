@@ -2,8 +2,8 @@
 
 module BasicService
   module ClassMethods
-    def call(*args)
-      new.call(*args)
+    def call(args={})
+      new.call(args)
     end
   end
 
@@ -18,8 +18,8 @@ module BasicService
     @errors = []
   end
 
-  def call(*args)
-    super(*args)
+  def call(args={})
+    super(**args)
     self
   end
 

@@ -72,11 +72,13 @@ gem 'omniauth-google-oauth2', '~> 0.8.0'
 # recaptcha
 gem 'recaptcha', require: 'recaptcha/rails'
 
+# json api
+gem 'jsonapi-serializer'
+gem 'jwt'
+gem 'oj'
+gem 'oj_mimic_json'
+
 group :development, :test do
-  # testing
-  gem 'database_cleaner', '~> 1.8.5'
-  gem 'factory_bot_rails', '~> 6.1.0'
-  gem 'rspec-rails', '~> 4.0.1'
   # Static analysis
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
@@ -99,9 +101,12 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner', '~> 1.8.5'
+  gem 'factory_bot_rails', '~> 6.1.0'
   gem 'faker'
   gem 'json_spec'
   gem 'rails-controller-testing'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'timecop'

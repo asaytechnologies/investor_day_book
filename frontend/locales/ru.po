@@ -7,18 +7,18 @@ msgstr ""
 "mime-version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: frontend/controllers/portfolios/portfolio_new_controller.js:66
+#: frontend/components/portfolios/index_page_component.js:67
 msgid "File for portfolio is uploaded"
 msgstr "Файл для портфеля загружен"
 
-#: frontend/controllers/portfolios/portfolio_new_controller.js:66
+#: frontend/components/portfolios/index_page_component.js:67
 msgid "Portfolio positions will be created in a few minutes"
 msgstr "Данные портфеля будут загружены в течение пары минут"
 
-#: frontend/controllers/portfolios/list_controller.js:20
-msgid "Do you really want to delete portfolio?"
-msgstr "Вы действительно хотите удалить портфель?"
+#: frontend/components/portfolios/index_page_component.js:75
+msgid "Portfolio is destroyed"
+msgstr "Портфель удален"
 
-#: frontend/controllers/portfolios/list_controller.js:7
-msgid "Do you really want to delete all operations in portfolio?"
-msgstr "Вы действительно хотите удалить все операции по портфелю?"
+#: frontend/components/portfolios/index_page_component.js:83
+msgid "Portfolio is cleared"
+msgstr "Операции портфеля удалены"

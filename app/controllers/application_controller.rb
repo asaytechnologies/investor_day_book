@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!, except: %i[catch_route_error]
   before_action :current_locale, except: %i[catch_route_error]
+  before_action :set_current_user
 
   def catch_route_error
     request.format = :html if request.format != :json
@@ -16,6 +17,10 @@ class ApplicationController < ActionController::Base
 
   def current_locale
     I18n.locale = cookies[:invest_plan_locale] = params[:locale]
+  end
+
+  def set_current_user
+    Current.user = current_user
   end
 
   def render_error(message='Error', status=400)
