@@ -22,3 +22,11 @@ msgstr "Портфель удален"
 #: frontend/components/portfolios/index_page_component.js:83
 msgid "Portfolio is cleared"
 msgstr "Операции портфеля удалены"
+
+#: frontend/components/analytics/index_page_component.js:19
+msgid "All portfolios stats"
+msgstr "Составной портфель"
+
+#: frontend/components/analytics/index_page_component.js:52
+msgid "Buy"
+msgstr "Покупка"

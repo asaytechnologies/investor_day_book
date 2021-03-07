@@ -16,16 +16,17 @@ module Positions
 
     def call(args={})
       @args = args
-      position_service.call(position_params)
+
+      @result = position_service.call(position_params).result
     end
 
     private
 
     def position_service
-      case @args[:operation]
-      when '0' then @buy_service
-      when '1' then @sell_service
-      when '2' then @plan_service
+      case @args[:operation].to_i
+      when 0 then @buy_service
+      when 1 then @sell_service
+      when 2 then @plan_service
       end
     end
 

@@ -6,7 +6,7 @@ module Positions
       private
 
       def create_position(args={})
-        Users::Position.create(args)
+        @result = Users::Position.create(args)
       end
     end
   end

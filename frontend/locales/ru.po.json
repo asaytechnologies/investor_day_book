@@ -38,6 +38,18 @@
         "msgstr": [
           "Операции портфеля удалены"
         ]
+      },
+      "All portfolios stats": {
+        "msgid": "All portfolios stats",
+        "msgstr": [
+          "Составной портфель"
+        ]
+      },
+      "Buy": {
+        "msgid": "Buy",
+        "msgstr": [
+          "Покупка"
+        ]
       }
     }
   }

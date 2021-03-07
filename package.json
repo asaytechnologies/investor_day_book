@@ -9,6 +9,7 @@
     "js-cookie": "^2.2.1",
     "tailwindcss": "^1.9.6",
     "ttag": "^1.7.23",
+    "v-debounce": "^0.1.2",
     "vue": "^2.6.12",
     "vue-click-outside": "^1.1.0",
     "vue-loader": "^15.9.6",

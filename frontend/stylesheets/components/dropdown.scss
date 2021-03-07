@@ -28,11 +28,7 @@
     right: 0;
     border-left: 1px solid $dodger_blue;
     cursor: pointer;
-    display: none;
-
-    &.open {
-      display: block;
-    }
+    display: block;
 
     &:after, &:before {
       position: absolute;
@@ -60,9 +56,11 @@
     position: absolute;
     left: 0;
     width: 100%;
-    overflow-y: scroll;
     z-index: 10;
     max-height: 25rem;
+    border-radius: .25rem;
+    overflow: hidden;
+    overflow-y: scroll;
 
     .dropdown-list-header, .dropdown-list-element {
       width: 100%;
@@ -71,14 +69,6 @@
       border-bottom-color: $athens_gray;
       border-right-color: $dodger_blue;
       border-left-color: $dodger_blue;
-
-      &:nth-of-type(1) {
-        border-radius: .25rem .25rem 0 0;
-      }
-
-      &:nth-last-of-type(1) {
-        border-radius: 0 0 .25rem .25rem;
-      }
     }
 
     .dropdown-list-header {

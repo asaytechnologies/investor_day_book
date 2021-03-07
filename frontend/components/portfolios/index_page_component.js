@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("upload[file]", file)
         formData.append("access_token", this.accessToken)
         const config = { headers : { "Content-Type" : "multipart/form-data" } }
-        this.$http.post("/api/v1/portfolios", formData, config).then(function(data) {
+        this.$http.post("/api/v1/portfolios.json", formData, config).then(function(data) {
           this.addPortfolioToList(data.body.portfolio.data.attributes)
         })
       },
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             source:   source
           }
         }
-        this.$http.post("/api/v1/portfolios", params).then(function(data) {
+        this.$http.post("/api/v1/portfolios.json", params).then(function(data) {
           this.addPortfolioToList(data.body.portfolio.data.attributes)
         })
       },
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         )
       },
       destroyPortfolio: function(id) {
-        this.$http.delete(`/api/v1/portfolios/${id}`, { params: { access_token: this.accessToken } }).then(function() {
+        this.$http.delete(`/api/v1/portfolios/${id}.json`, { params: { access_token: this.accessToken } }).then(function() {
           this.removePortfolioFromList(id)
           this.showNotification(
             "success",
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       clearPortfolio: function(id) {
-        this.$http.post(`/api/v1/portfolios/${id}/clear`, { access_token: this.accessToken }).then(function() {
+        this.$http.post(`/api/v1/portfolios/${id}/clear.json`, { access_token: this.accessToken }).then(function() {
           this.showNotification(
             "success",
             `<p>${t`Portfolio is cleared`}</p>`

@@ -1,20 +1,9 @@
 # frozen_string_literal: true
 
 class PositionsReflex < ApplicationReflex
-  before_reflex :find_portfolio, only: [:create]
-  before_reflex :find_quote, only: [:create]
-
   def index(args={})
     current_locale(args['locale'])
     render_positions(args['portfolio_id'])
-  end
-
-  def create(args={})
-    create_position
-
-    current_locale(args['locale'])
-    render_positions(args['portfolio_id'])
-    morph '#quotes', AnalyticsController.render(Analytics::QuotesComponent.new(quote_ids: []))
   end
 
   def destroy(args={})
@@ -30,26 +19,6 @@ class PositionsReflex < ApplicationReflex
     return if portfolio_id == '0'
 
     current_user.portfolios.find_by(id: portfolio_id)
-  end
-
-  def find_portfolio
-    @portfolio = current_user.portfolios.find_by(id: position_params[:portfolio_id])
-  end
-
-  def find_quote
-    @quote = Quote.find_by(id: position_params[:quote_id])
-  end
-
-  def create_position
-    Positions::CreateService.call(
-      portfolio:      @portfolio,
-      quote:          @quote,
-      price:          position_params[:price].to_f,
-      price_currency: @quote.price_currency,
-      amount:         position_params[:amount].to_i,
-      operation:      position_params[:operation],
-      operation_date: position_params[:operation_date]
-    )
   end
 
   def destroy_position(position_id)
@@ -71,9 +40,5 @@ class PositionsReflex < ApplicationReflex
         )
       )
     )
-  end
-
-  def position_params
-    params.require(:position).permit(:portfolio_id, :quote_id, :price, :amount, :operation, :operation_date)
   end
 end

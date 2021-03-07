@@ -1,22 +1,192 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='page-container sidebar-container' data-controller='shared--sidebar analytics' data-reflex-root='#positions'>
-
+  <div id='analytics-index-page' class='page-container sidebar-container'>
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
-
     <section class='content-header'>
       <div class='content-header-body container'>
         <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
         <% if @portfolios.present? %>
           <div class='content-buttons'>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
-              <%= t('analytics.sidebar.button') %>
-            </span>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
-              <%= t('analytics.sidebar.balance.button') %>
-            </span>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='2'>
-              <%= t('portfolios.sidebar.operations.button') %>
-            </span>
+            <div data-behavior='new-position-sidebar'>
+              <span class='button button-sm button-reverse' @click.prevent='openSidebar()'>
+                <%= t('analytics.sidebar.button') %>
+              </span>
+              <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title')) do %>
+                <div class='sidebar-content'>
+                  <form>
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.sidebar.select_portfolio') %> *</label>
+                      <div class='form-value select-value' @click.prevent='togglePortfolioSelect()'>{{ portfolioName }}</div>
+                      <div class='select-list' v-show='isPortfolioSelectOpen'>
+                        <% @portfolios.each do |portfolio| %>
+                          <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class='form-field' v-show='selectedQuoteName.length > 0'>
+                      <label class='form-label'><%= t('analytics.sidebar.security') %></label>
+                      <div class='form-value with-form-value-clear'>
+                        <span>{{ selectedQuoteName }}</span>
+                        <span class='form-value-clear' @click.prevent='clearSelectedQuote()'></span>
+                      </div>
+                    </div>
+
+                    <div class='dropdown-box' v-show='selectedQuoteName.length === 0'>
+                      <label class='form-label'><%= t('analytics.sidebar.select_security') %> *</label>
+                      <input type='text' class='form-value' placeholder='<%= t('analytics.sidebar.search') %>' v-model.lazy='securitySearchValue' :keyup='searchSecurities()' v-debounce='500' />
+                      <span class='dropdown-clear' v-show='securitySearchValue.length > 0'></span>
+                      <div id='quotes' class='dropdown-list'>
+                        <% %w[Share Bond Foundation].each do |key| %>
+                          <div class='dropdown-list-block' v-show="quotes['<%= key %>'] && quotes['<%= key %>'].length > 0">
+                            <div class='dropdown-list-header'>
+                              <%= t("analytics.table.#{key.downcase}_name") %>
+                            </div>
+                            <div
+                              class='dropdown-list-element'
+                              v-for="quote in quotes['<%= key %>']"
+                              :key='quote.attributes.id'
+                              @click.prevent='selectQuote(quote.attributes.security_name[currentLocale], quote.attributes.id)'
+                            >
+                              {{ quote.attributes.security_name[currentLocale] }} ({{ quote.attributes.security_ticker }}), {{ quote.attributes.price }}
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.sidebar.transaction') %></label>
+                      <div class='form-value select-value' @click.prevent='toggleTransactionSelect()'>{{ transactionName }}</div>
+                      <div class='select-list' v-show='isTransactionSelectOpen'>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.sidebar.buy') %>', 0)"><%= t('analytics.sidebar.buy') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.sidebar.sell') %>', 1)"><%= t('analytics.sidebar.sell') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.sidebar.plan') %>', 2)"><%= t('analytics.sidebar.plan') %></div>
+                      </div>
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.sidebar.price') %> *</label>
+                      <input class='form-value' v-model='price' />
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.sidebar.amount') %> *</label>
+                      <input class='form-value' v-model='amount' />
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.sidebar.operation_date') %></label>
+                      <input class='form-value' v-model='operationDate' />
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.sidebar.total_price') %></label>
+                      <input disabled class='form-value' v-model='totalPrice' />
+                    </div>
+
+                    <button class='button' @click.prevent='createPosition()'>
+                      <%= t('analytics.sidebar.button') %>
+                    </button>
+                  </form>
+                </div>
+              <% end %>
+            </div>
+
+            <div data-behavior='new-balance-sidebar'>
+              <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
+                <%= t('analytics.sidebar.balance.button') %>
+              </span>
+              <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.balance.title')) do %>
+                <div class='sidebar-content'>
+                  <form data-controller='analytics--balance' data-action='submit->analytics--balance#submitForm'>
+
+                    <div
+                      class='form-field'
+                      data-controller='shared--select'
+                      data-action='shared--select:click:outside->shared--select#close'
+                      data-shared--select-value='<%= @portfolios.first.name %>'
+                      data-shared--select-value-index='<%= @portfolios.first.id %>'
+                    >
+                      <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
+                      <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
+                      <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
+                      <div class='select-list' data-shared--select-target='list'>
+                        <% @portfolios.each do |portfolio| %>
+                          <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
+                      <div class='form-field'>
+                        <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
+                        <input name='portfolio[<%= currency %>]' class='form-value' value='<%= @first_portfolio_cashes.find { |e| e.amount_currency == currency.upcase }&.amount_cents.to_i / 100.0 %>' />
+                      </div>
+                    <% end %>
+
+                    <button class='button' type='submit'>
+                      <%= t('analytics.sidebar.balance.submit_button') %>
+                    </button>
+                  </form>
+                </div>
+              <% end %>
+            </div>
+
+            <div data-behavior='new-incomes-sidebar'>
+              <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='2'>
+                <%= t('portfolios.sidebar.operations.button') %>
+              </span>
+              <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.operations.title')) do %>
+                <div class='sidebar-content'>
+                  <form data-controller='portfolios--cash-new' data-action='submit->portfolios--cash-new#submitForm'>
+
+                    <div
+                      class='form-field'
+                      data-controller='shared--select'
+                      data-action='shared--select:click:outside->shared--select#close'
+                      data-shared--select-value='<%= @portfolios.first.name %>'
+                      data-shared--select-value-index='<%= @portfolios.first.id %>'
+                    >
+                      <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
+                      <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
+                      <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
+                      <div class='select-list' data-shared--select-target='list'>
+                        <% @portfolios.each do |portfolio| %>
+                          <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div
+                      class='form-field'
+                      data-controller='shared--select'
+                      data-action='shared--select:click:outside->shared--select#close'
+                      data-shared--select-value='<%= t('portfolios.sidebar.operations.deposit') %>'
+                      data-shared--select-value-index='0'
+                    >
+                      <input type='hidden' name='portfolio[operation]' data-shared--select-target='valueIndex' />
+                      <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
+                      <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
+                      <div class='select-list' data-shared--select-target='list'>
+                        <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
+                        <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>
+                      </div>
+                    </div>
+
+                    <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
+                      <div class='form-field'>
+                        <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
+                        <input name='portfolio[<%= currency %>]' class='form-value' value='0' />
+                      </div>
+                    <% end %>
+
+                    <button class='button' type='submit'>
+                      <%= t('portfolios.sidebar.operations.button') %>
+                    </button>
+                  </form>
+                </div>
+              <% end %>
+            </div>
           </div>
         <% end %>
       </div>
@@ -25,25 +195,18 @@
     <% if @portfolios.present? %>
       <div class='page-content'>
         <div id='analytics-header'>
-          <form id='portfolio-select'>
-            <div
-              class='form-field'
-              data-controller='shared--select analytics--positions'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('analytics.select.total') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' id='portfolio_id' name='portfolio_id' data-shared--select-target='valueIndex' />
+          <div id='portfolio-select'>
+            <div class='form-field'>
               <label class='form-label'><%= t('analytics.select.title') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
+              <div class='form-value select-value' @click.prevent='toggleSelect()'>{{ selectedName }}</div>
+              <div class='select-list' v-show='isSelectOpen'>
+                <div class='select-list-item' @click.prevent="selectPortfolio('<%= t('analytics.select.total') %>', 0)"><%= t('analytics.select.total') %></div>
                 <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                  <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
                 <% end %>
               </div>
             </div>
-          </form>
+          </div>
 
           <% if false %>
             <div id='options-container' data-controller='analytics--options'>
@@ -75,175 +238,6 @@
           <%= render Analytics::PositionsComponent.new(current_user: current_user) %>
         </div>
       </div>
-
-      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title'), window_index: 0) do %>
-        <div id='position-new-container'>
-          <form data-controller='analytics--position-new' data-action='submit->analytics--position-new#submitForm'>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='position[portfolio_id]' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('analytics.sidebar.select_portfolio') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
-              </div>
-            </div>
-
-            <div class='form-field hidden-by-default' data-analytics--position-new-target='securityBlock'>
-              <label class='form-label'><%= t('analytics.sidebar.security') %></label>
-              <div class='form-value with-form-value-clear'>
-                <span data-analytics--position-new-target='securityValue'></span>
-                <span class='form-value-clear' data-action='click->analytics--position-new#clearSecurity'></span>
-              </div>
-            </div>
-
-            <div class='dropdown-box' data-reflex-root='#quotes' data-analytics--position-new-target='dropdown'>
-              <input type='hidden' name='position[quote_id]' data-analytics--position-new-target='quoteId' />
-              <label class='form-label'><%= t('analytics.sidebar.select_security') %> *</label>
-              <input type='text' class='form-value' placeholder='<%= t('analytics.sidebar.search') %>' data-action='debounced:input->analytics--position-new#searchQuotes' data-analytics--position-new-target='selectInput' />
-              <span class='dropdown-clear' data-action='click->analytics--position-new#clearSearch' data-analytics--position-new-target='clearSearch'></span>
-              <div id='quotes' class='dropdown-list'>
-                <%= render Analytics::QuotesComponent.new(quote_ids: []) %>
-              </div>
-            </div>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('analytics.sidebar.buy') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' name='position[operation]' data-analytics--position-new-target='operation' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('analytics.sidebar.transaction') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('analytics.sidebar.buy') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('analytics.sidebar.sell') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='2'><%= t('analytics.sidebar.plan') %></div>
-              </div>
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.price') %> *</label>
-              <input name='position[price]' class='form-value' data-analytics--position-new-target='price' data-action='keyup->analytics--position-new#refreshTotalPrice' />
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.amount') %> *</label>
-              <input name='position[amount]' class='form-value' data-analytics--position-new-target='amount' data-action='keyup->analytics--position-new#refreshTotalPrice' />
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.operation_date') %></label>
-              <input name='position[operation_date]' class='form-value' data-analytics--position-new-target='date' />
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.total_price') %></label>
-              <input disabled class='form-value' data-analytics--position-new-target='totalPrice' />
-            </div>
-
-            <button class='button' type='submit'>
-              <%= t('analytics.sidebar.button') %>
-            </button>
-          </form>
-        </div>
-      <% end %>
-
-      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.balance.title'), window_index: 1) do %>
-        <div id='balance-container'>
-          <form data-controller='analytics--balance' data-action='submit->analytics--balance#submitForm'>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
-              </div>
-            </div>
-
-            <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
-              <div class='form-field'>
-                <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
-                <input name='portfolio[<%= currency %>]' class='form-value' value='<%= @first_portfolio_cashes.find { |e| e.amount_currency == currency.upcase }&.amount_cents.to_i / 100.0 %>' />
-              </div>
-            <% end %>
-
-            <button class='button' type='submit'>
-              <%= t('analytics.sidebar.balance.submit_button') %>
-            </button>
-          </form>
-        </div>
-      <% end %>
-
-      <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.operations.title'), window_index: 2) do %>
-        <div id='portfolio-operations-container'>
-          <form data-controller='portfolios--cash-new' data-action='submit->portfolios--cash-new#submitForm'>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
-              </div>
-            </div>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('portfolios.sidebar.operations.deposit') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' name='portfolio[operation]' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>
-              </div>
-            </div>
-
-            <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
-              <div class='form-field'>
-                <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
-                <input name='portfolio[<%= currency %>]' class='form-value' value='0' />
-              </div>
-            <% end %>
-
-            <button class='button' type='submit'>
-              <%= t('portfolios.sidebar.operations.button') %>
-            </button>
-          </form>
-        </div>
-      <% end %>
     <% else %>
       <div class='page-content portfolios-list'>
         <div class='container'>
