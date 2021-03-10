@@ -11,7 +11,7 @@ class QuoteSerializer
   end
 
   attribute :security_name do |object|
-    object.security.name
+    object.security.name[I18n.locale.to_s]
   end
 
   attribute :security_ticker do |object|

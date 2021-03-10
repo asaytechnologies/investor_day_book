@@ -6,6 +6,7 @@
     "@rails/webpacker": "5.2.1",
     "chart.js": "^2.9.4",
     "compression-webpack-plugin": "^6.1.1",
+    "currency-symbol-map": "^5.0.1",
     "js-cookie": "^2.2.1",
     "tailwindcss": "^1.9.6",
     "ttag": "^1.7.23",

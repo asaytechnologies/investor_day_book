@@ -68,6 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
         )
       },
       destroyPortfolio: function(id) {
+        var result = confirm(t`Do you really want to delete portfolio?`)
+        if (!result) return
+
         this.$http.delete(`/api/v1/portfolios/${id}.json`, { params: { access_token: this.accessToken } }).then(function() {
           this.removePortfolioFromList(id)
           this.showNotification(
@@ -77,6 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       clearPortfolio: function(id) {
+        var result = confirm(t`Do you really want to delete all operations in portfolio?`)
+        if (!result) return
+
         this.$http.post(`/api/v1/portfolios/${id}/clear.json`, { access_token: this.accessToken }).then(function() {
           this.showNotification(
             "success",

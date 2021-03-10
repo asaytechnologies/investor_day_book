@@ -11,6 +11,7 @@ module Api
       skip_before_action :current_locale
       skip_before_action :set_current_user
       before_action :authenticate
+      before_action :set_locale
 
       private
 

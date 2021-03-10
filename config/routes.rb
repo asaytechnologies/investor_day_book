@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :portfolios, only: %i[index create destroy] do
         post :clear, on: :member
       end
+      resources :analytics, only: %i[index]
 
       namespace :quotes do
         resources :search, only: %i[index]
