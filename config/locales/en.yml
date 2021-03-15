@@ -97,7 +97,7 @@ en:
         plan_share: Plan for shares
         plan_bond: Plan for bonds
         plan_foundation: Plan for funds
-    sidebar:
+    positions_sidebar:
       select_portfolio: Select portfolio
       title: New position
       security: Security
@@ -112,14 +112,15 @@ en:
       sell: Sell
       plan: Plan
       operation_date: Operation date
-      options:
-        show_plans: Show plans
-        show_dividents: Show dividents for 1 year
-        additional: Additional options
-      balance:
-        button: Set balance
-        title: Portfolio balance
-        submit_button: Update balance
+    balance_sidebar:
+      button: Set balance
+      title: Portfolio balance
+      select_portfolio: Select portfolio
+      submit_button: Update
+      transaction: Transaction
+      balance: Change balance
+      income: Change income/outcome
+      scope: Operation type
   portfolios:
     index:
       table_header:

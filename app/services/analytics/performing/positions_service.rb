@@ -45,6 +45,7 @@ module Analytics
       end
 
       # rubocop: disable Metrics/AbcSize
+      # rubocop: disable Metrics/MethodLength
       def perform_plan_positions_calculation(quote, position, acc)
         return if position.nil?
 
@@ -73,6 +74,7 @@ module Analytics
         acc[security_symbol][:plan][:dividents] += dividents * @exchange_rates[currency_symbol]
       end
       # rubocop: enable Metrics/AbcSize
+      # rubocop: enable Metrics/MethodLength
 
       def perform_calculation(quote, positions)
         calculate_basis_stats(positions)

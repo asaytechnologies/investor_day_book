@@ -5,7 +5,7 @@ module Portfolios
     prepend BasicService
 
     def initialize(
-      cash_create_service: Cashes::CreateService
+      cash_create_service: ::Portfolios::Cashes::CreateService
     )
       @cash_create_service = cash_create_service
     end

@@ -5,9 +5,9 @@ module Positions
     prepend BasicService
 
     def initialize(
-      buy_service:  Creation::BuyService,
-      sell_service: Creation::SellService,
-      plan_service: Creation::PlanService
+      buy_service:  ::Positions::Creation::BuyService,
+      sell_service: ::Positions::Creation::SellService,
+      plan_service: ::Positions::Creation::PlanService
     )
       @buy_service  = buy_service
       @sell_service = sell_service

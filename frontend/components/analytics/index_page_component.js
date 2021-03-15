@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sectorsChartVisible: true
     },
     created() {
-      this.getPositions()
+      this.getPositions(null)
     },
     computed: {
       incomePercentPositive: function() {
@@ -38,8 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     methods: {
-      getPositions: function() {
-        this.$http.get("/api/v1/analytics", { params: { access_token: accessToken, locale: currentLocale } }).then(function(data) {
+      getPositions: function(portfolioId) {
+        const params = { access_token: accessToken, locale: currentLocale }
+        if (portfolioId !== null && portfolioId !== 0) params.portfolio_id = portfolioId
+        this.$http.get("/api/v1/analytics", { params: params }).then(function(data) {
           this.analytics = data.body
           this.renderActivesChart()
           this.renderSectorsChart()
@@ -171,6 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
         this.selectedName = name
         this.selectedIndex = id
         this.opened = false
+
+        positions.getPositions(id)
       }
     }
   })
@@ -306,11 +310,32 @@ document.addEventListener("DOMContentLoaded", () => {
     el: "[data-behavior='new-balance-sidebar']",
     data: {
       opened: false,
+      portfolioName: "",
+      portfolioIndex: null,
+      portfolioSelectOpened: false,
+      transactionName: t`Buy`,
+      transactionIndex: 0,
+      transactionSelectOpened: false,
+      scopeName: "",
+      scopeIndex: null,
+      scopeSelectOpened: false,
+      eur: 0,
+      usd: 0,
+      rub: 0,
       validation: false
     },
     computed: {
       isSidebarOpen: function () {
         return this.opened === true
+      },
+      isPortfolioSelectOpen: function () {
+        return this.portfolioSelectOpened === true
+      },
+      isTransactionSelectOpen: function () {
+        return this.transactionSelectOpened === true
+      },
+      isScopeSelectOpen: function () {
+        return this.scopeSelectOpened === true
       }
     },
     methods: {
@@ -319,27 +344,62 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       hideSidebar: function() {
         this.opened = false
-      }
-    }
-  })
-
-  const newIncomesSidebar = new Vue({
-    el: "[data-behavior='new-incomes-sidebar']",
-    data: {
-      opened: false,
-      validation: false
-    },
-    computed: {
-      isSidebarOpen: function () {
-        return this.opened === true
-      }
-    },
-    methods: {
-      openSidebar: function() {
-        this.opened = true
       },
-      hideSidebar: function() {
+      togglePortfolioSelect: function() {
+        this.portfolioSelectOpened = !this.portfolioSelectOpened
+      },
+      selectPortfolio: function(name, index) {
+        this.portfolioName = name
+        this.portfolioIndex = index
+        this.portfolioSelectOpened = false
+      },
+      toggleTransactionSelect: function() {
+        this.transactionSelectOpened = !this.transactionSelectOpened
+      },
+      selectTransaction: function(name, index) {
+        this.transactionName = name
+        this.transactionIndex = index
+        this.transactionSelectOpened = false
+      },
+      toggleScopeSelect: function() {
+        this.scopeSelectOpened = !this.scopeSelectOpened
+      },
+      selectScope: function(name, index) {
+        this.scopeName = name
+        this.scopeIndex = index
+        this.scopeSelectOpened = false
+      },
+      changeBalance: function() {
+        const params = {
+          access_token: accessToken,
+          portfolio:    {
+            operation: this.transactionIndex,
+            usd:       this.usd,
+            eur:       this.eur,
+            rub:       this.rub,
+            scope:     this.scopeIndex
+          },
+          locale:       currentLocale
+        }
+        this.$http.patch(`/api/v1/portfolios/cashes/${this.portfolioIndex}`, params).then(function(data) {
+          this.clearSidebar()
+          positions.getPositions(postfolioSelect.selectedIndex)
+        })
+      },
+      clearSidebar: function() {
         this.opened = false
+        this.portfolioName = ""
+        this.portfolioIndex = null
+        this.portfolioSelectOpened = false
+        this.transactionName = t`Buy`
+        this.transactionIndex = 0
+        this.transactionSelectOpened = false
+        this.scopeName = ""
+        this.scopeIndex = null
+        this.scopeSelectOpened = false
+        this.eur = 0
+        this.usd = 0
+        this.rub = 0
       }
     }
   })

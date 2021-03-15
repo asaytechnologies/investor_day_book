@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       namespace :users do
         resources :positions, only: %i[create]
       end
+      namespace :portfolios do
+        resources :cashes, only: %i[update]
+      end
     end
   end
 

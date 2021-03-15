@@ -97,7 +97,7 @@ ru:
         plan_share: План по акциям
         plan_bond: План по облигациям
         plan_foundation: План по фондам
-    sidebar:
+    positions_sidebar:
       select_portfolio: Выберите портфель
       title: Добавить операцию
       security: Ценная бумага
@@ -112,14 +112,15 @@ ru:
       sell: Продажа
       plan: Планирование
       operation_date: Дата операции
-      options:
-        show_plans: Показать планы
-        show_dividents: Показать доход за 1 год
-        additional: Дополнительные фильтры
-      balance:
-        button: Указать баланс
-        title: Баланс портфеля
-        submit_button: Обновить баланс
+    balance_sidebar:
+      button: Указать баланс
+      title: Баланс портфеля
+      select_portfolio: Выберите портфель
+      submit_button: Обновить
+      transaction: Операция
+      balance: Изменить баланс
+      income: Ввод/вывод денег
+      scope: Тип операции
   portfolios:
     index:
       table_header:
