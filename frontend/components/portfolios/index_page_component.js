@@ -2,6 +2,8 @@ import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
 import { t }       from "ttag"
 
+import { showNotification } from "../shared/functions/notifications"
+
 Vue.use(VueResource)
 
 const elementSelector = "#portfolios-index-page"
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         newPortfolioSidebar.clearSidebar()
 
-        this.showNotification(
+        showNotification(
           "success",
           `<p>${t`File for portfolio is uploaded`}</p><p>${t`Portfolio positions will be created in a few minutes`}</p>`
         )
@@ -73,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         this.$http.delete(`/api/v1/portfolios/${id}.json`, { params: { access_token: this.accessToken } }).then(function() {
           this.removePortfolioFromList(id)
-          this.showNotification(
+          showNotification(
             "success",
             `<p>${t`Portfolio is destroyed`}</p>`
           )
@@ -84,19 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!result) return
 
         this.$http.post(`/api/v1/portfolios/${id}/clear.json`, { access_token: this.accessToken }).then(function() {
-          this.showNotification(
+          showNotification(
             "success",
             `<p>${t`Portfolio is cleared`}</p>`
           )
         })
-      },
-      showNotification: function(status, message) {
-        const notification = document.createElement("div")
-        notification.classList.add("notification")
-        notification.classList.add(status)
-        notification.innerHTML = message
-        document.getElementById("notifications").append(notification)
-        setTimeout(() => notification.remove(), 2500)
       },
       removePortfolioFromList: function(id) {
         const portfolio = this.portfolios.find((element) => {

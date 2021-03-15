@@ -17,6 +17,10 @@
     border: 1px solid $dodger_blue;
     border-radius: .25rem;
     background: $white;
+
+    &.error {
+      border-color: $flamingo;
+    }
   }
 
   .dropdown-clear {

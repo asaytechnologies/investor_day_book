@@ -11,7 +11,7 @@ module Api
       end
 
       def create
-        service = Portfolios::CreateService.call(portfolio_params.merge(user: Current.user))
+        service = ::Portfolios::CreateService.call(portfolio_params.merge(user: Current.user))
         if service.result
           create_upload(service.result)
           render json: { portfolio: PortfolioSerializer.new(service.result).serializable_hash }, status: :created

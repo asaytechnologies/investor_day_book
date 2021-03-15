@@ -5,6 +5,8 @@ import { t }       from "ttag"
 import Chart       from "chart.js"
 import getSymbolFromCurrency from "currency-symbol-map"
 
+import { showNotification } from "../shared/functions/notifications"
+
 Vue.use(VueResource)
 
 const elementSelector = "#analytics-index-page"
@@ -266,6 +268,12 @@ document.addEventListener("DOMContentLoaded", () => {
         this.transactionSelectOpened = false
       },
       createPosition: function() {
+        this.validation = true
+        if (this.portfolioIndex === null) return showNotification("error", `<p>${t`You need to select portfolio`}</p>`)
+        if (this.selectedQuoteIndex === null) return showNotification("error", `<p>${t`You need to select security`}</p>`)
+        if (this.price === null) return showNotification("error", `<p>${t`You need to specify price`}</p>`)
+        if (this.amount === null) return showNotification("error", `<p>${t`You need to specify amount`}</p>`)
+
         const params = {
           access_token: accessToken,
           position:     {
@@ -280,7 +288,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         this.$http.post("/api/v1/users/positions", params).then(function(data) {
           this.clearSidebar()
-          positions.getPositions()
+          showNotification("success", `<p>${t`Operation is added`}</p>`)
+          positions.getPositions(postfolioSelect.selectedIndex)
         })
       },
       clearSidebar: function() {
@@ -370,6 +379,10 @@ document.addEventListener("DOMContentLoaded", () => {
         this.scopeSelectOpened = false
       },
       changeBalance: function() {
+        this.validation = true
+        if (this.portfolioIndex === null) return showNotification("error", `<p>${t`You need to select portfolio`}</p>`)
+        if (this.scopeIndex === null) return showNotification("error", `<p>${t`You need to select operation type`}</p>`)
+
         const params = {
           access_token: accessToken,
           portfolio:    {
@@ -383,6 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         this.$http.patch(`/api/v1/portfolios/cashes/${this.portfolioIndex}`, params).then(function(data) {
           this.clearSidebar()
+          showNotification("success", `<p>${t`Portfolio balance is changed`}</p>`)
           positions.getPositions(postfolioSelect.selectedIndex)
         })
       },

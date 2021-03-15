@@ -15,7 +15,13 @@
                   <form>
                     <div class='form-field'>
                       <label class='form-label'><%= t('analytics.positions_sidebar.select_portfolio') %> *</label>
-                      <div class='form-value select-value' @click.prevent='togglePortfolioSelect()'>{{ portfolioName }}</div>
+                      <div
+                        class='form-value select-value'
+                        @click.prevent='togglePortfolioSelect()'
+                        :class='{ error: validation && portfolioName.length === 0 }'
+                      >
+                        {{ portfolioName }}
+                      </div>
                       <div class='select-list' v-show='isPortfolioSelectOpen'>
                         <% @portfolios.each do |portfolio| %>
                           <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
@@ -33,7 +39,15 @@
 
                     <div class='dropdown-box' v-show='selectedQuoteName.length === 0'>
                       <label class='form-label'><%= t('analytics.positions_sidebar.select_security') %> *</label>
-                      <input type='text' class='form-value' placeholder='<%= t('analytics.positions_sidebar.search') %>' v-model.lazy='securitySearchValue' :keyup='searchSecurities()' v-debounce='500' />
+                      <input
+                        type='text'
+                        class='form-value'
+                        placeholder='<%= t('analytics.positions_sidebar.search') %>'
+                        v-model.lazy='securitySearchValue'
+                        :keyup='searchSecurities()'
+                        v-debounce='500'
+                        :class='{ error: validation && selectedQuoteName.length === 0 }'
+                      />
                       <span class='dropdown-clear' v-show='securitySearchValue.length > 0'></span>
                       <div id='quotes' class='dropdown-list'>
                         <% %w[Share Bond Foundation].each do |key| %>
@@ -66,12 +80,12 @@
 
                     <div class='form-field'>
                       <label class='form-label'><%= t('analytics.positions_sidebar.price') %> *</label>
-                      <input class='form-value' v-model='price' />
+                      <input class='form-value' v-model='price' :class='{ error: validation && price === null }' />
                     </div>
 
                     <div class='form-field'>
                       <label class='form-label'><%= t('analytics.positions_sidebar.amount') %> *</label>
-                      <input class='form-value' v-model='amount' />
+                      <input class='form-value' v-model='amount' :class='{ error: validation && amount === null }' />
                     </div>
 
                     <div class='form-field'>
@@ -101,7 +115,13 @@
                   <form>
                     <div class='form-field'>
                       <label class='form-label'><%= t('analytics.balance_sidebar.select_portfolio') %> *</label>
-                      <div class='form-value select-value' @click.prevent='togglePortfolioSelect()'>{{ portfolioName }}</div>
+                      <div
+                        class='form-value select-value'
+                        @click.prevent='togglePortfolioSelect()'
+                        :class='{ error: validation && portfolioIndex === null }'
+                      >
+                        {{ portfolioName }}
+                      </div>
                       <div class='select-list' v-show='isPortfolioSelectOpen'>
                         <% @portfolios.each do |portfolio| %>
                           <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
@@ -111,7 +131,13 @@
 
                     <div class='form-field'>
                       <label class='form-label'><%= t('analytics.balance_sidebar.scope') %> *</label>
-                      <div class='form-value select-value' @click.prevent='toggleScopeSelect()'>{{ scopeName }}</div>
+                      <div
+                        class='form-value select-value'
+                        @click.prevent='toggleScopeSelect()'
+                        :class='{ error: validation && scopeIndex === null }'
+                      >
+                        {{ scopeName }}
+                      </div>
                       <div class='select-list' v-show='isScopeSelectOpen'>
                         <div class='select-list-item' @click.prevent="selectScope('<%= t('analytics.balance_sidebar.balance') %>', 0)"><%= t('analytics.balance_sidebar.balance') %></div>
                         <div class='select-list-item' @click.prevent="selectScope('<%= t('analytics.balance_sidebar.income') %>', 1)"><%= t('analytics.balance_sidebar.income') %></div>
