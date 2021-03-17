@@ -174,7 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       submitForm: function() {
         this.validation = true
-        if (this.name) portfolios.createPortfolio(this.name, this.currencyIndex, this.sourceIndex, this.file)
+        if (this.name.length === 0) return showNotification("error", `<p>${t`You need to specify name of portfolio`}</p>`)
+
+        portfolios.createPortfolio(this.name, this.currencyIndex, this.sourceIndex, this.file)
       }
     }
   })

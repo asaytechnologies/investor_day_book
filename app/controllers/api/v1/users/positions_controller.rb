@@ -12,7 +12,7 @@ module Api
           render json: {
             positions: ::Users::PositionSerializer.new(
               @positions,
-              { params: { fields: request_fields }}
+              { params: { fields: request_fields } }
             ).serializable_hash
           }, status: :ok
         end

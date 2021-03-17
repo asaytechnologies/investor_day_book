@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class PortfolioSerializer
-  include JSONAPI::Serializer
-
+class PortfolioSerializer < BasisSerializer
   attributes :id, :name, :currency, :broker_name
 
   attribute :created_at do |object|

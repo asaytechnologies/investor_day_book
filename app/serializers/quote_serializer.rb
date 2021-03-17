@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class QuoteSerializer
-  include JSONAPI::Serializer
+class QuoteSerializer < BasisSerializer
   extend ViewHelper
 
   attributes :id, :price_currency

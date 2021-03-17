@@ -234,18 +234,18 @@
                       <% if key == :bond %>
                         <td></td>
                       <% end %>
-                      <td>{{ presentMoney(stats.buying_unsold_average_price, stats.quote.price_currency, 2) }}</td>
-                      <td>{{ presentMoney(stats.buying_unsold_price, stats.quote.price_currency) }}</td>
-                      <td class='price'>{{ presentMoney(stats.quote.price, stats.quote.price_currency) }}</td>
-                      <td>{{ presentMoney(stats.selling_unsold_price, stats.quote.price_currency) }}</td>
+                      <td>{{ presentMoney(stats.buying_unsold_average_price, stats.quote.price_currency, 4) }}</td>
+                      <td>{{ presentMoney(stats.buying_unsold_price, stats.quote.price_currency, 2) }}</td>
+                      <td class='price'>{{ presentMoney(stats.quote.price, stats.quote.price_currency, 4) }}</td>
+                      <td>{{ presentMoney(stats.selling_unsold_price, stats.quote.price_currency, 2) }}</td>
                       <td :class='profitClass(stats.exchange_profit)'>
-                        {{ presentMoney(stats.selling_unsold_income_price, stats.quote.price_currency) }}
+                        {{ presentMoney(stats.selling_unsold_income_price, stats.quote.price_currency, 2) }}
                         ({{ stats.exchange_profit }}%)
                       </td>
                       <% if key.in?(%i[share bond]) %>
                         <td>
                           <span v-show='stats.dividents_amount_price > 0'>
-                            {{ presentMoney(stats.dividents_amount_price, stats.quote.price_currency) }}
+                            {{ presentMoney(stats.dividents_amount_price, stats.quote.price_currency, 2) }}
                           </span>
                         </td>
                       <% end %>
@@ -261,7 +261,7 @@
                       <td></td>
                       <td>{{ presentMoney(analytics.positions['<%= key %>'].total.price, 'RUB', 2) }}</td>
                       <td :class="profitClass(analytics.positions['<%= key %>'].total.profit)">
-                        {{ presentMoney(analytics.positions['<%= key %>'].total.profit, 'RUB') }}
+                        {{ presentMoney(analytics.positions['<%= key %>'].total.profit, 'RUB', 2) }}
                         ({{ analytics.positions['<%= key %>'].total.profit_percent }}%)
                       </td>
                       <% if key.in?(%i[share bond]) %>
@@ -298,15 +298,15 @@
                       <td class='name-column'>{{ plans.quote.security_name }}</td>
                       <td>{{ plans.amount }}</td>
                       <% if key == :bond %>
-                        <td>{{ presentMoney(plans.quote.face_value_cents / 100.0, plans.quote.price_currency) }}</td>
+                        <td>{{ presentMoney(plans.quote.face_value_cents / 100.0, plans.quote.price_currency, 2) }}</td>
                       <% end %>
-                      <td>{{ presentMoney(plans.price, plans.quote.price_currency) }}</td>
-                      <td>{{ presentMoney(plans.selling_total_price, plans.quote.price_currency) }}</td>
-                      <td>{{ presentMoney(plans.quote.price, plans.quote.price_currency) }}</td>
+                      <td>{{ presentMoney(plans.price, plans.quote.price_currency, 2) }}</td>
+                      <td>{{ presentMoney(plans.selling_total_price, plans.quote.price_currency, 2) }}</td>
+                      <td>{{ presentMoney(plans.quote.price, plans.quote.price_currency, 2) }}</td>
                       <% if key.in?(%i[share bond]) %>
                         <td>
                           <span v-show='plans.dividents_amount_price > 0'>
-                            {{ presentMoney(plans.dividents_amount_price, plans.quote.price_currency) }}
+                            {{ presentMoney(plans.dividents_amount_price, plans.quote.price_currency, 2) }}
                           </span>
                         </td>
                       <% end %>

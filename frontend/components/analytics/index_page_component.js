@@ -6,6 +6,7 @@ import Chart       from "chart.js"
 import getSymbolFromCurrency from "currency-symbol-map"
 
 import { showNotification } from "../shared/modules/notifications"
+import { presentMoney } from "../shared/modules/money_presenter"
 
 Vue.use(VueResource)
 
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       },
       presentMoney: function(value, currency, rounding) {
-        return `${parseFloat(value).toFixed(2)} ${getSymbolFromCurrency(currency)}`
+        return presentMoney(value, currency, rounding)
       },
       profitClass: function(value) {
         if (value > 0) return 'profit profitable'
