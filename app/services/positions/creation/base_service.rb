@@ -6,7 +6,12 @@ module Positions
       private
 
       def create_position(args={})
-        @result = Users::Position.create(args)
+        position = Users::Position.new(args)
+        if position.save
+          @result = position
+        else
+          @errors = position.errors.full_messages
+        end
       end
     end
   end

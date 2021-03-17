@@ -17,7 +17,12 @@ module Positions
     def call(args={})
       @args = args
 
-      @result = position_service.call(position_params).result
+      service = position_service.call(position_params)
+      if service.success?
+        @result = service.result
+      else
+        @errors = service.errors
+      end
     end
 
     private

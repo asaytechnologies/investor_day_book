@@ -21,7 +21,7 @@ module Api
           service = create_position
           if service.result
             render json: {
-              portfolio: ::Users::PositionSerializer.new(service.result).serializable_hash
+              position: ::Users::PositionSerializer.new(service.result).serializable_hash
             }, status: :created
           else
             render json: { errors: service.errors }, status: :conflict
@@ -48,7 +48,7 @@ module Api
             portfolio:      @portfolio,
             quote:          @quote,
             price:          position_params[:price].to_f,
-            price_currency: @quote.price_currency,
+            price_currency: @quote&.price_currency,
             amount:         position_params[:amount].to_i,
             operation:      position_params[:operation],
             operation_date: position_params[:operation_date]

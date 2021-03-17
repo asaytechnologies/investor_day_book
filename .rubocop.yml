@@ -158,3 +158,6 @@ Lint/MissingSuper:
 
 Style/OptionalBooleanParameter:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false

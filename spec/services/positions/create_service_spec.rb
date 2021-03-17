@@ -10,6 +10,7 @@ RSpec.describe Positions::CreateService, type: :service do
     allow(Positions::Creation::BuyService).to receive(:call).and_return(service_result)
     allow(Positions::Creation::SellService).to receive(:call).and_return(service_result)
 
+    allow(service_result).to receive(:success?).and_return(true)
     allow(service_result).to receive(:result).and_return(position)
   end
 
