@@ -11,6 +11,8 @@ const elementSelector = "#portfolios-index-page"
 document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(elementSelector) === null) return
 
+  const currentLocale = document.getElementById("current_locale").value
+
   const portfolios = new Vue({
     el: "#portfolios",
     data: {
@@ -22,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     methods: {
       getPortfolios: function() {
-        this.$http.get("/api/v1/portfolios.json", { params: { access_token: this.accessToken } }).then(function(data) {
+        this.$http.get("/api/v1/portfolios.json", { params: { access_token: this.accessToken, locale: currentLocale } }).then(function(data) {
           this.portfolios = data.body.portfolios.data
         })
       },
@@ -37,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("portfolio[source]", source)
         formData.append("upload[file]", file)
         formData.append("access_token", this.accessToken)
+        formData.append("locale", currentLocale)
         const config = { headers : { "Content-Type" : "multipart/form-data" } }
         this.$http.post("/api/v1/portfolios.json", formData, config).then(function(data) {
           this.addPortfolioToList(data.body.portfolio.data.attributes)
@@ -45,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       createPortfolioWithoutFile: function(name, currency, source) {
         const params = {
           access_token: this.accessToken,
+          locale:       currentLocale,
           portfolio:    {
             name:     name,
             currency: currency,
@@ -73,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         var result = confirm(t`Do you really want to delete portfolio?`)
         if (!result) return
 
-        this.$http.delete(`/api/v1/portfolios/${id}.json`, { params: { access_token: this.accessToken } }).then(function() {
+        this.$http.delete(`/api/v1/portfolios/${id}.json`, { params: { access_token: this.accessToken, locale: currentLocale } }).then(function() {
           this.removePortfolioFromList(id)
           showNotification(
             "success",
@@ -85,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         var result = confirm(t`Do you really want to delete all operations in portfolio?`)
         if (!result) return
 
-        this.$http.post(`/api/v1/portfolios/${id}/clear.json`, { access_token: this.accessToken }).then(function() {
+        this.$http.post(`/api/v1/portfolios/${id}/clear.json`, { access_token: this.accessToken, locale: currentLocale }).then(function() {
           showNotification(
             "success",
             `<p>${t`Portfolio is cleared`}</p>`

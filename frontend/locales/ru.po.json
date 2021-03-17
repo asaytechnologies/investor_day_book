@@ -104,6 +104,12 @@
         "msgstr": [
           "Баланс портфеля изменен"
         ]
+      },
+      "You need to specify name of portfolio": {
+        "msgid": "You need to specify name of portfolio",
+        "msgstr": [
+          "Вам необходимо указать название для портфеля"
+        ]
       }
     }
   }
