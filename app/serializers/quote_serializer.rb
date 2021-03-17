@@ -4,7 +4,7 @@ class QuoteSerializer
   include JSONAPI::Serializer
   extend ViewHelper
 
-  attributes :id
+  attributes :id, :price_currency
 
   attribute :security_type do |object|
     object.security.type

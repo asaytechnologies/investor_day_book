@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         resources :search, only: %i[index]
       end
       namespace :users do
-        resources :positions, only: %i[create]
+        resources :positions, only: %i[index create]
       end
       namespace :portfolios do
         resources :cashes, only: %i[update]

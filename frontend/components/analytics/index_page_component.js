@@ -5,7 +5,7 @@ import { t }       from "ttag"
 import Chart       from "chart.js"
 import getSymbolFromCurrency from "currency-symbol-map"
 
-import { showNotification } from "../shared/functions/notifications"
+import { showNotification } from "../shared/modules/notifications"
 
 Vue.use(VueResource)
 

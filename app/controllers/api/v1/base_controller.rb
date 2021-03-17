@@ -66,6 +66,12 @@ module Api
       def access_token_params
         params.permit(:access_token).to_h
       end
+
+      def request_fields
+        return if params[:fields].blank?
+
+        params[:fields].split(',')
+      end
     end
   end
 end

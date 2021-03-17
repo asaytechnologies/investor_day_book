@@ -4,8 +4,18 @@ module Api
   module V1
     module Users
       class PositionsController < Api::V1::BaseController
+        before_action :find_positions, only: %i[index]
         before_action :find_portfolio, only: %i[create]
         before_action :find_quote, only: %i[create]
+
+        def index
+          render json: {
+            positions: ::Users::PositionSerializer.new(
+              @positions,
+              { params: { fields: request_fields }}
+            ).serializable_hash
+          }, status: :ok
+        end
 
         def create
           service = create_position
@@ -19,6 +29,11 @@ module Api
         end
 
         private
+
+        def find_positions
+          @positions = Current.user.positions.real.order(operation_date: :desc, id: :desc).includes(quote: :security)
+          @positions = @positions.where(portfolio_id: params[:portfolio_id]) if params[:portfolio_id]
+        end
 
         def find_portfolio
           @portfolio = Current.user.portfolios.find_by(id: position_params[:portfolio_id])
