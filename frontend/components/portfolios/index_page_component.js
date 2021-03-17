@@ -2,7 +2,7 @@ import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
 import { t }       from "ttag"
 
-import { showNotification } from "../shared/functions/notifications"
+import { showNotification } from "../shared/modules/notifications"
 
 Vue.use(VueResource)
 
