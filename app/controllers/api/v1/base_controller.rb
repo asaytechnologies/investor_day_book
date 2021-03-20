@@ -27,18 +27,9 @@ module Api
       end
 
       def auto_auth
-        return user_auth_with_header if request.headers['Authorization']
-        return user_auth_with_params if access_token_params.key?(:access_token)
+        return user_auth(params[:access_token]) if params[:access_token].present?
 
         raise AuthFailure, 'There is no authorization token'
-      end
-
-      def user_auth_with_header
-        user_auth(request.headers['Authorization'].split[-1])
-      end
-
-      def user_auth_with_params
-        user_auth(access_token_params[:access_token])
       end
 
       def user_auth(access_token)
@@ -61,10 +52,6 @@ module Api
 
       def check_confirmation
         raise AuthFailure, 'Your email is not confirmed' unless @user.confirmed?
-      end
-
-      def access_token_params
-        params.permit(:access_token).to_h
       end
 
       def request_fields
