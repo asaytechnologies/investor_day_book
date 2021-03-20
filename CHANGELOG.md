@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - login through VK
 
+### Fixed
+- infosnag notifications
+
 ## [1.1.1] - 20.03.2021
 ### Added
 - sitemap

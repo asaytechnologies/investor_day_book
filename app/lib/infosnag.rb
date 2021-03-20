@@ -3,8 +3,8 @@
 class Infosnag
   NOTIFICATIONS_CHAT_ID = Rails.application.credentials.dig(:telegram, :notify_chat_id)
 
-  def self.call(*args)
-    new.call(*args)
+  def self.call(args={})
+    new.call(**args)
   end
 
   def initialize(info_service: TelegramApi::Client.new)
