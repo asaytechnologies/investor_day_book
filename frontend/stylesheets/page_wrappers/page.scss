@@ -20,7 +20,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    z-index: 10;
+    z-index: 20;
 
     .notification {
       padding: .75rem 1rem;
@@ -29,6 +29,11 @@
 
       &.success {
         background: $mountain_meadow;
+        color: $white;
+      }
+
+      &.error {
+        background: $flamingo;
         color: $white;
       }
     }
@@ -66,43 +71,39 @@
           }
 
           .navigation-dropdown {
-            display: none;
+            position: absolute;
+            top: 4rem;
+            right: 0;
+            width: 12rem;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            background: $dodger_blue;
+            border-radius: .5rem;
+            z-index: 10;
 
-            &.open {
-              position: absolute;
-              top: 4rem;
-              right: 0;
-              width: 12rem;
+            .select-language {
               display: flex;
-              flex-direction: column;
-              padding: 1rem;
-              background: $dodger_blue;
+              padding-left: 1rem;
+            }
+
+            .settings-links {
+              margin: 1.5rem 0 .5rem;
+
+              a {
+                display: inline-block;
+                width: 100%;
+              }
+            }
+
+            .settings-link {
+              padding: .5rem 1rem;
               border-radius: .5rem;
-              z-index: 10;
+              color: $white;
+              font-weight: 600;
 
-              .select-language {
-                display: flex;
-                padding-left: 1rem;
-              }
-
-              .settings-links {
-                margin: 1.5rem 0 .5rem;
-
-                a {
-                  display: inline-block;
-                  width: 100%;
-                }
-              }
-
-              .settings-link {
-                padding: .5rem 1rem;
-                border-radius: .5rem;
-                color: $white;
-                font-weight: 600;
-
-                &:hover {
-                  background: $royal_blue;
-                }
+              &:hover {
+                background: $royal_blue;
               }
             }
           }

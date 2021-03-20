@@ -7,7 +7,24 @@ Rails.application.routes.draw do
 
   get '/sitemap' => 'sitemaps#index'
 
-  resources :uploads, only: %i[create]
+  namespace :api do
+    namespace :v1 do
+      resources :portfolios, only: %i[index create destroy] do
+        post :clear, on: :member
+      end
+      resources :analytics, only: %i[index]
+
+      namespace :quotes do
+        resources :search, only: %i[index]
+      end
+      namespace :users do
+        resources :positions, only: %i[index create]
+      end
+      namespace :portfolios do
+        resources :cashes, only: %i[update]
+      end
+    end
+  end
 
   devise_for :users, skip: %i[session registration password confirmation], controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'

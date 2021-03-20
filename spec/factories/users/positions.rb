@@ -6,6 +6,7 @@ FactoryBot.define do
     sold_amount { 0 }
     sold_all { false }
     selling_position { false }
+    price { 1.00 }
     price_cents { 100 }
     price_currency { 'USD' }
     association :portfolio

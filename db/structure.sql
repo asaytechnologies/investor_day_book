@@ -495,7 +495,6 @@ CREATE TABLE public.portfolios (
     name character varying(255),
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    guid character varying,
     source integer,
     currency integer
 );
@@ -757,13 +756,14 @@ ALTER SEQUENCE public.securities_id_seq OWNED BY public.securities.id;
 
 CREATE TABLE public.uploads (
     id bigint NOT NULL,
-    guid character varying,
     name character varying,
     user_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     completed boolean DEFAULT false NOT NULL,
-    failed boolean DEFAULT false NOT NULL
+    failed boolean DEFAULT false NOT NULL,
+    uploadable_id integer,
+    uploadable_type character varying
 );
 
 
@@ -800,7 +800,8 @@ CREATE TABLE public.users (
     confirmed_at timestamp without time zone,
     confirmation_sent_at timestamp without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    token character varying
 );
 
 
@@ -1279,6 +1280,13 @@ CREATE INDEX index_securities_on_uuid ON public.securities USING btree (uuid);
 
 
 --
+-- Name: index_uploads_on_uploadable_id_and_uploadable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_uploads_on_uploadable_id_and_uploadable_type ON public.uploads USING btree (uploadable_id, uploadable_type);
+
+
+--
 -- Name: index_uploads_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1413,6 +1421,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210130120524'),
 ('20210131111945'),
 ('20210202194930'),
-('20210206074220');
+('20210206074220'),
+('20210306122850'),
+('20210306131801'),
+('20210306132137');
 
 

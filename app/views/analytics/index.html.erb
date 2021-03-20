@@ -1,22 +1,172 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='page-container sidebar-container' data-controller='shared--sidebar analytics' data-reflex-root='#positions'>
-
+  <div id='analytics-index-page' class='page-container sidebar-container'>
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
-
     <section class='content-header'>
       <div class='content-header-body container'>
         <h4 class='content-title'><%= t('wrapper.navigation.analytics') %></h4>
         <% if @portfolios.present? %>
           <div class='content-buttons'>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='0'>
-              <%= t('analytics.sidebar.button') %>
-            </span>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='1'>
-              <%= t('analytics.sidebar.balance.button') %>
-            </span>
-            <span class='button button-sm button-reverse' data-action='click->shared--sidebar#open' data-value-index='2'>
-              <%= t('portfolios.sidebar.operations.button') %>
-            </span>
+            <div data-behavior='new-position-sidebar'>
+              <span class='button button-sm button-reverse' @click.prevent='openSidebar()'>
+                <%= t('analytics.positions_sidebar.button') %>
+              </span>
+              <%= render Shared::SidebarComponent.new(title: t('analytics.positions_sidebar.title')) do %>
+                <div class='sidebar-content'>
+                  <form>
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.select_portfolio') %> *</label>
+                      <div
+                        class='form-value select-value'
+                        @click.prevent='togglePortfolioSelect()'
+                        :class='{ error: validation && portfolioName.length === 0 }'
+                      >
+                        {{ portfolioName }}
+                      </div>
+                      <div class='select-list' v-show='isPortfolioSelectOpen'>
+                        <% @portfolios.each do |portfolio| %>
+                          <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class='form-field' v-show='selectedQuoteName.length > 0'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.security') %></label>
+                      <div class='form-value with-form-value-clear'>
+                        <span>{{ selectedQuoteName }}</span>
+                        <span class='form-value-clear' @click.prevent='clearSelectedQuote()'></span>
+                      </div>
+                    </div>
+
+                    <div class='dropdown-box' v-show='selectedQuoteName.length === 0'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.select_security') %> *</label>
+                      <input
+                        type='text'
+                        class='form-value'
+                        placeholder='<%= t('analytics.positions_sidebar.search') %>'
+                        v-model.lazy='securitySearchValue'
+                        :keyup='searchSecurities()'
+                        v-debounce='500'
+                        :class='{ error: validation && selectedQuoteName.length === 0 }'
+                      />
+                      <span class='dropdown-clear' v-show='securitySearchValue.length > 0'></span>
+                      <div id='quotes' class='dropdown-list'>
+                        <% %w[Share Bond Foundation].each do |key| %>
+                          <div class='dropdown-list-block' v-show="quotes['<%= key %>'] && quotes['<%= key %>'].length > 0">
+                            <div class='dropdown-list-header'>
+                              <%= t("analytics.table.#{key.downcase}_name") %>
+                            </div>
+                            <div
+                              class='dropdown-list-element'
+                              v-for="quote in quotes['<%= key %>']"
+                              :key='quote.attributes.id'
+                              @click.prevent='selectQuote(quote.attributes.security_name, quote.attributes.id)'
+                            >
+                              {{ quote.attributes.security_name }} ({{ quote.attributes.security_ticker }}), {{ quote.attributes.price }}
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.transaction') %></label>
+                      <div class='form-value select-value' @click.prevent='toggleTransactionSelect()'>{{ transactionName }}</div>
+                      <div class='select-list' v-show='isTransactionSelectOpen'>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.buy') %>', 0)"><%= t('analytics.positions_sidebar.buy') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.sell') %>', 1)"><%= t('analytics.positions_sidebar.sell') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.plan') %>', 2)"><%= t('analytics.positions_sidebar.plan') %></div>
+                      </div>
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.price') %> *</label>
+                      <input class='form-value' v-model='price' :class='{ error: validation && price === null }' />
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.amount') %> *</label>
+                      <input class='form-value' v-model='amount' :class='{ error: validation && amount === null }' />
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.operation_date') %></label>
+                      <input class='form-value' v-model='operationDate' />
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.total_price') %></label>
+                      <input disabled class='form-value' v-model='totalPrice' />
+                    </div>
+
+                    <button class='button' @click.prevent='createPosition()'>
+                      <%= t('analytics.positions_sidebar.button') %>
+                    </button>
+                  </form>
+                </div>
+              <% end %>
+            </div>
+
+            <div data-behavior='new-balance-sidebar'>
+              <span class='button button-sm button-reverse' @click.prevent='openSidebar()'>
+                <%= t('analytics.balance_sidebar.button') %>
+              </span>
+              <%= render Shared::SidebarComponent.new(title: t('analytics.balance_sidebar.title')) do %>
+                <div class='sidebar-content'>
+                  <form>
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.balance_sidebar.select_portfolio') %> *</label>
+                      <div
+                        class='form-value select-value'
+                        @click.prevent='togglePortfolioSelect()'
+                        :class='{ error: validation && portfolioIndex === null }'
+                      >
+                        {{ portfolioName }}
+                      </div>
+                      <div class='select-list' v-show='isPortfolioSelectOpen'>
+                        <% @portfolios.each do |portfolio| %>
+                          <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class='form-field'>
+                      <label class='form-label'><%= t('analytics.balance_sidebar.scope') %> *</label>
+                      <div
+                        class='form-value select-value'
+                        @click.prevent='toggleScopeSelect()'
+                        :class='{ error: validation && scopeIndex === null }'
+                      >
+                        {{ scopeName }}
+                      </div>
+                      <div class='select-list' v-show='isScopeSelectOpen'>
+                        <div class='select-list-item' @click.prevent="selectScope('<%= t('analytics.balance_sidebar.balance') %>', 0)"><%= t('analytics.balance_sidebar.balance') %></div>
+                        <div class='select-list-item' @click.prevent="selectScope('<%= t('analytics.balance_sidebar.income') %>', 1)"><%= t('analytics.balance_sidebar.income') %></div>
+                      </div>
+                    </div>
+
+                    <div class='form-field' v-show='scopeIndex === 1'>
+                      <label class='form-label'><%= t('analytics.positions_sidebar.transaction') %> *</label>
+                      <div class='form-value select-value' @click.prevent='toggleTransactionSelect()'>{{ transactionName }}</div>
+                      <div class='select-list' v-show='isTransactionSelectOpen'>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.buy') %>', 0)"><%= t('analytics.positions_sidebar.buy') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.sell') %>', 1)"><%= t('analytics.positions_sidebar.sell') %></div>
+                      </div>
+                    </div>
+
+                    <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
+                      <div class='form-field'>
+                        <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
+                        <input class='form-value' v-model.lazy='<%= currency %>' />
+                      </div>
+                    <% end %>
+
+                    <button class='button' @click.prevent='changeBalance()'>
+                      <%= t('analytics.balance_sidebar.submit_button') %>
+                    </button>
+                  </form>
+                </div>
+              <% end %>
+            </div>
           </div>
         <% end %>
       </div>
@@ -25,225 +175,186 @@
     <% if @portfolios.present? %>
       <div class='page-content'>
         <div id='analytics-header'>
-          <form id='portfolio-select'>
-            <div
-              class='form-field'
-              data-controller='shared--select analytics--positions'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('analytics.select.total') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' id='portfolio_id' name='portfolio_id' data-shared--select-target='valueIndex' />
+          <div id='portfolio-select'>
+            <div class='form-field'>
               <label class='form-label'><%= t('analytics.select.title') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
+              <div class='form-value select-value' @click.prevent='toggleSelect()'>{{ selectedName }}</div>
+              <div class='select-list' v-show='isSelectOpen'>
+                <div class='select-list-item' @click.prevent="selectPortfolio('<%= t('analytics.select.total') %>', 0)"><%= t('analytics.select.total') %></div>
                 <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                  <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
                 <% end %>
               </div>
             </div>
-          </form>
-
-          <% if false %>
-            <div id='options-container' data-controller='analytics--options'>
-              <p><%= t('analytics.sidebar.options.additional') %></p>
-              <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-                <input type='hidden' id='show_plans' name='show_plans' data-shared--toggle-target='value' />
-                <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#togglePlan'>
-                  <div class='toggle-box-content'>
-                    <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                    <span class='toggle-text'><%= t('analytics.sidebar.options.show_plans') %></span>
-                  </div>
-                </div>
-              </div>
-
-              <div data-controller='shared--toggle' data-shared--toggle-element-value='false'>
-                <input type='hidden' id='show_dividents' name='show_dividents' data-shared--toggle-target='value' />
-                <div class='toggle-box' data-action='click->shared--toggle#toggleElement click->analytics--options#toggleDividents'>
-                  <div class='toggle-box-content'>
-                    <span data-shared--toggle-target='switch' class='toggle-value'></span>
-                    <span class='toggle-text'><%= t('analytics.sidebar.options.show_dividents') %></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
+          </div>
         </div>
-
         <div id='positions'>
-          <%= render Analytics::PositionsComponent.new(current_user: current_user) %>
+          <div v-if='analytics.positions'>
+            <div id='portfolio-totals'>
+              <h4>
+                <%= t('analytics.portfolio.total_price') %>:
+                <span>{{ presentMoney(analytics.positions.total.summary.price, 'RUB', 2) }}</span>
+              </h4>
+              <h4>
+                <%= t('analytics.portfolio.profit') %>:
+                <span>
+                  {{ presentMoney(analytics.positions.total.summary.income_price, 'RUB', 2) }}
+                  (<span :class='{ positive: incomePercentPositive }'>{{ incomePercentValue }}</span>)
+                </span>
+              </h4>
+            </div>
+            <% %i[share bond foundation].each do |key| %>
+              <div v-show="Object.keys(analytics.positions['<%= key %>'].stats).length > 0">
+                <h4><%= t("analytics.table.#{key}_name") %></h4>
+                <table class='table positions-table'>
+                  <thead>
+                    <tr>
+                      <th class='name-column'><%= t('analytics.table.name') %></th>
+                      <th><%= t('analytics.table.amount') %></th>
+                      <% if key == :bond %>
+                        <th><%= t('analytics.table.face_value') %></th>
+                      <% end %>
+                      <th><%= t('analytics.table.average_price') %></th>
+                      <th><%= t('analytics.table.total_price') %></th>
+                      <th><%= t('analytics.table.current_price') %></th>
+                      <th><%= t('analytics.table.current_total_price') %></th>
+                      <th><%= t('analytics.table.income') %></th>
+                      <% if key == :share %>
+                        <th><%= t('analytics.table.dividents') %></th>
+                      <% end %>
+                      <% if key == :bond %>
+                        <th><%= t('analytics.table.coupons') %></th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class='position' v-for="stats in analytics.positions['<%= key %>'].stats">
+                      <td class='name-column'>{{ stats.quote.security_name }}</td>
+                      <td>{{ stats.unsold_amount }}</td>
+                      <% if key == :bond %>
+                        <td></td>
+                      <% end %>
+                      <td>{{ presentMoney(stats.buying_unsold_average_price, stats.quote.price_currency, 4) }}</td>
+                      <td>{{ presentMoney(stats.buying_unsold_price, stats.quote.price_currency, 2) }}</td>
+                      <td class='price'>{{ presentMoney(stats.quote.price, stats.quote.price_currency, 4) }}</td>
+                      <td>{{ presentMoney(stats.selling_unsold_price, stats.quote.price_currency, 2) }}</td>
+                      <td :class='profitClass(stats.exchange_profit)'>
+                        {{ presentMoney(stats.selling_unsold_income_price, stats.quote.price_currency, 2) }}
+                        ({{ stats.exchange_profit }}%)
+                      </td>
+                      <% if key.in?(%i[share bond]) %>
+                        <td>
+                          <span v-show='stats.dividents_amount_price > 0'>
+                            {{ presentMoney(stats.dividents_amount_price, stats.quote.price_currency, 2) }}
+                          </span>
+                        </td>
+                      <% end %>
+                    </tr>
+                    <tr class='position total'>
+                      <td class='name-column'><%= t('analytics.table.summary') %></td>
+                      <td></td>
+                      <% if key == :bond %>
+                        <td></td>
+                      <% end %>
+                      <td></td>
+                      <td>{{ presentMoney(analytics.positions['<%= key %>'].total.buy_price, 'RUB', 2) }}</td>
+                      <td></td>
+                      <td>{{ presentMoney(analytics.positions['<%= key %>'].total.price, 'RUB', 2) }}</td>
+                      <td :class="profitClass(analytics.positions['<%= key %>'].total.profit)">
+                        {{ presentMoney(analytics.positions['<%= key %>'].total.profit, 'RUB', 2) }}
+                        ({{ analytics.positions['<%= key %>'].total.profit_percent }}%)
+                      </td>
+                      <% if key.in?(%i[share bond]) %>
+                        <td>{{ presentMoney(analytics.positions['<%= key %>'].total.dividents, 'RUB', 2) }}</td>
+                      <% end %>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div v-show="Object.keys(analytics.positions['<%= key %>'].plans).length > 0">
+                <h5><%= t("analytics.table.header.plan_#{key}") %></h5>
+                <table class='table positions-table'>
+                  <thead>
+                    <tr>
+                      <th class='name-column'><%= t('analytics.table.name') %></th>
+                      <th><%= t('analytics.table.amount') %></th>
+                      <% if key == :bond %>
+                        <th><%= t('analytics.table.face_value') %></th>
+                      <% end %>
+                      <th><%= t('analytics.table.plan_price') %></th>
+                      <th><%= t('analytics.table.total_price') %></th>
+                      <th><%= t('analytics.table.current_price') %></th>
+                      <% if key == :share %>
+                        <th><%= t('analytics.table.dividents') %></th>
+                      <% end %>
+                      <% if key == :bond %>
+                        <th><%= t('analytics.table.coupons') %></th>
+                      <% end %>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class='position plan' v-for="plans in analytics.positions['<%= key %>'].plans">
+                      <td class='name-column'>{{ plans.quote.security_name }}</td>
+                      <td>{{ plans.amount }}</td>
+                      <% if key == :bond %>
+                        <td>{{ presentMoney(plans.quote.face_value_cents / 100.0, plans.quote.price_currency, 2) }}</td>
+                      <% end %>
+                      <td>{{ presentMoney(plans.price, plans.quote.price_currency, 2) }}</td>
+                      <td>{{ presentMoney(plans.selling_total_price, plans.quote.price_currency, 2) }}</td>
+                      <td>{{ presentMoney(plans.quote.price, plans.quote.price_currency, 2) }}</td>
+                      <% if key.in?(%i[share bond]) %>
+                        <td>
+                          <span v-show='plans.dividents_amount_price > 0'>
+                            {{ presentMoney(plans.dividents_amount_price, plans.quote.price_currency, 2) }}
+                          </span>
+                        </td>
+                      <% end %>
+                      <td class='remove-plan'>
+                        x
+                      </td>
+                    </tr>
+                    <tr class='position total'>
+                      <td class='name-column'><%= t('analytics.table.summary') %></td>
+                      <td></td>
+                      <% if key == :bond %>
+                        <td></td>
+                      <% end %>
+                      <td></td>
+                      <td>{{ presentMoney(analytics.positions['<%= key %>'].plan.price, 'RUB', 2) }}</td>
+                      <td></td>
+                      <% if key.in?(%i[share bond]) %>
+                        <td>{{ presentMoney(analytics.positions['<%= key %>'].plan.dividents, 'RUB', 2) }}</td>
+                      <% end %>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          </div>
+          <div v-show='activesChartVisible'>
+            <h5><%= t('analytics.actives.header') %></h5>
+
+            <div class='sectors-chart-box'>
+              <div id='actives-pie-container'>
+                <canvas id='actives-pie' width='600' height='200'></canvas>
+              </div>
+              <div id='actives-legend'></div>
+            </div>
+          </div>
+          <div v-show='sectorsChartVisible'>
+            <h5><%= t('analytics.sectors.header') %></h5>
+
+            <div class='sectors-chart-box'>
+              <div id='sectors-pie-container'>
+                <canvas id='sectors-pie' width='600' height='200'></canvas>
+              </div>
+              <div id='legend'></div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.title'), window_index: 0) do %>
-        <div id='position-new-container'>
-          <form data-controller='analytics--position-new' data-action='submit->analytics--position-new#submitForm'>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='position[portfolio_id]' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('analytics.sidebar.select_portfolio') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
-              </div>
-            </div>
-
-            <div class='form-field hidden-by-default' data-analytics--position-new-target='securityBlock'>
-              <label class='form-label'><%= t('analytics.sidebar.security') %></label>
-              <div class='form-value with-form-value-clear'>
-                <span data-analytics--position-new-target='securityValue'></span>
-                <span class='form-value-clear' data-action='click->analytics--position-new#clearSecurity'></span>
-              </div>
-            </div>
-
-            <div class='dropdown-box' data-reflex-root='#quotes' data-analytics--position-new-target='dropdown'>
-              <input type='hidden' name='position[quote_id]' data-analytics--position-new-target='quoteId' />
-              <label class='form-label'><%= t('analytics.sidebar.select_security') %> *</label>
-              <input type='text' class='form-value' placeholder='<%= t('analytics.sidebar.search') %>' data-action='debounced:input->analytics--position-new#searchQuotes' data-analytics--position-new-target='selectInput' />
-              <span class='dropdown-clear' data-action='click->analytics--position-new#clearSearch' data-analytics--position-new-target='clearSearch'></span>
-              <div id='quotes' class='dropdown-list'>
-                <%= render Analytics::QuotesComponent.new(quote_ids: []) %>
-              </div>
-            </div>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('analytics.sidebar.buy') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' name='position[operation]' data-analytics--position-new-target='operation' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('analytics.sidebar.transaction') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('analytics.sidebar.buy') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('analytics.sidebar.sell') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='2'><%= t('analytics.sidebar.plan') %></div>
-              </div>
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.price') %> *</label>
-              <input name='position[price]' class='form-value' data-analytics--position-new-target='price' data-action='keyup->analytics--position-new#refreshTotalPrice' />
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.amount') %> *</label>
-              <input name='position[amount]' class='form-value' data-analytics--position-new-target='amount' data-action='keyup->analytics--position-new#refreshTotalPrice' />
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.operation_date') %></label>
-              <input name='position[operation_date]' class='form-value' data-analytics--position-new-target='date' />
-            </div>
-
-            <div class='form-field'>
-              <label class='form-label'><%= t('analytics.sidebar.total_price') %></label>
-              <input disabled class='form-value' data-analytics--position-new-target='totalPrice' />
-            </div>
-
-            <button class='button' type='submit'>
-              <%= t('analytics.sidebar.button') %>
-            </button>
-          </form>
-        </div>
-      <% end %>
-
-      <%= render Shared::SidebarComponent.new(title: t('analytics.sidebar.balance.title'), window_index: 1) do %>
-        <div id='balance-container'>
-          <form data-controller='analytics--balance' data-action='submit->analytics--balance#submitForm'>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
-              </div>
-            </div>
-
-            <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
-              <div class='form-field'>
-                <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
-                <input name='portfolio[<%= currency %>]' class='form-value' value='<%= @first_portfolio_cashes.find { |e| e.amount_currency == currency.upcase }&.amount_cents.to_i / 100.0 %>' />
-              </div>
-            <% end %>
-
-            <button class='button' type='submit'>
-              <%= t('analytics.sidebar.balance.submit_button') %>
-            </button>
-          </form>
-        </div>
-      <% end %>
-
-      <%= render Shared::SidebarComponent.new(title: t('portfolios.sidebar.operations.title'), window_index: 2) do %>
-        <div id='portfolio-operations-container'>
-          <form data-controller='portfolios--cash-new' data-action='submit->portfolios--cash-new#submitForm'>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= @portfolios.first.name %>'
-              data-shared--select-value-index='<%= @portfolios.first.id %>'
-            >
-              <input type='hidden' name='portfolio_id' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.select_portfolio') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
-                <% end %>
-              </div>
-            </div>
-
-            <div
-              class='form-field'
-              data-controller='shared--select'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('portfolios.sidebar.operations.deposit') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' name='portfolio[operation]' data-shared--select-target='valueIndex' />
-              <label class='form-label'><%= t('portfolios.sidebar.operations.transaction') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='0'><%= t('portfolios.sidebar.operations.deposit') %></div>
-                <div class='select-list-item' data-action='click->shared--select#select' data-value-index='1'><%= t('portfolios.sidebar.operations.withdraw') %></div>
-              </div>
-            </div>
-
-            <% Cashable::AVAILABLE_CURRENCIES.each do |currency| %>
-              <div class='form-field'>
-                <label class='form-label'><%= Money::Currency.new(currency).iso_code %></label>
-                <input name='portfolio[<%= currency %>]' class='form-value' value='0' />
-              </div>
-            <% end %>
-
-            <button class='button' type='submit'>
-              <%= t('portfolios.sidebar.operations.button') %>
-            </button>
-          </form>
-        </div>
-      <% end %>
     <% else %>
       <div class='page-content portfolios-list'>
         <div class='container'>

@@ -9,14 +9,13 @@
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= action_cable_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
   </head>
-
   <body>
     <input type='hidden' name='current_locale' id='current_locale' value='<%= I18n.locale %>' />
+    <input type='hidden' name='access_token' id='access_token' value='<%= Current.user&.access_token %>' />
     <%= yield %>
   </body>
 </html>

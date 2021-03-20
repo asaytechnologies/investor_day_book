@@ -1,10 +1,10 @@
 require("@rails/ujs").start()
-require("channels")
 
-import debounced from "debounced"
-debounced.initialize()
+import "components/shared/navigation_toggle_component"
+import "components/portfolios/index_page_component"
+import "components/analytics/index_page_component"
+import "components/operations/index_page_component"
 
-import "controllers"
 import "../stylesheets/application.scss"
 
 import "../locales"

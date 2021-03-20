@@ -5,7 +5,7 @@ module Uploads
     queue_as :default
 
     def perform
-      PerformUploadingService.call
+      Uploads::PerformUploadingService.call
     end
   end
 end

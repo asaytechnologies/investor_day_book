@@ -6,6 +6,8 @@ class Portfolio < ApplicationRecord
   has_many :positions, class_name: 'Users::Position', inverse_of: :portfolio, dependent: :destroy
   has_many :cashes, class_name: 'Portfolios::Cash', inverse_of: :portfolio, dependent: :destroy
 
+  has_many :uploads, as: :uploadable, dependent: :destroy
+
   enum source: {
     Brokerable::TINKOFF  => 0,
     Brokerable::SBERBANK => 1,

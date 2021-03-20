@@ -1,5 +1,8 @@
 const { environment } = require('@rails/webpacker')
+const vue = require('./loaders/vue')
+
 const CompressionPlugin = require('compression-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 environment.plugins.prepend('env',
   new CompressionPlugin({
@@ -12,4 +15,6 @@ environment.plugins.prepend('env',
   })
 )
 
+environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
+environment.loaders.prepend('vue', vue)
 module.exports = environment

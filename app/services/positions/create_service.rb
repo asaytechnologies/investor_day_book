@@ -5,9 +5,9 @@ module Positions
     prepend BasicService
 
     def initialize(
-      buy_service:  Creation::BuyService,
-      sell_service: Creation::SellService,
-      plan_service: Creation::PlanService
+      buy_service:  ::Positions::Creation::BuyService,
+      sell_service: ::Positions::Creation::SellService,
+      plan_service: ::Positions::Creation::PlanService
     )
       @buy_service  = buy_service
       @sell_service = sell_service
@@ -16,16 +16,22 @@ module Positions
 
     def call(args={})
       @args = args
-      position_service.call(position_params)
+
+      service = position_service.call(position_params)
+      if service.success?
+        @result = service.result
+      else
+        @errors = service.errors
+      end
     end
 
     private
 
     def position_service
-      case @args[:operation]
-      when '0' then @buy_service
-      when '1' then @sell_service
-      when '2' then @plan_service
+      case @args[:operation].to_i
+      when 0 then @buy_service
+      when 1 then @sell_service
+      when 2 then @plan_service
       end
     end
 

@@ -8,15 +8,6 @@
 Rails.application.configure do
   config.active_storage.service = :test
 
-  # Settings specified here will take precedence over those in config/application.rb.
-  require 'anycable/rails/actioncable/connection'
-
-  # Specify AnyCable WebSocket server URL to use by JS client
-  config.after_initialize do
-    config.action_cable.url = ActionCable.server.config.url = ENV.fetch('CABLE_URL', 'ws://localhost:8080/cable')
-  end
-  config.action_cable.mount_path = nil
-
   config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
 
   config.cache_classes = false

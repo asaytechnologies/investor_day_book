@@ -32,7 +32,6 @@ RSpec.describe Positions::Creation::SellService, type: :service do
       expect(position.selling_position).to eq true
     end
 
-    # rubocop: disable RSpec/MultipleMemoizedHelpers
     context 'for existed positions' do
       let!(:selling_position1) {
         create :users_position, portfolio: portfolio, quote: quote, selling_position: true, amount: 10
@@ -60,6 +59,5 @@ RSpec.describe Positions::Creation::SellService, type: :service do
         expect(buying_position5.sold_all).to eq false
       end
     end
-    # rubocop: enable RSpec/MultipleMemoizedHelpers
   end
 end

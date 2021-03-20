@@ -27,6 +27,30 @@
           "Данные портфеля будут загружены в течение пары минут"
         ]
       },
+      "Portfolio is destroyed": {
+        "msgid": "Portfolio is destroyed",
+        "msgstr": [
+          "Портфель удален"
+        ]
+      },
+      "Portfolio is cleared": {
+        "msgid": "Portfolio is cleared",
+        "msgstr": [
+          "Операции портфеля удалены"
+        ]
+      },
+      "All portfolios stats": {
+        "msgid": "All portfolios stats",
+        "msgstr": [
+          "Составной портфель"
+        ]
+      },
+      "Buy": {
+        "msgid": "Buy",
+        "msgstr": [
+          "Покупка"
+        ]
+      },
       "Do you really want to delete portfolio?": {
         "msgid": "Do you really want to delete portfolio?",
         "msgstr": [
@@ -36,7 +60,55 @@
       "Do you really want to delete all operations in portfolio?": {
         "msgid": "Do you really want to delete all operations in portfolio?",
         "msgstr": [
-          "Вы действительно хотите удалить все операции по портфелю?"
+          "Вы действительно хотите удалить все операции в портфеле?"
+        ]
+      },
+      "You need to select portfolio": {
+        "msgid": "You need to select portfolio",
+        "msgstr": [
+          "Вам необходимо выбрать портфель"
+        ]
+      },
+      "You need to select security": {
+        "msgid": "You need to select security",
+        "msgstr": [
+          "Вам необходимо выбрать ценную бумагу"
+        ]
+      },
+      "You need to specify price": {
+        "msgid": "You need to specify price",
+        "msgstr": [
+          "Вам необходимо указать цену"
+        ]
+      },
+      "You need to specify amount": {
+        "msgid": "You need to specify amount",
+        "msgstr": [
+          "Вам необходимо указать количество"
+        ]
+      },
+      "Operation is added": {
+        "msgid": "Operation is added",
+        "msgstr": [
+          "Операция добавлена"
+        ]
+      },
+      "You need to select operation type": {
+        "msgid": "You need to select operation type",
+        "msgstr": [
+          "Вам необходимо выбрать тип операции"
+        ]
+      },
+      "Portfolio balance is changed": {
+        "msgid": "Portfolio balance is changed",
+        "msgstr": [
+          "Баланс портфеля изменен"
+        ]
+      },
+      "You need to specify name of portfolio": {
+        "msgid": "You need to specify name of portfolio",
+        "msgstr": [
+          "Вам необходимо указать название для портфеля"
         ]
       }
     }

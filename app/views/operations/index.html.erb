@@ -1,40 +1,54 @@
 <%= render PageWrappers::PageComponent.new do %>
-  <div class='page-container sidebar-container' data-controller='shared--sidebar' data-reflex-root='#operations'>
-
+  <div id='operations-index-page' class='page-container sidebar-container'>
     <%= render Shared::HeaderComponent.new(current_user: current_user) %>
-
     <section class='content-header'>
       <div class='content-header-body container'>
         <h4 class='content-title'><%= t('wrapper.navigation.operations') %></h4>
       </div>
     </section>
-
     <div class='page-content'>
       <div class='container'>
         <div id='analytics-header'>
-          <form id='portfolio-select'>
-            <div
-              class='form-field'
-              data-controller='shared--select analytics--positions'
-              data-action='shared--select:click:outside->shared--select#close'
-              data-shared--select-value='<%= t('analytics.select.total') %>'
-              data-shared--select-value-index='0'
-            >
-              <input type='hidden' id='portfolio_id' name='portfolio_id' data-shared--select-target='valueIndex' />
+          <div id='portfolio-select'>
+            <div class='form-field'>
               <label class='form-label'><%= t('analytics.select.title') %></label>
-              <div class='form-value select-value' data-action='click->shared--select#toggle' data-shared--select-target='value'></div>
-              <div class='select-list' data-shared--select-target='list'>
-                <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='0'><%= t('analytics.select.total') %></div>
+              <div class='form-value select-value' @click.prevent='toggleSelect()'>{{ selectedName }}</div>
+              <div class='select-list' v-show='isSelectOpen'>
+                <div class='select-list-item' @click.prevent="selectPortfolio('<%= t('analytics.select.total') %>', 0)"><%= t('analytics.select.total') %></div>
                 <% @portfolios.each do |portfolio| %>
-                  <div class='select-list-item' data-action='click->shared--select#select click->analytics--positions#filterByPortfolio' data-value-index='<%= portfolio.id %>'><%= portfolio.name %></div>
+                  <div class='select-list-item' @click.prevent="selectPortfolio('<%= portfolio.name %>', <%= portfolio.id %>)"><%= portfolio.name %></div>
                 <% end %>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-
         <div id='operations'>
-          <%= render Operations::Index::ListComponent.new(current_user: current_user) %>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th class='name-column'><%= t('operations.index.table_header.name') %></th>
+                <th><%= t('operations.index.table_header.ticker') %></th>
+                <th><%= t('operations.index.table_header.operation') %></th>
+                <th><%= t('operations.index.table_header.amount') %></th>
+                <th><%= t('operations.index.table_header.price') %></th>
+                <th><%= t('operations.index.table_header.total_price') %></th>
+                <th><%= t('operations.index.table_header.date') %></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for='position in positions'>
+                <td class='name-column'>{{ position.attributes.security_name }}</td>
+                <td>{{ position.attributes.security_ticker }}</td>
+                <td>{{ position.attributes.selling_position ? "<%= t('operations.index.sell') %>" : "<%= t('operations.index.buy') %>" }}</td>
+                <td>{{ position.attributes.amount }}</td>
+                <td>{{ presentMoney(position.attributes.price, position.attributes.quote_currency, 4) }}</td>
+                <td>{{ presentMoney(position.attributes.price * position.attributes.amount, position.attributes.quote_currency, 2) }}</td>
+                <td>{{ position.attributes.operation_date }}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
