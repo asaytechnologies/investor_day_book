@@ -3,7 +3,6 @@ import VueResource from "vue-resource"
 import debounce    from "v-debounce"
 import { t }       from "ttag"
 import Chart       from "chart.js"
-import getSymbolFromCurrency from "currency-symbol-map"
 
 import { showNotification } from "../shared/modules/notifications"
 import { presentMoney } from "../shared/modules/money_presenter"
