@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # :rememberable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :validatable,
-         :omniauthable, omniauth_providers: %i[google_oauth2]
+         :omniauthable, omniauth_providers: %i[google_oauth2 vkontakte]
 
   has_many :portfolios, inverse_of: :user, dependent: :destroy
   has_many :positions, class_name: 'Users::Position', through: :portfolios

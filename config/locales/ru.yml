@@ -53,6 +53,7 @@ ru:
       to_login_page: На страницу входа
     oauth:
       with_google: Вход через Google
+      with_vk: Вход через Вконтакте
   wrapper:
     navigation:
       portfolios: Портфели

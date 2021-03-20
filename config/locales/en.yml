@@ -53,6 +53,7 @@ en:
       to_login_page: Go to login page
     oauth:
       with_google: Login with Google
+      with_vk: Login with Vkontakte
   wrapper:
     navigation:
       portfolios: Portfolios

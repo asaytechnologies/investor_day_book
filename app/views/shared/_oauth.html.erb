@@ -3,4 +3,9 @@
     <span><%= image_tag asset_pack_path('media/images/icons/google.svg'), alt: 'google logo' %></span>
     <span><%= t('devise.oauth.with_google') %></span>
   <% end %>
+
+  <%= link_to user_vkontakte_omniauth_authorize_path, method: :post do %>
+    <span><%= image_tag asset_pack_path('media/images/icons/vk.svg'), alt: 'vk logo' %></span>
+    <span><%= t('devise.oauth.with_vk') %></span>
+  <% end %>
 </div>

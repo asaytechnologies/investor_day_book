@@ -9,6 +9,8 @@ module Users
 
     def google_oauth2; end
 
+    def vkontakte; end
+
     private
 
     def restore_locale
