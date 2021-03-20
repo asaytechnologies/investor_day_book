@@ -3,7 +3,3 @@
 ```bash
 foreman s
 ```
-
-```bash
-anycable-go
-```
