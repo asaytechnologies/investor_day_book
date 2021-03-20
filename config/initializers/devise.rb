@@ -287,7 +287,7 @@ Devise.setup do |config|
                     display:      'popup',
                     lang:         'en',
                     image_size:   'original',
-                    redirect_url: 'https://netloader.ru/users/auth/vkontakte/callback'
+                    redirect_url: Rails.application.credentials.vk&.fetch(:redirect_url, '')
   else
     config.omniauth :google_oauth2,
                     Rails.application.credentials.development&.dig(:google, :oauth_client_id),
@@ -298,10 +298,11 @@ Devise.setup do |config|
     config.omniauth :vkontakte,
                     Rails.application.credentials.development&.dig(:vk, :app_id),
                     Rails.application.credentials.development&.dig(:vk, :app_secret),
-                    scope:      'email',
-                    display:    'popup',
-                    lang:       'en',
-                    image_size: 'original'
+                    scope:       'email',
+                    display:     'popup',
+                    lang:        'en',
+                    image_size:  'original',
+                    redirect_url: Rails.application.credentials.development&.dig(:vk, :redirect_url)
   end
 
   # ==> Warden configuration
