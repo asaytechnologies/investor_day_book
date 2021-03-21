@@ -288,6 +288,11 @@ Devise.setup do |config|
                     lang:         'en',
                     image_size:   'original',
                     redirect_url: Rails.application.credentials.vk&.fetch(:redirect_url, '')
+
+    config.omniauth :yandex,
+                    Rails.application.credentials.yandex&.fetch(:app_id, ''),
+                    Rails.application.credentials.yandex&.fetch(:app_secret, ''),
+                    redirect_url: Rails.application.credentials.yandex&.fetch(:redirect_url, '')
   else
     config.omniauth :google_oauth2,
                     Rails.application.credentials.development&.dig(:google, :oauth_client_id),
@@ -303,6 +308,11 @@ Devise.setup do |config|
                     lang:        'en',
                     image_size:  'original',
                     redirect_url: Rails.application.credentials.development&.dig(:vk, :redirect_url)
+
+    config.omniauth :yandex,
+                    Rails.application.credentials.development&.dig(:yandex, :app_id),
+                    Rails.application.credentials.development&.dig(:yandex, :app_secret),
+                    redirect_url: Rails.application.credentials.development&.dig(:yandex, :redirect_url)
   end
 
   # ==> Warden configuration

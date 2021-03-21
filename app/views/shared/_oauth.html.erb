@@ -8,4 +8,9 @@
     <span><%= image_tag asset_pack_path('media/images/icons/vk.svg'), alt: 'vk logo' %></span>
     <span><%= t('devise.oauth.with_vk') %></span>
   <% end %>
+
+  <%= link_to user_yandex_omniauth_authorize_path, method: :post do %>
+    <span><%= image_tag asset_pack_path('media/images/icons/yandex.svg'), alt: 'yandex logo' %></span>
+    <span><%= t('devise.oauth.with_yandex') %></span>
+  <% end %>
 </div>

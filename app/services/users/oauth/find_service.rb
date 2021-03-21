@@ -26,14 +26,14 @@ module Users
       end
 
       def email
-        @email ||= @auth.info['email']
+        @email ||= @auth.info['email'].downcase
       end
 
       def find_or_create_user
-        @user = User.find_or_create_by(email: email) do |u|
-          u.password = Devise.friendly_token[0, 20]
-          u.confirmed_at = DateTime.now
-        end
+        @user = User.find_by(email: email)
+        return if @user.present?
+
+        @user = User.create!(email: email, password: Devise.friendly_token[0, 20], confirmed_at: DateTime.now)
       end
 
       def create_identity

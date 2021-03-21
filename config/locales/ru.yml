@@ -54,6 +54,7 @@ ru:
     oauth:
       with_google: Вход через Google
       with_vk: Вход через Вконтакте
+      with_yandex: Вход через Яндекс
   wrapper:
     navigation:
       portfolios: Портфели

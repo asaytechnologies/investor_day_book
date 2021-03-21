@@ -11,6 +11,8 @@ module Users
 
     def vkontakte; end
 
+    def yandex; end
+
     private
 
     def restore_locale

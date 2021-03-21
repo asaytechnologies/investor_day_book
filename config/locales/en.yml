@@ -54,6 +54,7 @@ en:
     oauth:
       with_google: Login with Google
       with_vk: Login with Vkontakte
+      with_yandex: Login with Yandex
   wrapper:
     navigation:
       portfolios: Portfolios

@@ -69,6 +69,7 @@ gem 'que-web', '~> 0.9.3'
 gem 'omniauth', '~> 1.9.0'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'omniauth-vkontakte'
+gem 'omniauth-yandex'
 
 # recaptcha
 gem 'recaptcha', require: 'recaptcha/rails'
