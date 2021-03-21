@@ -59,6 +59,10 @@ module Api
 
         params[:fields].split(',')
       end
+
+      def render_not_found_error
+        render json: { errors: [t('errors.object_not_found')] }, status: :not_found
+      end
     end
   end
 end

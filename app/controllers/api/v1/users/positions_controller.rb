@@ -5,6 +5,7 @@ module Api
     module Users
       class PositionsController < Api::V1::BaseController
         before_action :find_positions, only: %i[index]
+        before_action :find_position, only: %i[destroy]
         before_action :find_portfolio, only: %i[create]
         before_action :find_quote, only: %i[create]
 
@@ -28,11 +29,21 @@ module Api
           end
         end
 
+        def destroy
+          @position.destroy
+          render json: {}, status: :ok
+        end
+
         private
 
         def find_positions
           @positions = Current.user.positions.real.order(operation_date: :desc, id: :desc).includes(quote: :security)
           @positions = @positions.where(portfolio_id: params[:portfolio_id]) if params[:portfolio_id]
+        end
+
+        def find_position
+          @position = Current.user.positions.find_by(id: params[:id])
+          return render_not_found_error if @position.nil?
         end
 
         def find_portfolio

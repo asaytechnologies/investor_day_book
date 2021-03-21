@@ -1,6 +1,7 @@
 en:
   errors:
     route_not_found: This page does not exist
+    object_not_found: Object is not found
   meta:
     title: InvestPlan - investment planning service, keep portfolios and actives
     keywords: investments, invest, plan, planning, portfolio, analytics, stocks, shares, funds, actives, dividends, coupons

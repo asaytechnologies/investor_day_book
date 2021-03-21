@@ -1,0 +1,35 @@
+#operations {
+  .position-clear {
+    display: inline-block;
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 5px;
+      top: 11px;
+      transform: rotate(135deg);
+      border: 1px solid $dodger_blue;
+      width: .5rem;
+      height: .5rem;
+      border-top: none;
+      border-right: none;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      right: 5px;
+      top: 1px;
+      transform: rotate(-45deg);
+      border: 1px solid $dodger_blue;
+      width: .5rem;
+      height: .5rem;
+      border-top: none;
+      border-right: none;
+    }
+  }
+}

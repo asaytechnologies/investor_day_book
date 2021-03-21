@@ -2,6 +2,7 @@ import Vue         from "vue/dist/vue.esm"
 import VueResource from "vue-resource"
 import { t }       from "ttag"
 
+import { showNotification } from "../shared/modules/notifications"
 import { presentMoney } from "../shared/modules/money_presenter"
 
 Vue.use(VueResource)
@@ -38,6 +39,21 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       presentMoney: function(value, currency, rounding) {
         return presentMoney(value, currency, rounding)
+      },
+      deleteOperation: function(position) {
+        var result = confirm(t`Do you really want to delete operation?`)
+        if (!result) return
+
+        const params = {
+          access_token: accessToken
+        }
+        this.$http.delete(`/api/v1/users/positions/${position.attributes.id}`, { params: params }).then(function(data) {
+          const positions = this.positions
+          const positionIndex = positions.indexOf(position)
+          positions.splice(positionIndex, 1)
+          this.positions = positions
+          showNotification("success", `<p>${t`Operation is deleted`}</p>`)
+        })
       }
     }
   })

@@ -45,7 +45,9 @@
                 <td>{{ presentMoney(position.attributes.price, position.attributes.quote_currency, 4) }}</td>
                 <td>{{ presentMoney(position.attributes.price * position.attributes.amount, position.attributes.quote_currency, 2) }}</td>
                 <td>{{ position.attributes.operation_date }}</td>
-                <td></td>
+                <td>
+                  <span class='position-clear' @click.prevent="deleteOperation(position)"></span>
+                </td>
               </tr>
             </tbody>
           </table>

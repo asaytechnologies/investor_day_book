@@ -26,7 +26,7 @@ module Users
       end
 
       def email
-        @email ||= @auth.info['email'].downcase
+        @email ||= @auth.info['email']&.downcase
       end
 
       def find_or_create_user

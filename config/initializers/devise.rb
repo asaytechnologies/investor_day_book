@@ -303,10 +303,10 @@ Devise.setup do |config|
     config.omniauth :vkontakte,
                     Rails.application.credentials.development&.dig(:vk, :app_id),
                     Rails.application.credentials.development&.dig(:vk, :app_secret),
-                    scope:       'email',
-                    display:     'popup',
-                    lang:        'en',
-                    image_size:  'original',
+                    scope:        'email',
+                    display:      'popup',
+                    lang:         'en',
+                    image_size:   'original',
                     redirect_url: Rails.application.credentials.development&.dig(:vk, :redirect_url)
 
     config.omniauth :yandex,

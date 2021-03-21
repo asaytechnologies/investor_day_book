@@ -147,4 +147,78 @@ describe Api::V1::Users::PositionsController do
       post '/api/v1/users/positions.json', **params
     end
   end
+
+  describe 'DELETE#destroy' do
+    it_behaves_like 'API auth without token'
+    it_behaves_like 'API auth with invalid token'
+    it_behaves_like 'API auth unconfirmed'
+
+    context 'for logged user' do
+      let!(:user) { create :user }
+      let!(:access_token) { JwtService.new.json_response(user: user)[:access_token] }
+
+      context 'for unexisted position' do
+        let(:request) { delete '/api/v1/users/positions/unexisted.json', **{ access_token: access_token } }
+
+        it 'does not destroy position' do
+          expect { request }.not_to change(Users::Position, :count)
+        end
+
+        context 'in response' do
+          before { request }
+
+          it 'returns status 404' do
+            expect(last_response.status).to eq 404
+          end
+
+          it 'and returns error message' do
+            expect(JSON.parse(last_response.body)).to eq('errors' => ['Object is not found'])
+          end
+        end
+      end
+
+      context 'for position of another user' do
+        let!(:position) { create :users_position }
+        let(:request) { delete "/api/v1/users/positions/#{position.id}.json", **{ access_token: access_token } }
+
+        it 'does not destroy position' do
+          expect { request }.not_to change(Users::Position, :count)
+        end
+
+        context 'in response' do
+          before { request }
+
+          it 'returns status 404' do
+            expect(last_response.status).to eq 404
+          end
+
+          it 'and returns error message' do
+            expect(JSON.parse(last_response.body)).to eq('errors' => ['Object is not found'])
+          end
+        end
+      end
+
+      context 'for valid position' do
+        let!(:portfolio) { create :portfolio, user: user }
+        let!(:position) { create :users_position, portfolio: portfolio }
+        let(:request) { delete "/api/v1/users/positions/#{position.id}.json", **{ access_token: access_token } }
+
+        it 'destroys position' do
+          expect { request }.to change(user.positions, :count).by(-1)
+        end
+
+        context 'in response' do
+          before { request }
+
+          it 'returns status 200' do
+            expect(last_response.status).to eq 200
+          end
+        end
+      end
+    end
+
+    def do_request(params={})
+      delete '/api/v1/users/positions/unexisted.json', **params
+    end
+  end
 end
