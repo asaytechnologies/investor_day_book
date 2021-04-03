@@ -24,7 +24,10 @@ module ExchangeRates
 
     def perform_exchage_rate(base_currency, rate_currency)
       exchange_rate = ExchangeRate.find_or_initialize_by(base_currency: base_currency, rate_currency: rate_currency)
-      exchange_rate.rate_amount = fetch_exchange_rate(base_currency, rate_currency)
+      rate_amount = fetch_exchange_rate(base_currency, rate_currency)
+      return unless rate_amount
+
+      exchange_rate.rate_amount = rate_amount
       exchange_rate.save
     end
 
@@ -32,7 +35,7 @@ module ExchangeRates
       return SAME_CURRENCY_COEFFICIENT if base_currency == rate_currency
 
       response = @exchange_rate_service.latest(base: base_currency, symbols: [rate_currency])
-      response.dig('rates', rate_currency).round(6)
+      response.dig('rates', rate_currency)&.round(6)
     end
   end
 end
