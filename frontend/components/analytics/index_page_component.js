@@ -273,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (this.selectedQuoteIndex === null) return showNotification("error", `<p>${t`You need to select security`}</p>`)
         if (this.price === null) return showNotification("error", `<p>${t`You need to specify price`}</p>`)
         if (this.amount === null) return showNotification("error", `<p>${t`You need to specify amount`}</p>`)
+        if (this.operationDate === null) return showNotification("error", `<p>${t`You need to specify operation date`}</p>`)
 
         const params = {
           access_token: accessToken,

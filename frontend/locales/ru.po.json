@@ -110,6 +110,24 @@
         "msgstr": [
           "Вам необходимо указать название для портфеля"
         ]
+      },
+      "Do you really want to delete operation?": {
+        "msgid": "Do you really want to delete operation?",
+        "msgstr": [
+          "Вы действительно хотите удалить операцию?"
+        ]
+      },
+      "Operation is deleted": {
+        "msgid": "Operation is deleted",
+        "msgstr": [
+          "Операция удалена"
+        ]
+      },
+      "You need to specify operation date": {
+        "msgid": "You need to specify operation date",
+        "msgstr": [
+          "Вам необходимо указать дату операции"
+        ]
       }
     }
   }

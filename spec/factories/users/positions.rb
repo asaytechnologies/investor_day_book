@@ -9,6 +9,7 @@ FactoryBot.define do
     price { 1.00 }
     price_cents { 100 }
     price_currency { 'USD' }
+    operation_date { DateTime.now }
     association :portfolio
     association :quote
   end

@@ -7,56 +7,56 @@ msgstr ""
 "mime-version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: frontend/components/portfolios/index_page_component.js:69
+#: frontend/components/portfolios/index_page_component.js:73
 msgid "File for portfolio is uploaded"
 msgstr "Файл для портфеля загружен"
 
-#: frontend/components/portfolios/index_page_component.js:69
+#: frontend/components/portfolios/index_page_component.js:73
 msgid "Portfolio positions will be created in a few minutes"
 msgstr "Данные портфеля будут загружены в течение пары минут"
 
-#: frontend/components/portfolios/index_page_component.js:80
+#: frontend/components/portfolios/index_page_component.js:84
 msgid "Portfolio is destroyed"
 msgstr "Портфель удален"
 
-#: frontend/components/portfolios/index_page_component.js:91
+#: frontend/components/portfolios/index_page_component.js:95
 msgid "Portfolio is cleared"
 msgstr "Операции портфеля удалены"
 
-#: frontend/components/analytics/index_page_component.js:163
-#: frontend/components/operations/index_page_component.js:49
+#: frontend/components/analytics/index_page_component.js:162
+#: frontend/components/operations/index_page_component.js:65
 msgid "All portfolios stats"
 msgstr "Составной портфель"
 
-#: frontend/components/analytics/index_page_component.js:197
+#: frontend/components/analytics/index_page_component.js:196
 #: frontend/components/analytics/index_page_component.js:306
 #: frontend/components/analytics/index_page_component.js:326
 #: frontend/components/analytics/index_page_component.js:409
 msgid "Buy"
 msgstr "Покупка"
 
-#: frontend/components/portfolios/index_page_component.js:73
+#: frontend/components/portfolios/index_page_component.js:77
 msgid "Do you really want to delete portfolio?"
 msgstr "Вы действительно хотите удалить портфель?"
 
-#: frontend/components/portfolios/index_page_component.js:85
+#: frontend/components/portfolios/index_page_component.js:89
 msgid "Do you really want to delete all operations in portfolio?"
 msgstr "Вы действительно хотите удалить все операции в портфеле?"
 
-#: frontend/components/analytics/index_page_component.js:273
+#: frontend/components/analytics/index_page_component.js:272
 #: frontend/components/analytics/index_page_component.js:384
 msgid "You need to select portfolio"
 msgstr "Вам необходимо выбрать портфель"
 
-#: frontend/components/analytics/index_page_component.js:274
+#: frontend/components/analytics/index_page_component.js:273
 msgid "You need to select security"
 msgstr "Вам необходимо выбрать ценную бумагу"
 
-#: frontend/components/analytics/index_page_component.js:275
+#: frontend/components/analytics/index_page_component.js:274
 msgid "You need to specify price"
 msgstr "Вам необходимо указать цену"
 
-#: frontend/components/analytics/index_page_component.js:276
+#: frontend/components/analytics/index_page_component.js:275
 msgid "You need to specify amount"
 msgstr "Вам необходимо указать количество"
 
@@ -72,6 +72,18 @@ msgstr "Вам необходимо выбрать тип операции"
 msgid "Portfolio balance is changed"
 msgstr "Баланс портфеля изменен"
 
-#: frontend/components/portfolios/index_page_component.js:177
+#: frontend/components/portfolios/index_page_component.js:181
 msgid "You need to specify name of portfolio"
 msgstr "Вам необходимо указать название для портфеля"
+
+#: frontend/components/operations/index_page_component.js:44
+msgid "Do you really want to delete operation?"
+msgstr "Вы действительно хотите удалить операцию?"
+
+#: frontend/components/operations/index_page_component.js:55
+msgid "Operation is deleted"
+msgstr "Операция удалена"
+
+#: frontend/components/analytics/index_page_component.js:276
+msgid "You need to specify operation date"
+msgstr "Вам необходимо указать дату операции"

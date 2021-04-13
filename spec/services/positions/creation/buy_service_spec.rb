@@ -5,10 +5,11 @@ RSpec.describe Positions::Creation::BuyService, type: :service do
 
   let(:args) {
     {
-      portfolio: portfolio,
-      quote:     quote,
-      price:     Money.new(price_cents, quote.price_currency),
-      amount:    amount
+      portfolio:      portfolio,
+      quote:          quote,
+      price:          Money.new(price_cents, quote.price_currency),
+      amount:         amount,
+      operation_date: DateTime.now
     }
   }
   let(:portfolio) { create :portfolio }

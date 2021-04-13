@@ -12,5 +12,8 @@ module Users
     scope :with_unsold_securities, -> { where sold_all: false }
     scope :real, -> { where plan: false }
     scope :plan, -> { where plan: true }
+
+    validates :amount, :price, :operation_date, presence: true
+    validates :amount, numericality: { only_integer: true, greater_than: 0 }
   end
 end

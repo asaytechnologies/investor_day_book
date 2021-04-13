@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - login through Yandex
 - deleting operations
 
+### Modified
+- make operation date required field for users_position
+
 ### Fixed
 - infosnag notifications
 
