@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - infosnag notifications
+- clearing search input
 
 ## [1.1.1] - 20.03.2021
 ### Added

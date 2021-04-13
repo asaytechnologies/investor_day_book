@@ -48,7 +48,7 @@
                         v-debounce='500'
                         :class='{ error: validation && selectedQuoteName.length === 0 }'
                       />
-                      <span class='dropdown-clear' v-show='securitySearchValue.length > 0'></span>
+                      <span class='dropdown-clear' v-show='securitySearchValue.length > 0' @click.prevent='clearSearch()'></span>
                       <div id='quotes' class='dropdown-list'>
                         <% %w[Share Bond Foundation].each do |key| %>
                           <div class='dropdown-list-block' v-show="quotes['<%= key %>'] && quotes['<%= key %>'].length > 0">

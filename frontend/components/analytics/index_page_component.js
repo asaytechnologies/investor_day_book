@@ -233,6 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
         this.portfolioIndex = index
         this.portfolioSelectOpened = false
       },
+      clearSearch: function() {
+        this.securitySearchValue = ""
+        this.lastSecuritySearchValue = ""
+        this.quotes = []
+      },
       searchSecurities: function(event) {
         if (this.securitySearchValue.length === 0 || this.lastSecuritySearchValue === this.securitySearchValue) return
 
