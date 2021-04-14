@@ -486,6 +486,43 @@ ALTER SEQUENCE public.industries_id_seq OWNED BY public.industries.id;
 
 
 --
+-- Name: insights; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.insights (
+    id bigint NOT NULL,
+    portfolio_id integer,
+    quote_id integer,
+    insightable_id integer,
+    insightable_type character varying,
+    amount integer,
+    price numeric(15,6),
+    plan boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: insights_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.insights_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: insights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.insights_id_seq OWNED BY public.insights.id;
+
+
+--
 -- Name: portfolios; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -916,6 +953,13 @@ ALTER TABLE ONLY public.industries ALTER COLUMN id SET DEFAULT nextval('public.i
 
 
 --
+-- Name: insights id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.insights ALTER COLUMN id SET DEFAULT nextval('public.insights_id_seq'::regclass);
+
+
+--
 -- Name: portfolios id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1047,6 +1091,14 @@ ALTER TABLE ONLY public.identities
 
 ALTER TABLE ONLY public.industries
     ADD CONSTRAINT industries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: insights insights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.insights
+    ADD CONSTRAINT insights_pkey PRIMARY KEY (id);
 
 
 --
@@ -1221,6 +1273,20 @@ CREATE INDEX index_identities_on_user_id ON public.identities USING btree (user_
 --
 
 CREATE INDEX index_industries_on_sector_id ON public.industries USING btree (sector_id);
+
+
+--
+-- Name: index_insights_on_insightable_id_and_insightable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_insights_on_insightable_id_and_insightable_type ON public.insights USING btree (insightable_id, insightable_type);
+
+
+--
+-- Name: index_insights_on_portfolio_id_and_quote_id_and_plan; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_insights_on_portfolio_id_and_quote_id_and_plan ON public.insights USING btree (portfolio_id, quote_id, plan);
 
 
 --
@@ -1424,6 +1490,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210206074220'),
 ('20210306122850'),
 ('20210306131801'),
-('20210306132137');
+('20210306132137'),
+('20210414181521');
 
 
