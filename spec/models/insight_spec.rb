@@ -2,20 +2,13 @@
 
 describe Insight, type: :model do
   it 'factory should be valid' do
-    insights = build :insights
+    insight = build :insight
 
-    expect(insights).to be_valid
+    expect(insight).to be_valid
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :portfolio }
-    it { is_expected.to belong_to :quote }
-    it { is_expected.to belong_to(:insightable).optional }
-  end
-
-  describe 'validations' do
-    it { is_expected.to validate_presence_of :amount }
-    it { is_expected.to validate_presence_of :price }
-    it { is_expected.to validate_numericality_of(:amount).is_greater_than(0).only_integer }
+    it { is_expected.to belong_to :parentable }
+    it { is_expected.to belong_to :insightable }
   end
 end

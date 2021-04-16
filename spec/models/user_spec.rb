@@ -17,6 +17,7 @@ describe User, type: :model do
     it { is_expected.to have_many(:positions).class_name('Users::Position').through(:portfolios) }
     it { is_expected.to have_many(:uploads).dependent(:destroy) }
     it { is_expected.to have_many(:identities).dependent(:destroy) }
+    it { is_expected.to have_many(:insights).dependent(:destroy) }
   end
 
   it 'invalid without email' do

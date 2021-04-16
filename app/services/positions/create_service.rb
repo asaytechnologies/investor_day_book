@@ -19,6 +19,7 @@ module Positions
 
       service = position_service.call(position_params)
       if service.success?
+        refresh_position_insights(service.result)
         @result = service.result
       else
         @errors = service.errors
@@ -33,6 +34,16 @@ module Positions
       when 1 then @sell_service
       when 2 then @plan_service
       end
+    end
+
+    def refresh_position_insights(position)
+      Insights::RefreshJob.perform_later(
+        parentable_id:    position.portfolio_id,
+        parentable_type:  'Portfolio',
+        insightable_id:   position.quote_id,
+        insightable_type: 'Quote',
+        plan:             position.plan
+      )
     end
 
     def position_params

@@ -13,7 +13,7 @@ class Quote < ApplicationRecord
            dependent:  :destroy
 
   has_many :coupons, class_name: 'Bonds::Coupon', inverse_of: :quote, dependent: :destroy
-  has_many :insights, dependent: :destroy
+  has_many :insights, as: :insightable, dependent: :destroy
 
   def coupons_sum_for_time_range(time_range=1.year)
     beginning_of_day = DateTime.now.beginning_of_day

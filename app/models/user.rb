@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :uploads, dependent: :destroy
   has_many :identities, dependent: :destroy
 
+  has_many :insights, as: :parentable, dependent: :destroy
+
   scope :unconfirmed, -> { where confirmed_at: nil }
 
   after_create :send_create_notification

@@ -491,15 +491,14 @@ ALTER SEQUENCE public.industries_id_seq OWNED BY public.industries.id;
 
 CREATE TABLE public.insights (
     id bigint NOT NULL,
-    portfolio_id integer,
-    quote_id integer,
+    parentable_id integer,
+    parentable_type character varying,
     insightable_id integer,
     insightable_type character varying,
-    amount integer,
-    price numeric(15,6),
     plan boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    stats jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -1276,17 +1275,17 @@ CREATE INDEX index_industries_on_sector_id ON public.industries USING btree (sec
 
 
 --
--- Name: index_insights_on_insightable_id_and_insightable_type; Type: INDEX; Schema: public; Owner: -
+-- Name: index_insights_on_insightable_id_and_insightable_type_and_plan; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_insights_on_insightable_id_and_insightable_type ON public.insights USING btree (insightable_id, insightable_type);
+CREATE INDEX index_insights_on_insightable_id_and_insightable_type_and_plan ON public.insights USING btree (insightable_id, insightable_type, plan);
 
 
 --
--- Name: index_insights_on_portfolio_id_and_quote_id_and_plan; Type: INDEX; Schema: public; Owner: -
+-- Name: index_insights_on_parentable_id_and_parentable_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_insights_on_portfolio_id_and_quote_id_and_plan ON public.insights USING btree (portfolio_id, quote_id, plan);
+CREATE INDEX index_insights_on_parentable_id_and_parentable_type ON public.insights USING btree (parentable_id, parentable_type);
 
 
 --
@@ -1491,6 +1490,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210306122850'),
 ('20210306131801'),
 ('20210306132137'),
-('20210414181521');
+('20210414181521'),
+('20210415175824');
 
 
