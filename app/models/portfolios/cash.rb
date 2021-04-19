@@ -12,6 +12,8 @@ module Portfolios
              foreign_key: :portfolios_cash_id,
              dependent:   :destroy
 
+    has_many :insights, as: :insightable, dependent: :destroy
+
     scope :balance, -> { where balance: true }
     scope :income, -> { where balance: false }
 

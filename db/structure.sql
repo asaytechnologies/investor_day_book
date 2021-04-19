@@ -343,6 +343,37 @@ ALTER SEQUENCE public.active_storage_variant_records_id_seq OWNED BY public.acti
 
 
 --
+-- Name: active_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_types (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: active_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_types_id_seq OWNED BY public.active_types.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -495,6 +526,8 @@ CREATE TABLE public.insights (
     parentable_type character varying,
     insightable_id integer,
     insightable_type character varying,
+    amount integer,
+    price numeric(15,6),
     plan boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -924,6 +957,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: active_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_types ALTER COLUMN id SET DEFAULT nextval('public.active_types_id_seq'::regclass);
+
+
+--
 -- Name: bonds_coupons id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1050,6 +1090,14 @@ ALTER TABLE ONLY public.active_storage_blobs
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT active_storage_variant_records_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_types active_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_types
+    ADD CONSTRAINT active_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -1230,6 +1278,13 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 --
 
 CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_active_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_types_on_name ON public.active_types USING btree (name);
 
 
 --
@@ -1491,6 +1546,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210306131801'),
 ('20210306132137'),
 ('20210414181521'),
-('20210415175824');
+('20210415175824'),
+('20210419185802');
 
 

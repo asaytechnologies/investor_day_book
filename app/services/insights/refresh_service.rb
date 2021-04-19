@@ -11,8 +11,10 @@ module Insights
 
       update_quote_insights
       update_sectors_insights if @insightable.security.is_a?(Share) && sector.present?
+      update_active_type_insights
       update_quote_insights_for_user
       update_sectors_insights_for_user if @insightable.security.is_a?(Share) && sector.present?
+      update_active_type_insights_for_user
     end
 
     private
@@ -44,6 +46,15 @@ module Insights
         .then { |insights| update_insight_stats(insight, insights) }
     end
 
+    def update_active_type_insights
+      active_type = ActiveType.find_by(name: active_type_value)
+      active_type_quotes = Quote.joins(:security).where(securities: { type: active_type_value })
+      insight = Insight.find_or_initialize_by(parentable: @parentable, insightable: active_type, plan: @plan)
+      Insight
+        .where(parentable: @parentable, insightable: active_type_quotes, plan: @plan)
+        .then { |insights| update_insight_stats(insight, insights) }
+    end
+
     def update_quote_insights_for_user
       insight = Insight.find_or_initialize_by(parentable: user, insightable: @insightable, plan: @plan)
       Insight
@@ -55,6 +66,15 @@ module Insights
       insight = Insight.find_or_initialize_by(parentable: user, insightable: sector, plan: @plan)
       Insight
         .where(parentable: user.portfolios, insightable: sector.quotes, plan: @plan)
+        .then { |insights| update_insight_stats(insight, insights) }
+    end
+
+    def update_active_type_insights_for_user
+      active_type = ActiveType.find_by(name: active_type_value)
+      active_type_quotes = Quote.joins(:security).where(securities: { type: active_type_value })
+      insight = Insight.find_or_initialize_by(parentable: user, insightable: active_type, plan: @plan)
+      Insight
+        .where(parentable: user.portfolios, insightable: active_type_quotes, plan: @plan)
         .then { |insights| update_insight_stats(insight, insights) }
     end
 
@@ -124,6 +144,10 @@ module Insights
 
     def sector
       @sector ||= @insightable.security.sector
+    end
+
+    def active_type_value
+      @active_type_value ||= @insightable.security.type
     end
 
     def user

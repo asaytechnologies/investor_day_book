@@ -2,6 +2,11 @@
 
 require 'csv'
 
+ActiveType.create(name: 'Share')
+ActiveType.create(name: 'Bond')
+ActiveType.create(name: 'Foundation')
+ActiveType.create(name: 'Portfolios::Cash')
+
 Quotes::Collection::SyncronizeService.call(source: 'moex', date: '2021-01-08')
 Quotes::Collection::SyncronizeService.call(source: 'tinkoff')
 ExchangeRates::SyncronizeService.call

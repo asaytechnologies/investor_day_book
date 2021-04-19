@@ -11,6 +11,10 @@ describe Insights::RefreshService, type: :service do
     create :exchange_rate, base_currency: 'RUB', rate_currency: 'RUB'
     create :exchange_rate, base_currency: 'EUR', rate_currency: 'RUB'
     create :exchange_rate, base_currency: 'USD', rate_currency: 'RUB'
+
+    create :active_type, :share
+    create :active_type, :bond
+    create :active_type, :foundation
   end
 
   describe '.call' do
@@ -22,8 +26,8 @@ describe Insights::RefreshService, type: :service do
         expect(service_call.success?).to eq true
       end
 
-      it 'and creates 2 insights' do
-        expect { service_call }.to change(Insight, :count).by(2)
+      it 'and creates 4 insights' do
+        expect { service_call }.to change(Insight, :count).by(4)
       end
     end
 
@@ -37,8 +41,8 @@ describe Insights::RefreshService, type: :service do
         expect(service_call.success?).to eq true
       end
 
-      it 'and creates 2 insights' do
-        expect { service_call }.to change(Insight, :count).by(4)
+      it 'and creates 6 insights' do
+        expect { service_call }.to change(Insight, :count).by(6)
       end
     end
   end
