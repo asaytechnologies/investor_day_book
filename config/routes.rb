@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         post :clear, on: :member
       end
       resources :analytics, only: %i[index]
+      resources :insights, only: %i[index]
 
       namespace :quotes do
         resources :search, only: %i[index]
