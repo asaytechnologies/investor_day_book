@@ -194,7 +194,25 @@
           <div v-if='insights'>
             <div v-for='insight in insights'>
               <h4>{{ securityName(insight.insightable_name) }}</h4>
-              <table class='table positions-table'>
+              <table class='table positions-table' v-if="insight.insightable_name === 'Portfolios::Cash'">
+                <thead>
+                  <tr>
+                    <th class='name-column'><%= t('analytics.table.name') %></th>
+                    <th><%= t('analytics.table.amount') %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='position' :class='sectorClass(position)' v-for='position in insight.positions'>
+                    <td class='name-column'>{{ position.insightable_name }}</td>
+                    <td>{{ position.stats.price }}</td>
+                  </tr>
+                  <tr class='position total'>
+                    <td class='name-column'><%= t('analytics.table.summary') %></td>
+                    <td>{{ presentMoney(insight.stats.price, insight.currency, 2) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class='table positions-table' v-if="insight.insightable_name !== 'Portfolios::Cash'">
                 <thead>
                   <tr>
                     <th class='name-column'><%= t('analytics.table.name') %></th>
@@ -240,7 +258,6 @@
                       </span>
                     </td>
                   </tr>
-
                   <tr class='position total'>
                     <td class='name-column'><%= t('analytics.table.summary') %></td>
                     <td></td>
@@ -269,7 +286,6 @@
                       </span>
                     </td>
                   </tr>
-
                 </tbody>
               </table>
             </div>

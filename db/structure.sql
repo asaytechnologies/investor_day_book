@@ -579,7 +579,9 @@ CREATE TABLE public.portfolios_cashes (
     amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    balance boolean DEFAULT false NOT NULL
+    balance boolean DEFAULT false NOT NULL,
+    cashable_id integer,
+    cashable_type character varying
 );
 
 
@@ -1343,6 +1345,13 @@ CREATE INDEX index_insights_on_parentable_id_and_parentable_type ON public.insig
 
 
 --
+-- Name: index_portfolios_cashes_on_cashable_id_and_cashable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_portfolios_cashes_on_cashable_id_and_cashable_type ON public.portfolios_cashes USING btree (cashable_id, cashable_type);
+
+
+--
 -- Name: index_portfolios_cashes_on_portfolio_id_and_amount_currency; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1547,6 +1556,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210414181521'),
 ('20210415175824'),
 ('20210419185802'),
-('20210422191528');
+('20210422191528'),
+('20210425191748');
 
 

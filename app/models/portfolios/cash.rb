@@ -4,7 +4,7 @@ module Portfolios
   class Cash < ApplicationRecord
     self.table_name = :portfolios_cashes
 
-    belongs_to :portfolio
+    belongs_to :cashable, polymorphic: true
 
     has_many :operations,
              class_name:  'Portfolios::Cashes::Operation',

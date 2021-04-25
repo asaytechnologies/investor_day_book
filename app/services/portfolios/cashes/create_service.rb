@@ -11,6 +11,10 @@ module Portfolios
             portfolio.cashes.create(amount: Money.new(0, currency), balance: balance)
           end
         end
+
+        Cashable::AVAILABLE_CURRENCIES.each do |currency|
+          portfolio.user.cashes.create(amount: Money.new(0, currency), balance: true)
+        end
       end
     end
   end

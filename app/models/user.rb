@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
 
   has_many :insights, as: :parentable, dependent: :destroy
+  has_many :cashes, class_name: 'Portfolios::Cash', as: :cashable, dependent: :destroy
 
   scope :unconfirmed, -> { where confirmed_at: nil }
 

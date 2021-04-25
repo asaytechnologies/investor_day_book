@@ -18,6 +18,7 @@ module Portfolios
 
           ActiveRecord::Base.transaction do
             perform_cashes_changes
+            perform_insights_changes(portfolio)
           end
         end
 
@@ -34,6 +35,10 @@ module Portfolios
             portfolios_cash: portfolios_cash,
             params:          { amount_cents: amount_cents }
           )
+        end
+
+        def perform_insights_changes(portfolio)
+          Insights::ForCash::RefreshService.call(parentable: portfolio)
         end
       end
     end

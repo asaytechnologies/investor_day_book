@@ -18,12 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentLocale = document.getElementById("current_locale").value
 
   const activeTypesOrder = {
+    "Portfolios::Cash": 4,
     "Share": 3,
     "Bond": 2,
     "Foundation": 1
   }
 
   const activeTypesColors = {
+    "Portfolios::Cash": "orange",
     "Share": "red",
     "Bond": "blue",
     "Foundation": "green"
@@ -70,9 +72,13 @@ document.addEventListener("DOMContentLoaded", () => {
                   if (element.security_type === "Share" && element.security_sector_name === sector.insightable_name) positions.unshift(element)
                 })
               })
-            } else {
+            } else if (activeType.insightable_name !== "Portfolios::Cash") {
               insightsData.forEach((element) => {
                 if (element.security_type === activeType.insightable_name) positions.unshift(element)
+              })
+            } else {
+              insightsData.forEach((element) => {
+                if (element.insightable_type === "Portfolios::Cash") positions.unshift(element)
               })
             }
             activeType.positions = positions
@@ -96,6 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       securityName: function(value) {
         switch (value) {
+          case "Portfolios::Cash":
+            return t`Cash`
           case "Share":
             return t`Shares`
           case "Bond":
