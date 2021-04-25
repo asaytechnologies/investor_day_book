@@ -17,34 +17,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const accessToken = document.getElementById("access_token").value
   const currentLocale = document.getElementById("current_locale").value
 
+  const activeTypesOrder = {
+    "Share": 3,
+    "Bond": 2,
+    "Foundation": 1
+  }
+
+  const activeTypesColors = {
+    "Share": "red",
+    "Bond": "blue",
+    "Foundation": "green"
+  }
+
   const positions = new Vue({
     el: "#positions",
     data: {
-      analytics: {},
       activesChartVisible: true,
-      sectorsChartVisible: true
+      sectorsChartVisible: true,
+      insights: []
     },
     created() {
-      this.getPositions(null)
+      this.getInsights(null)
     },
     computed: {
-      incomePercentPositive: function() {
-        const incomePercent = this.analytics.positions.total.summary.income_percent
-
-        return incomePercent >= 0
-      },
-      incomePercentValue: function() {
-        const incomePercent = this.analytics.positions.total.summary.income_percent
-
-        return incomePercent >= 0 ? `+${incomePercent}%` : `${incomePercent}%`
-      }
     },
     methods: {
-      getPositions: function(portfolioId) {
+      getInsights: function(portfolioId) {
         const params = { access_token: accessToken, locale: currentLocale }
         if (portfolioId !== null && portfolioId !== 0) params.portfolio_id = portfolioId
-        this.$http.get("/api/v1/analytics", { params: params }).then(function(data) {
-          this.analytics = data.body
+        this.$http.get("/api/v1/insights", { params: params }).then(function(data) {
+          const insightsData = data.body.insights.data.map((element) => {
+            return element.attributes
+          })
+          const activeTypes = insightsData.filter((element) => {
+            return element.insightable_type === "ActiveType"
+          })
+
+          activeTypes.sort((a, b) => {
+            return activeTypesOrder[a.insightable_name] > activeTypesOrder[b.insightable_name]
+          })
+
+          let insights = []
+          activeTypes.forEach((activeType) => {
+            let positions = []
+            if (activeType.insightable_name === "Share") {
+              const sectors = insightsData.filter((element) => {
+                return element.insightable_type === "Sector"
+              })
+              sectors.forEach((sector) => {
+                positions.unshift(sector)
+                insightsData.forEach((element) => {
+                  if (element.security_type === "Share" && element.security_sector_name === sector.insightable_name) positions.unshift(element)
+                })
+              })
+            } else {
+              insightsData.forEach((element) => {
+                if (element.security_type === activeType.insightable_name) positions.unshift(element)
+              })
+            }
+            activeType.positions = positions
+            insights.unshift(activeType)
+          })
+          this.insights = insights
           this.renderActivesChart()
           this.renderSectorsChart()
         })
@@ -53,26 +87,53 @@ document.addEventListener("DOMContentLoaded", () => {
         return presentMoney(value, currency, rounding)
       },
       profitClass: function(value) {
-        if (value > 0) return 'profit profitable'
-        else if (value < 0) return 'profit negative'
-        else return 'profit'
+        if (value > 0) return "profit profitable"
+        else if (value < 0) return "profit negative"
+        else return "profit"
+      },
+      sectorClass: function(position) {
+        if (position.insightable_type === "Sector") return "sector"
+      },
+      securityName: function(value) {
+        switch (value) {
+          case "Share":
+            return t`Shares`
+          case "Bond":
+            return t`Bonds`
+          case "Foundation":
+            return t`Foundation`
+        }
       },
       renderActivesChart: function() {
-        if (Object.keys(this.analytics.actives_pie_stats).length === 0) {
+        if (this.insights.length === 0) {
           this.activesChartVisible = false
           return undefined
         } else this.activesChartVisible = true
 
+        const amountData = []
+        const colorData = []
+        const labelData = []
+        let totalPrice = 0
+        this.insights.forEach((element) => {
+          totalPrice += element.stats.price
+        })
+        this.insights.sort((a, b) => {
+          return a.stats.price < b.stats.price
+        }).forEach((element) => {
+          amountData.push(totalPrice === 0 ? 0 : ((element.stats.price / totalPrice) * 100).toFixed(2))
+          colorData.push(activeTypesColors[element.insightable_name])
+          labelData.push(this.securityName(element.insightable_name))
+        })
         const chartData = {
           datasets: [{
-            data: Object.values(this.analytics.actives_pie_stats).map(element => element.amount),
-            backgroundColor: Object.values(this.analytics.actives_pie_stats).map(element => element.color)
+            data: amountData,
+            backgroundColor: colorData
           }],
-          labels: Object.keys(this.analytics.actives_pie_stats)
+          labels: labelData
         }
 
         const pieChart = new Chart(document.getElementById("actives-pie"), {
-          type: 'pie',
+          type: "pie",
           data: chartData,
           options: {
             responsive: true,
@@ -91,11 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
                   if (labels[i]) {
                     text.push(labels[i] + ' (' + datasets[0].data[i] + '%)')
                   }
-                  text.push('</li>')
+                  text.push("</li>")
                 }
               }
-              text.push('</ul>')
-              return text.join('')
+              text.push("</ul>")
+              return text.join("")
             },
             legend: {
               display: false
@@ -105,21 +166,49 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("actives-legend").innerHTML = pieChart.generateLegend()
       },
       renderSectorsChart: function() {
-        if (Object.keys(this.analytics.sector_pie_stats).length === 0) {
+        if (this.insights.length === 0) {
           this.sectorsChartVisible = false
           return undefined
         } else this.sectorsChartVisible = true
 
+        let sectorsData = []
+        this.insights.forEach((insight) => {
+          if (insight.insightable_name === "Share") {
+            sectorsData = insight.positions.filter((element) => {
+              return element.insightable_type === "Sector"
+            }).sort((a, b) => {
+              return a.stats.price < b.stats.price
+            })
+          }
+        })
+
+        if (sectorsData.length === 0) {
+          this.sectorsChartVisible = false
+          return undefined
+        } else this.sectorsChartVisible = true
+
+        const amountData = []
+        const colorData = []
+        const labelData = []
+        let totalPrice = 0
+        sectorsData.forEach((element) => {
+          totalPrice += element.stats.price
+        })
+        sectorsData.forEach((element) => {
+          amountData.push(totalPrice === 0 ? 0 : ((element.stats.price / totalPrice) * 100).toFixed(2))
+          colorData.push(element.security_sector_color)
+          labelData.push(element.insightable_name)
+        })
         const chartData = {
           datasets: [{
-            data: Object.values(this.analytics.sector_pie_stats).map(element => element.amount),
-            backgroundColor: Object.values(this.analytics.sector_pie_stats).map(element => element.color)
+            data: amountData,
+            backgroundColor: colorData
           }],
-          labels: Object.keys(this.analytics.sector_pie_stats)
+          labels: labelData
         }
 
         const pieChart = new Chart(document.getElementById("sectors-pie"), {
-          type: 'pie',
+          type: "pie",
           data: chartData,
           options: {
             responsive: true,
@@ -138,11 +227,11 @@ document.addEventListener("DOMContentLoaded", () => {
                   if (labels[i]) {
                     text.push(labels[i] + ' (' + datasets[0].data[i] + '%)')
                   }
-                  text.push('</li>')
+                  text.push("</li>")
                 }
               }
-              text.push('</ul>')
-              return text.join('')
+              text.push("</ul>")
+              return text.join("")
             },
             legend: {
               display: false
@@ -176,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.selectedIndex = id
         this.opened = false
 
-        positions.getPositions(id)
+        positions.getInsights(id)
       }
     }
   })
@@ -295,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.$http.post("/api/v1/users/positions", params).then(function(data) {
           this.clearSidebar()
           showNotification("success", `<p>${t`Operation is added`}</p>`)
-          positions.getPositions(postfolioSelect.selectedIndex)
+          positions.getInsights(postfolioSelect.selectedIndex)
         })
       },
       clearSidebar: function() {

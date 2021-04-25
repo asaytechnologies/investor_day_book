@@ -19,7 +19,7 @@ module Api
       end
 
       def find_insights
-        @insights = Insight.where(parentable: @portfolio || Current.user)
+        @insights = Insight.where(parentable: @portfolio || Current.user).includes(insightable: [security: :sector])
       end
     end
   end

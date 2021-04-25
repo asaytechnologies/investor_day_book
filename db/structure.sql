@@ -526,12 +526,11 @@ CREATE TABLE public.insights (
     parentable_type character varying,
     insightable_id integer,
     insightable_type character varying,
-    amount integer,
-    price numeric(15,6),
     plan boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    stats jsonb DEFAULT '{}'::jsonb NOT NULL
+    stats jsonb DEFAULT '{}'::jsonb NOT NULL,
+    currency character varying DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -1547,6 +1546,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210306132137'),
 ('20210414181521'),
 ('20210415175824'),
-('20210419185802');
+('20210419185802'),
+('20210422191528');
 
 

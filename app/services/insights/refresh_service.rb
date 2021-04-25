@@ -20,9 +20,15 @@ module Insights
     private
 
     def quote_positions
-      @quote_positions ||=
-        Users::Position
+      Users::Position
         .where(portfolio_id: @parentable.id, quote_id: @insightable.id, plan: @plan)
+        .buying
+        .with_unsold_securities
+    end
+
+    def quote_positions_for_user
+      Users::Position
+        .where(portfolio_id: @parentable.user.portfolios.ids, quote_id: @insightable.id, plan: @plan)
         .buying
         .with_unsold_securities
     end
@@ -33,10 +39,10 @@ module Insights
 
     def update_quote_insights
       insight = Insight.find_or_initialize_by(parentable: @parentable, insightable: @insightable, plan: @plan)
-      calculate_basis_stats
+      calculate_basis_stats(quote_positions)
         .then { |stats| calculate_average_stats(stats) }
         .then { |stats| stats.transform_values!(&:to_f) }
-        .then { |stats| insight.update(stats: stats) }
+        .then { |stats| insight.update(stats: stats, currency: quote.price_currency) }
     end
 
     def update_sectors_insights
@@ -57,9 +63,10 @@ module Insights
 
     def update_quote_insights_for_user
       insight = Insight.find_or_initialize_by(parentable: user, insightable: @insightable, plan: @plan)
-      Insight
-        .where(parentable: user.portfolios, insightable: @insightable, plan: @plan)
-        .then { |insights| update_insight_stats(insight, insights) }
+      calculate_basis_stats(quote_positions_for_user)
+        .then { |stats| calculate_average_stats(stats) }
+        .then { |stats| stats.transform_values!(&:to_f) }
+        .then { |stats| insight.update(stats: stats, currency: quote.price_currency) }
     end
 
     def update_sectors_insights_for_user
@@ -81,11 +88,11 @@ module Insights
     def update_insight_stats(insight, insights)
       calculate_insights_summary(insights)
         .then { |stats| stats.transform_values!(&:to_f) }
-        .then { |stats| insight.update(stats: stats) }
+        .then { |stats| insight.update(stats: stats, currency: 'RUB') }
     end
 
-    def calculate_basis_stats
-      quote_positions.each_with_object({ unsold_amount: 0, buying_unsold_price: 0 }) do |position, acc|
+    def calculate_basis_stats(positions)
+      positions.each_with_object({ unsold_amount: 0, buying_unsold_price: 0 }) do |position, acc|
         unsold_amount = position.amount - position.sold_amount
         acc[:unsold_amount]       += unsold_amount
         acc[:buying_unsold_price] += unsold_amount * position.price
@@ -108,12 +115,16 @@ module Insights
     end
 
     def calculate_insights_summary(insights)
-      insights.each_with_object({ buy_price: 0, price: 0, dividents: 0 }) do |insight, acc|
+      summary = insights.each_with_object({ buy_price: 0, price: 0, dividents: 0, exchange_profit: 0 }) do |insight, acc|
         stats = insight.stats.symbolize_keys
+        exchange_rate = exchange_rates[insight.currency.to_sym]
         acc[:buy_price] += stats[:buying_unsold_price] * exchange_rate
         acc[:price] += stats[:selling_unsold_price] * exchange_rate
         acc[:dividents] += stats[:dividents_amount_price] * exchange_rate
       end
+      summary[:selling_unsold_income_price] = summary[:price] - summary[:buy_price]
+      summary[:exchange_profit] = summary[:buy_price].zero? ? 0 : ((summary[:selling_unsold_income_price] / summary[:buy_price]) * 100).round(2)
+      summary
     end
 
     def dividents_amount_price(quote, unsold_amount)
@@ -123,19 +134,16 @@ module Insights
       quote.coupons_sum_for_time_range * unsold_amount
     end
 
-    def exchange_rate
-      @exchange_rate ||= exchange_rates[currency_symbol]
-    end
-
     def exchange_rates
-      Rails.cache.fetch('RUB_exchange_rates', expires_in: 4.hours) do
-        rub_exchange_rates = ExchangeRate.where(rate_currency: 'RUB')
-        {
-          RUB: rub_exchange_rates.find { |e| e.base_currency == 'RUB' }.rate_amount,
-          USD: rub_exchange_rates.find { |e| e.base_currency == 'USD' }.rate_amount,
-          EUR: rub_exchange_rates.find { |e| e.base_currency == 'EUR' }.rate_amount
-        }
-      end
+      @exchange_rates ||=
+        Rails.cache.fetch('RUB_exchange_rates', expires_in: 4.hours) do
+          rub_exchange_rates = ExchangeRate.where(rate_currency: 'RUB')
+          {
+            RUB: rub_exchange_rates.find { |e| e.base_currency == 'RUB' }.rate_amount,
+            USD: rub_exchange_rates.find { |e| e.base_currency == 'USD' }.rate_amount,
+            EUR: rub_exchange_rates.find { |e| e.base_currency == 'EUR' }.rate_amount
+          }
+        end
     end
 
     def currency_symbol

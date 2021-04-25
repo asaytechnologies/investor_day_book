@@ -48,6 +48,14 @@
           }
         }
 
+        &.sector {
+          background: $mischka;
+
+          td {
+            font-weight: 600;
+          }
+        }
+
         td {
           &.profit, &.price {
             padding-left: 2rem;

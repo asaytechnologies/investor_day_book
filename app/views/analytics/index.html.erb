@@ -74,7 +74,9 @@
                       <div class='select-list' v-show='isTransactionSelectOpen'>
                         <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.buy') %>', 0)"><%= t('analytics.positions_sidebar.buy') %></div>
                         <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.sell') %>', 1)"><%= t('analytics.positions_sidebar.sell') %></div>
-                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.plan') %>', 2)"><%= t('analytics.positions_sidebar.plan') %></div>
+                        <% if false %>
+                          <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.plan') %>', 2)"><%= t('analytics.positions_sidebar.plan') %></div>
+                        <% end %>
                       </div>
                     </div>
 
@@ -189,150 +191,90 @@
           </div>
         </div>
         <div id='positions'>
-          <div v-if='analytics.positions'>
-            <div id='portfolio-totals'>
-              <h4>
-                <%= t('analytics.portfolio.total_price') %>:
-                <span>{{ presentMoney(analytics.positions.total.summary.price, 'RUB', 2) }}</span>
-              </h4>
-              <h4>
-                <%= t('analytics.portfolio.profit') %>:
-                <span>
-                  {{ presentMoney(analytics.positions.total.summary.income_price, 'RUB', 2) }}
-                  (<span :class='{ positive: incomePercentPositive }'>{{ incomePercentValue }}</span>)
-                </span>
-              </h4>
+          <div v-if='insights'>
+            <div v-for='insight in insights'>
+              <h4>{{ securityName(insight.insightable_name) }}</h4>
+              <table class='table positions-table'>
+                <thead>
+                  <tr>
+                    <th class='name-column'><%= t('analytics.table.name') %></th>
+                    <th><%= t('analytics.table.amount') %></th>
+                    <th v-if="insight.insightable_name === 'Bond'"><%= t('analytics.table.face_value') %></th>
+                    <th><%= t('analytics.table.average_price') %></th>
+                    <th><%= t('analytics.table.total_price') %></th>
+                    <th><%= t('analytics.table.current_price') %></th>
+                    <th><%= t('analytics.table.current_total_price') %></th>
+                    <th><%= t('analytics.table.income') %></th>
+                    <th v-if="insight.insightable_name === 'Share'"><%= t('analytics.table.dividents') %></th>
+                    <th v-if="insight.insightable_name === 'Bond'"><%= t('analytics.table.coupons') %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='position' :class='sectorClass(position)' v-for='position in insight.positions'>
+                    <td class='name-column'>{{ position.insightable_name }}</td>
+                    <td>
+                      <span v-show='position.security_type !== null'>{{ position.stats.unsold_amount }}</span>
+                    </td>
+                    <td v-if="insight.insightable_name === 'Bond'"></td>
+                    <td>
+                      <span v-show='position.security_type !== null'>{{ presentMoney(position.stats.buying_unsold_average_price, position.currency, 4) }}</span>
+                    </td>
+                    <td>
+                      <span v-show='position.security_type !== null'>{{ presentMoney(position.stats.buying_unsold_price, position.currency, 2) }}</span>
+                      <span v-show='position.security_type === null'>{{ presentMoney(position.stats.buy_price, position.currency, 2) }}</span>
+                    </td>
+                    <td class='price'>
+                      <span v-show='position.security_type !== null'>{{ presentMoney(position.quote_price, position.currency, 4) }}</span>
+                    </td>
+                    <td>
+                      <span v-show='position.security_type !== null'>{{ presentMoney(position.stats.selling_unsold_price, position.currency, 2) }}</span>
+                      <span v-show='position.security_type === null'>{{ presentMoney(position.stats.price, position.currency, 2) }}</span>
+                    </td>
+                    <td :class='profitClass(position.stats.exchange_profit)'>
+                      {{ presentMoney(position.stats.selling_unsold_income_price, position.currency, 2) }}
+                      ({{ position.stats.exchange_profit }}%)
+                    </td>
+                    <td v-if="insight.insightable_name === 'Share' || insight.insightable_name === 'Bond'">
+                      <span v-show='position.dividents_amount_price > 0'>
+                        {{ presentMoney(position.stats.dividents_amount_price, position.currency, 2) }}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr class='position total'>
+                    <td class='name-column'><%= t('analytics.table.summary') %></td>
+                    <td></td>
+                    <td v-if="insight.insightable_name === 'Bond'"></td>
+                    <td>
+                      <span v-show='insight.security_type !== null'>{{ presentMoney(insight.stats.buying_unsold_average_price, insight.currency, 4) }}</span>
+                    </td>
+                    <td>
+                      <span v-show='insight.security_type !== null'>{{ presentMoney(insight.stats.buying_unsold_price, insight.currency, 2) }}</span>
+                      <span v-show='insight.security_type === null'>{{ presentMoney(insight.stats.buy_price, insight.currency, 2) }}</span>
+                    </td>
+                    <td class='price'>
+                      <span v-show='insight.security_type !== null'>{{ presentMoney(insight.quote_price, insight.currency, 4) }}</span>
+                    </td>
+                    <td>
+                      <span v-show='insight.security_type !== null'>{{ presentMoney(insight.stats.selling_unsold_price, insight.currency, 2) }}</span>
+                      <span v-show='insight.security_type === null'>{{ presentMoney(insight.stats.price, insight.currency, 2) }}</span>
+                    </td>
+                    <td :class='profitClass(insight.stats.exchange_profit)'>
+                      {{ presentMoney(insight.stats.selling_unsold_income_price, insight.currency, 2) }}
+                      ({{ insight.stats.exchange_profit }}%)
+                    </td>
+                    <td v-if="insight.insightable_name === 'Share' || insight.insightable_name === 'Bond'">
+                      <span v-show='insight.dividents_amount_price > 0'>
+                        {{ presentMoney(insight.stats.dividents_amount_price, insight.currency, 2) }}
+                      </span>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
             </div>
-            <% %i[share bond foundation].each do |key| %>
-              <div v-show="Object.keys(analytics.positions['<%= key %>'].stats).length > 0">
-                <h4><%= t("analytics.table.#{key}_name") %></h4>
-                <table class='table positions-table'>
-                  <thead>
-                    <tr>
-                      <th class='name-column'><%= t('analytics.table.name') %></th>
-                      <th><%= t('analytics.table.amount') %></th>
-                      <% if key == :bond %>
-                        <th><%= t('analytics.table.face_value') %></th>
-                      <% end %>
-                      <th><%= t('analytics.table.average_price') %></th>
-                      <th><%= t('analytics.table.total_price') %></th>
-                      <th><%= t('analytics.table.current_price') %></th>
-                      <th><%= t('analytics.table.current_total_price') %></th>
-                      <th><%= t('analytics.table.income') %></th>
-                      <% if key == :share %>
-                        <th><%= t('analytics.table.dividents') %></th>
-                      <% end %>
-                      <% if key == :bond %>
-                        <th><%= t('analytics.table.coupons') %></th>
-                      <% end %>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class='position' v-for="stats in analytics.positions['<%= key %>'].stats">
-                      <td class='name-column'>{{ stats.quote.security_name }}</td>
-                      <td>{{ stats.unsold_amount }}</td>
-                      <% if key == :bond %>
-                        <td></td>
-                      <% end %>
-                      <td>{{ presentMoney(stats.buying_unsold_average_price, stats.quote.price_currency, 4) }}</td>
-                      <td>{{ presentMoney(stats.buying_unsold_price, stats.quote.price_currency, 2) }}</td>
-                      <td class='price'>{{ presentMoney(stats.quote.price, stats.quote.price_currency, 4) }}</td>
-                      <td>{{ presentMoney(stats.selling_unsold_price, stats.quote.price_currency, 2) }}</td>
-                      <td :class='profitClass(stats.exchange_profit)'>
-                        {{ presentMoney(stats.selling_unsold_income_price, stats.quote.price_currency, 2) }}
-                        ({{ stats.exchange_profit }}%)
-                      </td>
-                      <% if key.in?(%i[share bond]) %>
-                        <td>
-                          <span v-show='stats.dividents_amount_price > 0'>
-                            {{ presentMoney(stats.dividents_amount_price, stats.quote.price_currency, 2) }}
-                          </span>
-                        </td>
-                      <% end %>
-                    </tr>
-                    <tr class='position total'>
-                      <td class='name-column'><%= t('analytics.table.summary') %></td>
-                      <td></td>
-                      <% if key == :bond %>
-                        <td></td>
-                      <% end %>
-                      <td></td>
-                      <td>{{ presentMoney(analytics.positions['<%= key %>'].total.buy_price, 'RUB', 2) }}</td>
-                      <td></td>
-                      <td>{{ presentMoney(analytics.positions['<%= key %>'].total.price, 'RUB', 2) }}</td>
-                      <td :class="profitClass(analytics.positions['<%= key %>'].total.profit)">
-                        {{ presentMoney(analytics.positions['<%= key %>'].total.profit, 'RUB', 2) }}
-                        ({{ analytics.positions['<%= key %>'].total.profit_percent }}%)
-                      </td>
-                      <% if key.in?(%i[share bond]) %>
-                        <td>{{ presentMoney(analytics.positions['<%= key %>'].total.dividents, 'RUB', 2) }}</td>
-                      <% end %>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div v-show="Object.keys(analytics.positions['<%= key %>'].plans).length > 0">
-                <h5><%= t("analytics.table.header.plan_#{key}") %></h5>
-                <table class='table positions-table'>
-                  <thead>
-                    <tr>
-                      <th class='name-column'><%= t('analytics.table.name') %></th>
-                      <th><%= t('analytics.table.amount') %></th>
-                      <% if key == :bond %>
-                        <th><%= t('analytics.table.face_value') %></th>
-                      <% end %>
-                      <th><%= t('analytics.table.plan_price') %></th>
-                      <th><%= t('analytics.table.total_price') %></th>
-                      <th><%= t('analytics.table.current_price') %></th>
-                      <% if key == :share %>
-                        <th><%= t('analytics.table.dividents') %></th>
-                      <% end %>
-                      <% if key == :bond %>
-                        <th><%= t('analytics.table.coupons') %></th>
-                      <% end %>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class='position plan' v-for="plans in analytics.positions['<%= key %>'].plans">
-                      <td class='name-column'>{{ plans.quote.security_name }}</td>
-                      <td>{{ plans.amount }}</td>
-                      <% if key == :bond %>
-                        <td>{{ presentMoney(plans.quote.face_value_cents / 100.0, plans.quote.price_currency, 2) }}</td>
-                      <% end %>
-                      <td>{{ presentMoney(plans.price, plans.quote.price_currency, 2) }}</td>
-                      <td>{{ presentMoney(plans.selling_total_price, plans.quote.price_currency, 2) }}</td>
-                      <td>{{ presentMoney(plans.quote.price, plans.quote.price_currency, 2) }}</td>
-                      <% if key.in?(%i[share bond]) %>
-                        <td>
-                          <span v-show='plans.dividents_amount_price > 0'>
-                            {{ presentMoney(plans.dividents_amount_price, plans.quote.price_currency, 2) }}
-                          </span>
-                        </td>
-                      <% end %>
-                      <td class='remove-plan'>
-                        x
-                      </td>
-                    </tr>
-                    <tr class='position total'>
-                      <td class='name-column'><%= t('analytics.table.summary') %></td>
-                      <td></td>
-                      <% if key == :bond %>
-                        <td></td>
-                      <% end %>
-                      <td></td>
-                      <td>{{ presentMoney(analytics.positions['<%= key %>'].plan.price, 'RUB', 2) }}</td>
-                      <td></td>
-                      <% if key.in?(%i[share bond]) %>
-                        <td>{{ presentMoney(analytics.positions['<%= key %>'].plan.dividents, 'RUB', 2) }}</td>
-                      <% end %>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            <% end %>
           </div>
+
           <div v-show='activesChartVisible'>
             <h5><%= t('analytics.actives.header') %></h5>
 
