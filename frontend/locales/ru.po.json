@@ -152,6 +152,12 @@
         "msgstr": [
           "Валюты"
         ]
+      },
+      "Income money": {
+        "msgid": "Income money",
+        "msgstr": [
+          "Ввод денег"
+        ]
       }
     }
   }

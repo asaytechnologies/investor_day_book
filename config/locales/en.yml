@@ -73,6 +73,7 @@ en:
     actives:
       header: Actives composition
     portfolio:
+      incomes: Incomes
       total_price: Actives price
       profit: Profit
     sectors:
@@ -124,6 +125,8 @@ en:
       balance: Change balance
       income: Change income/outcome
       scope: Operation type
+      income_money: Income money
+      outcome_money: Outcome money
   portfolios:
     index:
       table_header:

@@ -123,6 +123,12 @@ describe Api::V1::Users::PositionsController do
       context 'for valid params' do
         let(:position_params) { valid_position_params }
 
+        before do
+          create :exchange_rate, rate_currency: 'RUB', rate_amount: 1, base_currency: 'RUB'
+          create :exchange_rate, rate_currency: 'RUB', rate_amount: 75, base_currency: 'USD'
+          create :exchange_rate, rate_currency: 'RUB', rate_amount: 90, base_currency: 'EUR'
+        end
+
         it 'creates position' do
           expect { request }.to change(Users::Position, :count).by(1)
         end

@@ -19,7 +19,6 @@ module Positions
 
       service = position_service.call(position_params)
       if service.success?
-        puts service.result.inspect
         refresh_position_insights(service.result)
         @result = service.result
       else

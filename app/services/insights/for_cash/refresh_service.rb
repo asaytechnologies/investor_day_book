@@ -34,7 +34,9 @@ module Insights
         insight = Insight.find_or_initialize_by(parentable: user, insightable: cash, plan: @plan)
         cashes = Portfolios::Cash.where(cashable: user.portfolios, amount_currency: cash.amount_currency).balance
         insights = Insight.where(parentable: user.portfolios, insightable: cashes, plan: @plan)
-        insight.update(stats: { price: insights.pluck(:stats).map { |e| e.symbolize_keys[:price] }.sum }, currency: cash.amount_currency)
+        insight.update(
+          stats: { price: insights.pluck(:stats).sum { |e| e.symbolize_keys[:price] } }, currency: cash.amount_currency
+        )
       end
 
       def update_active_type_insights_for_user

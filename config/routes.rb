@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       resources :portfolios, only: %i[index create destroy] do
         post :clear, on: :member
       end
-      resources :analytics, only: %i[index]
       resources :insights, only: %i[index]
 
       namespace :quotes do
@@ -23,6 +22,10 @@ Rails.application.routes.draw do
       end
       namespace :portfolios do
         resources :cashes, only: %i[update]
+
+        namespace :cashes do
+          resources :incomes, only: %i[index]
+        end
       end
     end
   end

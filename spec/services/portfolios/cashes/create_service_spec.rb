@@ -25,8 +25,8 @@ describe Portfolios::Cashes::CreateService, type: :service do
     it 'and they have different balance param', :aggregate_failures do
       service_call
 
-      expect(Portfolios::Cash.income.size).to eq Cashable::AVAILABLE_CURRENCIES.size
-      expect(Portfolios::Cash.balance.size).to eq Cashable::AVAILABLE_CURRENCIES.size
+      expect(Portfolios::Cash.income.size).to eq 2 * Cashable::AVAILABLE_CURRENCIES.size
+      expect(Portfolios::Cash.balance.size).to eq 2 * Cashable::AVAILABLE_CURRENCIES.size
     end
   end
 end

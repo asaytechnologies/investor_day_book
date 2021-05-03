@@ -150,8 +150,8 @@
                       <label class='form-label'><%= t('analytics.positions_sidebar.transaction') %> *</label>
                       <div class='form-value select-value' @click.prevent='toggleTransactionSelect()'>{{ transactionName }}</div>
                       <div class='select-list' v-show='isTransactionSelectOpen'>
-                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.buy') %>', 0)"><%= t('analytics.positions_sidebar.buy') %></div>
-                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.positions_sidebar.sell') %>', 1)"><%= t('analytics.positions_sidebar.sell') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.balance_sidebar.income_money') %>', 0)"><%= t('analytics.balance_sidebar.income_money') %></div>
+                        <div class='select-list-item' @click.prevent="selectTransaction('<%= t('analytics.balance_sidebar.outcome_money') %>', 1)"><%= t('analytics.balance_sidebar.outcome_money') %></div>
                       </div>
                     </div>
 
@@ -190,6 +190,13 @@
             </div>
           </div>
         </div>
+
+        <div id='portfolio-totals'>
+          <h4><%= t('analytics.portfolio.incomes') %>: <span>{{ amount }} ₽</span></h4>
+          <h4><%= t('analytics.portfolio.total_price') %>: <span>{{ activesValue }} ₽</span></h4>
+          <h4><%= t('analytics.portfolio.profit') %>: <span>{{ activesValue - amount }} ₽ (<span :class='profitClass()'>{{ profitValue() }}</span>)</span></h4>
+        </div>
+
         <div id='positions'>
           <div v-if='insights'>
             <div v-for='insight in insights'>

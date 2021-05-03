@@ -99,6 +99,8 @@ module Insights
       end
     end
 
+    # rubocop: disable Layout/LineLength
+    # rubocop: disable Metrics/AbcSize
     def calculate_average_stats(stats)
       # selling price for unsold securities
       stats[:selling_unsold_price] = quote.price * stats[:unsold_amount]
@@ -113,9 +115,11 @@ module Insights
       stats[:dividents_amount_price] = dividents_amount_price(quote, stats[:unsold_amount])
       stats
     end
+    # rubocop: enable Layout/LineLength
 
     def calculate_insights_summary(insights)
-      summary = insights.each_with_object({ buy_price: 0, price: 0, dividents: 0, exchange_profit: 0 }) do |insight, acc|
+      initial_summary = { buy_price: 0, price: 0, dividents: 0, exchange_profit: 0 }
+      summary = insights.each_with_object(initial_summary) do |insight, acc|
         stats = insight.stats.symbolize_keys
         exchange_rate = exchange_rates[insight.currency.to_sym]
         acc[:buy_price] += stats[:buying_unsold_price] * exchange_rate
@@ -123,9 +127,11 @@ module Insights
         acc[:dividents] += stats[:dividents_amount_price] * exchange_rate
       end
       summary[:selling_unsold_income_price] = summary[:price] - summary[:buy_price]
-      summary[:exchange_profit] = summary[:buy_price].zero? ? 0 : ((summary[:selling_unsold_income_price] / summary[:buy_price]) * 100).round(2)
+      summary[:exchange_profit] =
+        summary[:buy_price].zero? ? 0 : ((summary[:selling_unsold_income_price] / summary[:buy_price]) * 100).round(2)
       summary
     end
+    # rubocop: enable Metrics/AbcSize
 
     def dividents_amount_price(quote, unsold_amount)
       return (quote.average_year_dividents_amount.to_f * unsold_amount).round(2) if quote.security.is_a?(Share)

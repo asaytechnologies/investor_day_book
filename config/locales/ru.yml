@@ -73,6 +73,7 @@ ru:
     actives:
       header: Состав активов
     portfolio:
+      incomes: Пополнения
       total_price: Стоимость активов
       profit: Доходность
     sectors:
@@ -124,6 +125,8 @@ ru:
       balance: Изменить баланс
       income: Ввод/вывод денег
       scope: Тип операции
+      income_money: Ввод денег
+      outcome_money: Вывод денег
   portfolios:
     index:
       table_header:

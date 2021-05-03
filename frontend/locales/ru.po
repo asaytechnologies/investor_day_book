@@ -23,15 +23,13 @@ msgstr "Портфель удален"
 msgid "Portfolio is cleared"
 msgstr "Операции портфеля удалены"
 
-#: frontend/components/analytics/index_page_component.js:259
+#: frontend/components/analytics/index_page_component.js:280
 #: frontend/components/operations/index_page_component.js:65
 msgid "All portfolios stats"
 msgstr "Составной портфель"
 
-#: frontend/components/analytics/index_page_component.js:293
-#: frontend/components/analytics/index_page_component.js:408
-#: frontend/components/analytics/index_page_component.js:428
-#: frontend/components/analytics/index_page_component.js:511
+#: frontend/components/analytics/index_page_component.js:315
+#: frontend/components/analytics/index_page_component.js:431
 msgid "Buy"
 msgstr "Покупка"
 
@@ -43,32 +41,32 @@ msgstr "Вы действительно хотите удалить портфе
 msgid "Do you really want to delete all operations in portfolio?"
 msgstr "Вы действительно хотите удалить все операции в портфеле?"
 
-#: frontend/components/analytics/index_page_component.js:374
-#: frontend/components/analytics/index_page_component.js:486
+#: frontend/components/analytics/index_page_component.js:396
+#: frontend/components/analytics/index_page_component.js:509
 msgid "You need to select portfolio"
 msgstr "Вам необходимо выбрать портфель"
 
-#: frontend/components/analytics/index_page_component.js:375
+#: frontend/components/analytics/index_page_component.js:397
 msgid "You need to select security"
 msgstr "Вам необходимо выбрать ценную бумагу"
 
-#: frontend/components/analytics/index_page_component.js:376
+#: frontend/components/analytics/index_page_component.js:398
 msgid "You need to specify price"
 msgstr "Вам необходимо указать цену"
 
-#: frontend/components/analytics/index_page_component.js:377
+#: frontend/components/analytics/index_page_component.js:399
 msgid "You need to specify amount"
 msgstr "Вам необходимо указать количество"
 
-#: frontend/components/analytics/index_page_component.js:394
+#: frontend/components/analytics/index_page_component.js:416
 msgid "Operation is added"
 msgstr "Операция добавлена"
 
-#: frontend/components/analytics/index_page_component.js:487
+#: frontend/components/analytics/index_page_component.js:510
 msgid "You need to select operation type"
 msgstr "Вам необходимо выбрать тип операции"
 
-#: frontend/components/analytics/index_page_component.js:502
+#: frontend/components/analytics/index_page_component.js:525
 msgid "Portfolio balance is changed"
 msgstr "Баланс портфеля изменен"
 
@@ -84,22 +82,27 @@ msgstr "Вы действительно хотите удалить операц
 msgid "Operation is deleted"
 msgstr "Операция удалена"
 
-#: frontend/components/analytics/index_page_component.js:378
+#: frontend/components/analytics/index_page_component.js:400
 msgid "You need to specify operation date"
 msgstr "Вам необходимо указать дату операции"
 
-#: frontend/components/analytics/index_page_component.js:108
+#: frontend/components/analytics/index_page_component.js:106
 msgid "Shares"
 msgstr "Акции"
 
-#: frontend/components/analytics/index_page_component.js:110
+#: frontend/components/analytics/index_page_component.js:108
 msgid "Bonds"
 msgstr "Облигации"
 
-#: frontend/components/analytics/index_page_component.js:112
+#: frontend/components/analytics/index_page_component.js:110
 msgid "Foundation"
 msgstr "Фонды"
 
-#: frontend/components/analytics/index_page_component.js:106
+#: frontend/components/analytics/index_page_component.js:104
 msgid "Cash"
 msgstr "Валюты"
+
+#: frontend/components/analytics/index_page_component.js:451
+#: frontend/components/analytics/index_page_component.js:534
+msgid "Income money"
+msgstr "Ввод денег"

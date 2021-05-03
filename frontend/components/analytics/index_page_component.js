@@ -41,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     created() {
       this.getInsights(null)
     },
-    computed: {
-    },
     methods: {
       getInsights: function(portfolioId) {
         const params = { access_token: accessToken, locale: currentLocale }
@@ -125,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.insights.forEach((element) => {
           totalPrice += element.stats.price
         })
+        incomes.activesValue = totalPrice
         this.insights.sort((a, b) => {
           return a.stats.price < b.stats.price
         }).forEach((element) => {
@@ -252,6 +251,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  const incomes = new Vue({
+    el: "#portfolio-totals",
+    data: {
+      amount: 0,
+      activesValue: 0,
+      currency: null
+    },
+    created() {
+      this.getIncomes(null)
+    },
+    methods: {
+      getIncomes: function(portfolioId) {
+        const params = { access_token: accessToken, locale: currentLocale }
+        if (portfolioId !== null && portfolioId !== 0) params.portfolio_id = portfolioId
+        this.$http.get("/api/v1/portfolios/cashes/incomes", { params: params }).then(function(data) {
+          this.amount = data.body.amount
+          this.currency = data.body.currency
+        })
+      },
+      profitValue: function() {
+        if (this.amount === 0) return 0
+
+        const profit = (100 * this.activesValue / this.amount - 100).toFixed(2)
+        if (profit > 0) return `+${profit}%`
+        else return `${profit}%`
+      },
+      profitClass: function() {
+        const value = this.amount === 0 ? 0 : (100 * this.activesValue / this.amount - 100)
+        if (value > 0) return "positive"
+        else if (value < 0) return "negative"
+      }
+    }
+  })
+
   const postfolioSelect = new Vue({
     el: "#portfolio-select",
     data: {
@@ -274,6 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.opened = false
 
         positions.getInsights(id)
+        incomes.getIncomes(id)
       }
     }
   })
@@ -393,6 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
           this.clearSidebar()
           showNotification("success", `<p>${t`Operation is added`}</p>`)
           positions.getInsights(postfolioSelect.selectedIndex)
+          incomes.getIncomes(postfolioSelect.selectedIndex)
         })
       },
       clearSidebar: function() {
@@ -425,7 +460,7 @@ document.addEventListener("DOMContentLoaded", () => {
       portfolioName: "",
       portfolioIndex: null,
       portfolioSelectOpened: false,
-      transactionName: t`Buy`,
+      transactionName: t`Income money`,
       transactionIndex: 0,
       transactionSelectOpened: false,
       scopeName: "",
@@ -500,7 +535,8 @@ document.addEventListener("DOMContentLoaded", () => {
         this.$http.patch(`/api/v1/portfolios/cashes/${this.portfolioIndex}`, params).then(function(data) {
           this.clearSidebar()
           showNotification("success", `<p>${t`Portfolio balance is changed`}</p>`)
-          positions.getPositions(postfolioSelect.selectedIndex)
+          positions.getInsights(postfolioSelect.selectedIndex)
+          incomes.getIncomes(postfolioSelect.selectedIndex)
         })
       },
       clearSidebar: function() {
@@ -508,7 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.portfolioName = ""
         this.portfolioIndex = null
         this.portfolioSelectOpened = false
-        this.transactionName = t`Buy`
+        this.transactionName = t`Income money`
         this.transactionIndex = 0
         this.transactionSelectOpened = false
         this.scopeName = ""
